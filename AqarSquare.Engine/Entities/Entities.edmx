@@ -1,0 +1,1822 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="AqarSquare.Engine.Entities.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="About">
+          <Key>
+            <PropertyRef Name="AboutId" />
+          </Key>
+          <Property Name="AboutId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ImageUrl" Type="nvarchar" MaxLength="300" />
+          <Property Name="DescriptionEn" Type="nvarchar(max)" />
+          <Property Name="DescriptionAr" Type="nvarchar(max)" />
+          <Property Name="ImageData" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="ApplicationUser">
+          <Key>
+            <PropertyRef Name="ApplicationUserId" />
+          </Key>
+          <Property Name="ApplicationUserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="300" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="300" />
+          <Property Name="Email" Type="nvarchar" MaxLength="300" />
+          <Property Name="Password" Type="nvarchar" MaxLength="300" />
+          <Property Name="PhoneNo" Type="nvarchar" MaxLength="300" />
+          <Property Name="PropertyId" Type="int" />
+          <Property Name="UnitId" Type="int" />
+          <Property Name="Status" Type="bit" Nullable="false" />
+          <Property Name="IsActiveted" Type="bit" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="UserToken" Type="nvarchar" MaxLength="300" />
+        </EntityType>
+        <EntityType Name="Concierge">
+          <Key>
+            <PropertyRef Name="ConciergeID" />
+          </Key>
+          <Property Name="ConciergeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PhoneNo" Type="nvarchar" MaxLength="300" />
+          <Property Name="Email" Type="nvarchar" MaxLength="300" />
+        </EntityType>
+        <EntityType Name="Contact">
+          <Key>
+            <PropertyRef Name="ContactId" />
+          </Key>
+          <Property Name="ContactId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="300" />
+          <Property Name="PhoneNo" Type="nvarchar" MaxLength="300" />
+        </EntityType>
+        <EntityType Name="Entertainment">
+          <Key>
+            <PropertyRef Name="EntertainmentID" />
+          </Key>
+          <Property Name="EntertainmentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TitleEn" Type="nvarchar" MaxLength="300" />
+          <Property Name="TitleAr" Type="nvarchar" MaxLength="300" />
+          <Property Name="ImageURL" Type="nvarchar(max)" />
+          <Property Name="BriefEn" Type="nvarchar" MaxLength="300" />
+          <Property Name="BriefAr" Type="nvarchar" MaxLength="300" />
+          <Property Name="DescriptionEn" Type="nvarchar(max)" />
+          <Property Name="DescriptionAr" Type="nvarchar(max)" />
+          <Property Name="RestaurantID" Type="int" Nullable="false" />
+          <Property Name="HasSpecialOffer" Type="bit" Nullable="false" />
+          <Property Name="ViewBy" Type="int" Nullable="false" />
+          <Property Name="StartDate" Type="datetime" />
+          <Property Name="ExpirationDate" Type="datetime" />
+          <Property Name="EntertainmentOrder" Type="int" />
+          <Property Name="NightlifeChk" Type="bit" />
+          <Property Name="DiningChk" Type="bit" />
+          <Property Name="BrunchChk" Type="bit" />
+          <Property Name="Sat" Type="bit" />
+          <Property Name="Sun" Type="bit" />
+          <Property Name="Mon" Type="bit" />
+          <Property Name="Tue" Type="bit" />
+          <Property Name="Wed" Type="bit" />
+          <Property Name="Thur" Type="bit" />
+          <Property Name="Fri" Type="bit" />
+          <Property Name="LikeCount" Type="int" />
+          <Property Name="Image" Type="varbinary(max)" />
+          <Property Name="ImageData" Type="varbinary(max)" />
+          <Property Name="ImageData1" Type="varbinary(max)" />
+          <Property Name="ImageData2" Type="varbinary(max)" />
+          <Property Name="ImageData3" Type="varbinary(max)" />
+          <Property Name="ImageData4" Type="varbinary(max)" />
+          <Property Name="ImageData5" Type="varbinary(max)" />
+          <Property Name="ImageData6" Type="varbinary(max)" />
+          <Property Name="ImageData7" Type="varbinary(max)" />
+          <Property Name="ImageData8" Type="varbinary(max)" />
+          <Property Name="ImageData9" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="EntertainmentReservation">
+          <Key>
+            <PropertyRef Name="RestaurantReservationID" />
+          </Key>
+          <Property Name="RestaurantReservationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EntertainmentID" Type="int" />
+          <Property Name="RestaurantID" Type="int" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="300" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="300" />
+          <Property Name="Email" Type="nvarchar" MaxLength="300" />
+          <Property Name="PhoneNo" Type="nvarchar" MaxLength="300" />
+          <Property Name="PersonCount" Type="int" />
+          <Property Name="ReservationDate" Type="datetime" />
+          <Property Name="Indoor" Type="bit" Nullable="false" />
+          <Property Name="Smoking" Type="bit" Nullable="false" />
+          <Property Name="CreatedByUserID" Type="int" />
+          <Property Name="CreationDate" Type="datetime" Nullable="false" />
+          <Property Name="Remarks" Type="nvarchar(max)" />
+          <Property Name="Active" Type="int" />
+        </EntityType>
+        <EntityType Name="EntertainmentWorkingHour">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RestuarantId" Type="int" />
+          <Property Name="Day" Type="int" />
+          <Property Name="FromTime" Type="datetime" />
+          <Property Name="ToTime" Type="datetime" />
+          <Property Name="Override" Type="bit" />
+          <Property Name="EntertainmentId" Type="int" />
+        </EntityType>
+        <EntityType Name="Item">
+          <Key>
+            <PropertyRef Name="ItemId" />
+          </Key>
+          <Property Name="ItemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ItemTitleEn" Type="nvarchar" MaxLength="300" />
+          <Property Name="ItemTitleAr" Type="nvarchar" MaxLength="300" />
+          <Property Name="ImageUrl" Type="nvarchar" MaxLength="300" />
+          <Property Name="DescriptionEn" Type="nvarchar(max)" />
+          <Property Name="RestaurantCategoryID" Type="int" />
+          <Property Name="Price" Type="int" />
+          <Property Name="Quantity" Type="int" />
+          <Property Name="Status" Type="bit" />
+          <Property Name="DescriptionAr" Type="nvarchar(max)" />
+          <Property Name="CreationDate" Type="datetime" />
+          <Property Name="OrderBy" Type="int" />
+          <Property Name="ImageData" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Limousine">
+          <Key>
+            <PropertyRef Name="LimousineID" />
+          </Key>
+          <Property Name="LimousineID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DescriptionEn" Type="nvarchar(max)" />
+          <Property Name="DescriptionAr" Type="nvarchar(max)" />
+          <Property Name="ImageURL" Type="nvarchar" MaxLength="300" />
+          <Property Name="PhoneNo" Type="nvarchar" MaxLength="300" />
+          <Property Name="Email" Type="nvarchar" MaxLength="300" />
+          <Property Name="ImageData" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="LocalBusinessProperty">
+          <Key>
+            <PropertyRef Name="BusinessPropertyID" />
+          </Key>
+          <Property Name="BusinessPropertyID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TitleEn" Type="nvarchar" MaxLength="300" />
+          <Property Name="TitleAr" Type="nvarchar" MaxLength="300" />
+          <Property Name="ImageURL" Type="nvarchar" MaxLength="300" />
+          <Property Name="Latitude" Type="nvarchar" MaxLength="300" />
+          <Property Name="Longitude" Type="nvarchar" MaxLength="300" />
+          <Property Name="DescriptionEn" Type="nvarchar(max)" />
+          <Property Name="DescriptionAr" Type="nvarchar(max)" />
+          <Property Name="PhoneNo" Type="nvarchar" MaxLength="300" />
+          <Property Name="Email" Type="nvarchar" MaxLength="300" />
+          <Property Name="RestaurantId" Type="int" Nullable="false" />
+          <Property Name="ImageData" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="LookUpUApplicationUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="PropertyId" Type="int" />
+          <Property Name="UnitId" Type="int" />
+          <Property Name="PhoneNo" Type="nvarchar" MaxLength="300" />
+          <Property Name="Status" Type="bit" />
+        </EntityType>
+        <EntityType Name="NotificationDevice">
+          <Key>
+            <PropertyRef Name="NotificationDeviceID" />
+          </Key>
+          <Property Name="NotificationDeviceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DeviceType" Type="int" Nullable="false" />
+          <Property Name="RegistrationID" Type="nvarchar" MaxLength="300" />
+          <Property Name="DeviceID" Type="nvarchar" MaxLength="300" />
+        </EntityType>
+        <EntityType Name="OrderReservation">
+          <Key>
+            <PropertyRef Name="OrderReservationId" />
+          </Key>
+          <Property Name="OrderReservationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ItemId" Type="int" />
+          <Property Name="ItemQuantity" Type="int" />
+          <Property Name="TotalPrice" Type="int" />
+          <Property Name="Description" Type="nvarchar" MaxLength="300" />
+          <Property Name="CreationDate" Type="datetime" />
+          <Property Name="UserOrderId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="int" />
+        </EntityType>
+        <EntityType Name="Property">
+          <Key>
+            <PropertyRef Name="PropertyId" />
+          </Key>
+          <Property Name="PropertyId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PropertyNameEn" Type="nvarchar" MaxLength="300" />
+          <Property Name="PropertyNameAr" Type="nvarchar" MaxLength="300" />
+          <Property Name="RestaurantId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ReservationAvailability">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ReservationDate" Type="datetime" Nullable="false" />
+          <Property Name="Availability" Type="int" Nullable="false" />
+          <Property Name="RestaurantID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Restaurant">
+          <Key>
+            <PropertyRef Name="RestaurantID" />
+          </Key>
+          <Property Name="RestaurantID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameEn" Type="nvarchar" MaxLength="300" />
+          <Property Name="NameAr" Type="nvarchar" MaxLength="300" />
+          <Property Name="PhoneNo" Type="nvarchar" MaxLength="300" />
+          <Property Name="Latitude" Type="nvarchar" MaxLength="300" />
+          <Property Name="Longitude" Type="nvarchar" MaxLength="300" />
+          <Property Name="HasReservation" Type="bit" Nullable="false" />
+          <Property Name="IntegrationType" Type="int" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="300" />
+          <Property Name="AvailableSeats" Type="int" />
+          <Property Name="MinimumAvailability" Type="int" />
+          <Property Name="InitialAvailability" Type="int" />
+          <Property Name="Smoking" Type="bit" />
+          <Property Name="InDoor" Type="bit" />
+          <Property Name="EmailTemplate" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="RestaurantCategory">
+          <Key>
+            <PropertyRef Name="RestaurantCategoryID" />
+          </Key>
+          <Property Name="RestaurantCategoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CategoryTitleEn" Type="nvarchar" MaxLength="300" />
+          <Property Name="CategoryTitleAr" Type="nvarchar" MaxLength="300" />
+          <Property Name="RestaurantID" Type="int" />
+          <Property Name="Status" Type="bit" />
+          <Property Name="OrderBy" Type="int" />
+        </EntityType>
+        <EntityType Name="RestaurantWorkingHour">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RestuarantId" Type="int" />
+          <Property Name="Day" Type="int" />
+          <Property Name="FromTime" Type="datetime" />
+          <Property Name="ToTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Spa">
+          <Key>
+            <PropertyRef Name="SpaID" />
+          </Key>
+          <Property Name="SpaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameEn" Type="nvarchar" MaxLength="300" />
+          <Property Name="NameAr" Type="nvarchar" MaxLength="300" />
+          <Property Name="BriefEn" Type="nvarchar" MaxLength="300" />
+          <Property Name="BriefAr" Type="nvarchar" MaxLength="300" />
+          <Property Name="PhoneNo" Type="nvarchar" MaxLength="300" />
+          <Property Name="Latitude" Type="nvarchar" MaxLength="300" />
+          <Property Name="Longitude" Type="nvarchar" MaxLength="300" />
+          <Property Name="HasReservation" Type="bit" Nullable="false" />
+          <Property Name="IntegrationType" Type="int" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="300" />
+        </EntityType>
+        <EntityType Name="SpaReservation">
+          <Key>
+            <PropertyRef Name="SpaReservationID" />
+          </Key>
+          <Property Name="SpaReservationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="WellnessID" Type="int" />
+          <Property Name="SpaID" Type="int" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="300" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="300" />
+          <Property Name="Email" Type="nvarchar" MaxLength="300" />
+          <Property Name="PhoneNo" Type="nvarchar" MaxLength="300" />
+          <Property Name="TreatmentID" Type="int" />
+          <Property Name="ReservationDate" Type="datetime" />
+          <Property Name="Gender" Type="int" />
+          <Property Name="CreatedByUserID" Type="int" />
+          <Property Name="CreationDate" Type="datetime" Nullable="false" />
+          <Property Name="Remarks" Type="nvarchar(max)" />
+          <Property Name="Active" Type="int" />
+        </EntityType>
+        <EntityType Name="SpaTreatment">
+          <Key>
+            <PropertyRef Name="SpaID" />
+            <PropertyRef Name="TreatmentID" />
+          </Key>
+          <Property Name="SpaID" Type="int" Nullable="false" />
+          <Property Name="TreatmentID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SpaWorkingHour">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SpaId" Type="int" />
+          <Property Name="Day" Type="int" />
+          <Property Name="FromTime" Type="datetime" />
+          <Property Name="ToTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="SystemUser">
+          <Key>
+            <PropertyRef Name="SystemUserID" />
+          </Key>
+          <Property Name="SystemUserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="300" />
+          <Property Name="Email" Type="nvarchar" MaxLength="300" />
+          <Property Name="ManageEntertainments" Type="bit" Nullable="false" />
+          <Property Name="ManageWellnesses" Type="bit" Nullable="false" />
+          <Property Name="ManageLocalBusinessDirectories" Type="bit" Nullable="false" />
+          <Property Name="ManageLimousine" Type="bit" Nullable="false" />
+          <Property Name="ManageConcierge" Type="bit" Nullable="false" />
+          <Property Name="ManagePushNotifications" Type="bit" Nullable="false" />
+          <Property Name="ManageSystemUsers" Type="bit" Nullable="false" />
+          <Property Name="ManageUnit" Type="bit" />
+          <Property Name="ManageAbout" Type="bit" />
+          <Property Name="ManageContact" Type="bit" />
+          <Property Name="ManageApplicationUser" Type="bit" />
+          <Property Name="ManageCategoryResturant" Type="bit" />
+          <Property Name="ManageItem" Type="bit" />
+          <Property Name="ManageOrderReservation" Type="bit" />
+        </EntityType>
+        <EntityType Name="Treatment">
+          <Key>
+            <PropertyRef Name="TreatmentID" />
+          </Key>
+          <Property Name="TreatmentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameEn" Type="nvarchar" MaxLength="300" />
+          <Property Name="NameAr" Type="nvarchar" MaxLength="300" />
+          <Property Name="BriefEn" Type="nvarchar" MaxLength="300" />
+          <Property Name="BriefAr" Type="nvarchar" MaxLength="300" />
+        </EntityType>
+        <EntityType Name="Unit">
+          <Key>
+            <PropertyRef Name="UnitId" />
+          </Key>
+          <Property Name="UnitId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UnitNumber" Type="nvarchar" MaxLength="300" />
+          <Property Name="BusinessPropertyID" Type="int" Nullable="false" />
+          <Property Name="ViewBy" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserOrder">
+          <Key>
+            <PropertyRef Name="UserOrderId" />
+          </Key>
+          <Property Name="UserOrderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="Status" Type="bit" />
+        </EntityType>
+        <EntityType Name="Wellness">
+          <Key>
+            <PropertyRef Name="WellnessID" />
+          </Key>
+          <Property Name="WellnessID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TitleEn" Type="nvarchar" MaxLength="300" />
+          <Property Name="TitleAr" Type="nvarchar" MaxLength="300" />
+          <Property Name="ImageURL" Type="nvarchar(max)" />
+          <Property Name="BriefEn" Type="nvarchar" MaxLength="300" />
+          <Property Name="BriefAr" Type="nvarchar" MaxLength="300" />
+          <Property Name="DescriptionEn" Type="nvarchar(max)" />
+          <Property Name="DescriptionAr" Type="nvarchar(max)" />
+          <Property Name="HasReservation" Type="bit" Nullable="false" />
+          <Property Name="SpaID" Type="int" Nullable="false" />
+          <Property Name="HasSpecialOffer" Type="bit" Nullable="false" />
+          <Property Name="ViewBy" Type="int" Nullable="false" />
+          <Property Name="StartDate" Type="datetime" />
+          <Property Name="ExpirationDate" Type="datetime" />
+          <Property Name="WellnessOrder" Type="int" />
+          <Property Name="LikesCount" Type="int" />
+          <Property Name="NightlifeChk" Type="bit" />
+          <Property Name="DiningChk" Type="bit" />
+          <Property Name="BrunchChk" Type="bit" />
+          <Property Name="Sat" Type="bit" />
+          <Property Name="Sun" Type="bit" />
+          <Property Name="Mon" Type="bit" />
+          <Property Name="Tue" Type="bit" />
+          <Property Name="Wed" Type="bit" />
+          <Property Name="Thur" Type="bit" />
+          <Property Name="Fri" Type="bit" />
+          <Property Name="ImageData" Type="varbinary(max)" />
+          <Property Name="ImageData1" Type="varbinary(max)" />
+          <Property Name="ImageData2" Type="varbinary(max)" />
+          <Property Name="ImageData3" Type="varbinary(max)" />
+          <Property Name="ImageData4" Type="varbinary(max)" />
+          <Property Name="ImageData5" Type="varbinary(max)" />
+          <Property Name="ImageData6" Type="varbinary(max)" />
+          <Property Name="ImageData7" Type="varbinary(max)" />
+          <Property Name="ImageData8" Type="varbinary(max)" />
+          <Property Name="ImageData9" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="WellnessWorkingHour">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SpaId" Type="int" />
+          <Property Name="Day" Type="int" />
+          <Property Name="FromTime" Type="datetime" />
+          <Property Name="ToTime" Type="datetime" />
+          <Property Name="Override" Type="bit" />
+          <Property Name="WellnessId" Type="int" />
+        </EntityType>
+        <Association Name="Fk_Category_resturant">
+          <End Role="Restaurant" Type="Self.Restaurant" Multiplicity="0..1" />
+          <End Role="RestaurantCategory" Type="Self.RestaurantCategory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Restaurant">
+              <PropertyRef Name="RestaurantID" />
+            </Principal>
+            <Dependent Role="RestaurantCategory">
+              <PropertyRef Name="RestaurantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Entertainment_Restaurant">
+          <End Role="Restaurant" Type="Self.Restaurant" Multiplicity="1" />
+          <End Role="Entertainment" Type="Self.Entertainment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Restaurant">
+              <PropertyRef Name="RestaurantID" />
+            </Principal>
+            <Dependent Role="Entertainment">
+              <PropertyRef Name="RestaurantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EntertainmentReservation_Entertainment">
+          <End Role="Entertainment" Type="Self.Entertainment" Multiplicity="0..1" />
+          <End Role="EntertainmentReservation" Type="Self.EntertainmentReservation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Entertainment">
+              <PropertyRef Name="EntertainmentID" />
+            </Principal>
+            <Dependent Role="EntertainmentReservation">
+              <PropertyRef Name="EntertainmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EntertainmentReservation_Restaurant">
+          <End Role="Restaurant" Type="Self.Restaurant" Multiplicity="0..1" />
+          <End Role="EntertainmentReservation" Type="Self.EntertainmentReservation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Restaurant">
+              <PropertyRef Name="RestaurantID" />
+            </Principal>
+            <Dependent Role="EntertainmentReservation">
+              <PropertyRef Name="RestaurantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk_Property_Restaurant">
+          <End Role="Restaurant" Type="Self.Restaurant" Multiplicity="1" />
+          <End Role="Property" Type="Self.Property" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Restaurant">
+              <PropertyRef Name="RestaurantID" />
+            </Principal>
+            <Dependent Role="Property">
+              <PropertyRef Name="RestaurantId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk_Property_Resturant">
+          <End Role="Restaurant" Type="Self.Restaurant" Multiplicity="1" />
+          <End Role="LocalBusinessProperty" Type="Self.LocalBusinessProperty" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Restaurant">
+              <PropertyRef Name="RestaurantID" />
+            </Principal>
+            <Dependent Role="LocalBusinessProperty">
+              <PropertyRef Name="RestaurantId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SpaReservation_Spa">
+          <End Role="Spa" Type="Self.Spa" Multiplicity="0..1" />
+          <End Role="SpaReservation" Type="Self.SpaReservation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Spa">
+              <PropertyRef Name="SpaID" />
+            </Principal>
+            <Dependent Role="SpaReservation">
+              <PropertyRef Name="SpaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SpaReservation_Treatment">
+          <End Role="Treatment" Type="Self.Treatment" Multiplicity="0..1" />
+          <End Role="SpaReservation" Type="Self.SpaReservation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Treatment">
+              <PropertyRef Name="TreatmentID" />
+            </Principal>
+            <Dependent Role="SpaReservation">
+              <PropertyRef Name="TreatmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SpaReservation_Wellness">
+          <End Role="Wellness" Type="Self.Wellness" Multiplicity="0..1" />
+          <End Role="SpaReservation" Type="Self.SpaReservation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Wellness">
+              <PropertyRef Name="WellnessID" />
+            </Principal>
+            <Dependent Role="SpaReservation">
+              <PropertyRef Name="WellnessID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SpaTreatment_Spa">
+          <End Role="Spa" Type="Self.Spa" Multiplicity="1" />
+          <End Role="SpaTreatment" Type="Self.SpaTreatment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Spa">
+              <PropertyRef Name="SpaID" />
+            </Principal>
+            <Dependent Role="SpaTreatment">
+              <PropertyRef Name="SpaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SpaTreatment_Treatment">
+          <End Role="Treatment" Type="Self.Treatment" Multiplicity="1" />
+          <End Role="SpaTreatment" Type="Self.SpaTreatment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Treatment">
+              <PropertyRef Name="TreatmentID" />
+            </Principal>
+            <Dependent Role="SpaTreatment">
+              <PropertyRef Name="TreatmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk_Unit_Property">
+          <End Role="LocalBusinessProperty" Type="Self.LocalBusinessProperty" Multiplicity="1" />
+          <End Role="Unit" Type="Self.Unit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LocalBusinessProperty">
+              <PropertyRef Name="BusinessPropertyID" />
+            </Principal>
+            <Dependent Role="Unit">
+              <PropertyRef Name="BusinessPropertyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk_User_Orders">
+          <End Role="UserOrder" Type="Self.UserOrder" Multiplicity="1" />
+          <End Role="OrderReservation" Type="Self.OrderReservation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserOrder">
+              <PropertyRef Name="UserOrderId" />
+            </Principal>
+            <Dependent Role="OrderReservation">
+              <PropertyRef Name="UserOrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Wellness_Spa">
+          <End Role="Spa" Type="Self.Spa" Multiplicity="1" />
+          <End Role="Wellness" Type="Self.Wellness" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Spa">
+              <PropertyRef Name="SpaID" />
+            </Principal>
+            <Dependent Role="Wellness">
+              <PropertyRef Name="SpaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AqarSquareEngineEntitiesStoreContainer">
+          <EntitySet Name="About" EntityType="Self.About" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ApplicationUser" EntityType="Self.ApplicationUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Concierge" EntityType="Self.Concierge" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Contact" EntityType="Self.Contact" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Entertainment" EntityType="Self.Entertainment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EntertainmentReservation" EntityType="Self.EntertainmentReservation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EntertainmentWorkingHour" EntityType="Self.EntertainmentWorkingHour" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Item" EntityType="Self.Item" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Limousine" EntityType="Self.Limousine" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LocalBusinessProperty" EntityType="Self.LocalBusinessProperty" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LookUpUApplicationUser" EntityType="Self.LookUpUApplicationUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NotificationDevice" EntityType="Self.NotificationDevice" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderReservation" EntityType="Self.OrderReservation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Property" EntityType="Self.Property" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ReservationAvailability" EntityType="Self.ReservationAvailability" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Restaurant" EntityType="Self.Restaurant" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RestaurantCategory" EntityType="Self.RestaurantCategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RestaurantWorkingHour" EntityType="Self.RestaurantWorkingHour" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Spa" EntityType="Self.Spa" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SpaReservation" EntityType="Self.SpaReservation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SpaTreatment" EntityType="Self.SpaTreatment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SpaWorkingHour" EntityType="Self.SpaWorkingHour" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SystemUser" EntityType="Self.SystemUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Treatment" EntityType="Self.Treatment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Unit" EntityType="Self.Unit" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserOrder" EntityType="Self.UserOrder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Wellness" EntityType="Self.Wellness" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WellnessWorkingHour" EntityType="Self.WellnessWorkingHour" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="Fk_Category_resturant" Association="Self.Fk_Category_resturant">
+            <End Role="Restaurant" EntitySet="Restaurant" />
+            <End Role="RestaurantCategory" EntitySet="RestaurantCategory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Entertainment_Restaurant" Association="Self.FK_Entertainment_Restaurant">
+            <End Role="Restaurant" EntitySet="Restaurant" />
+            <End Role="Entertainment" EntitySet="Entertainment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EntertainmentReservation_Entertainment" Association="Self.FK_EntertainmentReservation_Entertainment">
+            <End Role="Entertainment" EntitySet="Entertainment" />
+            <End Role="EntertainmentReservation" EntitySet="EntertainmentReservation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EntertainmentReservation_Restaurant" Association="Self.FK_EntertainmentReservation_Restaurant">
+            <End Role="Restaurant" EntitySet="Restaurant" />
+            <End Role="EntertainmentReservation" EntitySet="EntertainmentReservation" />
+          </AssociationSet>
+          <AssociationSet Name="Fk_Property_Restaurant" Association="Self.Fk_Property_Restaurant">
+            <End Role="Restaurant" EntitySet="Restaurant" />
+            <End Role="Property" EntitySet="Property" />
+          </AssociationSet>
+          <AssociationSet Name="Fk_Property_Resturant" Association="Self.Fk_Property_Resturant">
+            <End Role="Restaurant" EntitySet="Restaurant" />
+            <End Role="LocalBusinessProperty" EntitySet="LocalBusinessProperty" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SpaReservation_Spa" Association="Self.FK_SpaReservation_Spa">
+            <End Role="Spa" EntitySet="Spa" />
+            <End Role="SpaReservation" EntitySet="SpaReservation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SpaReservation_Treatment" Association="Self.FK_SpaReservation_Treatment">
+            <End Role="Treatment" EntitySet="Treatment" />
+            <End Role="SpaReservation" EntitySet="SpaReservation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SpaReservation_Wellness" Association="Self.FK_SpaReservation_Wellness">
+            <End Role="Wellness" EntitySet="Wellness" />
+            <End Role="SpaReservation" EntitySet="SpaReservation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SpaTreatment_Spa" Association="Self.FK_SpaTreatment_Spa">
+            <End Role="Spa" EntitySet="Spa" />
+            <End Role="SpaTreatment" EntitySet="SpaTreatment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SpaTreatment_Treatment" Association="Self.FK_SpaTreatment_Treatment">
+            <End Role="Treatment" EntitySet="Treatment" />
+            <End Role="SpaTreatment" EntitySet="SpaTreatment" />
+          </AssociationSet>
+          <AssociationSet Name="Fk_Unit_Property" Association="Self.Fk_Unit_Property">
+            <End Role="LocalBusinessProperty" EntitySet="LocalBusinessProperty" />
+            <End Role="Unit" EntitySet="Unit" />
+          </AssociationSet>
+          <AssociationSet Name="Fk_User_Orders" Association="Self.Fk_User_Orders">
+            <End Role="UserOrder" EntitySet="UserOrder" />
+            <End Role="OrderReservation" EntitySet="OrderReservation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Wellness_Spa" Association="Self.FK_Wellness_Spa">
+            <End Role="Spa" EntitySet="Spa" />
+            <End Role="Wellness" EntitySet="Wellness" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AqarSquare.Engine.Entities" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ConciergeEntity">
+          <Key>
+            <PropertyRef Name="ConciergeID" />
+          </Key>
+          <Property Name="ConciergeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PhoneNo" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="EntertainmentEntity">
+          <Key>
+            <PropertyRef Name="EntertainmentID" />
+          </Key>
+          <Property Name="EntertainmentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TitleEn" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="TitleAr" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="ImageURL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BriefEn" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="BriefAr" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="DescriptionEn" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DescriptionAr" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="RestaurantID" Type="Int32" Nullable="false" />
+          <Property Name="HasSpecialOffer" Type="Boolean" Nullable="false" />
+          <Property Name="ViewBy" Type="AqarSquare.Engine.Entities.ViewByUsers" Nullable="false" />
+          <NavigationProperty Name="Restaurant" Relationship="Self.FK_Entertainment_Restaurant" FromRole="Entertainment" ToRole="Restaurant" />
+          <NavigationProperty Name="EntertainmentReservations" Relationship="Self.FK_EntertainmentReservation_Entertainment" FromRole="Entertainment" ToRole="EntertainmentReservation" />
+          <Property Name="StartDate" Type="DateTime" Precision="3" />
+          <Property Name="ExpirationDate" Type="DateTime" Precision="3" />
+          <Property Type="Int32" Name="EntertainmentOrder" />
+          <Property Type="Boolean" Name="NightlifeChk" />
+          <Property Type="Boolean" Name="DiningChk" />
+          <Property Type="Boolean" Name="BrunchChk" />
+          <Property Type="Boolean" Name="Sat" />
+          <Property Type="Boolean" Name="Sun" />
+          <Property Type="Boolean" Name="Mon" />
+          <Property Type="Boolean" Name="Tue" />
+          <Property Type="Boolean" Name="Wed" />
+          <Property Type="Boolean" Name="Thur" />
+          <Property Type="Boolean" Name="Fri" />
+          <Property Type="Int32" Name="LikeCount" />
+          <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="ImageData" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="ImageData1" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="ImageData2" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="ImageData3" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="ImageData4" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="ImageData5" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="ImageData6" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="ImageData7" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="ImageData8" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="ImageData9" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="EntertainmentReservationEntity">
+          <Key>
+            <PropertyRef Name="RestaurantReservationID" />
+          </Key>
+          <Property Name="RestaurantReservationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EntertainmentID" Type="Int32" />
+          <Property Name="RestaurantID" Type="Int32" />
+          <Property Name="FirstName" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNo" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="PersonCount" Type="Int32" />
+          <Property Name="ReservationDate" Type="DateTime" Precision="3" />
+          <Property Name="Indoor" Type="Boolean" Nullable="false" />
+          <Property Name="Smoking" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedByUserID" Type="Int32" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Entertainment" Relationship="Self.FK_EntertainmentReservation_Entertainment" FromRole="EntertainmentReservation" ToRole="Entertainment" />
+          <NavigationProperty Name="Restaurant" Relationship="Self.FK_EntertainmentReservation_Restaurant" FromRole="EntertainmentReservation" ToRole="Restaurant" />
+          <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="Active" />
+        </EntityType>
+        <EntityType Name="LimousineEntity">
+          <Key>
+            <PropertyRef Name="LimousineID" />
+          </Key>
+          <Property Name="LimousineID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ImageURL" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNo" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="DescriptionEn" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DescriptionAr" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ImageData" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="LocalBusinessPropertyEntity">
+          <Key>
+            <PropertyRef Name="BusinessPropertyID" />
+          </Key>
+          <Property Name="BusinessPropertyID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TitleEn" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="TitleAr" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="ImageURL" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Latitude" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Longitude" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="DescriptionEn" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DescriptionAr" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNo" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="RestaurantId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Restaurant" Relationship="AqarSquare.Engine.Entities.Fk_Property_Resturant" FromRole="LocalBusinessPropertyEntity" ToRole="RestaurantEntity" />
+          <NavigationProperty Name="Units" Relationship="AqarSquare.Engine.Entities.Fk_Unit_Property" FromRole="LocalBusinessPropertyEntity" ToRole="UnitEntity" />
+          <Property Name="ImageData" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="NotificationDeviceEntity">
+          <Key>
+            <PropertyRef Name="NotificationDeviceID" />
+          </Key>
+          <Property Name="NotificationDeviceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DeviceType" Type="AqarSquare.Engine.Entities.Devices" Nullable="false" />
+          <Property Name="RegistrationID" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="DeviceID" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="RestaurantEntity">
+          <Key>
+            <PropertyRef Name="RestaurantID" />
+          </Key>
+          <Property Name="RestaurantID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameEn" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="NameAr" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNo" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Latitude" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Longitude" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="HasReservation" Type="Boolean" Nullable="false" />
+          <Property Name="IntegrationType" Type="AqarSquare.Engine.Entities.IntegrationTypes" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Entertainments" Relationship="Self.FK_Entertainment_Restaurant" FromRole="Restaurant" ToRole="Entertainment" />
+          <NavigationProperty Name="EntertainmentReservations" Relationship="Self.FK_EntertainmentReservation_Restaurant" FromRole="Restaurant" ToRole="EntertainmentReservation" />
+          <Property Name="AvailableSeats" Type="Int32" />
+          <Property Name="MinimumAvailability" Type="Int32" />
+          <Property Name="InitialAvailability" Type="Int32" />
+          <NavigationProperty Name="LocalBusinessProperties" Relationship="AqarSquare.Engine.Entities.Fk_Property_Resturant" FromRole="RestaurantEntity" ToRole="LocalBusinessPropertyEntity" />
+          <NavigationProperty Name="RestaurantCategories" Relationship="AqarSquare.Engine.Entities.Fk_Category_resturant" FromRole="RestaurantEntity" ToRole="RestaurantCategoryEntity" />
+          <Property Name="Smoking" Type="Boolean" />
+          <Property Name="InDoor" Type="Boolean" />
+          <Property Name="EmailTemplate" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="SpaEntity">
+          <Key>
+            <PropertyRef Name="SpaID" />
+          </Key>
+          <Property Name="SpaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameEn" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="NameAr" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="BriefEn" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="BriefAr" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNo" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Latitude" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Longitude" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="HasReservation" Type="Boolean" Nullable="false" />
+          <Property Name="IntegrationType" Type="AqarSquare.Engine.Entities.IntegrationTypes" Nullable="false" />
+          <NavigationProperty Name="SpaReservations" Relationship="Self.FK_SpaReservation_Spa" FromRole="Spa" ToRole="SpaReservation" />
+          <NavigationProperty Name="Wellnesses" Relationship="Self.FK_Wellness_Spa" FromRole="Spa" ToRole="Wellness" />
+          <NavigationProperty Name="Treatments" Relationship="Self.SpaTreatment" FromRole="Spa" ToRole="Treatment" />
+          <Property Name="Email" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="SpaReservationEntity">
+          <Key>
+            <PropertyRef Name="SpaReservationID" />
+          </Key>
+          <Property Name="SpaReservationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WellnessID" Type="Int32" />
+          <Property Name="SpaID" Type="Int32" />
+          <Property Name="FirstName" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNo" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="TreatmentID" Type="Int32" />
+          <Property Name="ReservationDate" Type="DateTime" Precision="3" />
+          <Property Name="Gender" Type="AqarSquare.Engine.Entities.Gender" Nullable="true" />
+          <Property Name="CreatedByUserID" Type="Int32" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Spa" Relationship="Self.FK_SpaReservation_Spa" FromRole="SpaReservation" ToRole="Spa" />
+          <NavigationProperty Name="Treatment" Relationship="Self.FK_SpaReservation_Treatment" FromRole="SpaReservation" ToRole="Treatment" />
+          <NavigationProperty Name="Wellness" Relationship="Self.FK_SpaReservation_Wellness" FromRole="SpaReservation" ToRole="Wellness" />
+          <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="Active" />
+        </EntityType>
+        <EntityType Name="TreatmentEntity">
+          <Key>
+            <PropertyRef Name="TreatmentID" />
+          </Key>
+          <Property Name="TreatmentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameEn" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="NameAr" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="BriefEn" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="BriefAr" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="SpaReservations" Relationship="Self.FK_SpaReservation_Treatment" FromRole="Treatment" ToRole="SpaReservation" />
+          <NavigationProperty Name="Spas" Relationship="Self.SpaTreatment" FromRole="Treatment" ToRole="Spa" />
+        </EntityType>
+        <EntityType Name="WellnessEntity">
+          <Key>
+            <PropertyRef Name="WellnessID" />
+          </Key>
+          <Property Name="WellnessID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TitleEn" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="TitleAr" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="ImageURL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BriefEn" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="BriefAr" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="DescriptionEn" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DescriptionAr" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HasReservation" Type="Boolean" Nullable="false" />
+          <Property Name="SpaID" Type="Int32" Nullable="false" />
+          <Property Name="HasSpecialOffer" Type="Boolean" Nullable="false" />
+          <Property Name="ViewBy" Type="AqarSquare.Engine.Entities.ViewByUsers" Nullable="false" />
+          <NavigationProperty Name="Spa" Relationship="Self.FK_Wellness_Spa" FromRole="Wellness" ToRole="Spa" />
+          <NavigationProperty Name="SpaReservations" Relationship="Self.FK_SpaReservation_Wellness" FromRole="Wellness" ToRole="SpaReservation" />
+          <Property Name="StartDate" Type="DateTime" Precision="3" />
+          <Property Name="ExpirationDate" Type="DateTime" Precision="3" />
+          <Property Type="Int32" Name="WellnessOrder" Nullable="true" />
+          <Property Type="Int32" Name="LikesCount" />
+          <Property Type="Boolean" Name="NightlifeChk" />
+          <Property Type="Boolean" Name="DiningChk" />
+          <Property Type="Boolean" Name="BrunchChk" />
+          <Property Type="Boolean" Name="Sat" />
+          <Property Type="Boolean" Name="Sun" />
+          <Property Type="Boolean" Name="Mon" />
+          <Property Type="Boolean" Name="Tue" />
+          <Property Type="Boolean" Name="Wed" />
+          <Property Type="Boolean" Name="Thur" />
+          <Property Type="Boolean" Name="Fri" />
+          <Property Name="ImageData" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="ImageData1" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="ImageData2" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="ImageData3" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="ImageData4" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="ImageData5" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="ImageData6" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="ImageData7" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="ImageData8" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="ImageData9" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_Entertainment_Restaurant">
+          <End Role="Restaurant" Type="AqarSquare.Engine.Entities.RestaurantEntity" Multiplicity="1" />
+          <End Role="Entertainment" Type="AqarSquare.Engine.Entities.EntertainmentEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Restaurant">
+              <PropertyRef Name="RestaurantID" />
+            </Principal>
+            <Dependent Role="Entertainment">
+              <PropertyRef Name="RestaurantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EntertainmentReservation_Entertainment">
+          <End Role="Entertainment" Type="AqarSquare.Engine.Entities.EntertainmentEntity" Multiplicity="0..1" />
+          <End Role="EntertainmentReservation" Type="AqarSquare.Engine.Entities.EntertainmentReservationEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Entertainment">
+              <PropertyRef Name="EntertainmentID" />
+            </Principal>
+            <Dependent Role="EntertainmentReservation">
+              <PropertyRef Name="EntertainmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EntertainmentReservation_Restaurant">
+          <End Role="Restaurant" Type="AqarSquare.Engine.Entities.RestaurantEntity" Multiplicity="0..1" />
+          <End Role="EntertainmentReservation" Type="AqarSquare.Engine.Entities.EntertainmentReservationEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Restaurant">
+              <PropertyRef Name="RestaurantID" />
+            </Principal>
+            <Dependent Role="EntertainmentReservation">
+              <PropertyRef Name="RestaurantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SpaReservation_Spa">
+          <End Role="Spa" Type="AqarSquare.Engine.Entities.SpaEntity" Multiplicity="0..1" />
+          <End Role="SpaReservation" Type="AqarSquare.Engine.Entities.SpaReservationEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Spa">
+              <PropertyRef Name="SpaID" />
+            </Principal>
+            <Dependent Role="SpaReservation">
+              <PropertyRef Name="SpaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Wellness_Spa">
+          <End Role="Spa" Type="AqarSquare.Engine.Entities.SpaEntity" Multiplicity="1" />
+          <End Role="Wellness" Type="AqarSquare.Engine.Entities.WellnessEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Spa">
+              <PropertyRef Name="SpaID" />
+            </Principal>
+            <Dependent Role="Wellness">
+              <PropertyRef Name="SpaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SpaReservation_Treatment">
+          <End Role="Treatment" Type="AqarSquare.Engine.Entities.TreatmentEntity" Multiplicity="0..1" />
+          <End Role="SpaReservation" Type="AqarSquare.Engine.Entities.SpaReservationEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Treatment">
+              <PropertyRef Name="TreatmentID" />
+            </Principal>
+            <Dependent Role="SpaReservation">
+              <PropertyRef Name="TreatmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SpaReservation_Wellness">
+          <End Role="Wellness" Type="AqarSquare.Engine.Entities.WellnessEntity" Multiplicity="0..1" />
+          <End Role="SpaReservation" Type="AqarSquare.Engine.Entities.SpaReservationEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Wellness">
+              <PropertyRef Name="WellnessID" />
+            </Principal>
+            <Dependent Role="SpaReservation">
+              <PropertyRef Name="WellnessID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SpaTreatment">
+          <End Role="Spa" Type="AqarSquare.Engine.Entities.SpaEntity" Multiplicity="*" />
+          <End Role="Treatment" Type="AqarSquare.Engine.Entities.TreatmentEntity" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ConciergeEntities" EntityType="AqarSquare.Engine.Entities.ConciergeEntity" />
+          <EntitySet Name="EntertainmentEntities" EntityType="AqarSquare.Engine.Entities.EntertainmentEntity" />
+          <EntitySet Name="EntertainmentReservationEntities" EntityType="AqarSquare.Engine.Entities.EntertainmentReservationEntity" />
+          <EntitySet Name="LimousineEntities" EntityType="AqarSquare.Engine.Entities.LimousineEntity" />
+          <EntitySet Name="LocalBusinessPropertyEntities" EntityType="AqarSquare.Engine.Entities.LocalBusinessPropertyEntity" />
+          <EntitySet Name="NotificationDeviceEntities" EntityType="AqarSquare.Engine.Entities.NotificationDeviceEntity" />
+          <EntitySet Name="RestaurantEntities" EntityType="AqarSquare.Engine.Entities.RestaurantEntity" />
+          <EntitySet Name="SpaEntities" EntityType="AqarSquare.Engine.Entities.SpaEntity" />
+          <EntitySet Name="SpaReservationEntities" EntityType="AqarSquare.Engine.Entities.SpaReservationEntity" />
+          <EntitySet Name="TreatmentEntities" EntityType="AqarSquare.Engine.Entities.TreatmentEntity" />
+          <EntitySet Name="WellnessEntities" EntityType="AqarSquare.Engine.Entities.WellnessEntity" />
+          <AssociationSet Name="FK_Entertainment_Restaurant" Association="Self.FK_Entertainment_Restaurant">
+            <End Role="Restaurant" EntitySet="RestaurantEntities" />
+            <End Role="Entertainment" EntitySet="EntertainmentEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EntertainmentReservation_Entertainment" Association="Self.FK_EntertainmentReservation_Entertainment">
+            <End Role="Entertainment" EntitySet="EntertainmentEntities" />
+            <End Role="EntertainmentReservation" EntitySet="EntertainmentReservationEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EntertainmentReservation_Restaurant" Association="Self.FK_EntertainmentReservation_Restaurant">
+            <End Role="Restaurant" EntitySet="RestaurantEntities" />
+            <End Role="EntertainmentReservation" EntitySet="EntertainmentReservationEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SpaReservation_Spa" Association="Self.FK_SpaReservation_Spa">
+            <End Role="Spa" EntitySet="SpaEntities" />
+            <End Role="SpaReservation" EntitySet="SpaReservationEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Wellness_Spa" Association="Self.FK_Wellness_Spa">
+            <End Role="Spa" EntitySet="SpaEntities" />
+            <End Role="Wellness" EntitySet="WellnessEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SpaReservation_Treatment" Association="Self.FK_SpaReservation_Treatment">
+            <End Role="Treatment" EntitySet="TreatmentEntities" />
+            <End Role="SpaReservation" EntitySet="SpaReservationEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SpaReservation_Wellness" Association="Self.FK_SpaReservation_Wellness">
+            <End Role="Wellness" EntitySet="WellnessEntities" />
+            <End Role="SpaReservation" EntitySet="SpaReservationEntities" />
+          </AssociationSet>
+          <AssociationSet Name="SpaTreatment" Association="Self.SpaTreatment">
+            <End Role="Spa" EntitySet="SpaEntities" />
+            <End Role="Treatment" EntitySet="TreatmentEntities" />
+          </AssociationSet>
+          <EntitySet Name="SystemUserEntities" EntityType="AqarSquare.Engine.Entities.SystemUserEntity" />
+          <EntitySet Name="ReservationAvailabilityEntities1" EntityType="AqarSquare.Engine.Entities.ReservationAvailabilityEntity" />
+          <EntitySet Name="AboutEntities" EntityType="AqarSquare.Engine.Entities.AboutEntity" />
+          <EntitySet Name="ApplicationUserEntities" EntityType="AqarSquare.Engine.Entities.ApplicationUserEntity" />
+          <EntitySet Name="ContactEntities" EntityType="AqarSquare.Engine.Entities.ContactEntity" />
+          <EntitySet Name="ItemEntities" EntityType="AqarSquare.Engine.Entities.ItemEntity" />
+          <EntitySet Name="LookUpUApplicationUserEntities" EntityType="AqarSquare.Engine.Entities.LookUpUApplicationUserEntity" />
+          <EntitySet Name="RestaurantCategoryEntities" EntityType="AqarSquare.Engine.Entities.RestaurantCategoryEntity" />
+          <EntitySet Name="PropertyEntities" EntityType="AqarSquare.Engine.Entities.PropertyEntity" />
+          <AssociationSet Name="Fk_Property_Restaurant" Association="AqarSquare.Engine.Entities.Fk_Property_Restaurant">
+            <End Role="RestaurantEntity" EntitySet="RestaurantEntities" />
+            <End Role="Property" EntitySet="PropertyEntities" />
+          </AssociationSet>
+          <EntitySet Name="UserOrderEntities" EntityType="AqarSquare.Engine.Entities.UserOrderEntity" />
+          <EntitySet Name="RestaurantWorkingHourEntities" EntityType="AqarSquare.Engine.Entities.RestaurantWorkingHourEntity" />
+          <EntitySet Name="OrderReservationEntities" EntityType="AqarSquare.Engine.Entities.OrderReservationEntity" />
+          <AssociationSet Name="Fk_User_Orders" Association="AqarSquare.Engine.Entities.Fk_User_Orders">
+            <End Role="UserOrderEntity" EntitySet="UserOrderEntities" />
+            <End Role="OrderReservation" EntitySet="OrderReservationEntities" />
+          </AssociationSet>
+          <AssociationSet Name="Fk_Property_Resturant" Association="AqarSquare.Engine.Entities.Fk_Property_Resturant">
+            <End Role="RestaurantEntity" EntitySet="RestaurantEntities" />
+            <End Role="LocalBusinessPropertyEntity" EntitySet="LocalBusinessPropertyEntities" />
+          </AssociationSet>
+          <EntitySet Name="UnitEntities" EntityType="AqarSquare.Engine.Entities.UnitEntity" />
+          <AssociationSet Name="Fk_Unit_Property" Association="AqarSquare.Engine.Entities.Fk_Unit_Property">
+            <End Role="LocalBusinessPropertyEntity" EntitySet="LocalBusinessPropertyEntities" />
+            <End Role="UnitEntity" EntitySet="UnitEntities" />
+          </AssociationSet>
+          <AssociationSet Name="Fk_Category_resturant" Association="AqarSquare.Engine.Entities.Fk_Category_resturant">
+            <End Role="RestaurantEntity" EntitySet="RestaurantEntities" />
+            <End Role="RestaurantCategoryEntity" EntitySet="RestaurantCategoryEntities" />
+          </AssociationSet>
+          <EntitySet Name="EntertainmentWorkingHourEntities" EntityType="AqarSquare.Engine.Entities.EntertainmentWorkingHourEntity" />
+          <EntitySet Name="SpaWorkingHourEntities" EntityType="AqarSquare.Engine.Entities.SpaWorkingHourEntity" />
+          <EntitySet Name="WellnessWorkingHourEntities" EntityType="AqarSquare.Engine.Entities.WellnessWorkingHourEntity" />
+          <AssociationSet Name="Fk_Item_RestaurantCategory" Association="AqarSquare.Engine.Entities.Fk_Item_RestaurantCategory">
+            <End Role="RestaurantCategoryEntity" EntitySet="RestaurantCategoryEntities" />
+            <End Role="ItemEntity" EntitySet="ItemEntities" />
+          </AssociationSet>
+        </EntityContainer>
+        <EnumType Name="IntegrationTypes" a:ExternalTypeName="AqarSquare.Engine.IntegrationTypes" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+        <EnumType Name="Devices" a:ExternalTypeName="AqarSquare.Engine.Devices" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+        <EnumType Name="ViewByUsers" a:ExternalTypeName="AqarSquare.Engine.ViewByUsers" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+        <EnumType Name="Gender" a:ExternalTypeName="AqarSquare.Engine.Gender" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+        <EntityType Name="SystemUserEntity">
+          <Key>
+            <PropertyRef Name="SystemUserID" />
+          </Key>
+          <Property Name="SystemUserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="ManageEntertainments" Type="Boolean" Nullable="false" />
+          <Property Name="ManageWellnesses" Type="Boolean" Nullable="false" />
+          <Property Name="ManageLocalBusinessDirectories" Type="Boolean" Nullable="false" />
+          <Property Name="ManageLimousine" Type="Boolean" Nullable="false" />
+          <Property Name="ManageConcierge" Type="Boolean" Nullable="false" />
+          <Property Name="ManagePushNotifications" Type="Boolean" Nullable="false" />
+          <Property Name="ManageSystemUsers" Type="Boolean" Nullable="false" />
+          <Property Name="ManageUnit" Type="Boolean" />
+          <Property Name="ManageAbout" Type="Boolean" />
+          <Property Name="ManageContact" Type="Boolean" />
+          <Property Name="ManageApplicationUser" Type="Boolean" />
+          <Property Name="ManageCategoryResturant" Type="Boolean" />
+          <Property Name="ManageItem" Type="Boolean" />
+          <Property Name="ManageOrderReservation" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="ReservationAvailabilityEntity">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ReservationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Availability" Type="Int32" Nullable="false" />
+          <Property Name="RestaurantID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AboutEntity">
+          <Key>
+            <PropertyRef Name="AboutId" />
+          </Key>
+          <Property Name="AboutId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ImageUrl" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="DescriptionEn" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DescriptionAr" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ImageData" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="ApplicationUserEntity">
+          <Key>
+            <PropertyRef Name="ApplicationUserId" />
+          </Key>
+          <Property Name="ApplicationUserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNo" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="PropertyId" Type="Int32" />
+          <Property Name="UnitId" Type="Int32" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+          <Property Name="IsActiveted" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UserToken" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ContactEntity">
+          <Key>
+            <PropertyRef Name="ContactId" />
+          </Key>
+          <Property Name="ContactId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNo" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ItemEntity">
+          <Key>
+            <PropertyRef Name="ItemId" />
+          </Key>
+          <Property Name="ItemId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ItemTitleEn" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="ItemTitleAr" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="ImageUrl" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Int32" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="Status" Type="Boolean" />
+          <Property Name="DescriptionAr" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreationDate" Type="DateTime" Precision="3" />
+          <Property Name="RestaurantCategoryID" Type="Int32" />
+          <NavigationProperty Name="RestaurantCategory" Relationship="AqarSquare.Engine.Entities.Fk_Item_RestaurantCategory" FromRole="ItemEntity" ToRole="RestaurantCategoryEntity" />
+          <Property Name="DescriptionEn" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OrderBy" Type="Int32" />
+          <Property Name="ImageData" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="LookUpUApplicationUserEntity">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="PropertyId" Type="Int32" />
+          <Property Name="UnitId" Type="Int32" />
+          <Property Name="PhoneNo" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="RestaurantCategoryEntity">
+          <Key>
+            <PropertyRef Name="RestaurantCategoryID" />
+          </Key>
+          <Property Name="RestaurantCategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryTitleEn" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="CategoryTitleAr" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="RestaurantID" Type="Int32" />
+          <Property Name="Status" Type="Boolean" />
+          <Property Name="OrderBy" Type="Int32" />
+          <NavigationProperty Name="Restaurant" Relationship="AqarSquare.Engine.Entities.Fk_Category_resturant" FromRole="RestaurantCategoryEntity" ToRole="RestaurantEntity" />
+        </EntityType>
+        <EntityType Name="PropertyEntity">
+          <Key>
+            <PropertyRef Name="PropertyId" />
+          </Key>
+          <Property Name="PropertyId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PropertyNameEn" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="PropertyNameAr" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="RestaurantId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Restaurant" Relationship="AqarSquare.Engine.Entities.Fk_Property_Restaurant" FromRole="Property" ToRole="RestaurantEntity" />
+        </EntityType>
+        <Association Name="Fk_Property_Restaurant">
+          <End Type="AqarSquare.Engine.Entities.RestaurantEntity" Role="RestaurantEntity" Multiplicity="1" />
+          <End Type="AqarSquare.Engine.Entities.PropertyEntity" Role="Property" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RestaurantEntity">
+              <PropertyRef Name="RestaurantID" />
+            </Principal>
+            <Dependent Role="Property">
+              <PropertyRef Name="RestaurantId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="UserOrderEntity">
+          <Key>
+            <PropertyRef Name="UserOrderId" />
+          </Key>
+          <Property Name="UserOrderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="Status" Type="Boolean" />
+          <NavigationProperty Name="OrderReservations" Relationship="AqarSquare.Engine.Entities.Fk_User_Orders" FromRole="UserOrderEntity" ToRole="OrderReservation" />
+        </EntityType>
+        <EntityType Name="RestaurantWorkingHourEntity">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RestuarantId" Type="Int32" />
+          <Property Name="Day" Type="Int32" />
+          <Property Name="FromTime" Type="DateTime" Precision="3" />
+          <Property Name="ToTime" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="OrderReservationEntity">
+          <Key>
+            <PropertyRef Name="OrderReservationId" />
+          </Key>
+          <Property Name="OrderReservationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ItemId" Type="Int32" />
+          <Property Name="ItemQuantity" Type="Int32" />
+          <Property Name="TotalPrice" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="CreationDate" Type="DateTime" Precision="3" />
+          <Property Name="UserOrderId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Int32" />
+          <NavigationProperty Name="UserOrder" Relationship="AqarSquare.Engine.Entities.Fk_User_Orders" FromRole="OrderReservation" ToRole="UserOrderEntity" />
+        </EntityType>
+        <Association Name="Fk_User_Orders">
+          <End Type="AqarSquare.Engine.Entities.UserOrderEntity" Role="UserOrderEntity" Multiplicity="1" />
+          <End Type="AqarSquare.Engine.Entities.OrderReservationEntity" Role="OrderReservation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserOrderEntity">
+              <PropertyRef Name="UserOrderId" />
+            </Principal>
+            <Dependent Role="OrderReservation">
+              <PropertyRef Name="UserOrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk_Property_Resturant">
+          <End Type="AqarSquare.Engine.Entities.RestaurantEntity" Role="RestaurantEntity" Multiplicity="1" />
+          <End Type="AqarSquare.Engine.Entities.LocalBusinessPropertyEntity" Role="LocalBusinessPropertyEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RestaurantEntity">
+              <PropertyRef Name="RestaurantID" />
+            </Principal>
+            <Dependent Role="LocalBusinessPropertyEntity">
+              <PropertyRef Name="RestaurantId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="UnitEntity">
+          <Key>
+            <PropertyRef Name="UnitId" />
+          </Key>
+          <Property Name="UnitId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UnitNumber" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="BusinessPropertyID" Type="Int32" Nullable="false" />
+          <Property Name="ViewBy" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="LocalBusinessProperty" Relationship="AqarSquare.Engine.Entities.Fk_Unit_Property" FromRole="UnitEntity" ToRole="LocalBusinessPropertyEntity" />
+        </EntityType>
+        <Association Name="Fk_Unit_Property">
+          <End Type="AqarSquare.Engine.Entities.LocalBusinessPropertyEntity" Role="LocalBusinessPropertyEntity" Multiplicity="1" />
+          <End Type="AqarSquare.Engine.Entities.UnitEntity" Role="UnitEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LocalBusinessPropertyEntity">
+              <PropertyRef Name="BusinessPropertyID" />
+            </Principal>
+            <Dependent Role="UnitEntity">
+              <PropertyRef Name="BusinessPropertyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk_Category_resturant">
+          <End Type="AqarSquare.Engine.Entities.RestaurantEntity" Role="RestaurantEntity" Multiplicity="0..1" />
+          <End Type="AqarSquare.Engine.Entities.RestaurantCategoryEntity" Role="RestaurantCategoryEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RestaurantEntity">
+              <PropertyRef Name="RestaurantID" />
+            </Principal>
+            <Dependent Role="RestaurantCategoryEntity">
+              <PropertyRef Name="RestaurantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="EntertainmentWorkingHourEntity">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RestuarantId" Type="Int32" />
+          <Property Name="Day" Type="Int32" />
+          <Property Name="FromTime" Type="DateTime" Precision="3" />
+          <Property Name="ToTime" Type="DateTime" Precision="3" />
+          <Property Name="Override" Type="Boolean" />
+          <Property Name="EntertainmentId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="SpaWorkingHourEntity">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SpaId" Type="Int32" />
+          <Property Name="Day" Type="Int32" />
+          <Property Name="FromTime" Type="DateTime" Precision="3" />
+          <Property Name="ToTime" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="WellnessWorkingHourEntity">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SpaId" Type="Int32" />
+          <Property Name="Day" Type="Int32" />
+          <Property Name="FromTime" Type="DateTime" Precision="3" />
+          <Property Name="ToTime" Type="DateTime" Precision="3" />
+          <Property Name="Override" Type="Boolean" />
+          <Property Name="WellnessId" Type="Int32" />
+        </EntityType>
+        <Association Name="Fk_Item_RestaurantCategory">
+          <End Type="AqarSquare.Engine.Entities.RestaurantCategoryEntity" Role="RestaurantCategoryEntity" Multiplicity="0..1" />
+          <End Type="AqarSquare.Engine.Entities.ItemEntity" Role="ItemEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RestaurantCategoryEntity">
+              <PropertyRef Name="RestaurantCategoryID" />
+            </Principal>
+            <Dependent Role="ItemEntity">
+              <PropertyRef Name="RestaurantCategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AqarSquareEngineEntitiesStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="ConciergeEntities">
+            <EntityTypeMapping TypeName="AqarSquare.Engine.Entities.ConciergeEntity">
+              <MappingFragment StoreEntitySet="Concierge">
+                <ScalarProperty Name="ConciergeID" ColumnName="ConciergeID" />
+                <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EntertainmentEntities">
+            <EntityTypeMapping TypeName="AqarSquare.Engine.Entities.EntertainmentEntity">
+              <MappingFragment StoreEntitySet="Entertainment">
+                <ScalarProperty Name="ImageData9" ColumnName="ImageData9" />
+                <ScalarProperty Name="ImageData8" ColumnName="ImageData8" />
+                <ScalarProperty Name="ImageData7" ColumnName="ImageData7" />
+                <ScalarProperty Name="ImageData6" ColumnName="ImageData6" />
+                <ScalarProperty Name="ImageData5" ColumnName="ImageData5" />
+                <ScalarProperty Name="ImageData4" ColumnName="ImageData4" />
+                <ScalarProperty Name="ImageData3" ColumnName="ImageData3" />
+                <ScalarProperty Name="ImageData2" ColumnName="ImageData2" />
+                <ScalarProperty Name="ImageData1" ColumnName="ImageData1" />
+                <ScalarProperty Name="ImageData" ColumnName="ImageData" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="LikeCount" ColumnName="LikeCount" />
+                <ScalarProperty Name="Fri" ColumnName="Fri" />
+                <ScalarProperty Name="Thur" ColumnName="Thur" />
+                <ScalarProperty Name="Wed" ColumnName="Wed" />
+                <ScalarProperty Name="Tue" ColumnName="Tue" />
+                <ScalarProperty Name="Mon" ColumnName="Mon" />
+                <ScalarProperty Name="Sun" ColumnName="Sun" />
+                <ScalarProperty Name="Sat" ColumnName="Sat" />
+                <ScalarProperty Name="BrunchChk" ColumnName="BrunchChk" />
+                <ScalarProperty Name="DiningChk" ColumnName="DiningChk" />
+                <ScalarProperty Name="NightlifeChk" ColumnName="NightlifeChk" />
+                <ScalarProperty Name="EntertainmentOrder" ColumnName="EntertainmentOrder" />
+                <ScalarProperty Name="ExpirationDate" ColumnName="ExpirationDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EntertainmentID" ColumnName="EntertainmentID" />
+                <ScalarProperty Name="TitleEn" ColumnName="TitleEn" />
+                <ScalarProperty Name="TitleAr" ColumnName="TitleAr" />
+                <ScalarProperty Name="ImageURL" ColumnName="ImageURL" />
+                <ScalarProperty Name="BriefEn" ColumnName="BriefEn" />
+                <ScalarProperty Name="BriefAr" ColumnName="BriefAr" />
+                <ScalarProperty Name="DescriptionEn" ColumnName="DescriptionEn" />
+                <ScalarProperty Name="DescriptionAr" ColumnName="DescriptionAr" />
+                <ScalarProperty Name="RestaurantID" ColumnName="RestaurantID" />
+                <ScalarProperty Name="HasSpecialOffer" ColumnName="HasSpecialOffer" />
+                <ScalarProperty Name="ViewBy" ColumnName="ViewBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EntertainmentReservationEntities">
+            <EntityTypeMapping TypeName="AqarSquare.Engine.Entities.EntertainmentReservationEntity">
+              <MappingFragment StoreEntitySet="EntertainmentReservation">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="RestaurantReservationID" ColumnName="RestaurantReservationID" />
+                <ScalarProperty Name="EntertainmentID" ColumnName="EntertainmentID" />
+                <ScalarProperty Name="RestaurantID" ColumnName="RestaurantID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+                <ScalarProperty Name="PersonCount" ColumnName="PersonCount" />
+                <ScalarProperty Name="ReservationDate" ColumnName="ReservationDate" />
+                <ScalarProperty Name="Indoor" ColumnName="Indoor" />
+                <ScalarProperty Name="Smoking" ColumnName="Smoking" />
+                <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LimousineEntities">
+            <EntityTypeMapping TypeName="AqarSquare.Engine.Entities.LimousineEntity">
+              <MappingFragment StoreEntitySet="Limousine">
+                <ScalarProperty Name="ImageData" ColumnName="ImageData" />
+                <ScalarProperty Name="DescriptionAr" ColumnName="DescriptionAr" />
+                <ScalarProperty Name="DescriptionEn" ColumnName="DescriptionEn" />
+                <ScalarProperty Name="LimousineID" ColumnName="LimousineID" />
+                <ScalarProperty Name="ImageURL" ColumnName="ImageURL" />
+                <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LocalBusinessPropertyEntities">
+            <EntityTypeMapping TypeName="AqarSquare.Engine.Entities.LocalBusinessPropertyEntity">
+              <MappingFragment StoreEntitySet="LocalBusinessProperty">
+                <ScalarProperty Name="ImageData" ColumnName="ImageData" />
+                <ScalarProperty Name="RestaurantId" ColumnName="RestaurantId" />
+                <ScalarProperty Name="BusinessPropertyID" ColumnName="BusinessPropertyID" />
+                <ScalarProperty Name="TitleEn" ColumnName="TitleEn" />
+                <ScalarProperty Name="TitleAr" ColumnName="TitleAr" />
+                <ScalarProperty Name="ImageURL" ColumnName="ImageURL" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="DescriptionEn" ColumnName="DescriptionEn" />
+                <ScalarProperty Name="DescriptionAr" ColumnName="DescriptionAr" />
+                <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NotificationDeviceEntities">
+            <EntityTypeMapping TypeName="AqarSquare.Engine.Entities.NotificationDeviceEntity">
+              <MappingFragment StoreEntitySet="NotificationDevice">
+                <ScalarProperty Name="DeviceID" ColumnName="DeviceID" />
+                <ScalarProperty Name="NotificationDeviceID" ColumnName="NotificationDeviceID" />
+                <ScalarProperty Name="DeviceType" ColumnName="DeviceType" />
+                <ScalarProperty Name="RegistrationID" ColumnName="RegistrationID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RestaurantEntities">
+            <EntityTypeMapping TypeName="AqarSquare.Engine.Entities.RestaurantEntity">
+              <MappingFragment StoreEntitySet="Restaurant">
+                <ScalarProperty Name="EmailTemplate" ColumnName="EmailTemplate" />
+                <ScalarProperty Name="InDoor" ColumnName="InDoor" />
+                <ScalarProperty Name="Smoking" ColumnName="Smoking" />
+                <ScalarProperty Name="InitialAvailability" ColumnName="InitialAvailability" />
+                <ScalarProperty Name="MinimumAvailability" ColumnName="MinimumAvailability" />
+                <ScalarProperty Name="AvailableSeats" ColumnName="AvailableSeats" />
+                <ScalarProperty Name="RestaurantID" ColumnName="RestaurantID" />
+                <ScalarProperty Name="NameEn" ColumnName="NameEn" />
+                <ScalarProperty Name="NameAr" ColumnName="NameAr" />
+                <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="HasReservation" ColumnName="HasReservation" />
+                <ScalarProperty Name="IntegrationType" ColumnName="IntegrationType" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SpaEntities">
+            <EntityTypeMapping TypeName="AqarSquare.Engine.Entities.SpaEntity">
+              <MappingFragment StoreEntitySet="Spa">
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="SpaID" ColumnName="SpaID" />
+                <ScalarProperty Name="NameEn" ColumnName="NameEn" />
+                <ScalarProperty Name="NameAr" ColumnName="NameAr" />
+                <ScalarProperty Name="BriefEn" ColumnName="BriefEn" />
+                <ScalarProperty Name="BriefAr" ColumnName="BriefAr" />
+                <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="HasReservation" ColumnName="HasReservation" />
+                <ScalarProperty Name="IntegrationType" ColumnName="IntegrationType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SpaReservationEntities">
+            <EntityTypeMapping TypeName="AqarSquare.Engine.Entities.SpaReservationEntity">
+              <MappingFragment StoreEntitySet="SpaReservation">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="SpaReservationID" ColumnName="SpaReservationID" />
+                <ScalarProperty Name="WellnessID" ColumnName="WellnessID" />
+                <ScalarProperty Name="SpaID" ColumnName="SpaID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+                <ScalarProperty Name="TreatmentID" ColumnName="TreatmentID" />
+                <ScalarProperty Name="ReservationDate" ColumnName="ReservationDate" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TreatmentEntities">
+            <EntityTypeMapping TypeName="AqarSquare.Engine.Entities.TreatmentEntity">
+              <MappingFragment StoreEntitySet="Treatment">
+                <ScalarProperty Name="TreatmentID" ColumnName="TreatmentID" />
+                <ScalarProperty Name="NameEn" ColumnName="NameEn" />
+                <ScalarProperty Name="NameAr" ColumnName="NameAr" />
+                <ScalarProperty Name="BriefEn" ColumnName="BriefEn" />
+                <ScalarProperty Name="BriefAr" ColumnName="BriefAr" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WellnessEntities">
+            <EntityTypeMapping TypeName="AqarSquare.Engine.Entities.WellnessEntity">
+              <MappingFragment StoreEntitySet="Wellness">
+                <ScalarProperty Name="ImageData9" ColumnName="ImageData9" />
+                <ScalarProperty Name="ImageData8" ColumnName="ImageData8" />
+                <ScalarProperty Name="ImageData7" ColumnName="ImageData7" />
+                <ScalarProperty Name="ImageData6" ColumnName="ImageData6" />
+                <ScalarProperty Name="ImageData5" ColumnName="ImageData5" />
+                <ScalarProperty Name="ImageData4" ColumnName="ImageData4" />
+                <ScalarProperty Name="ImageData3" ColumnName="ImageData3" />
+                <ScalarProperty Name="ImageData2" ColumnName="ImageData2" />
+                <ScalarProperty Name="ImageData1" ColumnName="ImageData1" />
+                <ScalarProperty Name="ImageData" ColumnName="ImageData" />
+                <ScalarProperty Name="Fri" ColumnName="Fri" />
+                <ScalarProperty Name="Thur" ColumnName="Thur" />
+                <ScalarProperty Name="Wed" ColumnName="Wed" />
+                <ScalarProperty Name="Tue" ColumnName="Tue" />
+                <ScalarProperty Name="Mon" ColumnName="Mon" />
+                <ScalarProperty Name="Sun" ColumnName="Sun" />
+                <ScalarProperty Name="Sat" ColumnName="Sat" />
+                <ScalarProperty Name="BrunchChk" ColumnName="BrunchChk" />
+                <ScalarProperty Name="DiningChk" ColumnName="DiningChk" />
+                <ScalarProperty Name="NightlifeChk" ColumnName="NightlifeChk" />
+                <ScalarProperty Name="LikesCount" ColumnName="LikesCount" />
+                <ScalarProperty Name="WellnessOrder" ColumnName="WellnessOrder" />
+                <ScalarProperty Name="ExpirationDate" ColumnName="ExpirationDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="WellnessID" ColumnName="WellnessID" />
+                <ScalarProperty Name="TitleEn" ColumnName="TitleEn" />
+                <ScalarProperty Name="TitleAr" ColumnName="TitleAr" />
+                <ScalarProperty Name="ImageURL" ColumnName="ImageURL" />
+                <ScalarProperty Name="BriefEn" ColumnName="BriefEn" />
+                <ScalarProperty Name="BriefAr" ColumnName="BriefAr" />
+                <ScalarProperty Name="DescriptionEn" ColumnName="DescriptionEn" />
+                <ScalarProperty Name="DescriptionAr" ColumnName="DescriptionAr" />
+                <ScalarProperty Name="HasReservation" ColumnName="HasReservation" />
+                <ScalarProperty Name="SpaID" ColumnName="SpaID" />
+                <ScalarProperty Name="HasSpecialOffer" ColumnName="HasSpecialOffer" />
+                <ScalarProperty Name="ViewBy" ColumnName="ViewBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="SpaTreatment" TypeName="AqarSquare.Engine.Entities.SpaTreatment" StoreEntitySet="SpaTreatment">
+            <EndProperty Name="Spa">
+              <ScalarProperty Name="SpaID" ColumnName="SpaID" />
+            </EndProperty>
+            <EndProperty Name="Treatment">
+              <ScalarProperty Name="TreatmentID" ColumnName="TreatmentID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="SystemUserEntities">
+            <EntityTypeMapping TypeName="AqarSquare.Engine.Entities.SystemUserEntity">
+              <MappingFragment StoreEntitySet="SystemUser">
+                <ScalarProperty Name="ManageOrderReservation" ColumnName="ManageOrderReservation" />
+                <ScalarProperty Name="ManageItem" ColumnName="ManageItem" />
+                <ScalarProperty Name="ManageCategoryResturant" ColumnName="ManageCategoryResturant" />
+                <ScalarProperty Name="ManageApplicationUser" ColumnName="ManageApplicationUser" />
+                <ScalarProperty Name="ManageContact" ColumnName="ManageContact" />
+                <ScalarProperty Name="ManageAbout" ColumnName="ManageAbout" />
+                <ScalarProperty Name="ManageUnit" ColumnName="ManageUnit" />
+                <ScalarProperty Name="ManageSystemUsers" ColumnName="ManageSystemUsers" />
+                <ScalarProperty Name="ManagePushNotifications" ColumnName="ManagePushNotifications" />
+                <ScalarProperty Name="ManageConcierge" ColumnName="ManageConcierge" />
+                <ScalarProperty Name="ManageLimousine" ColumnName="ManageLimousine" />
+                <ScalarProperty Name="ManageLocalBusinessDirectories" ColumnName="ManageLocalBusinessDirectories" />
+                <ScalarProperty Name="ManageWellnesses" ColumnName="ManageWellnesses" />
+                <ScalarProperty Name="ManageEntertainments" ColumnName="ManageEntertainments" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="SystemUserID" ColumnName="SystemUserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReservationAvailabilityEntities1">
+            <EntityTypeMapping TypeName="AqarSquare.Engine.Entities.ReservationAvailabilityEntity">
+              <MappingFragment StoreEntitySet="ReservationAvailability">
+                <ScalarProperty Name="RestaurantID" ColumnName="RestaurantID" />
+                <ScalarProperty Name="Availability" ColumnName="Availability" />
+                <ScalarProperty Name="ReservationDate" ColumnName="ReservationDate" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AboutEntities">
+            <EntityTypeMapping TypeName="AqarSquare.Engine.Entities.AboutEntity">
+              <MappingFragment StoreEntitySet="About">
+                <ScalarProperty Name="ImageData" ColumnName="ImageData" />
+                <ScalarProperty Name="DescriptionAr" ColumnName="DescriptionAr" />
+                <ScalarProperty Name="DescriptionEn" ColumnName="DescriptionEn" />
+                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+                <ScalarProperty Name="AboutId" ColumnName="AboutId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ApplicationUserEntities">
+            <EntityTypeMapping TypeName="AqarSquare.Engine.Entities.ApplicationUserEntity">
+              <MappingFragment StoreEntitySet="ApplicationUser">
+                <ScalarProperty Name="UserToken" ColumnName="UserToken" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="IsActiveted" ColumnName="IsActiveted" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="UnitId" ColumnName="UnitId" />
+                <ScalarProperty Name="PropertyId" ColumnName="PropertyId" />
+                <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="ApplicationUserId" ColumnName="ApplicationUserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ContactEntities">
+            <EntityTypeMapping TypeName="AqarSquare.Engine.Entities.ContactEntity">
+              <MappingFragment StoreEntitySet="Contact">
+                <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="ContactId" ColumnName="ContactId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ItemEntities">
+            <EntityTypeMapping TypeName="AqarSquare.Engine.Entities.ItemEntity">
+              <MappingFragment StoreEntitySet="Item">
+                <ScalarProperty Name="ImageData" ColumnName="ImageData" />
+                <ScalarProperty Name="OrderBy" ColumnName="OrderBy" />
+                <ScalarProperty Name="DescriptionEn" ColumnName="DescriptionEn" />
+                <ScalarProperty Name="RestaurantCategoryID" ColumnName="RestaurantCategoryID" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="DescriptionAr" ColumnName="DescriptionAr" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+                <ScalarProperty Name="ItemTitleAr" ColumnName="ItemTitleAr" />
+                <ScalarProperty Name="ItemTitleEn" ColumnName="ItemTitleEn" />
+                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LookUpUApplicationUserEntities">
+            <EntityTypeMapping TypeName="AqarSquare.Engine.Entities.LookUpUApplicationUserEntity">
+              <MappingFragment StoreEntitySet="LookUpUApplicationUser">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+                <ScalarProperty Name="UnitId" ColumnName="UnitId" />
+                <ScalarProperty Name="PropertyId" ColumnName="PropertyId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RestaurantCategoryEntities">
+            <EntityTypeMapping TypeName="AqarSquare.Engine.Entities.RestaurantCategoryEntity">
+              <MappingFragment StoreEntitySet="RestaurantCategory">
+                <ScalarProperty Name="OrderBy" ColumnName="OrderBy" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="RestaurantID" ColumnName="RestaurantID" />
+                <ScalarProperty Name="CategoryTitleAr" ColumnName="CategoryTitleAr" />
+                <ScalarProperty Name="CategoryTitleEn" ColumnName="CategoryTitleEn" />
+                <ScalarProperty Name="RestaurantCategoryID" ColumnName="RestaurantCategoryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PropertyEntities">
+            <EntityTypeMapping TypeName="AqarSquare.Engine.Entities.PropertyEntity">
+              <MappingFragment StoreEntitySet="Property">
+                <ScalarProperty Name="RestaurantId" ColumnName="RestaurantId" />
+                <ScalarProperty Name="PropertyNameAr" ColumnName="PropertyNameAr" />
+                <ScalarProperty Name="PropertyNameEn" ColumnName="PropertyNameEn" />
+                <ScalarProperty Name="PropertyId" ColumnName="PropertyId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserOrderEntities">
+            <EntityTypeMapping TypeName="AqarSquare.Engine.Entities.UserOrderEntity">
+              <MappingFragment StoreEntitySet="UserOrder">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserOrderId" ColumnName="UserOrderId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RestaurantWorkingHourEntities">
+            <EntityTypeMapping TypeName="AqarSquare.Engine.Entities.RestaurantWorkingHourEntity">
+              <MappingFragment StoreEntitySet="RestaurantWorkingHour">
+                <ScalarProperty Name="ToTime" ColumnName="ToTime" />
+                <ScalarProperty Name="FromTime" ColumnName="FromTime" />
+                <ScalarProperty Name="Day" ColumnName="Day" />
+                <ScalarProperty Name="RestuarantId" ColumnName="RestuarantId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderReservationEntities">
+            <EntityTypeMapping TypeName="AqarSquare.Engine.Entities.OrderReservationEntity">
+              <MappingFragment StoreEntitySet="OrderReservation">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserOrderId" ColumnName="UserOrderId" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+                <ScalarProperty Name="ItemQuantity" ColumnName="ItemQuantity" />
+                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
+                <ScalarProperty Name="OrderReservationId" ColumnName="OrderReservationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UnitEntities">
+            <EntityTypeMapping TypeName="AqarSquare.Engine.Entities.UnitEntity">
+              <MappingFragment StoreEntitySet="Unit">
+                <ScalarProperty Name="ViewBy" ColumnName="ViewBy" />
+                <ScalarProperty Name="BusinessPropertyID" ColumnName="BusinessPropertyID" />
+                <ScalarProperty Name="UnitNumber" ColumnName="UnitNumber" />
+                <ScalarProperty Name="UnitId" ColumnName="UnitId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EntertainmentWorkingHourEntities">
+            <EntityTypeMapping TypeName="AqarSquare.Engine.Entities.EntertainmentWorkingHourEntity">
+              <MappingFragment StoreEntitySet="EntertainmentWorkingHour">
+                <ScalarProperty Name="EntertainmentId" ColumnName="EntertainmentId" />
+                <ScalarProperty Name="Override" ColumnName="Override" />
+                <ScalarProperty Name="ToTime" ColumnName="ToTime" />
+                <ScalarProperty Name="FromTime" ColumnName="FromTime" />
+                <ScalarProperty Name="Day" ColumnName="Day" />
+                <ScalarProperty Name="RestuarantId" ColumnName="RestuarantId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SpaWorkingHourEntities">
+            <EntityTypeMapping TypeName="AqarSquare.Engine.Entities.SpaWorkingHourEntity">
+              <MappingFragment StoreEntitySet="SpaWorkingHour">
+                <ScalarProperty Name="ToTime" ColumnName="ToTime" />
+                <ScalarProperty Name="FromTime" ColumnName="FromTime" />
+                <ScalarProperty Name="Day" ColumnName="Day" />
+                <ScalarProperty Name="SpaId" ColumnName="SpaId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WellnessWorkingHourEntities">
+            <EntityTypeMapping TypeName="AqarSquare.Engine.Entities.WellnessWorkingHourEntity">
+              <MappingFragment StoreEntitySet="WellnessWorkingHour">
+                <ScalarProperty Name="WellnessId" ColumnName="WellnessId" />
+                <ScalarProperty Name="Override" ColumnName="Override" />
+                <ScalarProperty Name="ToTime" ColumnName="ToTime" />
+                <ScalarProperty Name="FromTime" ColumnName="FromTime" />
+                <ScalarProperty Name="Day" ColumnName="Day" />
+                <ScalarProperty Name="SpaId" ColumnName="SpaId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

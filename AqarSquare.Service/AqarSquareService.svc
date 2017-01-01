@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="AqarSquare.Service.AqarSquareService" CodeBehind="AqarSquareService.svc.cs" %>
