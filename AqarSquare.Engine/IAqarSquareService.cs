@@ -1,7 +1,15 @@
 ﻿
+using System.Collections.Generic;
+using System.IO;
+using System.ServiceModel;
+using AqarSquare.Engine.BusinessEntities;
+
 namespace AqarSquare.Engine
 {
-  public class IAqarSquareService
+  [ServiceContract]
+  public interface IAqarSquareService
   {
+    [OperationContract]
+    List<SystemUserBackend> GetAllSystem();
   }
 }

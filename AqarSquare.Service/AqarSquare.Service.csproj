@@ -110,9 +110,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\SolutionItems\GlobalAssemblyInfo.cs">
-      <Link>Properties\GlobalAssemblyInfo.cs</Link>
-    </Compile>
     <Compile Include="AqarSquareService.svc.cs">
       <DependentUpon>AqarSquareService.svc</DependentUpon>
     </Compile>
