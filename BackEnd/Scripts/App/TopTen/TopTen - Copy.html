@@ -1,0 +1,85 @@
+﻿
+<div class="wrapper wrapper-content animated fadeInRight" ng-app="angapp" block-ui="myBlockUI">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="inqbox float-e-margins">
+        <div class="inqbox-content">
+          <h2>Top Ten </h2>
+          <ol class="breadcrumb">
+            <li>
+              <a href="~/Index.html"><i class=" fa fa-laptop"></i> <span class="nav-label">home</span></a>
+            </li>
+            <li class="active">
+              <strong>Top Ten</strong>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="inqbox float-e-margins">
+        <div class="inqbox-title border-top-danger">
+          <h5>List of Top Ten</h5>
+
+
+        </div>
+        <div class="inqbox-content">
+          <div class="table-responsive">
+
+            <div ng-app="angapp" ng-controller="sortableController">
+
+              <div class="floatleft">
+                <h4>Attractions list</h4>
+                <div ui-sortable="sortableOptions" class="apps-container screen floatleft top" ng-model="list1">
+
+                  <div class="app" ng-repeat="app in list1"> {{app.AttractionNameEn}}</div>
+                </div>
+
+              </div>
+              <div class="floatleft">
+                <h4>TOP TEN</h4>
+                
+                <div ui-sortable="sortableOptions" class="apps-container screen floatleft" ng-model="list2">
+                  <div class="app" ng-repeat="app in list2"> {{app.AttractionNameEn}}</div>
+                </div>
+
+                <div style="clear: both;"></div>
+              </div>
+
+              <div class="floatright">
+                <button type="button" class="btn btn-primary pull-right" ng-click="logModels()">Display Top Ten</button>
+                <ul class="list logList">
+                  <li ng-repeat="entry in sortingLog" class="logItem">
+                    {{entry}}
+                  </li>
+                </ul>
+
+                <!--<ul class="list logList">
+                  <li ng-repeat="entry in sortingLogId" class="logItem">
+                    {{entry}}
+                  </li>
+                </ul>-->
+              </div>
+
+              <div class="clear"></div>
+            </div>
+
+
+            <!--<button type="button" class="btn btn-primary pull-right" ng-click="saveStaticTopTen()">Save Static Top Ten</button>-->
+
+          </div>
+
+
+
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+</div>

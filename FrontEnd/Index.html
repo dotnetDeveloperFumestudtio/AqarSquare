@@ -1,0 +1,835 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ETA Dashboard</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="Images/favicon-32x32.png">
+  <style>
+    .thumImg {
+      width: 100px;
+      height: 100px;
+    }
+
+    .list {
+      list-style: none outside none;
+      margin: 10px 0 30px;
+    }
+
+    .apps-container {
+      border: 2px dotted #2ec1d9;
+      margin: 10px 10px 0 0;
+      padding: 5px;
+      min-width: 200px;
+      min-height: 50px;
+      border-radius: 5px;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+    }
+
+    .app {
+      padding: 5px 10px;
+      margin: 5px 0;
+      border: 2px solid #5b6681;
+      border-radius: 5px;
+      background-color: rgba(51,122,183,.65);
+      font-size: 1.1em;
+      font-weight: bold;
+      text-align: center;
+      cursor: move;
+    }
+
+
+    /***  Extra ***/
+
+    /*body {
+            font-family: Verdana, 'Trebuchet ms', Tahoma;
+          }*/
+
+    .logList {
+      margin-top: 58px;
+      width: 250px;
+      min-height: 300px;
+      padding: 5px 15px;
+      border: 3px solid #475d6f;
+      border-radius: 15px;
+      color: #7aa8d0;
+      font-weight: bold;
+    }
+
+    .logItem {
+      margin-bottom: 10px;
+    }
+
+    .logList:before {
+      content: 'log';
+      padding: 0 5px;
+      position: relative;
+      top: -1.1em;
+      background-color: #FFF;
+    }
+
+    /*.container {
+            width: 750px;
+            margin: auto;
+          }
+      */
+    h2 {
+      text-align: center;
+    }
+
+    .floatleft {
+      float: left;
+    }
+
+    .floatright {
+      float: right;
+    }
+
+    .clear {
+      clear: both;
+    }
+
+    .iconsthumb {
+      width: 30px;
+      height: 30px;
+    }
+
+    .thumb {
+      width: 100px;
+      height: 100px;
+      float: none;
+      position: relative;
+      top: 7px;
+    }
+
+
+    .datetimepicker {
+      width: 400px;
+    }
+
+    .validateError {
+      color: red;
+    }
+
+    .multiSelect {
+      overflow: auto;
+      width: 600px;
+    }
+
+      .multiSelect .mselect {
+        margin-right: 20px;
+        float: left;
+        width: 200px;
+      }
+
+      .multiSelect .text {
+        clear: both;
+        font-size: 11px;
+      }
+
+      .multiSelect label::after {
+        content: ":";
+      }
+
+    .btn.mover {
+      display: block;
+      margin-top: 25px;
+      vertical-align: top;
+    }
+
+      .btn.mover.left {
+        padding: 4px 8px 4px 8px;
+        background-color: #009900;
+        border-color: #008400;
+      }
+
+      .btn.mover.right {
+        margin-top: 9px;
+        padding: 4px 8px 4px 8px;
+        background-color: #009900;
+      }
+
+    .clrblk {
+      color: #000000;
+      font-size: 16px;
+      font-weight: 600;
+    }
+    /* demo css */
+
+    .fL {
+      float: left !important;
+    }
+
+    .fR {
+      float: right !important;
+    }
+
+    .width10p {
+      width: 8%;
+      padding-left: 5px;
+    }
+
+    .leftms {
+      width: 36%;
+    }
+
+    .top {
+      max-height: 350px;
+      overflow-y: auto;
+      margin-right: 30px;
+    }
+
+    /*.item, .placeholder {
+        padding: 2px;
+        width: 50px;
+        height: 20px;
+        border: 1px solid #333;
+        background: #EEE;
+      }*/
+
+    /*.placeholder {
+        background: #AEF;
+      }*/
+  </style>
+
+  <link href="Content/css/bootstrap.min.css" rel="stylesheet">
+  <link href="Content/fonts/font-awesome/css/font-awesome.css" rel="stylesheet">
+  <link href="Content/css/plugins/iCheck/custom.css" rel="stylesheet">
+  <link href="Content/css/plugins/chosen/chosen.css" rel="stylesheet">
+  <link href="Content/css/plugins/colorpicker/bootstrap-colorpicker.min.css" rel="stylesheet">
+  <link href="Content/css/plugins/cropper/cropper.min.css" rel="stylesheet">
+  <link href="Content/css/plugins/switchery/switchery.css" rel="stylesheet">
+  <link href="Content/css/plugins/jasny/jasny-bootstrap.min.css" rel="stylesheet">
+  <link href="Content/css/plugins/nouslider/jquery.nouislider.css" rel="stylesheet">
+  <link href="Content/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
+  <link href="Content/css/plugins/ionRangeSlider/ion.rangeSlider.css" rel="stylesheet">
+  <link href="Content/css/plugins/ionRangeSlider/ion.rangeSlider.skinFlat.css" rel="stylesheet">
+  <link href="Content/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+  <link href="Content/css/plugins/clockpicker/clockpicker.css" rel="stylesheet">
+  <link href="Content/css/plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet">
+  <link href="Content/css/animate.css" rel="stylesheet">
+  <link href="Content/css/style.css" rel="stylesheet">
+  <link href="Content/css/forms/kforms.css" rel="stylesheet">
+  <link href="Scripts/App/datetimepicker.css" rel="stylesheet" />
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+  <script src="/Scripts/angular.min.js"></script>
+
+  <!--<script src="//code.angularjs.org/1.2.13/angular-cookies.js"></script>-->
+  <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui/0.4.0/angular-ui.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.4/angular-messages.min.js"></script>
+
+
+  <script src="https://rawgithub.com/angular-ui/ui-sortable/master/src/sortable.js"></script>
+
+  <script src="Scripts/AngularJS/angular-ui-router.min.js"></script>
+  <script src="Scripts/AngularJS/angular-material.min.js"></script>
+  <script src="Scripts/angular-animate.js"></script>
+  <script src="Scripts/angular-ui/ui-bootstrap-tpls.js"></script>
+  <!--/* notification */-->
+  <script src="Scripts/AngularJS/angular-notify.js"></script>
+  <link href="Content/Angularcss/angular-notify.css" rel="stylesheet" />
+  <!--/* button style */-->
+  <script src="//code.angularjs.org/1.2.13/angular-cookies.js"></script>
+
+  <script src="Scripts/AngularJS/spin.min.js"></script>
+  <script src="Scripts/AngularJS/angular-image-dimensions.js"></script>
+  <!--/* busy pop up loading */-->
+  <!--<link href="Content/Angularcss/angular-busy.css" rel="stylesheet">
+  <link href="Content/Angularcss/gh-fork-ribbon.css" rel="stylesheet">-->
+  <script src="Scripts/AngularJS/angular-busy.min.js"></script>
+  <!--/* busy pop up loading best practice*/-->
+
+  <link rel="stylesheet" href="Content/Angularcss/angular-block-ui.min.css" />
+  <!-- After AngularJS -->
+  <script src="Scripts/AngularJS/angular-block-ui.min.js"></script>
+
+  <!--/* loading bar*/-->
+
+  <link rel='stylesheet' href='Content/Angularcss/loading-bar.min.css' type='text/css' media='all' />
+  <script type='text/javascript' src='Scripts/AngularJS/loading-bar.min.js'></script>
+
+  <!-- loadingbar -->
+  <script src="Scripts/AngularJS/loading-bar.js"></script>
+  <link href='Content/Angularcss/loading-bar.css' rel='stylesheet' />
+
+
+  <script src="Scripts/AngularJS/angular-translate.min.js"></script>
+
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/ngstorage/0.3.6/ngStorage.min.js"></script>
+  <link href="Content/Angularcss/sweetalert.css" rel="stylesheet" />
+  <script src="Scripts/AngularJS/sweetalert-dev.js"></script>
+  <!-- Main filessssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss -->
+  <link href="Scripts/AngularJS/angular-moment-picker.min.css" rel="stylesheet" />
+  <script src="Scripts/AngularJS/angular-moment-picker.min.js"></script>
+
+
+  <script src="Scripts/AngularJS/loginApp.js"></script>
+  <script src="Scripts/AngularJS/userApp.js"></script>
+  <script src="Scripts/AngularJS/messegeApp.js"></script>
+  <script src="Scripts/AngularJS/paging.js"></script>
+
+</head>
+<body>
+  <div id="wrapper">
+    <div ng-app="angapp" ng-controller="homeCtrl as hc">
+      <nav class="navbar-default navbar-static-side fixed-menu" role="navigation">
+        <div class="sidebar-collapse">
+          <div id="hover-menu"></div>
+          <ul class="nav metismenu" id="side-menu">
+            <li>
+              <div class="logopanel" style="margin-left: 0px; z-index: 99999">
+                <div class="profile-element">
+                  <a href="index.html">
+                    <img src="Images/ms-icon-70x70.png" />
+                  </a>
+                </div>
+                <div class="logo-element">
+
+                  <img src="Images/favicon-32x32.png" />
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="leftpanel-profile">
+                <div class="media-left">
+                  <a href="Index.html">
+                    <img src="Images/avatar.png" class="media-object img-circle" />
+                  </a>
+                </div>
+                <div class="media-body profile-name" style="white-space: nowrap;">
+                  <h4 class="media-heading"><span ng-cloack ng-bind="AdminUserName"></span> <a data-toggle="collapse" data-target="#loguserinfo" class="pull-right"><i class="fa fa-angle-down"></i></a></h4>
+                  <span>Software Engineer</span>
+                </div>
+              </div>
+              <div class="leftpanel-userinfo collapse" id="loguserinfo" style="position: absolute; background: #3b4354!important">
+                <h5 class="sidebar-title">Address</h5>
+                <address>
+                  Egypt
+                  Cairo
+                </address>
+                <h5 class="sidebar-title">Contact</h5>
+                <ul class="list-group">
+                  <li class="list-group-item">
+                    <label class="pull-left">Email</label>
+                    <span class="pull-right" ng-cloack ng-bind="AdminEmail"> </span>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li>
+              <!-- START : Left sidebar -->
+              <div class="nano left-sidebar">
+                <div class="nano-content">
+                  <ul class="nav nav-pills nav-stacked nav-inq">
+                    <li ui-sref="home" ui-sref-active="active">
+                      <a><i class="fa fa-home"></i> <span class="nav-label">Dashboards</span></a>
+                    </li>
+                    <li ui-sref-active="active" class="nav-parent">
+                      <a href="#"><i class="fa fa-picture-o"></i> <span class="nav-label">Attraction</span></a>
+                      <ul ui-sref-active="children nav" class="children">
+                        <li ui-sref="attraction" ui-sref-active="active"><a>Manage Attraction</a></li>
+                        <li ui-sref="selfie" ui-sref-active="active"><a>Manage Selfie</a></li>
+                        <li ui-sref="panoramic" ui-sref-active="active"><a>Manage Panoramic</a></li>
+                        <!--<li ui-sref="object3d" ui-sref-active="active"><a>Manage 3D</a></li>-->
+                        <li ui-sref="category" ui-sref-active="active"><a>Category</a></li>
+                        <li ui-sref="region" ui-sref-active="active"><a>Region</a></li>
+
+                      </ul>
+                    </li>
+                    <li class="nav-parent">
+                      <a href="#"><i class="fa fa-picture-o"></i> <span class="nav-label">Moderation</span></a>
+                      <ul class="children">
+                        <li><a ui-sref="moderation">Manage Moderation</a></li>
+                        <li><a ui-sref="moderationreject">Reject</a></li>
+                        <li><a ui-sref="moderationapprove">Approve</a></li>
+                      </ul>
+                    </li>
+
+                    <li class="nav-parent">
+                      <a href="#"><i class="fa fa-picture-o"></i> <span class="nav-label">Manage Media</span></a>
+                      <ul class="children">
+                        <li><a ui-sref="image">Image</a></li>
+                        <li><a ui-sref="video">Video</a></li>
+                      </ul>
+                    </li>
+
+                    <li ui-sref="language" ui-sref-active="active">
+                      <a><i class="fa fa-laptop"></i> <span class="nav-label">Language</span></a>
+                    </li>
+
+                    <li ui-sref="qrcode" ui-sref-active="active">
+                      <a><i class="fa fa-laptop"></i> <span class="nav-label">Qr Code</span></a>
+                    </li>
+                    <li ui-sref="event" ui-sref-active="active">
+                      <a><i class="fa fa-laptop"></i> <span class="nav-label">Events</span></a>
+                    </li>
+                    <li ui-sref-active="active">
+                      <a ui-sref="report"><i class="fa fa-laptop"></i> <span class="nav-label">Violation</span></a>
+                    </li>
+                    <li ui-sref-active="active">
+                      <a ui-sref="user"><i class="fa fa-laptop"></i> <span class="nav-label">Users</span></a>
+                    </li>
+                    <li ui-sref-active="active">
+                      <a ui-sref="topten1"><i class="fa fa-laptop"></i> <span class="nav-label">Top Ten</span></a>
+                    </li>
+                    <li ui-sref-active="active">
+                      <a ui-sref="notification"><i class="fa fa-laptop"></i> <span class="nav-label">Notification</span></a>
+                    </li>
+                    <li class="nav-parent">
+                      <a href="#"><i class="fa fa-laptop"></i> <span class="nav-label">Reports</span></a>
+                      <ul class="children">
+                        <li><a ui-sref="usernationlty">Users Nationalty</a></li>
+                        <li><a ui-sref="useragestatistics"> User age</a></li>
+                        <li><a ui-sref="3d">3D </a></li>
+                        <li><a ui-sref="selfiestatistics">Selfie </a></li>
+                        <li><a ui-sref="qrstatistics">Qr Code </a></li>
+                        <li><a ui-sref="langstatistics">Language</a></li>
+                        <li><a ui-sref="attratestatistics">Attractions Rating</a></li>
+                        <li><a ui-sref="toptenattratestatistics">Top Ten Attractions Rating</a></li>
+                        <li><a ui-sref="notificationstatistics">Notification</a></li>
+                        <li><a ui-sref="violationstatistics">Violation</a></li>
+                      </ul>
+                    </li>
+                    <li class="nav-parent">
+                      <a href="#"><i class="fa fa-laptop"></i> <span class="nav-label">Settings</span></a>
+                      <ul class="children">
+                        <li><a ui-sref="usefullink">Usefull Links</a></li>
+                        <li><a ui-sref="contactUs">Contact Us</a></li>
+                        <li><a ui-sref="important">Important Number</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <!-- END : Left sidebar -->
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <div id="page-wrapper" class="gray-bg">
+        <!-- BEGIN HEADER -->
+        <div id="header">
+          <nav class="navbar navbar-fixed-top white-bg show-menu-full" id="nav" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+              <!--<a class="navbar-minimalize minimalize-styl-2 btn" href="javascript:void(0)"><i class="fa fa-bars" style="font-size:27px;"></i> </a>-->
+              <form role="search" class="navbar-form-custom">
+                <div class="form-group">
+                  <div class="kform inq">
+                    <div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <ul class="nav navbar-top-links navbar-right">
+              <li class="dropdown pull-right">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                  <span class="pl15" ng-cloack ng-bind="AdminUserName">  </span>
+                  <span class="caret caret-tp"></span>
+                </a>
+                <ul class="dropdown-menu animated m-t-xs">
+                  <li ui-sref="changepassword">
+                    <a class="animated animated-short fadeInUp">
+                      <i class="fa fa-inbox"></i> Change Password
+                    </a>
+                  </li>
+
+                  <li class="divider"></li>
+                  <li>
+                    <a href="login.html" class="animated animated-short fadeInUp">
+                      <i class="fa fa-sign-out"></i> Logout
+                    </a>
+                  </li>
+
+
+                </ul>
+              </li>
+            </ul>
+          </nav>
+        </div>
+        <!-- END HEADER -->
+
+        <div style="clear: both; height: 61px;"></div>
+        <div class="wrapper wrapper-content animated fadeInRight" ng-app="angapp" ng-controller="HomeController as Home">
+
+          <div ui-view>
+
+          </div>
+        </div>
+
+
+        <div class="footer">
+
+          <div>
+            <strong>Copyright</strong> Toursim  &copy;  2016
+          </div>
+        </div>
+
+        <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal4">
+          Basic fadeIn effect
+        </button>-->
+        <div class="modal inmodal" id="myModal4" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content animated fadeIn">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <i class="fa fa-clock-o modal-icon"></i>
+                <h4 class="modal-title">Modal title</h4>
+                <small>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</small>
+              </div>
+              <div class="modal-body">
+                <p>
+                  <strong>Lorem Ipsum is simply dummy</strong> text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
+                  printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,
+                  remaining essentially unchanged.
+                </p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+
+    </div>
+
+    <!-- Mainly scripts -->
+    <!--<script src="Content/js/jquery-2.1.1.js"></script>
+    <script src="Scripts/AngularJS/jquery-ui.min.js"></script>-->
+
+    <script src="Content/js/bootstrap.min.js"></script>
+    <script src="Content/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="Content/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <!-- Custom and plugin javascript -->
+    <script src="Content/js/main.js"></script>
+    <script src="Content/js/plugins/pace/pace.min.js"></script>
+    <!-- Chosen -->
+    <script src="Content/js/plugins/chosen/chosen.jquery.js"></script>
+    <!-- JSKnob -->
+    <script src="Content/js/plugins/jsKnob/jquery.knob.js"></script>
+    <!-- Input Mask-->
+    <script src="Content/js/plugins/jasny/jasny-bootstrap.min.js"></script>
+    <!-- Date picker -->
+    <script src="Content/js/plugins/datapicker/bootstrap-datepicker.js"></script>
+    <!-- NouSlider -->
+    <!--<script src="Content/js/plugins/nouslider/jquery.nouislider.min.js"></script>-->
+    <!-- Switchery -->
+    <script src="Content/js/plugins/switchery/switchery.js"></script>
+    <!-- IonRangeSlider -->
+    <script src="Content/js/plugins/ionRangeSlider/ion.rangeSlider.min.js"></script>
+    <!-- iCheck -->
+    <script src="Content/js/plugins/iCheck/icheck.min.js"></script>
+    <!-- Color picker -->
+    <script src="Content/js/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
+    <!-- Clock picker -->
+    <script src="Content/js/plugins/clockpicker/clockpicker.js"></script>
+    <!-- Image cropper -->
+    <script src="Content/js/plugins/cropper/cropper.min.js"></script>
+    <!-- Date range use moment.js same as full calendar plugin -->
+    <script src="Content/js/plugins/fullcalendar/moment.min.js"></script>
+    <!-- Date range picker -->
+    <script src="Content/js/plugins/daterangepicker/daterangepicker.js"></script>
+    <script src="/Scripts/AngularJS/chosen.jquery.js"></script>
+    <script src="/Scripts/AngularJS/prism.js"></script>
+    <script>
+      $(document).ready(function () {
+        "use strict";
+
+        var $inputImage = $("#inputImage");
+        if (window.FileReader) {
+          $inputImage.change(function () {
+            var fileReader = new FileReader(),
+                    files = this.files,
+                    file;
+
+            if (!files.length) {
+              return;
+            }
+
+            file = files[0];
+
+            if (/^image\/\w+$/.test(file.type)) {
+              fileReader.readAsDataURL(file);
+              fileReader.onload = function () {
+                $inputImage.val("");
+                $image.cropper("reset", true).cropper("replace", this.result);
+              };
+            } else {
+              showMessage("Please choose an image file.");
+            }
+          });
+        } else {
+          $inputImage.addClass("hide");
+        }
+
+
+        $("#rotateRight").click(function () {
+          $image.cropper("rotate", -45);
+        });
+
+        $("#setDrag").click(function () {
+          $image.cropper("setDragMode", "crop");
+        });
+
+        $('#data_1 .input-group.date').datepicker({
+          todayBtn: "linked",
+          keyboardNavigation: false,
+          forceParse: false,
+          calendarWeeks: true,
+          autoclose: true
+        });
+
+        $('#data_2 .input-group.date').datepicker({
+          startView: 1,
+          todayBtn: "linked",
+          keyboardNavigation: false,
+          forceParse: false,
+          autoclose: true,
+          format: "dd/mm/yyyy"
+        });
+
+        $('#data_3 .input-group.date').datepicker({
+          startView: 2,
+          todayBtn: "linked",
+          keyboardNavigation: false,
+          forceParse: false,
+          autoclose: true
+        });
+
+        $('#data_4 .input-group.date').datepicker({
+          minViewMode: 1,
+          keyboardNavigation: false,
+          forceParse: false,
+          autoclose: true,
+          todayHighlight: true
+        });
+
+        $('#data_5 .input-daterange').datepicker({
+          keyboardNavigation: false,
+          forceParse: false,
+          autoclose: true
+        });
+
+        var elem = document.querySelector('.js-switch');
+        var switchery = new Switchery(elem, { color: '#1AB394' });
+
+        var elem_2 = document.querySelector('.js-switch_2');
+        var switchery_2 = new Switchery(elem_2, { color: '#ED5565' });
+
+        var elem_3 = document.querySelector('.js-switch_3');
+        var switchery_3 = new Switchery(elem_3, { color: '#1AB394' });
+
+        $('.i-checks').iCheck({
+          checkboxClass: 'icheckbox_square-green',
+          radioClass: 'iradio_square-green'
+        });
+
+        $('input[name="daterange"]').daterangepicker();
+
+        $('#reportrange span').html(moment().subtract(29, 'days').format('MMMM D, YYYY') + ' - ' + moment().format('MMMM D, YYYY'));
+
+        $('#reportrange').daterangepicker({
+          format: 'MM/DD/YYYY',
+          startDate: moment().subtract(29, 'days'),
+          endDate: moment(),
+          minDate: '01/01/2012',
+          maxDate: '12/31/2015',
+          dateLimit: { days: 60 },
+          showDropdowns: true,
+          showWeekNumbers: true,
+          timePicker: false,
+          timePickerIncrement: 1,
+          timePicker12Hour: true,
+          ranges: {
+            'Today': [moment(), moment()],
+            'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+            'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+            'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+            'This Month': [moment().startOf('month'), moment().endOf('month')],
+            'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+          },
+          opens: 'right',
+          drops: 'down',
+          buttonClasses: ['btn', 'btn-sm'],
+          applyClass: 'btn-primary',
+          cancelClass: 'btn-default',
+          separator: ' to ',
+          locale: {
+            applyLabel: 'Submit',
+            cancelLabel: 'Cancel',
+            fromLabel: 'From',
+            toLabel: 'To',
+            customRangeLabel: 'Custom',
+            daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+            monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+            firstDay: 1
+          }
+        }, function (start, end, label) {
+          console.log(start.toISOString(), end.toISOString(), label);
+          $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+        });
+
+
+      });
+      var config = {
+        '.chosen-select': {},
+        '.chosen-select-deselect': { allow_single_deselect: true },
+        '.chosen-select-no-single': { disable_search_threshold: 10 },
+        '.chosen-select-no-results': { no_results_text: 'Oops, nothing found!' },
+        '.chosen-select-width': { width: "95%" }
+      }
+      for (var selector in config) {
+        $(selector).chosen(config[selector]);
+      }
+
+      $("#ionrange_1").ionRangeSlider({
+        min: 0,
+        max: 5000,
+        type: 'double',
+        prefix: "$",
+        maxPostfix: "+",
+        prettify: false,
+        hasGrid: true
+      });
+
+      $("#ionrange_2").ionRangeSlider({
+        min: 0,
+        max: 10,
+        type: 'single',
+        step: 0.1,
+        postfix: " carats",
+        prettify: false,
+        hasGrid: true
+      });
+
+      $("#ionrange_3").ionRangeSlider({
+        min: -50,
+        max: 50,
+        from: 0,
+        postfix: "°",
+        prettify: false,
+        hasGrid: true
+      });
+
+      $("#ionrange_4").ionRangeSlider({
+        values: [
+            "January", "February", "March",
+            "April", "May", "June",
+            "July", "August", "September",
+            "October", "November", "December"
+        ],
+        type: 'single',
+        hasGrid: true
+      });
+
+      $("#ionrange_5").ionRangeSlider({
+        min: 10000,
+        max: 100000,
+        step: 100,
+        postfix: " km",
+        from: 55000,
+        hideMinMax: true,
+        hideFromTo: false
+      });
+
+      $(".dial").knob();
+
+
+
+
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.0/lodash.js"></script>
+    <script src="https://rawgit.com/dotansimha/angularjs-dropdown-multiselect/master/src/angularjs-dropdown-multiselect.js"></script>
+
+    <script src="Scripts/AngularJS/dropzone-directive.js"></script>
+    <script src="Scripts/AngularJS/dropzone.js"></script>
+    <script src="Scripts/AngularJS/dropzone.min.js"></script>
+    <script src="Scripts/AngularJS/ng-file-upload-shim.min.js"></script>
+    <script src="Scripts/AngularJS/ng-file-upload.min.js"></script>
+
+    <script src="Scripts/App/config.js"></script>
+    <script src="Scripts/App/app.js"></script>
+
+    <script src="Scripts/App/Home/Home.js"></script>
+    <script src="Scripts/App/Reports/Reports.js"></script>
+    <script src="Scripts/App/Notification/Notification.js"></script>
+    <script src="Scripts/App/Reports/UserNationalty/UserNationalty.js"></script>
+    <script src="Scripts/App/ChangePassword/ChangePassword.js"></script>
+    <script src="Scripts/App/LogIn/loginApp.js"></script>
+    <script src="Scripts/App/ContactUs/contact.js"></script>
+    <script src="Scripts/App/datetimepicker.js"></script>
+    <script src="Scripts/App/ImportantNumber/important.js"></script>
+    <script src="Scripts/App/ImportantNumber/paging.js"></script>
+
+    <script src="Scripts/App/Category/Category.js"></script>
+    <script src="Scripts/App/Category/paging.js"></script>
+
+    <script src="Scripts/App/Region/Region.js"></script>
+    <script src="Scripts/App/Region/pagingRegion.js"></script>
+
+    <script src="Scripts/App/Selfie/Selfie.js"></script>
+    <script src="Scripts/App/Selfie/pagingSelfie.js"></script>
+
+    <script src="Scripts/App/Panoramic/Panoramic.js"></script>
+    <script src="Scripts/App/Panoramic/pagingPanoramic.js"></script>
+
+    <script src="Scripts/App/3D/Object3D.js"></script>
+    <script src="Scripts/App/3D/paging3D.js"></script>
+
+    <script src="Scripts/App/UsefulLink/UsefulLink.js"></script>
+    <script src="Scripts/App/UsefulLink/pagingUsefull.js"></script>
+
+    <script src="Scripts/App/Language/Language.js"></script>
+    <script src="Scripts/App/Language/pagingLanguage.js"></script>
+
+    <script src="Scripts/App/Moderation/List.js"></script>
+    <script src="Scripts/App/Moderation/ListReject.js"></script>
+    <script src="Scripts/App/Moderation/ListApprove.js"></script>
+    <script src="Scripts/App/Moderation/Moderationpaging.js"></script>
+    <script src="Scripts/App/Moderation/ModerationRejectpaging.js"></script>
+    <script src="Scripts/App/Moderation/ModerationApprovepaging.js"></script>
+
+    <!--<script src="Scripts/App/Event/Event.js"></script>
+    <script src="Scripts/App/Event/pagingEvent.js"></script>-->
+
+    <script src="Scripts/App/Events/Events.js"></script>
+    <script src="Scripts/App/Events/pagingEvents.js"></script>
+
+    <script src="Scripts/App/User/User.js"></script>
+    <script src="Scripts/App/User/pagingUser.js"></script>
+
+    <script src="Scripts/App/Report/Report.js"></script>
+    <script src="Scripts/App/Report/pagingReport.js"></script>
+
+    <script src="Scripts/App/Attraction/Attraction.js"></script>
+    <script src="Scripts/App/Attraction/Attractionpaging.js"></script>
+
+    <script src="Scripts/App/QrCode/QrCode.js"></script>
+    <script src="Scripts/App/TopTen/TopTen.js"></script>
+    <script src="Scripts/App/TopTen/TopTen - Copy.js"></script>
+    <script src="Scripts/App/TopTen/TopTenpaging.js"></script>
+
+    <script src="Scripts/App/Image/Image.js"></script>
+    <script src="Scripts/App/Image/pagingImage.js"></script>
+
+    <script src="Scripts/App/Video/Video.js"></script>
+    <script src="Scripts/App/Video/pagingVideo.js"></script>
+
+    <script src="Scripts/AngularJS/translation.js"></script>
+
+
+    <script src="Content/js/plugins/validate/jquery.validate.min.js"></script>
+
+
+
+
+  </div>
+
+</body>
+</html>

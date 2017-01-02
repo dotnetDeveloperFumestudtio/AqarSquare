@@ -1,0 +1,96 @@
+﻿  
+<!--<div ng-controller="loginController">
+
+  <p>Username : Muhammad , password : 123</p>
+
+  <form name="loginForm" ng-submit="loginForm.$valid && checkLogin()" novalidate>
+    <table class="table table-striped table-bordered">
+
+      <tr><td><input type="text" ng-model="Username " class="form-control" placeholder="user name" title="Username" required /></td></tr>
+      <tr>
+        <td><input type="text" ng-model="Password" class="form-control" placeholder="password" title="Password" required /></td>
+
+      </tr>
+    </table><input type="submit" class="btn btn-primary pull-right" value="Log in" ng-disabled="loginForm.$invalid" />
+
+  </form>
+</div>-->
+
+<div class="wrapper wrapper-content animated fadeInRight">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="inqbox float-e-margins">
+        <div class="inqbox-content">
+          <h2>login Us</h2>
+          <ol class="breadcrumb">
+            <li>
+              <a ui-sref="index"><i class="fa fa-laptop"></i> <span class="nav-label">home</span></a>
+            </li>
+            <li class="active">
+              <strong>login Us</strong>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row" ng-app="angapp" ng-controller="loginController as login" block-ui="myBlockUI">
+
+    <div class="col-lg-12">
+      <div class="inqbox float-e-margins">
+        <div class="inqbox-title">
+          <div class="col-lg-6">
+
+          </div>
+
+          <h5>login form</h5>
+         
+            
+ 
+            </a>
+
+            <a class="close-link">
+              <i class="fa fa-times"></i>
+            </a>
+          </div>
+
+          <div class="inqbox-content">
+            <form role="form" class="form-inline" name="formlogin" novalidate>
+            
+
+              <div class="row">
+                <div class="form-group">
+                  <div class="input-group m-b">
+                    <div class="col-md-4">
+                      <div class="section">
+                        <input type="text" ng-model="current.Username" placeholder="Enter Tel No 1" id="txttele1" class="form-control" style="width: 450px;">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="input-group m-b">
+                    <div class="col-sm-10">
+                      <div class="section">
+                        <input type="text" ng-model="current.Password" placeholder="Enter  Tel No 2" id="txttele2" class="form-control" style="width: 450px;">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="hr-line-dashed"></div>
+              <div class="form-group" style=" width: 100%;">
+                <div class="col-sm-4 col-sm-offset-2">
+                  <button class="btn btn-primary" ng-click="checkUser(login)" type="submit">Login</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+

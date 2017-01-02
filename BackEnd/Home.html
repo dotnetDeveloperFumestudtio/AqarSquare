@@ -1,0 +1,140 @@
+﻿<div class="row">
+  <div class="col-lg-8">
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="widget style1 navy-bg">
+          <div class="row">
+            <div class="col-xs-4">
+              <i class="fa fa-cloud fa-5x"></i>
+            </div>
+            <div class="col-xs-8 text-right">
+              <span> Total Vilolation </span>
+              <h2 class="font-bold" ng-cloack ng-bind="TotalViolation"> </h2>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="widget style1 red-bg">
+          <div class="row">
+            <div class="col-xs-4">
+              <i class="fa fa-envelope-o fa-5x"></i>
+            </div>
+            <div class="col-xs-8 text-right">
+              <span> Total Attraction  </span>
+              <h2 class="font-bold" ng-cloack ng-bind="TotalAttraction"> </h2>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="widget style1 yellow-bg">
+          <div class="row">
+            <div class="col-xs-4">
+              <i class="fa fa-user fa-5x"></i>
+            </div>
+            <div class="col-xs-8 text-right">
+              <span> Total Users </span>
+              <h2 class="font-bold" ng-cloack ng-bind="TotalUser"> </h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="inqbox float-e-margins">
+      <div class="inqbox-title border-top-info">
+        <h5>Latest 5 Users</h5>
+        <div class="inqbox-tools">
+          <a class="collapse-link">
+            <i class="fa fa-chevron-up"></i>
+          </a>
+          <a class="close-link">
+            <i class="fa fa-times"></i>
+          </a>
+        </div>
+      </div>
+      <div class="inqbox-content" style="height: 241px;">
+        <div class="row">
+          <div class="col-lg-6" style="width: 100%;">
+            <table class="table table-hover margin bottom">
+              <thead>
+                <tr>
+                  <th style="width: 1%" class="text-center">No.</th>
+                  <th>User Name</th>
+                  <th class="text-center">BrithDate</th>
+                  <th class="text-center">Telephone</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="UserFor in UserData">
+                  <td class="text-center" ng-cloack ng-bind="$index+1"> </td>
+                  <td>
+                    <span ng-cloack ng-bind="UserFor.FirstName"></span>
+                    <span ng-cloack ng-bind="UserFor.LastName"></span>
+                  </td>
+                  <td class="text-center small">
+                    <span ng-cloack ng-bind="UserFor.UserBrithDate "></span>
+                  </td>
+                  <td class="text-center"><span class="label label-primary" ng-cloack ng-bind="UserFor.Telephone"></span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-lg-6">
+            <div id="world-map" style="height: 300px;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-4">
+    <div class="inqbox float-e-margins">
+      <div class="inqbox-title border-top-info">
+        <h5>Notes</h5>
+        <div class="inqbox-tools">
+          <a class="collapse-link">
+            <i class="fa fa-chevron-up"></i>
+          </a>
+          <a class="close-link">
+            <i class="fa fa-times"></i>
+          </a>
+        </div>
+      </div>
+      <div class="inqbox-content paper" contenteditable="true">
+        Dear (<span ng-cloack ng-bind="AdminUserName"></span>) Good Morrning <br>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-4">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="panel panel-danger">
+          <div class="panel-heading">
+            Latest Violation
+          </div>
+          <div class="panel-body">
+            <p ng-cloack ng-bind="LatestViolationSummry"></p>
+            <div class="singlepostinfo"><span ng-cloack ng-bind="LatestViolationDate"></span> by <strong ng-cloack ng-bind="LatestViolationUserName"> </strong></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="col-lg-4">
+    <div class="inqbox-content">
+      <div ng-repeat="UserNatFor in UserNationlatyData">
+        <div>
+          <span ng-cloack ng-bind="UserNatFor.CountryName"></span>
+          <small class="pull-right"><span ng-cloack ng-bind="UserNatFor.Count"></span>/<span ng-cloack ng-bind="UserNatFor.CountryCount"></span></small>
+        </div>
+        <div class="progress progress-small">
+          <div style="width: {{UserNatFor.Count}}%;" class="progress-bar"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

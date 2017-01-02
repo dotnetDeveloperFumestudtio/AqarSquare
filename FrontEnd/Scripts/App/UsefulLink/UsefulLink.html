@@ -1,0 +1,241 @@
+﻿
+<div class="wrapper wrapper-content animated fadeInRight" ng-app="angapp" ng-controller="UsefulLinkController as UsefulLink" block-ui="myBlockUI">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="inqbox float-e-margins">
+        <div class="inqbox-content">
+          <h2>Useful Link </h2>
+          <ol class="breadcrumb">
+            <li>
+              <a ui-sref="home"><i class=" fa fa-laptop"></i> <span class="nav-label">home</span></a>
+            </li>
+            <li class="active">
+              <strong>Useful Link</strong>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="inqbox float-e-margins">
+        <div class="inqbox-title border-top-danger">
+          <h5>List of Useful Link</h5>
+
+        </div>
+        <div class="inqbox-content">
+          <div class="table-responsive">
+            <table class="table table-striped table-bordered table-hover dataTables-example">
+
+              <thead>
+              <th>Arabic</th>
+              <th>English</th>
+              <th>Frensh</th>
+              <th>Italy</th>
+              <th>Russian</th>
+              <th>Germany</th>
+              <th> </th>
+              </thead>
+              <tbody>
+                <tr ng-repeat="UsefulLinkFor in UsefulLink.UsefulLinkData">
+                  <td>{{UsefulLinkFor.EntityAr}}</td>
+                  <td>{{UsefulLinkFor.EntityEn}}</td>
+                  <td>{{UsefulLinkFor.EntityFr}}</td>
+                  <td>{{UsefulLinkFor.EntityIta}}</td>
+                  <td>{{UsefulLinkFor.EntityRu}}</td>
+                  <td>{{UsefulLinkFor.EntityGe}}</td>
+                  <td>
+                    <a data-toggle="#" ng-click="edit(UsefulLinkFor)">
+                      <img src="../../../Images/edit-icon.png" class="iconsthumb" />
+                    </a>
+                    <a data-toggle="#" ng-click="remove(UsefulLinkFor)">
+                      <img src="../../../Images/delete-icon.png" class="iconsthumb" />
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <uib-pagination boundary-links="true" total-items="UsefulLink.totalItems" ng-model="UsefulLink.currentPage" ng-change="UsefulLink.pageChanged()" items-per-page="UsefulLink.pageNumber" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></uib-pagination>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+
+    <div class="col-lg-12">
+      <div class="inqbox float-e-margins">
+        <div class="inqbox-title">
+          <div class="col-lg-6">
+
+          </div>
+
+          <h5>UsefulLink form</h5>
+
+
+          <div class="inqbox-content">
+            <button type="button" class="btn btn-block btn-outline btn-primary" style="display: none;" ng-show="isAdd" ng-click="Reset()">Add New</button>
+
+            <form role="form" class="form-inline" name="formUsefulLink" novalidate ng-submit="formUsefulLink.$valid && create(UsefulLink)">
+              <div class="form-group">
+                <div class="tabs-container" style="    width: 450px;">
+                  <ul class="nav nav-tabs tab-border-top-primary">
+                    <li class="active">
+                      <a data-toggle="tab" data-target="#tab-1">
+                        <img src="../../../Content/CountryLang/iconegypt.png" />
+                      </a>
+                    </li>
+                    <li class="">
+                      <a data-toggle="tab" data-target="#tab-2">
+                        <img src="../../../Content/CountryLang/icongermany.png" />
+                      </a>
+                    </li>
+                    <li class="">
+                      <a data-toggle="tab" data-target="#tab-3">
+                        <img src="../../../Content/CountryLang/iconitaly.png" />
+                      </a>
+                    </li>
+                    <li class="">
+                      <a data-toggle="tab" data-target="#tab-4">
+                        <img src="../../../Content/CountryLang/iconrussia.png" />
+                      </a>
+                    </li>
+                    <li class="">
+                      <a data-toggle="tab" data-target="#tab-5">
+                        <img src="../../../Content/CountryLang/iconusa.png" />
+                      </a>
+                    </li>
+                    <li class="">
+                      <a data-toggle="tab" data-target="#tab-6">
+                        <img src="../../../Content/CountryLang/iconfrance.png" />
+                      </a>
+                    </li>
+                  </ul>
+                  <div class="tab-content">
+                    <div id="tab-1" class="tab-pane active">
+                      <div class="panel-body">
+                        <div class="form-group">
+                          <label>Arabic Entity</label>
+                          <input type="text" ng-model="current.EntityAr" placeholder="Enter Arabic Entity"
+                                 id="txtArabicEntity" class="form-control" name="uArabic" required="">
+                          <br />
+                          <div ng-show="formUsefulLink.$submitted || formUsefulLink.uArabic.$touched">
+                            <label id="-error" class="error" ng-show="formUsefulLink.uArabic.$error.required">Please type Arabic Entity.</label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="tab-2" class="tab-pane">
+                      <div class="panel-body">
+                        <div class="form-group">
+                          <label>Germany Entity</label>
+                          <input type="text" ng-model="current.EntityGe" placeholder="Enter Germany Entity"
+                                 id="txtGermanyEntity" class="form-control" name="uGermany" required="">
+                          <br />
+                          <div ng-show="formUsefulLink.$submitted || formUsefulLink.uGermany.$touched">
+                            <label id="-error" class="error" ng-show="formUsefulLink.uGermany.$error.required">Please type Germany Entity.</label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="tab-3" class="tab-pane">
+                      <div class="panel-body">
+                        <div class="form-group">
+                          <label>Italy Entity</label>
+                          <input type="text" ng-model="current.EntityIta" placeholder="Enter Italy Entity"
+                                 id="txtItalyEntity" class="form-control" name="uItaly" required="">
+                          <br />
+                          <div ng-show="formUsefulLink.$submitted || formUsefulLink.uItaly.$touched">
+                            <label id="-error" class="error" ng-show="formUsefulLink.uItaly.$error.required">Please type Italy Entity.</label>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                    <div id="tab-4" class="tab-pane">
+                      <div class="panel-body">
+                        <div class="form-group">
+                          <label>Russian Entity</label>
+                          <input type="text" ng-model="current.EntityRu" placeholder="Enter Russian Entity"
+                                 id="txtRussianEntity" class="form-control" name="uRussian" required="">
+                          <br />
+                          <div ng-show="formUsefulLink.$submitted || formUsefulLink.uRussian.$touched">
+                            <label id="-error" class="error" ng-show="formUsefulLink.uRussian.$error.required">Please type Russian Entity.</label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="tab-5" class="tab-pane">
+                      <div class="panel-body">
+                        <div class="form-group">
+                          <label>English Entity</label>
+                          <input type="text" ng-model="current.EntityEn" placeholder="Enter English Entity"
+                                 id="txtEnglishEntity" class="form-control" name="uenglish" required="">
+                          <br />
+                          <div ng-show="formUsefulLink.$submitted || formUsefulLink.uenglish.$touched">
+                            <label id="-error" class="error" ng-show="formUsefulLink.uenglish.$error.required">Please type English Entity.</label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="tab-6" class="tab-pane">
+                      <!--<div class="panel-body">
+                            <input type="text" Entity="from" id="from" class="gui-input" placeholder="Entity">
+
+                          </div>-->
+                      <div class="panel-body">
+                        <div class="form-group">
+                          <label>French Entity</label>
+                          <input type="text" ng-model="current.EntityFr" placeholder="Enter French Entity"
+                                 id="txtFrenchEntity" class="form-control" name="uFrench" required="">
+                          <br />
+                          <div ng-show="formUsefulLink.$submitted || formUsefulLink.uFrench.$touched">
+                            <label id="-error" class="error" ng-show="formUsefulLink.uFrench.$error.required">Please type French Entity.</label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="hr-line-dashed"></div>
+              <div class="row">
+                <div class="panel-body">
+                  <div class="form-group">
+                    <label>Website</label>
+
+                    <input type="url" ng-model="current.Website" placeholder="Enter Website"
+                           class="form-control" name="uWebsite" required="">
+                    <br />
+                    <span class="error" ng-show="formUsefulLink.uWebsite.$error.url">
+                      Not valid url!
+                    </span>
+                    <div ng-show="formUsefulLink.$submitted || formUsefulLink.uWebsite.$touched">
+                      <label id="-error" class="error" ng-show="formUsefulLink.uWebsite.$error.required">Please type Website.</label>
+                    </div>
+                  </div>
+                </div>
+
+
+              </div>
+              <div class="hr-line-dashed"></div>
+              <div class="form-group" style=" width: 100%;">
+                <div class="col-sm-4 col-sm-offset-2">
+                  <input type="submit" class="btn btn-primary pull-right" value="Save" ng-show="isCreate" ng-disabled="formUsefulLink.$invalid" />
+                  <input type="button" class="btn btn-primary pull-right" value="Update" ng-show="isUpdate" ng-click="update(UsefulLink)" ng-disabled="formUsefulLink.$invalid" />
+
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>

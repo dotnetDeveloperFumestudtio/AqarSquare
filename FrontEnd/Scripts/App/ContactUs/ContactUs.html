@@ -1,0 +1,321 @@
+﻿
+<div class="wrapper wrapper-content animated fadeInRight">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="inqbox float-e-margins">
+        <div class="inqbox-content">
+          <h2>Contact Us</h2>
+          <ol class="breadcrumb">
+            <li>
+              <a ui-sref="home"><i class="fa fa-laptop"></i> <span class="nav-label">home</span></a>
+            </li>
+            <li class="active">
+              <strong>Contact Us</strong>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row" ng-app="angapp" ng-controller="contactController as contact" block-ui="myBlockUI">
+
+    <div class="col-lg-12">
+      <div class="inqbox float-e-margins">
+        <div class="inqbox-title">
+          <div class="col-lg-6">
+
+          </div>
+
+          <h5>Contact form</h5>
+
+
+          <div class="inqbox-content">
+            <form role="form" class="form-inline" name="formContact" ng-submit="formContact.$valid && update(contact)" novalidate>
+              <div class="form-group">
+                <div class="tabs-container" style="    width: 450px;">
+                  <ul class="nav nav-tabs tab-border-top-primary">
+                    <li class="active">
+                      <a data-toggle="tab" data-target="#tab-1">
+                        <img src="../../../Content/CountryLang/iconegypt.png" />
+                      </a>
+                    </li>
+                    <li class="">
+                      <a data-toggle="tab" data-target="#tab-2">
+                        <img src="../../../Content/CountryLang/icongermany.png" />
+                      </a>
+                    </li>
+                    <li class="">
+                      <a data-toggle="tab" data-target="#tab-3">
+                        <img src="../../../Content/CountryLang/iconitaly.png" />
+                      </a>
+                    </li>
+                    <li class="">
+                      <a data-toggle="tab" data-target="#tab-4">
+                        <img src="../../../Content/CountryLang/iconrussia.png" />
+                      </a>
+                    </li>
+                    <li class="">
+                      <a data-toggle="tab" data-target="#tab-5">
+                        <img src="../../../Content/CountryLang/iconusa.png" />
+                      </a>
+                    </li>
+                    <li class="">
+                      <a data-toggle="tab" data-target="#tab-6">
+                        <img src="../../../Content/CountryLang/iconfrance.png" />
+                      </a>
+                    </li>
+                  </ul>
+                  <div class="tab-content">
+                    <div id="tab-1" class="tab-pane active">
+                      <div class="panel-body">
+                        <div class="form-group">
+                          <label>Arabic address</label>
+                          <input type="text" ng-model="contact.AddressAr" placeholder="Enter Arabic address"
+                                 id="txtArabicaddress" class="form-control" name="uArabic" required="">
+                          <br />
+                          <div ng-show="formContact.$submitted || formContact.uArabic.$touched">
+                            <label id="-error" class="error" ng-show="formContact.uArabic.$error.required">Please type Arabic address.</label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="tab-2" class="tab-pane">
+                      <div class="panel-body">
+                        <div class="form-group">
+                          <label>Germany address</label>
+                          <input type="text" ng-model="contact.Addressge" placeholder="Enter Germany address"
+                                 id="txtGermanyaddress" class="form-control" name="uGermany" required="">
+                          <br />
+                          <div ng-show="formContact.$submitted || formContact.uGermany.$touched">
+                            <label id="-error" class="error" ng-show="formContact.uGermany.$error.required">Please type Germany address.</label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="tab-3" class="tab-pane">
+                      <div class="panel-body">
+                        <div class="form-group">
+                          <label>Italy address</label>
+                          <input type="text" ng-model="contact.AddressIta" placeholder="Enter Italy address"
+                                 id="txtItalyaddress" class="form-control" name="uItaly" required="">
+                          <br />
+                          <div ng-show="formContact.$submitted || formContact.uItaly.$touched">
+                            <label id="-error" class="error" ng-show="formContact.uItaly.$error.required">Please type Italy address.</label>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                    <div id="tab-4" class="tab-pane">
+                      <div class="panel-body">
+                        <div class="form-group">
+                          <label>Russian address</label>
+                          <input type="text" ng-model="contact.AddressRu" placeholder="Enter Russian address"
+                                 id="txtRussianaddress" class="form-control" name="uRussian" required="">
+                          <br />
+                          <div ng-show="formContact.$submitted || formContact.uRussian.$touched">
+                            <label id="-error" class="error" ng-show="formContact.uRussian.$error.required">Please type Russian address.</label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="tab-5" class="tab-pane">
+                      <div class="panel-body">
+                        <div class="form-group">
+                          <label>English address</label>
+                          <input type="text" ng-model="contact.AddressEn" placeholder="Enter English address"
+                                 id="txtEnglishaddress" class="form-control" name="uenglish" required="">
+                          <br />
+                          <div ng-show="formContact.$submitted || formContact.uenglish.$touched">
+                            <label id="-error" class="error" ng-show="formContact.uenglish.$error.required">Please type English address.</label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="tab-6" class="tab-pane">
+                      <!--<div class="panel-body">
+                        <input type="text" name="from" id="from" class="gui-input" placeholder="Address">
+
+                      </div>-->
+                      <div class="panel-body">
+                        <div class="form-group">
+                          <label>French address</label>
+                          <input type="text" ng-model="contact.AddressFr" placeholder="Enter French address"
+                                 id="txtFrenchaddress" class="form-control" name="uFrench" required="">
+
+                          <div ng-show="formContact.$submitted || formContact.uFrench.$touched">
+                            <label id="-error" class="error" ng-show="formContact.uFrench.$error.required">Please type French address.</label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="hr-line-dashed"></div>
+              <div class="row">
+                <div class="form-group">
+                  <div class="input-group m-b">
+                    <div class="col-md-4">
+                      <div class="section">
+                        <input type="number" string-to-number ng-model="contact.Longitude" placeholder="Enter Longitude"
+                               id="txtLongitude" class="form-control" style="width: 450px;" name="uLong" required="">
+                        <br />
+                        <div ng-show="formContact.$submitted || formContact.uLong.$touched">
+                          <label id="-error" class="error" ng-show="formContact.uLong.$error.required">Please type Longitude.</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="input-group m-b">
+                      <div class="col-sm-10">
+                        <div class="section">
+                          <input type="number" string-to-number ng-model="contact.Latitude" placeholder="Enter Latitude "
+                                 id="txtLatitude" class="form-control" style="width: 450px;" name="uLat" required="">
+                          <br />
+                          <div ng-show="formContact.$submitted || formContact.uLat.$touched">
+                            <label id="-error" class="error" ng-show="formContact.uLat.$error.required">Please type Latitude.</label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="hr-line-dashed"></div>
+              <div class="row">
+                <div class="form-group">
+                  <div class="input-group m-b">
+                    <div class="col-md-10">
+                      <div class="section">
+                        <input type="email" name="txtemail" ng-model="contact.Email" placeholder="Enter E-Mail"
+                               style="width: 450px;" class="form-control" required="">
+                        <br />
+                        <div ng-show="formContact.$submitted || formContact.uMail.$touched">
+                          <label id="-error" class="error" ng-show="formContact.uMail.$error.required">Please type Email.</label>
+                        </div>
+                        <span class="error" ng-show="formContact.txtemail.$error.email">
+                          Not valid email!
+                        </span>
+
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="hr-line-dashed"></div>
+              <div class="row">
+                <div class="form-group">
+                  <div class="input-group m-b">
+                    <div class="col-md-10">
+                      <div class="section">
+                        <input type="url" ng-model="contact.Website" placeholder="Enter Website" name="txtWebsite" class="form-control" style="width: 450px;">
+
+                        <span class="error" ng-show="formContact.txtWebsite.$error.url">
+                          Not valid url!
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!--<div class="form-group">
+                  <div class="input-group m-b">
+                    <div class="col-md-10">
+
+                      <div class="section">
+                        <div class="col-xs-7" style="width: 150px;">
+                          <div class="option-group field section">
+                            <label class="option block mt15">
+                              <input type="checkbox" name="mobileos" value="CH">
+                              <span class="checkbox"></span>Show / Hide
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>-->
+              </div>
+              <div class="hr-line-dashed"></div>
+              <div class="row">
+                <div class="form-group">
+                  <div class="input-group m-b">
+                    <div class="col-md-4">
+                      <div class="section">
+
+                        <input type="number" string-to-number ng-model="contact.TelephoneNo1" placeholder="Enter Tel No 1"
+                               style="width: 450px;" class="form-control" name="uNo1" maxlength=14 required ="">
+                        <br />
+                        <div ng-show="formContact.$submitted || formContact.uNo1.$touched">
+                          <label id="-error" class="error" ng-show="formContact.uNo1.$error.required">Please type Phone.</label>
+                        </div>
+
+                        <!--<input type="number" name="pnumber1" string-to-number ng-model="contact.TelephoneNo1" placeholder="Enter Tel No 1" id="txttele1" class="form-control" style="width: 450px;">
+
+
+                        <div ng-show="formContact.$submitted || formContact.pnumber1.$touched">
+                          <label id="-error" class="error" ng-show="formContact.pnumber1.$error.required">Please type Phone</label>
+                        </div>-->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="input-group m-b">
+                    <div class="col-sm-10">
+                      <div class="section">
+                        <input type="number" string-to-number ng-model="contact.TelephoneNo2" minlength=6 maxlength=14  placeholder="Enter  Tel No 2" id="txttele2" class="form-control" style="width: 450px;">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="hr-line-dashed"></div>
+              <div class="form-group" style=" width: 100%;">
+                <div class="col-sm-4 col-sm-offset-2">
+                  <button class="btn btn-primary" type="submit" ng-disabled="formContact.$invalid">Save changes</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
+<script>
+  $(document).ready(function () {
+    "use strict";
+
+    $("#form").validate({
+      rules: {
+        password: {
+          required: true,
+          minlength: 3
+        },
+        url: {
+          required: true,
+          url: true
+        },
+        number: {
+          required: true,
+          number: true
+        },
+        min: {
+          required: true,
+          minlength: 6
+        },
+        max: {
+          required: true,
+          maxlength: 4
+        }
+      }
+    });
+  });
+</script>

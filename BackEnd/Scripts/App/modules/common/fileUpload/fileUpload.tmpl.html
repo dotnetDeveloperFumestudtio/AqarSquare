@@ -1,0 +1,44 @@
+<section>
+  <form name="fileUploadForm">
+    <fieldset>
+      <br />
+      <br />
+
+      <div class="text-center">
+        <div class="form-group">
+          <input type="text" readonly value="{{uploadedFile.name}} {{errFile.name}} {{errFile.$error}}" class="form-control upload-control"
+          />
+        </div>
+
+        <button type="file" class="btn btn-default" ngf-select ng-model="uploadedFile" name="file" ngf-max-size="{{maxSizeInMB}}MB"
+        ngf-model-invalid="errorFiles">
+          {{'CHOSE_FILE' | translate:{default:'اختر الملف'} }}
+        </button>
+
+        <button ng-disabled="!uploadedFile" ng-click="uploadFile(uploadedFile)" class="btn btn-success">رفع الملف</button>
+
+      </div>
+      <!--<i ng-show="fileUploadForm.file.$error.required">*{{'REQUIRED' | translate:{default:'هذا الحقل مطلوب'} }}</i>-->
+
+      <br />
+
+      <i ng-show="fileUploadForm.file.$error.maxSize">
+                File too large
+                {{errorFiles[0].size / 1000000|number:1}}MB: max {{maxSizeInMB}}M
+            </i>
+
+      <br />
+
+      <div class="progress" ng-show="uploadedFile.progress >= 0">
+        <span class="sr-only">{{'Uploading' | translate:{default:'جاري التحميل'} }}..</span>
+        <div style="width:{{uploadedFile.progress}}%" ng-bind="uploadedFile.progress + '%'"></div>
+      </div>
+      <span ng-show="uploadedFile.result"></span>
+      <span class="err" ng-show="errorMsg">{{errorMsg}}</span>
+      <br />
+      <!--<button>{{'CANCEL' | translate:{default:'إلغاء و رجوع'} }}</button>
+            <button>{{'SAVE_FILE' | translate:{default:'حفظ الملف'} }}</button>-->
+    </fieldset>
+    <br>
+  </form>
+</section>
