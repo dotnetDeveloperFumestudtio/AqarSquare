@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Alfardan.Engine.Entities
+namespace AqarSquare.Engine.Entities
 {
     using System;
     using System.Collections.Generic;

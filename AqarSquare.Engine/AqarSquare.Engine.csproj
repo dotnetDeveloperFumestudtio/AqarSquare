@@ -7,8 +7,8 @@
     <ProjectGuid>{4D9664DE-F5A9-4FE5-B5A4-A36A3661366D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Alfardan.Engine</RootNamespace>
-    <AssemblyName>Alfardan.Engine</AssemblyName>
+    <RootNamespace>AqarSquare.Engine</RootNamespace>
+    <AssemblyName>AqarSquare.Engine</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>SAK</SccProjectName>
@@ -46,9 +46,9 @@
     <Reference Include="Microsoft.Web.Mvc">
       <HintPath>..\packages\Mvc3Futures\Microsoft.Web.Mvc.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <Private>True</Private>
@@ -97,6 +97,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessEntities\BackEnd\PropertyBackend.cs" />
     <Compile Include="BusinessEntities\BackEnd\SystemUserBackend.cs" />
     <Compile Include="BusinessEntities\BusinessEntityBase.cs" />
     <Compile Include="BusinessEntities\FrontEnd\SystemUserFrontEnd.cs" />
@@ -112,6 +113,9 @@
       <DependentUpon>Entites.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\ContractType.cs">
+      <DependentUpon>Entites.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Currency.cs">
       <DependentUpon>Entites.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\Entites.Context.cs">
@@ -194,6 +198,7 @@
     <Compile Include="Notifications\GcmMessageContent.cs" />
     <Compile Include="Notifications\GcmMessageIOSContent.cs" />
     <Compile Include="Notifications\NotificationData.cs" />
+    <Compile Include="BusinessEntities\BackEnd\SquareBackend.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
@@ -201,6 +206,8 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Entites.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <Compile Include="BusinessEntities\BackEnd\ContactUsBackend.cs" />
+    <Compile Include="BusinessEntities\BackEnd\CityBackend.cs" />
     <None Include="Entities\Entites.edmx.diagram">
       <DependentUpon>Entites.edmx</DependentUpon>
     </None>

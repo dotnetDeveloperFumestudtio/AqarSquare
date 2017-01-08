@@ -4,6 +4,7 @@ var myApp = angular.module('angapp',
   ['ui.router',
     'ngCookies',
     'ngFileUpload',
+    'ngMap',
     'ngStorage',
     'changePasswordapp',
     'AngApp',
@@ -11,6 +12,10 @@ var myApp = angular.module('angapp',
     'Homeapp',
     'loginapplication',
     'contactapp',
+    'cityapp',
+    'citySort',
+    'squareapp',
+    'propertyapp',
     'importantapp',
     'categoryapp',
     'regionapp',
@@ -45,6 +50,7 @@ var myApp = angular.module('angapp',
     'blockUI',
     'dropzone',
     'angular-loading-bar',
+    //'mymap', 
     'pascalprecht.translate']);
 myApp.config(config);
 //myApp.run(function ($rootScope, $state) {
@@ -62,12 +68,12 @@ myApp.run(function ($rootScope, $state, $location, $window) {
 
   userEmail = $window.localStorage.getItem('user-Email');
   sideBar = $window.localStorage.getItem('user-name');
-  if (sideBar === undefined || sideBar === null || sideBar.length === 0) {
-    //  swal({ title: "Pleae Login First!!", text: "", type: "error", timer: 3000, showConfirmButton: false });
-    //$location.path("login.html");
-    $window.location.href = 'Login.html';
+  //if (sideBar === undefined || sideBar === null || sideBar.length === 0) {
+  //  //  swal({ title: "Pleae Login First!!", text: "", type: "error", timer: 3000, showConfirmButton: false });
+  //  //$location.path("login.html");
+  //  $window.location.href = 'Login.html';
 
-  }
+  //}
   //else {
   //  $location.path("/index");
   //}
@@ -114,13 +120,10 @@ function homeCtrl($scope, $location) {
   // $scope.AdminUserName = sideBar.replace(/['"]+/g, '');
   $scope.AdminUserName = sideBar;
   $scope.AdminEmail = userEmail;
+  $scope.UserId = "1";
 
-  $scope.URL = "http://localhost:1716/Project/";
-  $scope.MainURL = "http://localhost:1716/";
-  ////$scope.URL = "http://40.118.17.78:81/Project/";
-  //$scope.MainURL = "http://40.118.17.78:81/";
-  //$scope.URL = "http://etaweb1.cloudapp.net:81/Project/";
-  //$scope.MainURL = "http://etaweb1.cloudapp.net:81/";
+  $scope.URL = "http://localhost:1717/Project/";
+  $scope.MainURL = "http://localhost:1717/"; 
   $scope.setRoute = function (route) {
     $location.path(route);
   };

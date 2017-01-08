@@ -19,11 +19,11 @@ app.controller('ReportController', function ($scope, $http, notify, blockUI, Upl
   $scope.LatestViolationDate = "";
   $scope.LatestViolationUserName = "";
 
-  getNotificationStatistics();
-  getViolationCount();
-  getAttractionCount();
-  getUserCount();
-  getLatestViolation();
+  //getNotificationStatistics();
+  //getViolationCount();
+  //getAttractionCount();
+  //getUserCount();
+  //getLatestViolation();
   getCountryStatistics();
   getObject3DStatistics();
   fetchAttractionTopTenRateData();

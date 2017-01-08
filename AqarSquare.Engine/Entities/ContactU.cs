@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Alfardan.Engine.Entities
+namespace AqarSquare.Engine.Entities
 {
     using System;
     using System.Collections.Generic;
@@ -28,5 +28,8 @@ namespace Alfardan.Engine.Entities
         public string Youtube { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<int> CreatedBy { get; set; }
+        public string Address { get; set; }
+        public string Late { get; set; }
+        public string Long { get; set; }
     }
 }

@@ -28,11 +28,11 @@ app.controller('HomeController', function ($scope, $http, notify, blockUI, Uploa
   //  $scope.AdminUserName = sideBar;
   //}
 
-  getViolationCount();
-  getAttractionCount();
-  getUserCount();
-  getLatestViolation();
-  getCountryStatistics();
+  //getViolationCount();
+  //getAttractionCount();
+  //getUserCount();
+  //getLatestViolation();
+  //getCountryStatistics();
   cfpLoadingBar.complete();
   myBlockUi.stop();
 
@@ -117,32 +117,32 @@ app.controller('HomeController', function ($scope, $http, notify, blockUI, Uploa
 );
   };
 
-  $http.get($scope.URL + "FetchTop5User")
-  .success(function (data, status, headers, config) {
-    $scope.totalItems = data.TotalCount;
-    var fillData = [{}];
+  //$http.get($scope.URL + "FetchTop5User")
+  //.success(function (data, status, headers, config) {
+  //  $scope.totalItems = data.TotalCount;
+  //  var fillData = [{}];
 
-    for (var i = 0; i < data.length; i++) {
-      fillData.push({
-        "Id": data[i].Id,
-        "FirstName": data[i].FirstName,
-        "LastName": data[i].LastName,
-        "Email": data[i].Email,
-        "Country": data[i].Country,
-        "Telephone": data[i].Telephone,
-        "UserBrithDate": data[i].UserBrithDate,
-        "Status": data[i].Status
-      });
-    }
-    fillData = fillData.slice(1);
-    $scope.UserData = fillData;
-    cfpLoadingBar.complete();
-  })
-  .error(function (data, status, headers, config) {
-    swal({ title: "Error!", text: "Something went wrong!", type: "error", timer: 2000, showConfirmButton: false });
+  //  for (var i = 0; i < data.length; i++) {
+  //    fillData.push({
+  //      "Id": data[i].Id,
+  //      "FirstName": data[i].FirstName,
+  //      "LastName": data[i].LastName,
+  //      "Email": data[i].Email,
+  //      "Country": data[i].Country,
+  //      "Telephone": data[i].Telephone,
+  //      "UserBrithDate": data[i].UserBrithDate,
+  //      "Status": data[i].Status
+  //    });
+  //  }
+  //  fillData = fillData.slice(1);
+  //  $scope.UserData = fillData;
+  //  cfpLoadingBar.complete();
+  //})
+  //.error(function (data, status, headers, config) {
+  //  swal({ title: "Error!", text: "Something went wrong!", type: "error", timer: 2000, showConfirmButton: false });
 
-  }
-  );
+  //}
+  //);
 
   $scope.removeUser = function () {
     //localStorage.clear();

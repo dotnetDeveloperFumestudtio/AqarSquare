@@ -14,6 +14,12 @@ namespace AqarSquare.Service
     public  List<SystemUserBackend> GetAllSystem()
     {
       return new EngineManager().GetAllSystem();
+    }
+
+    [WebInvoke(Method = "GET", ResponseFormat = WebMessageFormat.Json, UriTemplate = "GetContactUs")]
+    public ContactUsBackend GetCountactUs()
+    {
+      return new EngineManager().GetCountactUs();
     }  
   }
 }

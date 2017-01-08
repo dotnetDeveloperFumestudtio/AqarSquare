@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Alfardan.Engine.Entities
+namespace AqarSquare.Engine.Entities
 {
     using System;
     using System.Data.Entity;
@@ -18,8 +18,6 @@ namespace Alfardan.Engine.Entities
         public AqarSquaresEntities()
             : base("name=AqarSquaresEntities")
         {
-          this.Configuration.LazyLoadingEnabled = true;
-          this.Configuration.ProxyCreationEnabled = true;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -29,7 +27,6 @@ namespace Alfardan.Engine.Entities
     
         public virtual DbSet<City> Cities { get; set; }
         public virtual DbSet<ContactForm> ContactForms { get; set; }
-        public virtual DbSet<ContactU> ContactUs { get; set; }
         public virtual DbSet<ContractType> ContractTypes { get; set; }
         public virtual DbSet<Image360> Image360 { get; set; }
         public virtual DbSet<ImageBalacony> ImageBalaconies { get; set; }
@@ -41,7 +38,6 @@ namespace Alfardan.Engine.Entities
         public virtual DbSet<MainMenuBackend> MainMenuBackends { get; set; }
         public virtual DbSet<MainMenuFrontend> MainMenuFrontends { get; set; }
         public virtual DbSet<PriceAverage> PriceAverages { get; set; }
-        public virtual DbSet<Property> Properties { get; set; }
         public virtual DbSet<PropertyType> PropertyTypes { get; set; }
         public virtual DbSet<PropertyVeiwed> PropertyVeiweds { get; set; }
         public virtual DbSet<Square> Squares { get; set; }
@@ -51,5 +47,8 @@ namespace Alfardan.Engine.Entities
         public virtual DbSet<TopTenProperty> TopTenProperties { get; set; }
         public virtual DbSet<UserFavourite> UserFavourites { get; set; }
         public virtual DbSet<UserRate> UserRates { get; set; }
+        public virtual DbSet<ContactU> ContactUs { get; set; }
+        public virtual DbSet<Currency> Currencies { get; set; }
+        public virtual DbSet<Property> Properties { get; set; }
     }
 }

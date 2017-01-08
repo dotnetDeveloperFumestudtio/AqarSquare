@@ -25,6 +25,22 @@
        url: "/contactUspage",
        templateUrl: "/Scripts/App/ContactUs/ContactUs.html"
      })
+    .state('city', {
+      url: "/city",
+      templateUrl: "/Scripts/App/City/City.html"
+    })
+    .state('square', {
+      url: "/square",
+      templateUrl: "/Scripts/App/Square/Square.html"
+    })
+    .state('property', {
+      url: "/property",
+      templateUrl: "/Scripts/App/Property/Property.html"
+    })
+    .state('propertyform', {
+      url: "/propertyform",
+      templateUrl: "/Scripts/App/Property/PropertyForm.html"
+    })
     .state('important', {
       url: "/important", 
       templateUrl: "/Scripts/App/ImportantNumber/Important.html"

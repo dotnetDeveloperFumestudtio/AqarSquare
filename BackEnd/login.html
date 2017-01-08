@@ -30,10 +30,7 @@
   <!--/* button style */-->
   <script src="//code.angularjs.org/1.2.13/angular-cookies.js"></script>
 
-  <script src="Scripts/AngularJS/spin.min.js"></script>
-  <!--/* busy pop up loading */-->
-  <!--<link href="Content/Angularcss/angular-busy.css" rel="stylesheet">
-  <link href="Content/Angularcss/gh-fork-ribbon.css" rel="stylesheet">-->
+  <script src="Scripts/AngularJS/spin.min.js"></script> 
   <script src="Scripts/AngularJS/angular-busy.min.js"></script>
   <!--/* busy pop up loading best practice*/-->
 
@@ -116,14 +113,11 @@
     myApp.controller('homeCtrl', homeCtrl);
      
     function homeCtrl($scope, $location, $localStorage, blockUI, $http, $window) {
-      //localStorage.removeItem("ngStorage-LocalMessage");
-      //localStorage.removeItem("ngStorage-UserId");
-      //localStorage.removeItem("ngStorage-Email");
+      $window.location.href = 'Index.html';
+
       window.localStorage.clear();
       $scope.URL = "http://localhost:1716/Project/";
-      $scope.MainURL = "http://localhost:1716/";
-      //$scope.URL = "http://etaweb1.cloudapp.net:81/Project/";
-      //$scope.MainURL = "http://etaweb1.cloudapp.net:81/";
+      $scope.MainURL = "http://localhost:1716/"; 
       $scope.current = {}; 
       $scope.checkUser = function (login) {
         login.Username = $scope.current.Username;
@@ -136,14 +130,11 @@
         myBlockUi.start({
           message: 'Wait Please ...'
         });
+        $window.location.href = 'Index.html';
 
         $http.post($scope.URL + "CheckUser", { 'username': login.Username, 'password': login.Password })
      .success(function (data, status, headers, config) {
-       if (data.UserId != 0) {
-         //$localStorage.LocalMessage = login.Username;
-         //$localStorage.UserId = data.UserId;
-         //$localStorage.Email = data.Email;
-         //$location.path("Index.html");
+       if (data.UserId != 0) { 
          $window.localStorage.setItem('user-name', login.Username);
          $window.localStorage.setItem('user-Email', data.Email);
          $window.localStorage.setItem('user-UserId', data.UserId);

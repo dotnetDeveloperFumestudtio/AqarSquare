@@ -11,5 +11,9 @@ namespace AqarSquare.Engine
   {
     [OperationContract]
     List<SystemUserBackend> GetAllSystem();
+
+    [OperationContract]
+    ContactUsBackend GetCountactUs();
+
   }
 }

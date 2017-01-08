@@ -1,0 +1,234 @@
+﻿
+<div class="wrapper wrapper-content animated fadeInRight" ng-app="angapp" ng-controller="PropertyController as Property">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="inqbox float-e-margins">
+        <div class="inqbox-content">
+          <h2>Property </h2>
+          <ol class="breadcrumb">
+            <li>
+              <a ui-sref="home"><i class="fa fa-laptop"></i> <span class="nav-label">home</span></a>
+            </li>
+            <li>
+              <a ui-sref="property"> <span class="nav-label">Property</span></a>
+            </li>
+            <li class="active">
+              <strong>Property Form</strong>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row" block-ui="myBlockUI">
+
+    <div class="col-lg-12">
+      <div class="inqbox float-e-margins">
+        <div class="inqbox-title border-top-success">
+
+        </div>
+        <div class="inqbox-content">
+          <div class="kform">
+            <form id="formProperty" role="form" class="form-horizontal" name="formProperty" ng-submit="formProperty.$valid && create(Property)" novalidate>
+              <div class="section-divider mb40" id="spy1">
+                <span>Form Property </span>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Title Ar</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" ng-model="current.TitleAr"
+                         placeholder="Enter Property Title Ar" name="TitleArValidation" required="">
+                  <div ng-show="formProperty.$submitted || formProperty.TitleArValidation.$touched">
+                    <label id="-error" class="alert-error" ng-show="formProperty.TitleArValidation.$error.required">Please type Property Title Ar.</label>
+                  </div>
+                </div>
+              </div>
+              <div class="hr-line-dashed"></div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Title</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" ng-model="current.Title"
+                         placeholder="Enter Property Title" name="TitleValidation" required="">
+                  <div ng-show="formProperty.$submitted || formProperty.TitleValidation.$touched">
+                    <label id="-error" class="alert-error" ng-show="formProperty.TitleValidation.$error.required">Please type Property Title.</label>
+                  </div>
+                </div>
+              </div>
+              <div class="hr-line-dashed"></div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Description Ar</label>
+                <div class="col-sm-10">
+
+                  <textarea type="text" class="form-control" ng-model="current.DescriptionAr"
+                            placeholder="Enter DescriptionAr" name="DescriptionArValidation" required=""></textarea>
+                  <div ng-show="formProperty.$submitted || formProperty.DescriptionArValidation.$touched">
+                    <label id="-error" class="alert-error" ng-show="formProperty.DescriptionArValidation.$error.required">Please type Property Description Ar.</label>
+                  </div>
+                </div>
+              </div>
+              <div class="hr-line-dashed"></div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Description</label>
+                <div class="col-sm-10">
+                  <textarea type="text" class="form-control" ng-model="current.Description"
+                            placeholder="Enter Description" name="DescriptionValidation" required=""></textarea>
+                  <div ng-show="formProperty.$submitted || formProperty.DescriptionValidation.$touched">
+                    <label id="-error" class="alert-error" ng-show="formProperty.DescriptionValidation.$error.required">Please type Property Description.</label>
+                  </div>
+                </div>
+              </div> 
+              <div class="hr-line-dashed"></div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Price</label>
+                <div class="col-sm-10">
+                  <input type="number" class="form-control" ng-model="current.Price"
+                         placeholder="Enter Property Price" name="PriceValidation" required="">
+                  <div ng-show="formProperty.$submitted || formProperty.PriceValidation.$touched">
+                    <label id="-error" class="alert-error" ng-show="formProperty.PriceValidation.$error.required">Please type Property Price.</label>
+                  </div>
+                </div>
+              </div>
+              <div class="hr-line-dashed"></div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Room No</label>
+                <div class="col-sm-10">
+                  <input type="number" class="form-control" ng-model="current.RoomsNo"
+                         placeholder="Enter Property Rooms No" name="RoomsNoValidation" required="">
+                  <div ng-show="formProperty.$submitted || formProperty.RoomsNoValidation.$touched">
+                    <label id="-error" class="alert-error" ng-show="formProperty.RoomsNoValidation.$error.required">Please type Property Rooms No.</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="hr-line-dashed"></div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Bathroom No</label>
+                <div class="col-sm-10">
+                  <input type="number" class="form-control" ng-model="current.BathroomNo"
+                         placeholder="Enter Property Bathroom No" name="BathroomNoValidation" required="">
+                  <div ng-show="formProperty.$submitted || formProperty.BathroomNoValidation.$touched">
+                    <label id="-error" class="alert-error" ng-show="formProperty.BathroomNoValidation.$error.required">Please type Property Bathroom No.</label>
+                  </div>
+                </div>
+              </div>
+              <div class="hr-line-dashed"></div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Bedroom No</label>
+                <div class="col-sm-10">
+                  <input type="number" class="form-control" ng-model="current.BedroomNo"
+                         placeholder="Enter Property Bedroom No" name="BedroomNoValidation" required="">
+                  <div ng-show="formProperty.$submitted || formProperty.BedroomNoValidation.$touched">
+                    <label id="-error" class="alert-error" ng-show="formProperty.BedroomNoValidation.$error.required">Please type Property Bedroom No.</label>
+                  </div>
+                </div>
+              </div>
+              <div class="hr-line-dashed"></div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Reception No</label>
+                <div class="col-sm-10">
+                  <input type="number" class="form-control" ng-model="current.ReceptionNo"
+                         placeholder="Enter Property Reception No" name="ReceptionNoValidation" required="">
+                  <div ng-show="formProperty.$submitted || formProperty.ReceptionNoValidation.$touched">
+                    <label id="-error" class="alert-error" ng-show="formProperty.ReceptionNoValidation.$error.required">Please type Property Reception No.</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="hr-line-dashed"></div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Lift</label>
+                <div class="col-sm-10">
+                  <input type="checkbox" checked="checked" ng-model="current.Lift" value="" name="LiftValidation" required=""> <i></i>
+
+                  <div ng-show="formProperty.$submitted || formProperty.LiftValidation.$touched">
+                    <label id="-error" class="alert-error" ng-show="formProperty.LiftValidation.$error.required">Please check Property Lift.</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="hr-line-dashed"></div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Balacony</label>
+                <div class="col-sm-10">
+                  <input type="checkbox" checked="checked" ng-model="current.Balacony" value="" name="BalaconyValidation" required=""> <i></i>
+
+                  <div ng-show="formProperty.$submitted || formProperty.BalaconyValidation.$touched">
+                    <label id="-error" class="alert-error" ng-show="formProperty.BalaconyValidation.$error.required">Please check Property Balacony.</label>
+                  </div>
+                </div>
+              </div>
+              <div class="hr-line-dashed"></div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Garden</label>
+                <div class="col-sm-10">
+                  <input type="checkbox" checked="checked" ng-model="current.Garden" value="" name="GardenValidation" required=""> <i></i>
+
+                  <div ng-show="formProperty.$submitted || formProperty.GardenValidation.$touched">
+                    <label id="-error" class="alert-error" ng-show="formProperty.GardenValidation.$error.required">Please check Property Garden.</label>
+                  </div>
+                </div>
+              </div>
+              <div class="hr-line-dashed"></div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Pool</label>
+                <div class="col-sm-10">
+                  <input type="checkbox" checked="checked" ng-model="current.Pool" value="" name="PoolValidation" required=""> <i></i>
+
+                  <div ng-show="formProperty.$submitted || formProperty.PoolValidation.$touched">
+                    <label id="-error" class="alert-error" ng-show="formProperty.PoolValidation.$error.required">Please check Property Pool.</label>
+                  </div>
+                </div>
+              </div>
+              <div class="hr-line-dashed"></div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Garden</label>
+                <div class="col-sm-10">
+                  <input type="checkbox" checked="checked" ng-model="current.Garage" value="" name="GarageValidation" required=""> <i></i>
+
+                  <div ng-show="formProperty.$submitted || formProperty.GarageValidation.$touched">
+                    <label id="-error" class="alert-error" ng-show="formProperty.GarageValidation.$error.required">Please check Property Garage.</label>
+                  </div>
+                </div>
+              </div>
+              <div class="hr-line-dashed"></div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Square	</label>
+
+                <div class="col-sm-10">
+                  <div class="i-checks">
+                    <label>
+                      <div ng-dropdown-multiselect="" options="squaredata"
+                           name="suqares" selected-model="squaremodel"
+                           extra-settings="suqaresettings"></div>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="hr-line-dashed"></div>
+              <div class="form-group">
+                <div class="col-sm-4 col-sm-offset-2">
+                  <button  class="btn btn-white" type="submit">Cancel</button>
+                  <button class="btn btn-primary" type="submit">Update</button>
+                  <input type="submit" class="btn btn-primary" value="Save" ng-disabled="formProperty.$invalid" />
+
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="form-group">
+    <ng-map center="{{latlng}}" zoom="17" on-click="getpos($event)">
+      <marker position="{{latlng}}" title="Hello World!" on-dragend="getpos($event)"
+              animation="Animation.BOUNCE" animation="DROP" draggable="true"></marker>
+    </ng-map>
+    {{latlng}}
+  </div>
+   
+</div>
+
+ 

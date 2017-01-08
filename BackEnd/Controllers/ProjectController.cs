@@ -1,11 +1,9 @@
-﻿using AqarSquare.Engine;
+﻿using System.Linq;
+using AqarSquare.Engine;
 using AqarSquare.Engine.BusinessEntities;
-using System.Collections.Generic;
-using System.IO;
-using System.Net;
-using System.Text;
-using System.Web;
 using System.Web.Mvc;
+using AqarSquare.Engine.BusinessEntities.BackEnd;
+using PagedList;
 
 namespace Backend.Controllers
 {
@@ -17,6 +15,224 @@ namespace Backend.Controllers
       return View();
     }
 
+    #region Contact
+
+    public JsonResult FetchContact()
+    {
+      return Json(new EngineManager().GetCountactUs(), JsonRequestBehavior.AllowGet);
+    }
+
+    public JsonResult UpdateContact(ContactUsBackend contact)
+    {
+      var returnValue = 0;
+      var returnMsg = "Done";
+
+      returnValue = new EngineManager().UpdatedContact(contact);
+      if (returnValue == 0)
+        returnMsg = "Error";
+
+      return Json(returnMsg, JsonRequestBehavior.AllowGet);
+    }
+
+    #endregion
+
+    #region City
+
+    public JsonResult FetchCity()
+    {
+      return Json(new EngineManager().GetAllCity(), JsonRequestBehavior.AllowGet);
+    }
+
+    public JsonResult FetchCountCity()
+    {
+      var countItems = new EngineManager().GetAllCity();
+      return Json(new { TotalCount = countItems }, JsonRequestBehavior.AllowGet);
+    }
+
+    public JsonResult FetchCityByPageSize(int pageNumber, int pageSize)
+    {
+      var city = new EngineManager().GetAllCity().ToPagedList(pageNumber, pageSize);
+      var countItems = new EngineManager().GetAllCity().Count();
+      return Json(new { Data = city.ToList(), TotalCount = countItems }, JsonRequestBehavior.AllowGet);
+
+    }
+
+    public JsonResult CreateCity(CityBackend city)
+    {
+      string returnValue = new EngineManager().CreateCity(city);
+
+      return Json(returnValue, JsonRequestBehavior.AllowGet);
+    }
+
+    public JsonResult UpdateCityStatus(CityBackend city)
+    {
+      var returnValue = 0;
+      var returnMsg = "Done";
+
+      returnValue = new EngineManager().UpdateCityStatus(city.Id, city.Status);
+
+      if (returnValue == 0)
+        returnMsg = "Error";
+
+      return Json(returnMsg, JsonRequestBehavior.AllowGet);
+    }
+
+    public JsonResult UpdateCity(CityBackend city)
+    {
+      var returnValue = new EngineManager().UpdatedCity(city);
+
+      return Json(returnValue, JsonRequestBehavior.AllowGet);
+    }
+
+    public JsonResult DeleteCity(CityBackend city)
+    {
+      var returnMsg = new EngineManager().DeleteCity(city);
+
+      return Json(returnMsg, JsonRequestBehavior.AllowGet);
+    }
+
+    public JsonResult DeleteCitySelected(int cityId)
+    {
+      var citybac = new CityBackend();
+      citybac.Id = cityId;
+      var returnMsg = new EngineManager().DeleteCity(citybac);
+
+      return Json(returnMsg, JsonRequestBehavior.AllowGet);
+    }
+
+    #endregion
+
+    #region Square
+
+    public JsonResult FetchSquare()
+    {
+      return Json(new EngineManager().GetAllSquare(), JsonRequestBehavior.AllowGet);
+    }
+
+    public JsonResult FetchCountSquare()
+    {
+      var countItems = new EngineManager().GetAllSquare();
+      return Json(new { TotalCount = countItems }, JsonRequestBehavior.AllowGet);
+    }
+
+    public JsonResult FetchSquareByPageSize(int pageNumber, int pageSize)
+    {
+      var square = new EngineManager().GetAllSquare().ToPagedList(pageNumber, pageSize);
+      var countItems = new EngineManager().GetAllSquare().Count();
+      return Json(new { Data = square.ToList(), TotalCount = countItems }, JsonRequestBehavior.AllowGet);
+
+    }
+
+    public JsonResult CreateSquare(SquareBackend square)
+    {
+      string returnValue = new EngineManager().CreateSquare(square);
+
+      return Json(returnValue, JsonRequestBehavior.AllowGet);
+    }
+
+    public JsonResult UpdateSquareStatus(SquareBackend square)
+    {
+      var returnValue = 0;
+      var returnMsg = "Done";
+
+      returnValue = new EngineManager().UpdateSquareStatus(square.Id, square.Status);
+
+      if (returnValue == 0)
+        returnMsg = "Error";
+
+      return Json(returnMsg, JsonRequestBehavior.AllowGet);
+    }
+
+    public JsonResult UpdateSquare(SquareBackend square)
+    {
+      var returnValue = new EngineManager().UpdatedSquare(square);
+
+      return Json(returnValue, JsonRequestBehavior.AllowGet);
+    }
+
+    public JsonResult DeleteSquare(SquareBackend square)
+    {
+      var returnMsg = new EngineManager().DeleteSquare(square);
+
+      return Json(returnMsg, JsonRequestBehavior.AllowGet);
+    }
+
+    public JsonResult DeleteSquareSelected(int squareId)
+    {
+      var squarebac = new SquareBackend();
+      squarebac.Id = squareId;
+      var returnMsg = new EngineManager().DeleteSquare(squarebac);
+
+      return Json(returnMsg, JsonRequestBehavior.AllowGet);
+    }
+
+    #endregion
+
+    #region Property
+
+    public JsonResult FetchProperty()
+    {
+      return Json(new EngineManager().GetAllProperty(), JsonRequestBehavior.AllowGet);
+    }
+
+    public JsonResult FetchCountProperty()
+    {
+      var countItems = new EngineManager().GetAllProperty();
+      return Json(new { TotalCount = countItems }, JsonRequestBehavior.AllowGet);
+    }
+
+    public JsonResult FetchPropertyByPageSize(int pageNumber, int pageSize)
+    {
+      var Property = new EngineManager().GetAllProperty().ToPagedList(pageNumber, pageSize);
+      var countItems = new EngineManager().GetAllProperty().Count();
+      return Json(new { Data = Property.ToList(), TotalCount = countItems }, JsonRequestBehavior.AllowGet);
+
+    }
+
+    public JsonResult CreateProperty(PropertyBackend property)
+    {
+      string returnValue = new EngineManager().CreateProperty(property);
+
+      return Json(returnValue, JsonRequestBehavior.AllowGet);
+    }
+
+    public JsonResult UpdatePropertyStatus(PropertyBackend property)
+    {
+      var returnValue = 0;
+      var returnMsg = "Done";
+
+      returnValue = new EngineManager().UpdatePropertyStatus(property.Id, property.Status);
+
+      if (returnValue == 0)
+        returnMsg = "Error";
+
+      return Json(returnMsg, JsonRequestBehavior.AllowGet);
+    }
+
+    public JsonResult UpdateProperty(PropertyBackend property)
+    {
+      var returnValue = new EngineManager().UpdatedProperty(property);
+
+      return Json(returnValue, JsonRequestBehavior.AllowGet);
+    }
+
+    public JsonResult DeleteProperty(PropertyBackend property)
+    {
+      var returnMsg = new EngineManager().DeleteProperty(property);
+
+      return Json(returnMsg, JsonRequestBehavior.AllowGet);
+    }
+
+    public JsonResult DeletePropertySelected(int propertyId)
+    {
+      var propertybac = new PropertyBackend();
+      propertybac.Id = propertyId;
+      var returnMsg = new EngineManager().DeleteProperty(propertybac);
+
+      return Json(returnMsg, JsonRequestBehavior.AllowGet);
+    }
+
+    #endregion
     //#region Home
     //public JsonResult FetchTop5User()
     //{
@@ -51,27 +267,7 @@ namespace Backend.Controllers
     //}
     //#endregion
 
-    //#region Contact
 
-    //public JsonResult FetchContact()
-    //{
-    //  return Json(new EngineManager().Contact(), JsonRequestBehavior.AllowGet);
-
-    //}
-
-    //public JsonResult UpdateContact(Contact contact)
-    //{
-    //  var returnValue = 0;
-    //  var returnMsg = "Done";
-
-    //  returnValue = new EngineManager().UpdatedContact(contact);
-    //  if (returnValue == 0)
-    //    returnMsg = "Error";
-
-    //  return Json(returnMsg, JsonRequestBehavior.AllowGet);
-    //}
-
-    //#endregion
 
     //#region Languages
 
