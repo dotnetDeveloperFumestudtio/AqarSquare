@@ -1,8 +1,16 @@
-﻿using System.Linq;
+﻿using System;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
+using System.Web;
 using AqarSquare.Engine;
 using AqarSquare.Engine.BusinessEntities;
 using System.Web.Mvc;
 using AqarSquare.Engine.BusinessEntities.BackEnd;
+using AqarSquare.Engine.Entities;
+using Newtonsoft.Json;
 using PagedList;
 
 namespace Backend.Controllers
@@ -170,22 +178,31 @@ namespace Backend.Controllers
 
     #region Property
 
-    public JsonResult FetchProperty()
+    public JsonResult FetchAllCurrency()
     {
-      return Json(new EngineManager().GetAllProperty(), JsonRequestBehavior.AllowGet);
+      return Json(new EngineManager().GetAllCurrency(), JsonRequestBehavior.AllowGet);
     }
 
-    public JsonResult FetchCountProperty()
+    public JsonResult FetchAllPropertyType()
     {
-      var countItems = new EngineManager().GetAllProperty();
+      return Json(new EngineManager().GetAllPropertyTypeByStatus(), JsonRequestBehavior.AllowGet);
+    }
+
+    public JsonResult FetchAllContractType()
+    {
+      return Json(new EngineManager().GetAllContractTypeByStatus(), JsonRequestBehavior.AllowGet);
+    }
+    public JsonResult FetchCountUserProperty()
+    {
+      var countItems = new EngineManager().GetAllUserProperty();
       return Json(new { TotalCount = countItems }, JsonRequestBehavior.AllowGet);
     }
 
-    public JsonResult FetchPropertyByPageSize(int pageNumber, int pageSize)
+    public JsonResult FetchUserPropertyByPageSize(int pageNumber, int pageSize)
     {
-      var Property = new EngineManager().GetAllProperty().ToPagedList(pageNumber, pageSize);
-      var countItems = new EngineManager().GetAllProperty().Count();
-      return Json(new { Data = Property.ToList(), TotalCount = countItems }, JsonRequestBehavior.AllowGet);
+      var property = new EngineManager().GetAllUserProperty().ToPagedList(pageNumber, pageSize);
+      var countItems = new EngineManager().GetAllUserProperty().Count();
+      return Json(new { Data = property.ToList(), TotalCount = countItems }, JsonRequestBehavior.AllowGet);
 
     }
 
@@ -232,6 +249,28 @@ namespace Backend.Controllers
       return Json(returnMsg, JsonRequestBehavior.AllowGet);
     }
 
+    public JsonResult GetPropertyInfo(PropertyBackend property)
+    {
+      return Json(new EngineManager().GetPropertyInfo(property), JsonRequestBehavior.AllowGet);
+    }
+
+    public JsonResult FetchUserProperty()
+    {
+      return Json(new EngineManager().GetAllUserProperty(), JsonRequestBehavior.AllowGet);
+    }
+
+    public JsonResult InsertImageBalaconies(int userId,int propertyId,string image)
+    {
+      var obj = new ImageBalacony();
+      obj.PropertyId = propertyId;
+      obj.Image = image;
+      obj.CreatedBy = userId;
+      return Json(new EngineManager().InsertImageBalaconies(obj), JsonRequestBehavior.AllowGet);
+    }
+    public JsonResult DeleteImageBalaconies(ImageBalacony image)
+    {
+      return Json(new EngineManager().DeleteImageBalaconies(image), JsonRequestBehavior.AllowGet);
+    }
     #endregion
     //#region Home
     //public JsonResult FetchTop5User()

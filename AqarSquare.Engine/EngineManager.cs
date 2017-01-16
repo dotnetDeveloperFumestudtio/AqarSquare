@@ -1,5 +1,7 @@
 ﻿
 using System.Text.RegularExpressions;
+using System.Web.Security;
+using System.Web.UI.WebControls;
 using AqarSquare.Engine.BusinessEntities;
 using System;
 using System.Collections.Generic;
@@ -72,6 +74,40 @@ namespace AqarSquare.Engine
         return _user.FirstName + " " + _user.LastName;
       else
         return null;
+    }
+    public SystemUserBackend GetSystemUserByName(string userName)
+    {
+      SystemUserBackend result = null;
+      //using (var context = new AqarSquaresEntities())
+      //{
+      SystemUser systemUser = _context.SystemUsers.FirstOrDefault(item => item.FirstName == userName);
+      if (systemUser != null)
+      {
+        result = new SystemUserBackend(systemUser, Header);
+      }
+      //  }
+      return result;
+    }
+    public SystemUserBackend GetSystemUserById(int? userId)
+    {
+      SystemUserBackend result = null;
+      var systemUser = _context.SystemUsers.FirstOrDefault(item => item.Id == userId);
+      if (systemUser != null)
+      {
+        result = new SystemUserBackend(systemUser, Header);
+      }
+      return result;
+    }
+
+    public List<SystemUserBackend> GetAllSystem()
+    {
+      var systemUser = _context.SystemUsers.ToList();
+      return systemUser.Select(systemUserBackend => new SystemUserBackend
+      {
+        Email = systemUserBackend.Email,
+        FirstName = systemUserBackend.FirstName,
+        Id = systemUserBackend.Id
+      }).ToList();
     }
 
     #endregion
@@ -257,32 +293,9 @@ namespace AqarSquare.Engine
     //  return result;
     //}
 
-    public SystemUserBackend GetSystemUserByName(string userName)
-    {
-      SystemUserBackend result = null;
-      //using (var context = new AqarSquaresEntities())
-      //{
-      SystemUser systemUser = _context.SystemUsers.FirstOrDefault(item => item.FirstName == userName);
-      if (systemUser != null)
-      {
-        result = new SystemUserBackend(systemUser, Header);
-      }
-      //  }
-      return result;
-    }
-
-    public List<SystemUserBackend> GetAllSystem()
-    {
-      var systemUser = _context.SystemUsers.ToList();
-      return systemUser.Select(systemUserBackend => new SystemUserBackend
-      {
-        Email = systemUserBackend.Email,
-        FirstName = systemUserBackend.FirstName,
-        Id = systemUserBackend.Id
-      }).ToList();
-    }
 
     #region BackEnd
+
     #region City
 
     public List<CityBackend> GetAllCity()
@@ -607,11 +620,396 @@ namespace AqarSquare.Engine
 
     #endregion
 
+    #region ContactForm
+
+    public List<ContactForm> GetAllContactForm()
+    {
+      var contactFormObj = _context.ContactForms.ToList().OrderByDescending(x => x.Id);
+      return contactFormObj.Select(c => new ContactForm
+      {
+        Id = c.Id,
+        FullName = c.FullName,
+        CreatedDate = c.CreatedDate,
+        Email = c.Email,
+        Phone = c.Phone,
+        Message = c.Message
+      }).ToList();
+    }
+     
+
+    public string UpdatedContactForm(ContactForm contactForm)
+    {
+      var contactFormObj = _context.ContactForms.FirstOrDefault(item => item.Id == contactForm.Id);
+      if (contactFormObj != null)
+      {
+        contactFormObj.ApprovedBy = contactForm.ApprovedBy;
+        contactFormObj.ApprovedDate = _publicdateTime;
+
+        _context.SaveChanges();
+        return "Done";
+      }
+      else
+        return "Error";
+
+
+    }
+
+    public string DeleteContactForm(ContactForm contactForm)
+    {
+      var contactFormObj = _context.ContactForms.FirstOrDefault(item => item.Id == contactForm.Id);
+      if (contactFormObj != null)
+      {
+        try
+        {
+          _context.ContactForms.Remove(contactFormObj);
+          _context.SaveChanges();
+          return "Done";
+
+        }
+        catch (Exception)
+        {
+          return "Error";
+          throw;
+        }
+
+      }
+      else
+        return "Error";
+    }
+
+
+    #endregion
+    #region PropertyType
+
+    public List<PropertyTypeBackend> GetAllPropertyType()
+    {
+      var propertyTypeObj = _context.PropertyTypes.ToList().OrderByDescending(x => x.Id);
+      return propertyTypeObj.Select(propertyTypeBackend => new PropertyTypeBackend
+      {
+        Id = propertyTypeBackend.Id,
+        CreatedBy = propertyTypeBackend.CreatedBy,
+        CreatedByUserName = GetUserNameById(propertyTypeBackend.CreatedBy),
+        CreatedDate = propertyTypeBackend.CreatedDate,
+        Status = propertyTypeBackend.Status,
+        Title = propertyTypeBackend.Title,
+        TitleAr = propertyTypeBackend.TitleAr
+      }).ToList();
+    }
+
+    public List<PropertyTypeBackend> GetAllPropertyTypeByStatus()
+    {
+      var propertyTypeObj = _context.PropertyTypes.Where(x => x.Status == true).ToList().OrderByDescending(x => x.Id);
+      return propertyTypeObj.Select(propertyTypeBackend => new PropertyTypeBackend
+      {
+        Id = propertyTypeBackend.Id,
+        CreatedBy = propertyTypeBackend.CreatedBy,
+        CreatedByUserName = GetUserNameById(propertyTypeBackend.CreatedBy),
+        CreatedDate = propertyTypeBackend.CreatedDate,
+        Status = propertyTypeBackend.Status,
+        Title = propertyTypeBackend.Title,
+        TitleAr = propertyTypeBackend.TitleAr
+      }).ToList();
+    }
+
+    public string CreatePropertyType(PropertyTypeBackend propertyType)
+    {
+      if (IsPropertyTypeNameAvailable(propertyType))
+        return "Exist";
+
+      var propertyTypeObj = new PropertyType();
+      try
+      {
+        propertyTypeObj.Title = propertyType.Title;
+        propertyTypeObj.TitleAr = propertyType.TitleAr;
+        propertyTypeObj.Status = propertyType.Status;
+        propertyTypeObj.CreatedBy = propertyType.CreatedBy;
+        propertyTypeObj.CreatedDate = _publicdateTime;
+        _context.PropertyTypes.Add(propertyTypeObj);
+        _context.SaveChanges();
+
+        return "Done";
+      }
+      catch (Exception)
+      {
+        return "Error";
+        throw;
+      }
+
+    }
+
+    public string UpdatedPropertyType(PropertyTypeBackend propertyType)
+    {
+      var propertyTypeObj = _context.PropertyTypes.FirstOrDefault(item => item.Id == propertyType.Id);
+      if (propertyTypeObj != null)
+      {
+        propertyTypeObj.Title = propertyType.Title;
+        propertyTypeObj.TitleAr = propertyType.TitleAr;
+        propertyTypeObj.Status = propertyType.Status;
+        propertyTypeObj.CreatedBy = propertyType.CreatedBy;
+        propertyTypeObj.CreatedDate = _publicdateTime;
+
+        _context.SaveChanges();
+        return "Done";
+      }
+      else
+        return "Error";
+
+
+    }
+
+    public string DeletePropertyType(PropertyTypeBackend propertyType)
+    {
+      var propertyTypeObj = _context.PropertyTypes.FirstOrDefault(item => item.Id == propertyType.Id);
+      if (propertyTypeObj != null)
+      {
+        try
+        {
+          _context.PropertyTypes.Remove(propertyTypeObj);
+          _context.SaveChanges();
+          return "Done";
+
+        }
+        catch (Exception)
+        {
+          return "Error";
+          throw;
+        }
+
+      }
+      else
+        return "Error";
+    }
+
+    public int UpdatePropertyTypeStatus(int propertyTypeId, bool? imageStatus)
+    {
+      var obj = _context.PropertyTypes.FirstOrDefault(item => item.Id == propertyTypeId);
+      if (obj != null)
+      {
+        obj.CreatedDate = _publicdateTime;
+        obj.Status = imageStatus;
+        _context.SaveChanges();
+        return 1;
+      }
+      else
+        return 0;
+
+    }
+
+    public bool IsPropertyTypeNameAvailable(PropertyTypeBackend keyWords)
+    {
+      var returnVal = false;
+
+      var categoryObj = _context.PropertyTypes.Where(x => x.Title.Contains(keyWords.Title.Trim()) ||
+      x.TitleAr.Contains(keyWords.TitleAr.Trim())).ToList();
+
+      if (categoryObj.Any())
+        returnVal = true;
+
+      return returnVal;
+    }
+
+    #endregion
+
+    #region ContractType
+
+    public List<ContractTypeBackend> GetAllContractType()
+    {
+      var contractTypeObj = _context.ContractTypes.ToList().OrderByDescending(x => x.Id);
+      return contractTypeObj.Select(c => new ContractTypeBackend
+      {
+        Id = c.Id,
+        CreatedBy = c.CreatedBy,
+        CreatedByUserName = GetUserNameById(c.CreatedBy),
+        CreatedDate = c.CreatedDate,
+        Status = c.Status,
+        Title = c.Title,
+        TitleAr = c.TitleAr
+      }).ToList();
+    }
+
+    public List<ContractTypeBackend> GetAllContractTypeByStatus()
+    {
+      var contractTypeObj = _context.ContractTypes.Where(x => x.Status == true).ToList().OrderByDescending(x => x.Id);
+      return contractTypeObj.Select(c => new ContractTypeBackend
+      {
+        Id = c.Id,
+        CreatedBy = c.CreatedBy,
+        CreatedByUserName = GetUserNameById(c.CreatedBy),
+        CreatedDate = c.CreatedDate,
+        Status = c.Status,
+        Title = c.Title,
+        TitleAr = c.TitleAr
+      }).ToList();
+    }
+
+    public string CreateContractType(ContractTypeBackend contractType)
+    {
+      if (IsContractTypeNameAvailable(contractType))
+        return "Exist";
+
+      var contractTypeObj = new ContractType();
+      try
+      {
+        contractTypeObj.Title = contractType.Title;
+        contractTypeObj.TitleAr = contractType.TitleAr;
+        contractTypeObj.Status = contractType.Status;
+        contractTypeObj.CreatedBy = contractType.CreatedBy;
+        contractTypeObj.CreatedDate = _publicdateTime;
+        _context.ContractTypes.Add(contractTypeObj);
+        _context.SaveChanges();
+
+        return "Done";
+      }
+      catch (Exception)
+      {
+        return "Error";
+        throw;
+      }
+
+    }
+
+    public string UpdatedContractType(ContractTypeBackend contractType)
+    {
+      var contractTypeObj = _context.ContractTypes.FirstOrDefault(item => item.Id == contractType.Id);
+      if (contractTypeObj != null)
+      {
+        contractTypeObj.Title = contractType.Title;
+        contractTypeObj.TitleAr = contractType.TitleAr;
+        contractTypeObj.Status = contractType.Status;
+        contractTypeObj.CreatedBy = contractType.CreatedBy;
+        contractTypeObj.CreatedDate = _publicdateTime;
+
+        _context.SaveChanges();
+        return "Done";
+      }
+      else
+        return "Error";
+
+
+    }
+
+    public string DeleteContractType(ContractTypeBackend contractType)
+    {
+      var contractTypeObj = _context.ContractTypes.FirstOrDefault(item => item.Id == contractType.Id);
+      if (contractTypeObj != null)
+      {
+        try
+        {
+          _context.ContractTypes.Remove(contractTypeObj);
+          _context.SaveChanges();
+          return "Done";
+
+        }
+        catch (Exception)
+        {
+          return "Error";
+          throw;
+        }
+
+      }
+      else
+        return "Error";
+    }
+
+    public int UpdateContractTypeStatus(int contractTypeId, bool? imageStatus)
+    {
+      var obj = _context.ContractTypes.FirstOrDefault(item => item.Id == contractTypeId);
+      if (obj != null)
+      {
+        obj.CreatedDate = _publicdateTime;
+        obj.Status = imageStatus;
+        _context.SaveChanges();
+        return 1;
+      }
+      else
+        return 0;
+
+    }
+
+    public bool IsContractTypeNameAvailable(ContractTypeBackend keyWords)
+    {
+      var returnVal = false;
+
+      var categoryObj = _context.ContractTypes.Where(x => x.Title.Contains(keyWords.Title.Trim()) ||
+      x.TitleAr.Contains(keyWords.TitleAr.Trim())).ToList();
+
+      if (categoryObj.Any())
+        returnVal = true;
+
+      return returnVal;
+    }
+
+    #endregion
+
     #region Property
 
-    public List<PropertyBackend> GetAllProperty()
+    public List<CurrencyBackend> GetAllCurrency()
     {
-      var propertyObj = _context.Properties.ToList().OrderByDescending(x => x.Id);
+      var obj = _context.TbCurrencies.ToList().OrderByDescending(x => x.Id);
+      return obj.Select(p => new CurrencyBackend
+      {
+        Id = p.Id,
+        CurrencyKey = p.CurrencyKey,
+        Currency = p.Currency,
+        CreatedByUserName = GetUserNameById(p.CreatedBy)
+      }).ToList();
+    }
+
+    public List<PropertyBackend> GetAllUserProperty()
+    {
+      var userType = Convert.ToInt32(UserTypes.Tenant);
+      var propertyList = new List<PropertyBackend>();
+      var usersObj = _context.SystemUsers.Where(x => x.UserType == userType).ToList().OrderByDescending(x => x.Id);
+      foreach (var systemUser in usersObj)
+      {
+        var propertyObj = _context.Properties.Where(x => x.UserId == systemUser.Id).ToList().OrderByDescending(x => x.Id);
+        foreach (var p in propertyObj)
+        {
+          propertyList.Add(new PropertyBackend
+          {
+            Id = p.Id,
+            PropertyId = p.PropertyId,
+            Title = p.Title,
+            TitleAr = p.TitleAr,
+            Description = p.Description,
+            DescriptionAr = p.DescriptionAr,
+            Address = p.Address,
+            AddressAr = p.AddressAr,
+            Late = p.Late,
+            Long = p.Long,
+            Price = p.Price,
+            BathroomNo = p.BathroomNo,
+            BedroomNo = p.BedroomNo,
+            RoomsNo = p.RoomsNo,
+            ReceptionNo = p.ReceptionNo,
+            Floor = p.Floor,
+            Balacony = p.Balacony,
+            Garage = p.Garage,
+            Garden = p.Garden,
+            Pool = p.Pool,
+            Lift = p.Lift,
+            Area = p.Area,
+            PropertyTypeName = GetPropertyTypeById(p.PropertyType),
+            Currency = p.Currency,
+            Status = p.Status,
+            CreatedBy = p.CreatedBy,
+            CreatedByUserName = GetUserNameById(p.CreatedBy),
+            CreatedDate = p.CreatedDate,
+            ApprovedBy = GetUserNameById(p.ApprovedBy),
+            ApprovedDate = p.ApprovedDate,
+            UserId = p.UserId,
+            ContractType = p.ContractType
+
+          });
+        }
+
+      }
+      return propertyList;
+    }
+
+    public List<PropertyBackend> GetAllAdminProperty()
+    {
+      var propertyObj = _context.Properties.Where(x => x.UserId == Convert.ToInt32(UserTypes.Admin)).ToList().OrderByDescending(x => x.Id);
       return propertyObj.Select(p => new PropertyBackend
       {
         Id = p.Id,
@@ -643,16 +1041,18 @@ namespace AqarSquare.Engine
         CreatedByUserName = GetUserNameById(p.CreatedBy),
         CreatedDate = p.CreatedDate,
         ApprovedBy = GetUserNameById(p.ApprovedBy),
-        ApprovedDate = p.ApprovedDate
+        ApprovedDate = p.ApprovedDate,
+        UserId = p.UserId
       }).ToList();
     }
-    
-    public int GenerateRandom(int min, int max)
+
+    public static int RandNumber(int low, int high)
     {
-      var seed = Convert.ToInt32(Regex.Match(Guid.NewGuid().ToString(), @"\d+").Value);
-      return new Random(seed).Next(min, max);
+      var rndNum = new Random(int.Parse(Guid.NewGuid().ToString().Substring(0, 8), System.Globalization.NumberStyles.HexNumber));
+      var rnd = rndNum.Next(low, high);
+      return rnd;
     }
-    
+
     public string CreateProperty(PropertyBackend p)
     {
       //if (IsPropertyNameAvailable(property))
@@ -661,13 +1061,17 @@ namespace AqarSquare.Engine
       var propertyObj = new Property();
       try
       {
-        propertyObj.PropertyId = GenerateRandom(3, 6).ToString();
+        //Random rnd = new Random();
+        //int Value = rnd.Next(1, 100000);
+        propertyObj.PropertyId = RandNumber(10, 100000).ToString();
         propertyObj.Title = p.Title;
         propertyObj.TitleAr = p.TitleAr;
         propertyObj.Description = p.Description;
         propertyObj.DescriptionAr = p.DescriptionAr;
         propertyObj.Address = p.Address;
         propertyObj.AddressAr = p.AddressAr;
+        propertyObj.Late = p.Late;
+        propertyObj.Long = p.Long;
         propertyObj.Price = p.Price;
         propertyObj.BathroomNo = p.BathroomNo;
         propertyObj.BedroomNo = p.BedroomNo;
@@ -681,14 +1085,16 @@ namespace AqarSquare.Engine
         propertyObj.Lift = p.Lift;
         propertyObj.Area = p.Area;
         propertyObj.PropertyType = p.PropertyType;
+        propertyObj.ContractType = p.ContractType;
         propertyObj.Currency = p.Currency;
-        propertyObj.Status = false;
+        propertyObj.Status = p.Status;
         propertyObj.CreatedBy = p.CreatedBy;
         propertyObj.CreatedDate = _publicdateTime;
+        propertyObj.UserId = p.UserId;
         _context.Properties.Add(propertyObj);
         _context.SaveChanges();
 
-        return "Done";
+        return propertyObj.Id.ToString();
       }
       catch (Exception)
       {
@@ -784,6 +1190,7 @@ namespace AqarSquare.Engine
       else
         return null;
     }
+
     public bool IsPropertyNameAvailable(PropertyBackend keyWords)
     {
       var returnVal = false;
@@ -796,6 +1203,191 @@ namespace AqarSquare.Engine
 
       return returnVal;
     }
+
+    public PropertyInfo GetPropertyInfo(PropertyBackend property)
+    {
+      var result = new PropertyInfo();
+
+      var viewObj = _context.PropertyVeiweds.Count(item => item.PropertyId == property.Id);
+      var userInfo = GetSystemUserById(property.UserId);
+      result.ViewCount = viewObj;
+      result.Email = userInfo.Email;
+      result.Status = property.Status;
+      result.CreatedDate = property.CreatedDate;
+      result.CreatedByUserName = GetUserNameById(property.UserId);
+
+      return result;
+    }
+
+    #region Balacony Images
+
+    public List<ImageBalacony> GetAllImageBalaconies()
+    {
+      return _context.ImageBalaconies.ToList();
+    }
+
+    public List<ImageBalacony> InsertImageBalaconies(ImageBalacony image)
+    {
+      var imageObj = new ImageBalacony();
+      imageObj.Image = image.Image;
+      imageObj.PropertyId = image.PropertyId;
+      imageObj.CreatedBy = image.CreatedBy;
+      imageObj.CreatedDate = _publicdateTime;
+
+      _context.ImageBalaconies.Add(imageObj);
+      _context.SaveChanges();
+
+      return GetAllImageBalaconies();
+    }
+
+
+    public string DeleteImageBalaconies(ImageBalacony image)
+    {
+      var obj = _context.ImageBalaconies.FirstOrDefault(item => item.Id == image.Id);
+      if (obj != null)
+      {
+        try
+        {
+          _context.ImageBalaconies.Remove(obj);
+          _context.SaveChanges();
+          return "Done";
+
+        }
+        catch (Exception)
+        {
+          return "Error";
+          throw;
+        }
+
+      }
+      else
+        return "Error";
+    }
+    #endregion
+
+    #region Bathroom Images
+
+    public List<ImageBathroom> GetAllImageBathroom()
+    {
+      return _context.ImageBathrooms.ToList();
+    }
+
+    public List<ImageBathroom> InsertImageBathroom(ImageBathroom image)
+    {
+      var imageObj = new ImageBathroom();
+      imageObj.Image = image.Image;
+      imageObj.PropertyId = image.PropertyId;
+      imageObj.CreatedBy = image.CreatedBy;
+      imageObj.CreatedDate = _publicdateTime;
+
+      _context.ImageBathrooms.Add(imageObj);
+      _context.SaveChanges();
+
+      return GetAllImageBathroom();
+    }
+
+    #endregion
+
+    #region  Reception Images
+
+    public List<ImageReception> GetAllImageReception()
+    {
+      return _context.ImageReceptions.ToList();
+    }
+
+    public List<ImageReception> InsertImageReception(ImageReception image)
+    {
+      var imageObj = new ImageReception();
+      imageObj.Image = image.Image;
+      imageObj.PropertyId = image.PropertyId;
+      imageObj.CreatedBy = image.CreatedBy;
+      imageObj.CreatedDate = _publicdateTime;
+
+      _context.ImageReceptions.Add(imageObj);
+      _context.SaveChanges();
+
+      return GetAllImageReception();
+    }
+
+    #endregion
+
+    #region Garden Images
+
+    public List<ImageGarden> GetAllImageGarden()
+    {
+      return _context.ImageGardens.ToList();
+    }
+
+    public List<ImageGarden> InsertImageGarden(ImageGarden image)
+    {
+      var imageObj = new ImageGarden();
+      imageObj.Image = image.Image;
+      imageObj.PropertyId = image.PropertyId;
+      imageObj.CreatedBy = image.CreatedBy;
+      imageObj.CreatedDate = _publicdateTime;
+
+      _context.ImageGardens.Add(imageObj);
+      _context.SaveChanges();
+
+      return GetAllImageGarden();
+    }
+
+    #endregion
+    #region Garden Images
+
+    public List<ImagePool> GetAllImagePool()
+    {
+      return _context.ImagePools.ToList();
+    }
+
+    public List<ImagePool> InsertImagePool(ImagePool image)
+    {
+      var imageObj = new ImagePool();
+      imageObj.Image = image.Image;
+      imageObj.PropertyId = image.PropertyId;
+      imageObj.CreatedBy = image.CreatedBy;
+      imageObj.CreatedDate = _publicdateTime;
+
+      _context.ImagePools.Add(imageObj);
+      _context.SaveChanges();
+
+      return GetAllImagePool();
+    }
+
+    #endregion
+    #endregion
+
+    #endregion
+
+    #region FrontEnd
+
+    #region ContactForm
+
+       
+    public string CreateContactForm(ContactForm contactForm)
+    { 
+      var contactFormObj = new ContactForm();
+      try
+      {
+        contactFormObj.FullName = contactForm.FullName;
+        contactFormObj.Email = contactForm.Email;
+        contactFormObj.Phone = contactForm.Phone; 
+        contactFormObj.CreatedDate = _publicdateTime;
+        _context.ContactForms.Add(contactFormObj);
+        _context.SaveChanges();
+
+        return "Done";
+      }
+      catch (Exception)
+      {
+        return "Error";
+        throw;
+      }
+
+    }
+
+     
+
     #endregion
 
     #endregion

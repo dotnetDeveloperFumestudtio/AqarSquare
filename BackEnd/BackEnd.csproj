@@ -149,6 +149,7 @@
     <Compile Include="Controllers\ImagesController.cs" />
     <Compile Include="Controllers\MessageController.cs" />
     <Compile Include="Controllers\ProjectController.cs" />
+    <Compile Include="Controllers\UploaderController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
       <SubType>Code</SubType>
@@ -842,6 +843,10 @@
     <Content Include="Images\ms-icon-70x70.png" />
     <Content Include="Images\view-icon.png" />
     <Content Include="Index.html" />
+    <Content Include="Scripts\AngularJS\1\angular-aria.min.js" />
+    <Content Include="Scripts\AngularJS\1\angular-material.min.css" />
+    <Content Include="Scripts\AngularJS\1\lf-ng-md-file-input.css" />
+    <Content Include="Scripts\AngularJS\1\lf-ng-md-file-input.js" />
     <Content Include="Scripts\AngularJS\angular-searchAndSelect.js" />
     <Content Include="Scripts\App\3D\Object3D.html" />
     <Content Include="Scripts\App\3D\Object3D.js" />
@@ -1153,6 +1158,7 @@
     <Content Include="Scripts\App\Selfie\UploadHandler.ashx" />
     <Content Include="Scripts\App\Video\UploadHandler.ashx" />
     <Content Include="Scripts\AngularJS\acute.select.js" />
+    <Content Include="Scripts\App\modules\common\fileUpload\UploadHandler.ashx" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\i18n\angular-locale_aa-dj.js" />
     <Content Include="Scripts\i18n\angular-locale_aa-er.js" />
@@ -1958,9 +1964,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Upload\" />
     <Folder Include="Views\FileHandler\" />
     <Folder Include="Views\Message\" />
     <Folder Include="Views\Project\" />
+    <Folder Include="Views\Uploader\" />
+    <Folder Include="Views\Upload\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

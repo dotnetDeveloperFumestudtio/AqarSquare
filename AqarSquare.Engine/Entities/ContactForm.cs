@@ -20,5 +20,7 @@ namespace AqarSquare.Engine.Entities
         public string Email { get; set; }
         public string Message { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
+        public Nullable<int> ApprovedBy { get; set; }
+        public Nullable<System.DateTime> ApprovedDate { get; set; }
     }
 }

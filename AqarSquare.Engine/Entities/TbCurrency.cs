@@ -12,10 +12,10 @@ namespace AqarSquare.Engine.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class Currency
+    public partial class TbCurrency
     {
         public int Id { get; set; }
-        public string Currency1 { get; set; }
+        public string Currency { get; set; }
         public string CurrencyKey { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<int> CreatedBy { get; set; }

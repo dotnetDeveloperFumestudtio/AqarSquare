@@ -26,7 +26,6 @@ namespace AqarSquare.Engine.Entities
         }
     
         public virtual DbSet<City> Cities { get; set; }
-        public virtual DbSet<ContactForm> ContactForms { get; set; }
         public virtual DbSet<ContractType> ContractTypes { get; set; }
         public virtual DbSet<Image360> Image360 { get; set; }
         public virtual DbSet<ImageBalacony> ImageBalaconies { get; set; }
@@ -48,7 +47,8 @@ namespace AqarSquare.Engine.Entities
         public virtual DbSet<UserFavourite> UserFavourites { get; set; }
         public virtual DbSet<UserRate> UserRates { get; set; }
         public virtual DbSet<ContactU> ContactUs { get; set; }
-        public virtual DbSet<Currency> Currencies { get; set; }
+        public virtual DbSet<TbCurrency> TbCurrencies { get; set; }
         public virtual DbSet<Property> Properties { get; set; }
+        public virtual DbSet<ContactForm> ContactForms { get; set; }
     }
 }

@@ -12,6 +12,11 @@ namespace AqarSquare.Engine
     Arabic = 1
   }
 
+  public enum UserTypes
+  {
+    Admin = 1,
+    Tenant = 2
+  }
   public enum Devices
   {
     Android = 0,

@@ -97,6 +97,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="BusinessEntities\BackEnd\ImageBathroom.cs" />
+    <None Include="BusinessEntities\BackEnd\ImageReception.cs" />
+    <None Include="BusinessEntities\BackEnd\ImageGarden.cs" />
+    <None Include="BusinessEntities\BackEnd\ImagePool.cs" />
+    <Compile Include="BusinessEntities\BackEnd\PropertyInfo.cs" />
+    <Compile Include="BusinessEntities\BackEnd\CurrencyBackend.cs" />
+    <Compile Include="BusinessEntities\BackEnd\ContractTypeBackend.cs" />
+    <Compile Include="BusinessEntities\BackEnd\PropertyTypeBackend.cs" />
     <Compile Include="BusinessEntities\BackEnd\PropertyBackend.cs" />
     <Compile Include="BusinessEntities\BackEnd\SystemUserBackend.cs" />
     <Compile Include="BusinessEntities\BusinessEntityBase.cs" />
@@ -113,9 +121,6 @@
       <DependentUpon>Entites.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\ContractType.cs">
-      <DependentUpon>Entites.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\Currency.cs">
       <DependentUpon>Entites.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\Entites.Context.cs">
@@ -184,6 +189,9 @@
     <Compile Include="Entities\SystemUser.cs">
       <DependentUpon>Entites.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entities\TbCurrency.cs">
+      <DependentUpon>Entites.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entities\TopTenProperty.cs">
       <DependentUpon>Entites.tt</DependentUpon>
     </Compile>
@@ -208,6 +216,7 @@
     </EntityDeploy>
     <Compile Include="BusinessEntities\BackEnd\ContactUsBackend.cs" />
     <Compile Include="BusinessEntities\BackEnd\CityBackend.cs" />
+    <None Include="BusinessEntities\BackEnd\ImageBalacony.cs" />
     <None Include="Entities\Entites.edmx.diagram">
       <DependentUpon>Entites.edmx</DependentUpon>
     </None>

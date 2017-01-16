@@ -47,5 +47,6 @@ namespace AqarSquare.Engine.Entities
         public Nullable<System.DateTime> ApprovedDate { get; set; }
         public string Long { get; set; }
         public string Late { get; set; }
+        public Nullable<int> ContractType { get; set; }
     }
 }

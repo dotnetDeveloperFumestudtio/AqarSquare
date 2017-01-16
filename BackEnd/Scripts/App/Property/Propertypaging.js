@@ -9,7 +9,7 @@
   $scope.pageChanged = function () {
     //fetsh message data  from databae 
 
-    $http.post($scope.URL + "FetchPropertyByPageSize", { 'pageNumber': $scope.currentPage, 'pageSize': $scope.pageNumber })
+    $http.post($scope.URL + "FetchUserPropertyByPageSize", { 'pageNumber': $scope.currentPage, 'pageSize': $scope.pageNumber })
     .success(function (data, status, headers, config) {
       $scope.totalItems = data.TotalCount;
       var fillData = [{}];

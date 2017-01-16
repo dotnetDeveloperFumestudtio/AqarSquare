@@ -7,10 +7,13 @@
   <link rel="icon" type="image/png" sizes="32x32" href="Images/aqar/1/favicon-32x32.png">
 
   <style>
-    .thumImg {
-      width: 100px;
-      height: 100px;
+     [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-    ng-cloak {
+        display: none !important;
     }
+     .thumImg {
+       width: 100px;
+       height: 100px;
+     }
 
     .list {
       list-style: none outside none;
@@ -118,20 +121,20 @@
       width: 600px;
     }
 
-      .multiSelect .mselect {
-        margin-right: 20px;
-        float: left;
-        width: 200px;
-      }
+    .multiSelect .mselect {
+      margin-right: 20px;
+      float: left;
+      width: 200px;
+    }
 
-      .multiSelect .text {
-        clear: both;
-        font-size: 11px;
-      }
+    .multiSelect .text {
+      clear: both;
+      font-size: 11px;
+    }
 
-      .multiSelect label::after {
-        content: ":";
-      }
+    .multiSelect label::after {
+      content: ":";
+    }
 
     .btn.mover {
       display: block;
@@ -139,17 +142,17 @@
       vertical-align: top;
     }
 
-      .btn.mover.left {
-        padding: 4px 8px 4px 8px;
-        background-color: #009900;
-        border-color: #008400;
-      }
+    .btn.mover.left {
+      padding: 4px 8px 4px 8px;
+      background-color: #009900;
+      border-color: #008400;
+    }
 
-      .btn.mover.right {
-        margin-top: 9px;
-        padding: 4px 8px 4px 8px;
-        background-color: #009900;
-      }
+    .btn.mover.right {
+      margin-top: 9px;
+      padding: 4px 8px 4px 8px;
+      background-color: #009900;
+    }
 
     .clrblk {
       color: #000000;
@@ -181,7 +184,7 @@
       margin-right: 30px;
     }
 
-    /*.item, .placeholder {
+  /*.item, .placeholder {
         padding: 2px;
         width: 50px;
         height: 20px;
@@ -276,7 +279,7 @@
   <script src="Scripts/AngularJS/paging.js"></script>
 
 </head>
-<body>
+<body >
   <div id="wrapper">
     <div ng-app="angapp" ng-controller="homeCtrl as hc">
       <nav class="navbar-default navbar-static-side fixed-menu" role="navigation">
@@ -331,10 +334,10 @@
                     <li ui-sref="home" ui-sref-active="active">
                       <a><i class="fa fa-home"></i> <span class="nav-label">Dashboards</span></a>
                     </li>
-                 
+
 
                     <li ui-sref="property" ui-sref-active="active">
-                      <a><i class="fa fa-laptop"></i> <span class="nav-label">Property</span></a>
+                      <a><i class="fa fa-laptop"></i> <span class="nav-label">User Property</span></a>
                     </li>
 
 
@@ -344,7 +347,7 @@
                     <li ui-sref="square" ui-sref-active="active">
                       <a><i class="fa fa-laptop"></i> <span class="nav-label">Square </span></a>
                     </li>
-                   
+
                     <li ui-sref-active="active">
                       <a ui-sref="user"><i class="fa fa-laptop"></i> <span class="nav-label">Users</span></a>
                     </li>
@@ -353,11 +356,11 @@
                     </li>
                     <li ui-sref-active="active">
                       <a ui-sref="notification"><i class="fa fa-laptop"></i> <span class="nav-label">Notification</span></a>
-                    </li> 
+                    </li>
                     <li class="nav-parent">
                       <a href="#"><i class="fa fa-laptop"></i> <span class="nav-label">Settings</span></a>
-                      <ul class="children"> 
-                        <li><a ui-sref="contactUs">Contact Us</a></li> 
+                      <ul class="children">
+                        <li><a ui-sref="contactUs">Contact Us</a></li>
                       </ul>
                     </li>
                   </ul>
@@ -426,7 +429,7 @@
             <strong>Copyright</strong> Aqar Square  &copy;  2017
           </div>
         </div>
- 
+
 
       </div>
 
@@ -679,9 +682,9 @@
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.0/lodash.js"></script>
     <script src="https://rawgit.com/dotansimha/angularjs-dropdown-multiselect/master/src/angularjs-dropdown-multiselect.js"></script>
-    
 
-   
+
+
     <script src="Scripts/AngularJS/dropzone-directive.js"></script>
     <script src="Scripts/AngularJS/dropzone.js"></script>
     <script src="Scripts/AngularJS/dropzone.min.js"></script>
@@ -707,7 +710,7 @@
 
     <script src="Scripts/App/City/Controller.js"></script>
     <script src="Scripts/App/City/Citypaging.js"></script>
-    <script src="Scripts/App/City/service.js"></script>  
+    <script src="Scripts/App/City/service.js"></script>
 
     <script src="Scripts/App/Square/Controller.js"></script>
     <script src="Scripts/App/Square/Squarepaging.js"></script>
@@ -715,7 +718,7 @@
 
     <script src="Scripts/App/Property/Controller.js"></script>
     <script src="Scripts/App/Property/Propertypaging.js"></script>
-    <script src="Scripts/App/Property/service.js"></script>  
+    <script src="Scripts/App/Property/service.js"></script>
 
     <script src="Scripts/App/Region/Region.js"></script>
     <script src="Scripts/App/Region/pagingRegion.js"></script>

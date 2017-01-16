@@ -1,5 +1,5 @@
 ﻿var app = angular.module('propertyapp', []);
-app.controller('PropertyController', function ($scope, $http, notify, blockUI, cfpLoadingBar, PropertyService) {
+app.controller('PropertyController', function ($scope, $http, notify, blockUI, Upload, cfpLoadingBar, PropertyService) {
 
   $scope.IsHidden = true;
   $scope.ShowHide = function () {
@@ -13,6 +13,7 @@ app.controller('PropertyController', function ($scope, $http, notify, blockUI, c
   vm.currentPage = 1;
   vm.pageNumber = 5;
   vm.PropertyData = {};
+  $scope.PropertyId = 25;
   $scope.current = {};
   $scope.isUpdate = false;
   $scope.isCreate = true;
@@ -21,8 +22,16 @@ app.controller('PropertyController', function ($scope, $http, notify, blockUI, c
   $scope.reverse = false;
   $scope.attractionListModel = "";
   $scope.squareSelectedId = "";
-
   $scope.squaremodel = [];
+  $scope.currencySelectedId = "";
+  $scope.currencymodel = [];
+  $scope.propertytypeSelectedId = "";
+  $scope.propertytypemodel = [];
+  $scope.contracttypeSelectedId = "";
+  $scope.contracttypemodel = [];
+  $scope.balaconyImages = {};
+
+
   $scope.squaresettings = {
     displayProp: 'Title', idProp: 'Id', enableSearch: true, scrollableHeight: '300px',
     selectionLimit: 2,
@@ -44,6 +53,7 @@ app.controller('PropertyController', function ($scope, $http, notify, blockUI, c
   };
 
   bindSquares();
+
   function bindSquares() {
     var desg = getSquares();
 
@@ -56,7 +66,109 @@ app.controller('PropertyController', function ($scope, $http, notify, blockUI, c
     });
   }
 
+  $scope.currencysettings = {
+    displayProp: 'CurrencyKey', idProp: 'Id', enableSearch: true, scrollableHeight: '300px',
+    selectionLimit: 2,
+    showCheckAll: false,
+    showUncheckAll: false,
+    closeOnSelect: true,
+    scrollable: true,
+    smartButtonMaxItems: 1,
+    smartButtonTextConverter: function (itemText, originalItem) {
+      if (itemText === 'Jhon') {
+        return 'Jhonny!';
+      }
 
+      return itemText;
+    }
+  };
+  function getCurrencies() {
+    return $http.get($scope.URL + "FetchAllCurrency");
+  };
+
+  bindCurrecies();
+
+  function bindCurrecies() {
+    var desg = getCurrencies();
+
+    desg.then(function (dsg) {
+      $scope.currencydata = dsg.data;
+      $scope.currencies = dsg.data;
+    }, function (dsg) {
+      swal({ title: "Error!", text: "Something went wrong!", type: "error", timer: 2000, showConfirmButton: false });
+
+    });
+  }
+
+
+  $scope.propertytypesettings = {
+    displayProp: 'Title', idProp: 'Id', enableSearch: true, scrollableHeight: '300px',
+    selectionLimit: 2,
+    showCheckAll: false,
+    showUncheckAll: false,
+    closeOnSelect: true,
+    scrollable: true,
+    smartButtonMaxItems: 1,
+    smartButtonTextConverter: function (itemText, originalItem) {
+      if (itemText === 'Jhon') {
+        return 'Jhonny!';
+      }
+
+      return itemText;
+    }
+  };
+  function getPropertyTypes() {
+    return $http.get($scope.URL + "FetchAllPropertyType");
+  };
+
+  bindPropertyTypes();
+
+  function bindPropertyTypes() {
+    var desg = getPropertyTypes();
+
+    desg.then(function (dsg) {
+      $scope.propertytypedata = dsg.data;
+      $scope.propertytypes = dsg.data;
+    }, function (dsg) {
+      swal({ title: "Error!", text: "Something went wrong!", type: "error", timer: 2000, showConfirmButton: false });
+
+    });
+  }
+
+
+  $scope.contracttypesettings = {
+    displayProp: 'Title', idProp: 'Id', enableSearch: true, scrollableHeight: '300px',
+    selectionLimit: 2,
+    showCheckAll: false,
+    showUncheckAll: false,
+    closeOnSelect: true,
+    scrollable: true,
+    smartButtonMaxItems: 1,
+    smartButtonTextConverter: function (itemText, originalItem) {
+      if (itemText === 'Jhon') {
+        return 'Jhonny!';
+      }
+
+      return itemText;
+    }
+  };
+  function getContractTypes() {
+    return $http.get($scope.URL + "FetchAllContractType");
+  };
+
+  bindContractTypes();
+
+  function bindContractTypes() {
+    var desg = getContractTypes();
+
+    desg.then(function (dsg) {
+      $scope.contracttypedata = dsg.data;
+      $scope.contracttypes = dsg.data;
+    }, function (dsg) {
+      swal({ title: "Error!", text: "Something went wrong!", type: "error", timer: 2000, showConfirmButton: false });
+
+    });
+  }
 
   fetshData();
 
@@ -86,38 +198,101 @@ app.controller('PropertyController', function ($scope, $http, notify, blockUI, c
     // Get the reference to the block service.   
     var myBlockUi = blockUI.instances.get('myBlockUI');
 
+    var squareId = $scope.squaremodel.map(function (a) { return a.id; });
+    if (squareId.length == 0) {
+      myBlockUi.stop();
+      cfpLoadingBar.complete();
+      swal({ title: "Error!", text: "must choose at least 1 Square", type: "error", timer: 2000, showConfirmButton: false });
+      return;
+    }
+    if (squareId.length > 1) {
+      myBlockUi.stop();
+      cfpLoadingBar.complete();
+      swal({ title: "Error!", text: "must choose just 1 Square", type: "error", timer: 2000, showConfirmButton: false });
+      return;
+    }
+    $scope.squareSelectedId = parseInt(squareId);
+
+
+    var currencyId = $scope.currencymodel.map(function (a) { return a.id; });
+    if (currencyId.length == 0) {
+      myBlockUi.stop();
+      cfpLoadingBar.complete();
+      swal({ title: "Error!", text: "must choose at least 1 Currency", type: "error", timer: 2000, showConfirmButton: false });
+      return;
+    }
+    if (currencyId.length > 1) {
+      myBlockUi.stop();
+      cfpLoadingBar.complete();
+      swal({ title: "Error!", text: "must choose just 1 Currency", type: "error", timer: 2000, showConfirmButton: false });
+      return;
+    }
+    $scope.currencySelectedId = parseInt(currencyId);
+
+
+    var propertytypeId = $scope.propertytypemodel.map(function (a) { return a.id; });
+    if (propertytypeId.length == 0) {
+      myBlockUi.stop();
+      cfpLoadingBar.complete();
+      swal({ title: "Error!", text: "must choose at least 1 Property Type", type: "error", timer: 2000, showConfirmButton: false });
+      return;
+    }
+    if (propertytypeId.length > 1) {
+      myBlockUi.stop();
+      cfpLoadingBar.complete();
+      swal({ title: "Error!", text: "must choose just 1 Property Type", type: "error", timer: 2000, showConfirmButton: false });
+      return;
+    }
+    $scope.propertytypeSelectedId = parseInt(currencyId);
+
+    var contracttypeId = $scope.contracttypemodel.map(function (a) { return a.id; });
+    if (contracttypeId.length == 0) {
+      myBlockUi.stop();
+      cfpLoadingBar.complete();
+      swal({ title: "Error!", text: "must choose at least 1 Contract Type", type: "error", timer: 2000, showConfirmButton: false });
+      return;
+    }
+    if (contracttypeId.length > 1) {
+      myBlockUi.stop();
+      cfpLoadingBar.complete();
+      swal({ title: "Error!", text: "must choose just 1 Contract Type", type: "error", timer: 2000, showConfirmButton: false });
+      return;
+    }
+    $scope.contracttypeSelectedId = parseInt(contracttypeId);
 
     // Start blocking the element.
-    myBlockUi.start({
-      message: 'Wait Please ...'
-    });
+    //myBlockUi.start({
+    //  message: 'Wait Please ...'
+    //});
     cfpLoadingBar.start();
-    property.Late = $scope.variable1[0];
-    property.Long = $scope.variable1[1];
+    //property.Late = $scope.variable1[0];
+    //property.Long = $scope.variable1[1];
 
     property.TitleAr = $scope.current.TitleAr;
     property.Title = $scope.current.Title;
-    property.Status = $scope.current.Status;
-    Property.Description = $scope.current.Description;
-    Property.DescriptionAr = $scope.current.DescriptionAr;
-    Property.Address = $scope.current.Address;
-    Property.AddressAr = $scope.current.AddressAr;
-    Property.Price = $scope.current.Price;
-    Property.BathroomNo = $scope.current.BathroomNo;
-    Property.BedroomNo = $scope.current.BedroomNo;
-    Property.RoomsNo = $scope.current.RoomsNo;
-    Property.ReceptionNo = $scope.current.ReceptionNo;
-    Property.Floor = $scope.current.Floor;
-    Property.Balacony = $scope.current.Balacony;
-    Property.Garage = $scope.current.Garage;
-    Property.Garden = $scope.current.Garden;
-    Property.Pool = $scope.current.Pool;
-    Property.Lift = $scope.current.Lift;
-    Property.Area = $scope.current.Area;
-    Property.PropertyType = $scope.current.PropertyType;
-    Property.Currency = $scope.current.Currency;
+    //property.Status = $scope.current.Status;
+    property.Description = $scope.current.Description;
+    property.DescriptionAr = $scope.current.DescriptionAr;
+    property.Address = $scope.current.Address;
+    property.AddressAr = $scope.current.AddressAr;
+    property.Price = $scope.current.Price;
+    property.BathroomNo = $scope.current.BathroomNo;
+    property.BedroomNo = $scope.current.BedroomNo;
+    property.RoomsNo = $scope.current.RoomsNo;
+    property.ReceptionNo = $scope.current.ReceptionNo;
+    property.Floor = $scope.current.Floor;
+    property.Balacony = $scope.current.Balacony;
+    property.Garage = $scope.current.Garage;
+    property.Garden = $scope.current.Garden;
+    property.Pool = $scope.current.Pool;
+    property.Lift = $scope.current.Lift;
+    property.Area = $scope.squareSelectedId;
+    property.propertyType = $scope.propertytypeSelectedId;
+    property.ContractType = $scope.contracttypeSelectedId;
+    property.Currency = $scope.currencySelectedId;
     property.CreatedDate = $scope.current.CreatedDate;
     property.CreatedBy = $scope.UserId;
+    property.UserId = $scope.UserId;
     $http.post($scope.URL + "CreateProperty", { 'Property': property })
       .success(function (data, status, headers, config) {
         if (data == "Exist") {
@@ -127,11 +302,14 @@ app.controller('PropertyController', function ($scope, $http, notify, blockUI, c
           myBlockUi.stop();
           swal({ title: "Error!", text: "Property name already exist!", type: "error", timer: 2000 });
 
-        }
-        if (data == "Done") {
+        } else {
+          $scope.PropertyId = data;
           fetshData();
-
         }
+        //if (data == "Done") {
+        //  fetshData();
+
+        //}
 
 
 
@@ -157,10 +335,10 @@ app.controller('PropertyController', function ($scope, $http, notify, blockUI, c
     // Get the reference to the block service.
     var myBlockUi = blockUI.instances.get('myBlockUI');
 
-    // Start blocking the element.
-    myBlockUi.start({
-      message: 'Wait Please ...'
-    });
+    //// Start blocking the element.
+    //myBlockUi.start({
+    //  message: 'Wait Please ...'
+    //});
     cfpLoadingBar.start();
 
 
@@ -185,12 +363,12 @@ app.controller('PropertyController', function ($scope, $http, notify, blockUI, c
     //  .success(function (data, status, headers, config) {
     //    cfpLoadingBar.complete();
 
-    //    myBlockUi.stop();
+    //    //myBlockUi.stop();
     //    //if (data == "Exist") {
 
     //    //  cfpLoadingBar.complete(); 
 
-    //    //  myblockUI.stop();
+    //    //  //myBlockUi.stop();
     //    //  swal({ title: "Error!", text: "Property name already exist!", type: "error", timer: 2000 });
 
     //    //}
@@ -289,9 +467,9 @@ app.controller('PropertyController', function ($scope, $http, notify, blockUI, c
     // Get the reference to the block service.
     var myBlockUi = blockUI.instances.get('myBlockUI');
 
-    myBlockUi.start({
-      message: 'Wait Please ...'
-    });
+    //myBlockUi.start({
+    //  message: 'Wait Please ...'
+    //});
     cfpLoadingBar.start();
 
     $http.post($scope.URL + "UpdatePropertyStatus", { 'Property': property })
@@ -300,14 +478,14 @@ app.controller('PropertyController', function ($scope, $http, notify, blockUI, c
         if (data == "Error") {
 
           fetshData();
-          myBlockUi.stop();
+          //myBlockUi.stop();
           notify("Error,Recored Updated Fail");
 
         }
         else {
 
           fetshData();
-          myBlockUi.stop();
+          //myBlockUi.stop();
           notify("Recored Updated Successfully");
         }
       });
@@ -318,6 +496,94 @@ app.controller('PropertyController', function ($scope, $http, notify, blockUI, c
 
   };
 
+  $scope.view = function (property) {
+    //  $anchorScroll('formModeration');
+
+    // $scope.currentModration = property;
+    $http.post($scope.URL + "GetPropertyInfo", { 'property': property })
+ .success(function (data, status, headers, config) {
+
+   $scope.propertyInfo = data;
+   $scope.propertyInfo.CreatedDate = toJavaScriptDate(data.CreatedDate);
+ })
+ .error(function (data, status, headers, config) {
+   swal({ title: "Error!", text: "Something went wrong!", type: "error", timer: 2000, showConfirmButton: false });
+
+ }
+ );
+
+  };
+
+  $scope.uploadPic = function (file) {
+
+    // Get the reference to the block service.
+    var myBlockUi = blockUI.instances.get('myBlockUI');
+
+    // Start blocking the element.
+    myBlockUi.start({
+      message: 'Wait Please ...'
+    });
+    file.upload = Upload.upload({
+      url: $scope.MainURL + 'Scripts/App/modules/common/fileUpload/UploadHandler.ashx',
+
+      data: { file: file },
+    });
+
+    file.upload.then(function (response) { 
+      $http.post($scope.URL + "InsertImageBalaconies", { 'userId': $scope.UserId, 'propertyId': $scope.PropertyId, 'image': response.data })
+      .success(function (data, status, headers, config) {
+        //fetchData();
+        // $scope.divuploadmedia = false;
+        myBlockUi.stop();
+        $scope.balaconyImages = data;
+        notify("File Uploaded Successfuly");
+        // clearControl();
+      });
+
+      $timeout(function () {
+        file.result = response.data;
+      
+      });
+    }, function (response) {
+      if (response.status > 0)
+        $scope.errorMsg = response.status + ': ' + response.data;
+    }, function (evt) {
+      // Math.min is to fix IE which reports 200% sometimes
+      file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+    });
+  }
+
+
+  $scope.removeBalaconyImage = function (image) {
+
+    swal({
+      title: "Are you sure you want to delete this image ?",
+      text: "",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#DD6B55",
+      confirmButtonText: "Yes, delete it!",
+      cancelButtonText: "No, cancel!",
+      closeOnConfirm: false,
+    },
+    function (isConfirmAtt) {
+      if (isConfirmAtt) {
+
+    $http.post($scope.URL + "DeleteImageBalaconies", { 'image': image })
+ .success(function (data, status, headers, config) {
+    
+ })
+ .error(function (data, status, headers, config) {
+   swal({ title: "Error!", text: "Something went wrong!", type: "error", timer: 2000, showConfirmButton: false });
+
+ }
+ );
+      
+         
+      }
+    });
+
+  };
   function fetshData() {
 
     var myBlockUi = blockUI.instances.get('myBlockUI');
@@ -325,7 +591,7 @@ app.controller('PropertyController', function ($scope, $http, notify, blockUI, c
     myBlockUi.start({
       message: 'Wait Please ...'
     });
-    $http.post($scope.URL + "FetchPropertyByPageSize", { 'pageNumber': vm.currentPage, 'pageSize': vm.pageNumber })
+    $http.post($scope.URL + "FetchUserPropertyByPageSize", { 'pageNumber': vm.currentPage, 'pageSize': vm.pageNumber })
     .success(function (data, status, headers, config) {
       vm.totalItems = data.TotalCount;
       var fillData = [{}];
@@ -357,7 +623,8 @@ app.controller('PropertyController', function ($scope, $http, notify, blockUI, c
           "Status": data.Data[i].Status,
           "CreatedDate": toJavaScriptDate(data.Data[i].CreatedDate),
           "CreatedByUserName": data.Data[i].CreatedByUserName,
-          "CreatedBy": data.Data[i].CreatedBy
+          "CreatedBy": data.Data[i].CreatedBy,
+          "UserId": data.Data[i].UserId
         });
       }
       fillData = fillData.slice(1);
@@ -382,6 +649,7 @@ app.controller('PropertyController', function ($scope, $http, notify, blockUI, c
     $scope.isAdd = false;
     $scope.isCreate = true;
   }
+
   function toJavaScriptDate(value) {
     var pattern = /Date\(([^)]+)\)/;
     var results = pattern.exec(value);
