@@ -5,7 +5,9 @@ app.controller('PropertyController', function ($scope, $http, notify, blockUI, U
   $scope.ShowHide = function () {
     $scope.IsHidden = $scope.IsHidden ? false : true;
   };
-
+  $scope.propertyInfoDiv = false;
+  $scope.propertyMediaDiv = true;
+  $scope.finishButton = false;
   cfpLoadingBar.start();
 
   var vm = this;
@@ -13,7 +15,7 @@ app.controller('PropertyController', function ($scope, $http, notify, blockUI, U
   vm.currentPage = 1;
   vm.pageNumber = 5;
   vm.PropertyData = {};
-  $scope.PropertyId = 25;
+  $scope.PropertyId = 26;
   $scope.current = {};
   $scope.isUpdate = false;
   $scope.isCreate = true;
@@ -310,7 +312,10 @@ app.controller('PropertyController', function ($scope, $http, notify, blockUI, U
         //  fetshData();
 
         //}
-
+        if ($scope.PropertyId != 0) {
+          $scope.propertyInfoDiv = false;
+          $scope.propertyMediaDiv = true;
+        }
 
 
       });
@@ -514,7 +519,7 @@ app.controller('PropertyController', function ($scope, $http, notify, blockUI, U
 
   };
 
-  $scope.uploadPic = function (file) {
+  $scope.uploadBalaconyPic = function (file) {
 
     // Get the reference to the block service.
     var myBlockUi = blockUI.instances.get('myBlockUI');
@@ -524,12 +529,12 @@ app.controller('PropertyController', function ($scope, $http, notify, blockUI, U
       message: 'Wait Please ...'
     });
     file.upload = Upload.upload({
-      url: $scope.MainURL + 'Scripts/App/modules/common/fileUpload/UploadHandler.ashx',
+      url: $scope.MainURL + 'Scripts/App/modules/common/fileUpload/UploadHandlerBalacony.ashx',
 
       data: { file: file },
     });
 
-    file.upload.then(function (response) { 
+    file.upload.then(function (response) {
       $http.post($scope.URL + "InsertImageBalaconies", { 'userId': $scope.UserId, 'propertyId': $scope.PropertyId, 'image': response.data })
       .success(function (data, status, headers, config) {
         //fetchData();
@@ -542,7 +547,6 @@ app.controller('PropertyController', function ($scope, $http, notify, blockUI, U
 
       $timeout(function () {
         file.result = response.data;
-      
       });
     }, function (response) {
       if (response.status > 0)
@@ -553,9 +557,7 @@ app.controller('PropertyController', function ($scope, $http, notify, blockUI, U
     });
   }
 
-
   $scope.removeBalaconyImage = function (image) {
-
     swal({
       title: "Are you sure you want to delete this image ?",
       text: "",
@@ -564,26 +566,569 @@ app.controller('PropertyController', function ($scope, $http, notify, blockUI, U
       confirmButtonColor: "#DD6B55",
       confirmButtonText: "Yes, delete it!",
       cancelButtonText: "No, cancel!",
-      closeOnConfirm: false,
+      closeOnConfirm: true,
     },
-    function (isConfirmAtt) {
-      if (isConfirmAtt) {
+   function (isConfirmAtt) {
+     if (isConfirmAtt) {
 
-    $http.post($scope.URL + "DeleteImageBalaconies", { 'image': image })
- .success(function (data, status, headers, config) {
-    
- })
- .error(function (data, status, headers, config) {
-   swal({ title: "Error!", text: "Something went wrong!", type: "error", timer: 2000, showConfirmButton: false });
+       $http.post($scope.URL + "DeleteImageBalaconies", { 'image': image })
+             .success(function (data, status, headers, config) {
+               $http.post($scope.URL + "GetAllImageBalaconies", { 'image': image })
+                   .success(function (data, status, headers, config) {
+                     $scope.balaconyImages = data;
 
- }
- );
-      
-         
-      }
-    });
+                   }).error(function (data, status, headers, config) {
+                     swal({ title: "Error!", text: "Something went wrong!", type: "error", timer: 2000, showConfirmButton: false });
+
+                   });
+             })
+              .error(function (data, status, headers, config) {
+                swal({ title: "Error!", text: "Something went wrong!", type: "error", timer: 2000, showConfirmButton: false });
+
+              });
+
+
+     }
+   });
 
   };
+
+  $scope.DeleteSelectedBalaconyImage = function (list) {
+    var itemList = [];
+    angular.forEach(list, function (value, key) {
+      if (list[key].selected) {
+        itemList.push(list[key].selected);
+      }
+    });
+    //console.log(itemList.length);  
+    $http.post($scope.URL + "DeleteSelectedBalaconyImage", itemList)
+      .success(function (data) {
+
+        $http.post($scope.URL + "GetAllImageBalaconyByPropertyId", { 'propertyId': $scope.PropertyId })
+
+                      .success(function (dataReturn, status, headers, config) {
+                        $scope.BalaconyImages = dataReturn;
+                        swal({ title: "Deleted!", type: "success", timer: 1000, showConfirmButton: false });
+
+                      }).error(function (dataerror, status, headers, config) {
+                        swal({ title: "Error!", text: "Something went wrong!", type: "error", timer: 2000, showConfirmButton: false });
+
+                      });
+
+      }).error(function (msg) {
+        console.log(msg);
+      });
+  }
+
+
+  $scope.uploadBathroomPic = function (file) {
+
+    // Get the reference to the block service.
+    var myBlockUi = blockUI.instances.get('myBlockUI');
+
+    // Start blocking the element.
+    myBlockUi.start({
+      message: 'Wait Please ...'
+    });
+    file.upload = Upload.upload({
+      url: $scope.MainURL + 'Scripts/App/modules/common/fileUpload/UploadHandlerBathroom.ashx',
+
+      data: { file: file },
+    });
+
+    file.upload.then(function (response) {
+      $http.post($scope.URL + "InsertImageBathroom", { 'userId': $scope.UserId, 'propertyId': $scope.PropertyId, 'image': response.data })
+      .success(function (data, status, headers, config) {
+
+        myBlockUi.stop();
+        $scope.bathroomImages = data;
+        notify("File Uploaded Successfuly");
+      });
+
+      $timeout(function () {
+        file.result = response.data;
+      });
+    }, function (response) {
+      if (response.status > 0)
+        $scope.errorMsg = response.status + ': ' + response.data;
+    }, function (evt) {
+      // Math.min is to fix IE which reports 200% sometimes
+      file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+    });
+  }
+
+  $scope.removeBathroomImage = function (image) {
+    swal({
+      title: "Are you sure you want to delete this image ?",
+      text: "",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#DD6B55",
+      confirmButtonText: "Yes, delete it!",
+      cancelButtonText: "No, cancel!",
+      closeOnConfirm: true,
+    },
+   function (isConfirmAtt) {
+     if (isConfirmAtt) {
+
+       $http.post($scope.URL + "DeleteImageBathroom", { 'image': image })
+             .success(function (data, status, headers, config) {
+               $http.post($scope.URL + "GetAllImageBathroom", { 'image': image })
+                   .success(function (data, status, headers, config) {
+                     $scope.bathroomImages = data;
+
+                   }).error(function (data, status, headers, config) {
+                     swal({ title: "Error!", text: "Something went wrong!", type: "error", timer: 2000, showConfirmButton: false });
+
+                   });
+             })
+              .error(function (data, status, headers, config) {
+                swal({ title: "Error!", text: "Something went wrong!", type: "error", timer: 2000, showConfirmButton: false });
+
+              });
+     }
+   });
+
+  };
+
+  $scope.DeleteSelectedBathroomImage = function (list) {
+    var itemList = [];
+    angular.forEach(list, function (value, key) {
+      if (list[key].selected) {
+        itemList.push(list[key].selected);
+      }
+    });
+    //console.log(itemList.length);  
+    $http.post($scope.URL + "DeleteSelectedBathroomImage", itemList)
+      .success(function (data) {
+
+        $http.post($scope.URL + "GetAllImageBathroomByPropertyId", { 'propertyId': $scope.PropertyId })
+
+                      .success(function (dataReturn, status, headers, config) {
+                        $scope.BathroomImages = dataReturn;
+                        swal({ title: "Deleted!", type: "success", timer: 1000, showConfirmButton: false });
+
+                      }).error(function (dataerror, status, headers, config) {
+                        swal({ title: "Error!", text: "Something went wrong!", type: "error", timer: 2000, showConfirmButton: false });
+
+                      });
+
+      }).error(function (msg) {
+        console.log(msg);
+      });
+  }
+
+
+  $scope.uploadBedroomPic = function (file) {
+
+    // Get the reference to the block service.
+    var myBlockUi = blockUI.instances.get('myBlockUI');
+
+    // Start blocking the element.
+    myBlockUi.start({
+      message: 'Wait Please ...'
+    });
+    file.upload = Upload.upload({
+      url: $scope.MainURL + 'Scripts/App/modules/common/fileUpload/UploadHandlerBedroom.ashx',
+
+      data: { file: file },
+    });
+
+    file.upload.then(function (response) {
+      $http.post($scope.URL + "InsertImageBedroom", { 'userId': $scope.UserId, 'propertyId': $scope.PropertyId, 'image': response.data })
+      .success(function (data, status, headers, config) {
+
+        myBlockUi.stop();
+        $scope.BedroomImages = data;
+        notify("File Uploaded Successfuly");
+      });
+
+      $timeout(function () {
+        file.result = response.data;
+      });
+    }, function (response) {
+      if (response.status > 0)
+        $scope.errorMsg = response.status + ': ' + response.data;
+    }, function (evt) {
+      // Math.min is to fix IE which reports 200% sometimes
+      file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+    });
+  }
+
+  $scope.removeBedroomImage = function (image) {
+    swal({
+      title: "Are you sure you want to delete this image ?",
+      text: "",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#DD6B55",
+      confirmButtonText: "Yes, delete it!",
+      cancelButtonText: "No, cancel!",
+      closeOnConfirm: true,
+    },
+   function (isConfirmAtt) {
+     if (isConfirmAtt) {
+
+       $http.post($scope.URL + "DeleteImageBedroom", { 'image': image })
+             .success(function (data, status, headers, config) {
+               $http.post($scope.URL + "GetAllImageBedroom", { 'image': image })
+                   .success(function (data, status, headers, config) {
+                     $scope.BedroomImages = data;
+
+                   }).error(function (data, status, headers, config) {
+                     swal({ title: "Error!", text: "Something went wrong!", type: "error", timer: 2000, showConfirmButton: false });
+
+                   });
+             })
+              .error(function (data, status, headers, config) {
+                swal({ title: "Error!", text: "Something went wrong!", type: "error", timer: 2000, showConfirmButton: false });
+
+              });
+     }
+   });
+
+  };
+
+  $scope.DeleteSelectedBedroomImage = function (list) {
+    var itemList = [];
+    angular.forEach(list, function (value, key) {
+      if (list[key].selected) {
+        itemList.push(list[key].selected);
+      }
+    });
+    //console.log(itemList.length);  
+    $http.post($scope.URL + "DeleteSelectedBedroomImage", itemList)
+      .success(function (data) {
+
+        $http.post($scope.URL + "GetAllImageBedroomByPropertyId", { 'propertyId': $scope.PropertyId })
+
+                      .success(function (dataReturn, status, headers, config) {
+                        $scope.BedroomImages = dataReturn;
+                        swal({ title: "Deleted!", type: "success", timer: 1000, showConfirmButton: false });
+
+                      }).error(function (dataerror, status, headers, config) {
+                        swal({ title: "Error!", text: "Something went wrong!", type: "error", timer: 2000, showConfirmButton: false });
+
+                      });
+
+      }).error(function (msg) {
+        console.log(msg);
+      });
+  }
+
+
+  $scope.uploadGardenPic = function (file) {
+
+    // Get the reference to the block service.
+    var myBlockUi = blockUI.instances.get('myBlockUI');
+
+    // Start blocking the element.
+    myBlockUi.start({
+      message: 'Wait Please ...'
+    });
+    file.upload = Upload.upload({
+      url: $scope.MainURL + 'Scripts/App/modules/common/fileUpload/UploadHandlerGarden.ashx',
+
+      data: { file: file },
+    });
+
+    file.upload.then(function (response) {
+      $http.post($scope.URL + "InsertImageGarden", { 'userId': $scope.UserId, 'propertyId': $scope.PropertyId, 'image': response.data })
+      .success(function (data, status, headers, config) {
+
+        myBlockUi.stop();
+        $scope.GardenImages = data;
+        notify("File Uploaded Successfuly");
+      });
+
+      $timeout(function () {
+        file.result = response.data;
+      });
+    }, function (response) {
+      if (response.status > 0)
+        $scope.errorMsg = response.status + ': ' + response.data;
+    }, function (evt) {
+      // Math.min is to fix IE which reports 200% sometimes
+      file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+    });
+  }
+
+  $scope.removeGardenImage = function (image) {
+    swal({
+      title: "Are you sure you want to delete this image ?",
+      text: "",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#DD6B55",
+      confirmButtonText: "Yes, delete it!",
+      cancelButtonText: "No, cancel!",
+      closeOnConfirm: true,
+    },
+   function (isConfirmAtt) {
+     if (isConfirmAtt) {
+
+       $http.post($scope.URL + "DeleteImageGarden", { 'image': image })
+             .success(function (data, status, headers, config) {
+               $http.post($scope.URL + "GetAllImageGarden", { 'image': image })
+                   .success(function (data, status, headers, config) {
+                     $scope.GardenImages = data;
+
+                   }).error(function (data, status, headers, config) {
+                     swal({ title: "Error!", text: "Something went wrong!", type: "error", timer: 2000, showConfirmButton: false });
+
+                   });
+             })
+              .error(function (data, status, headers, config) {
+                swal({ title: "Error!", text: "Something went wrong!", type: "error", timer: 2000, showConfirmButton: false });
+
+              });
+     }
+   });
+
+  };
+
+  $scope.DeleteSelectedGardenImage = function (list) {
+    var itemList = [];
+    angular.forEach(list, function (value, key) {
+      if (list[key].selected) {
+        itemList.push(list[key].selected);
+      }
+    });
+    //console.log(itemList.length);  
+    $http.post($scope.URL + "DeleteSelectedGardenImage", itemList)
+      .success(function (data) {
+
+        $http.post($scope.URL + "GetAllImageGardenByPropertyId", { 'propertyId': $scope.PropertyId })
+
+                      .success(function (dataReturn, status, headers, config) {
+                        $scope.GardenImages = dataReturn;
+                        swal({ title: "Deleted!", type: "success", timer: 1000, showConfirmButton: false });
+
+                      }).error(function (dataerror, status, headers, config) {
+                        swal({ title: "Error!", text: "Something went wrong!", type: "error", timer: 2000, showConfirmButton: false });
+
+                      });
+
+      }).error(function (msg) {
+        console.log(msg);
+      });
+  }
+
+
+  $scope.uploadPoolPic = function (file) {
+
+    // Get the reference to the block service.
+    var myBlockUi = blockUI.instances.get('myBlockUI');
+
+    // Start blocking the element.
+    myBlockUi.start({
+      message: 'Wait Please ...'
+    });
+    file.upload = Upload.upload({
+      url: $scope.MainURL + 'Scripts/App/modules/common/fileUpload/UploadHandlerPool.ashx',
+
+      data: { file: file },
+    });
+
+    file.upload.then(function (response) {
+      $http.post($scope.URL + "InsertImagePool", { 'userId': $scope.UserId, 'propertyId': $scope.PropertyId, 'image': response.data })
+      .success(function (data, status, headers, config) {
+
+        myBlockUi.stop();
+        $scope.PoolImages = data;
+        notify("File Uploaded Successfuly");
+      });
+
+      $timeout(function () {
+        file.result = response.data;
+      });
+    }, function (response) {
+      if (response.status > 0)
+        $scope.errorMsg = response.status + ': ' + response.data;
+    }, function (evt) {
+      // Math.min is to fix IE which reports 200% sometimes
+      file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+    });
+  }
+
+  $scope.removePoolImage = function (image) {
+    swal({
+      title: "Are you sure you want to delete this image ?",
+      text: "",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#DD6B55",
+      confirmButtonText: "Yes, delete it!",
+      cancelButtonText: "No, cancel!",
+      closeOnConfirm: true,
+    },
+   function (isConfirmAtt) {
+     if (isConfirmAtt) {
+
+       $http.post($scope.URL + "DeleteImagePool", { 'image': image })
+             .success(function (data, status, headers, config) {
+               $http.post($scope.URL + "GetAllImagePool", { 'image': image })
+                   .success(function (data, status, headers, config) {
+                     $scope.PoolImages = data;
+
+                   }).error(function (data, status, headers, config) {
+                     swal({ title: "Error!", text: "Something went wrong!", type: "error", timer: 2000, showConfirmButton: false });
+
+                   });
+             })
+              .error(function (data, status, headers, config) {
+                swal({ title: "Error!", text: "Something went wrong!", type: "error", timer: 2000, showConfirmButton: false });
+
+              });
+     }
+   });
+
+  };
+
+  $scope.DeleteSelectedPoolImage = function (list) {
+    var itemList = [];
+    angular.forEach(list, function (value, key) {
+      if (list[key].selected) {
+        itemList.push(list[key].selected);
+      }
+    });
+    //console.log(itemList.length);  
+    $http.post($scope.URL + "DeleteSelectedPoolImage", itemList)
+      .success(function (data) {
+
+        $http.post($scope.URL + "GetAllImagePoolByPropertyId", { 'propertyId': $scope.PropertyId })
+
+                      .success(function (dataReturn, status, headers, config) {
+                        $scope.PoolImages = dataReturn;
+                        swal({ title: "Deleted!", type: "success", timer: 1000, showConfirmButton: false });
+
+                      }).error(function (dataerror, status, headers, config) {
+                        swal({ title: "Error!", text: "Something went wrong!", type: "error", timer: 2000, showConfirmButton: false });
+
+                      });
+
+      }).error(function (msg) {
+        console.log(msg);
+      });
+  }
+
+
+  $scope.uploadReceptionPic = function (file) {
+
+    // Get the reference to the block service.
+    var myBlockUi = blockUI.instances.get('myBlockUI');
+
+    // Start blocking the element.
+    myBlockUi.start({
+      message: 'Wait Please ...'
+    });
+    file.upload = Upload.upload({
+      url: $scope.MainURL + 'Scripts/App/modules/common/fileUpload/UploadHandlerReception.ashx',
+
+      data: { file: file },
+    });
+
+    file.upload.then(function (response) {
+      $http.post($scope.URL + "InsertImageReception", { 'userId': $scope.UserId, 'propertyId': $scope.PropertyId, 'image': response.data })
+      .success(function (data, status, headers, config) {
+
+        myBlockUi.stop();
+        $scope.ReceptionImages = data;
+        //if ($scope.balaconyImages != null && $scope.bathroomImages != null &&
+        //   $scope.BedroomImages != null && $scope.GardenImages != null &&
+        //   $scope.PoolImages != null && $scope.ReceptionImages != null) {
+        //  $scope.finishButton = true;
+
+        //}
+
+        notify("File Uploaded Successfuly");
+      });
+
+      $timeout(function () {
+        file.result = response.data;
+      });
+    }, function (response) {
+      if (response.status > 0)
+        $scope.errorMsg = response.status + ': ' + response.data;
+    }, function (evt) {
+      // Math.min is to fix IE which reports 200% sometimes
+      file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+    });
+  }
+
+  $scope.removeReceptionImage = function (image) {
+    swal({
+      title: "Are you sure you want to delete this image ?",
+      text: "",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#DD6B55",
+      confirmButtonText: "Yes, delete it!",
+      cancelButtonText: "No, cancel!",
+      closeOnConfirm: true,
+    },
+   function (isConfirmAtt) {
+     if (isConfirmAtt) {
+
+       $http.post($scope.URL + "DeleteImageReception", { 'image': image })
+             .success(function (data, status, headers, config) {
+               $http.post($scope.URL + "GetAllImageReception", { 'image': image })
+                   .success(function (data, status, headers, config) {
+                     $scope.ReceptionImages = data;
+
+                   }).error(function (data, status, headers, config) {
+                     swal({ title: "Error!", text: "Something went wrong!", type: "error", timer: 2000, showConfirmButton: false });
+
+                   });
+             })
+              .error(function (data, status, headers, config) {
+                swal({ title: "Error!", text: "Something went wrong!", type: "error", timer: 2000, showConfirmButton: false });
+
+              });
+     }
+   });
+
+  };
+
+  $scope.DeleteSelectedReceptionImage = function (list) {
+    var itemList = [];
+    angular.forEach(list, function (value, key) {
+      if (list[key].selected) {
+        itemList.push(list[key].selected);
+      }
+    });
+    //console.log(itemList.length);  
+    $http.post($scope.URL + "DeleteSelectedReceptionImage", itemList)
+      .success(function (data) {
+
+        $http.post($scope.URL + "GetAllImageReceptionByPropertyId", { 'propertyId': $scope.PropertyId })
+
+                      .success(function (dataReturn, status, headers, config) {
+                        $scope.ReceptionImages = dataReturn;
+                        swal({ title: "Deleted!", type: "success", timer: 1000, showConfirmButton: false });
+
+                      }).error(function (dataerror, status, headers, config) {
+                        swal({ title: "Error!", text: "Something went wrong!", type: "error", timer: 2000, showConfirmButton: false });
+
+                      });
+
+      }).error(function (msg) {
+        console.log(msg);
+      });
+  }
+
+  $scope.$watchCollection('[balaconyImages, bathroomImages,BedroomImages,GardenImages,PoolImages,ReceptionImages]', function (newValues) {
+    if (newValues[0].length != 0 && newValues[1].length != 0 &&
+             newValues[2].length != 0 && newValues[3].length != 0 &&
+             newValues[4].length != 0 && newValues[5].length != 0) {
+      $scope.finishButton = true;
+
+    } else {
+      $scope.finishButton = false;
+
+    }
+  });
+
   function fetshData() {
 
     var myBlockUi = blockUI.instances.get('myBlockUI');
@@ -624,6 +1169,8 @@ app.controller('PropertyController', function ($scope, $http, notify, blockUI, U
           "CreatedDate": toJavaScriptDate(data.Data[i].CreatedDate),
           "CreatedByUserName": data.Data[i].CreatedByUserName,
           "CreatedBy": data.Data[i].CreatedBy,
+          "ApprovedDate": data.Data[i].ApprovedDate,
+          "ApprovedBy": data.Data[i].ApprovedBy,
           "UserId": data.Data[i].UserId
         });
       }

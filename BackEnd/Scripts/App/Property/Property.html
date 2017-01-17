@@ -1,4 +1,9 @@
-﻿
+﻿<style>
+  .test { 
+        background-color: #9dbdd2 !important;
+  } 
+</style>
+
 <div class="wrapper wrapper-content animated fadeInRight" ng-app="angapp" ng-controller="PropertyController as Property" block-ui="blockUI" ng-cloak>
   <div class="row">
     <div class="col-lg-12">
@@ -40,11 +45,14 @@
               <th> </th>
               </thead>
               <tbody>
-                <tr ng-repeat="PropertyFor in Property.PropertyData | orderBy:order:reverse" ng-class="{'success' : tableSelection[$index]}">
+                <!--ng-class="{'success' : tableSelection[$index]}"-->
+                <tr ng-repeat="PropertyFor in Property.PropertyData | orderBy:order:reverse" ng-class="{null:'test', '':'hidden'}[PropertyFor.ApprovedBy]">
                   <td>
                     <input type="checkbox" ng-model="tableSelection[$index]" />
                   </td>
-                  <td>{{PropertyFor.Title}}</td>
+                  <td>
+                        {{PropertyFor.Title}}
+                    </td>
                   <td>{{PropertyFor.TitleAr}}</td>
                   <td>
                     <span class="label" ng-class="{true:'label-success', false:'label-danger', '':'hidden'}[PropertyFor.Status]">

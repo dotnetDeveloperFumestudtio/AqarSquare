@@ -101,6 +101,7 @@
     <None Include="BusinessEntities\BackEnd\ImageReception.cs" />
     <None Include="BusinessEntities\BackEnd\ImageGarden.cs" />
     <None Include="BusinessEntities\BackEnd\ImagePool.cs" />
+    <None Include="BusinessEntities\BackEnd\ImageBedroom.cs" />
     <Compile Include="BusinessEntities\BackEnd\PropertyInfo.cs" />
     <Compile Include="BusinessEntities\BackEnd\CurrencyBackend.cs" />
     <Compile Include="BusinessEntities\BackEnd\ContractTypeBackend.cs" />

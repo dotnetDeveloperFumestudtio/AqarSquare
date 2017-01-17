@@ -28,12 +28,6 @@ namespace AqarSquare.Engine.Entities
         public virtual DbSet<City> Cities { get; set; }
         public virtual DbSet<ContractType> ContractTypes { get; set; }
         public virtual DbSet<Image360> Image360 { get; set; }
-        public virtual DbSet<ImageBalacony> ImageBalaconies { get; set; }
-        public virtual DbSet<ImageBathroom> ImageBathrooms { get; set; }
-        public virtual DbSet<ImageBedroom> ImageBedrooms { get; set; }
-        public virtual DbSet<ImageGarden> ImageGardens { get; set; }
-        public virtual DbSet<ImagePool> ImagePools { get; set; }
-        public virtual DbSet<ImageReception> ImageReceptions { get; set; }
         public virtual DbSet<MainMenuBackend> MainMenuBackends { get; set; }
         public virtual DbSet<MainMenuFrontend> MainMenuFrontends { get; set; }
         public virtual DbSet<PriceAverage> PriceAverages { get; set; }
@@ -50,5 +44,11 @@ namespace AqarSquare.Engine.Entities
         public virtual DbSet<TbCurrency> TbCurrencies { get; set; }
         public virtual DbSet<Property> Properties { get; set; }
         public virtual DbSet<ContactForm> ContactForms { get; set; }
+        public virtual DbSet<ImageBalacony> ImageBalaconies { get; set; }
+        public virtual DbSet<ImageBathroom> ImageBathrooms { get; set; }
+        public virtual DbSet<ImageBedroom> ImageBedrooms { get; set; }
+        public virtual DbSet<ImageGarden> ImageGardens { get; set; }
+        public virtual DbSet<ImagePool> ImagePools { get; set; }
+        public virtual DbSet<ImageReception> ImageReceptions { get; set; }
     }
 }

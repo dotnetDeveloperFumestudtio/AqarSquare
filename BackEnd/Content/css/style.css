@@ -7495,3 +7495,18 @@ table.tc-va-b-1 tbody td:first-child,table.tc-va-b-2 tbody td:nth-child(2),table
   .spanFloat {
     float: right;
   }
+  .up-img {
+    overflow: hidden;
+  }
+  .up-img img {
+    height: 200px;
+  }
+  .state {
+    display: block;
+    margin-top: 90px!important;
+  }
+  .btn-right {
+    display: block;
+    float: right !important;
+    margin-right: 25%!important;
+  }

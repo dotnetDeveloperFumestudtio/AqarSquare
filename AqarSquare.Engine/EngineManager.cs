@@ -635,7 +635,7 @@ namespace AqarSquare.Engine
         Message = c.Message
       }).ToList();
     }
-     
+
 
     public string UpdatedContactForm(ContactForm contactForm)
     {
@@ -679,6 +679,7 @@ namespace AqarSquare.Engine
 
 
     #endregion
+
     #region PropertyType
 
     public List<PropertyTypeBackend> GetAllPropertyType()
@@ -1221,9 +1222,10 @@ namespace AqarSquare.Engine
 
     #region Balacony Images
 
-    public List<ImageBalacony> GetAllImageBalaconies()
+    public List<ImageBalacony> GetAllImageBalaconies(ImageBalacony image)
     {
-      return _context.ImageBalaconies.ToList();
+      var getList = _context.ImageBalaconies.Where(x => x.PropertyId == image.PropertyId).ToList();
+      return getList;
     }
 
     public List<ImageBalacony> InsertImageBalaconies(ImageBalacony image)
@@ -1237,9 +1239,8 @@ namespace AqarSquare.Engine
       _context.ImageBalaconies.Add(imageObj);
       _context.SaveChanges();
 
-      return GetAllImageBalaconies();
+      return GetAllImageBalaconies(image);
     }
-
 
     public string DeleteImageBalaconies(ImageBalacony image)
     {
@@ -1263,13 +1264,14 @@ namespace AqarSquare.Engine
       else
         return "Error";
     }
+
     #endregion
 
     #region Bathroom Images
 
-    public List<ImageBathroom> GetAllImageBathroom()
+    public List<ImageBathroom> GetAllImageBathroom(ImageBathroom image)
     {
-      return _context.ImageBathrooms.ToList();
+      return _context.ImageBathrooms.Where(x => x.PropertyId == image.PropertyId).ToList();
     }
 
     public List<ImageBathroom> InsertImageBathroom(ImageBathroom image)
@@ -1283,16 +1285,39 @@ namespace AqarSquare.Engine
       _context.ImageBathrooms.Add(imageObj);
       _context.SaveChanges();
 
-      return GetAllImageBathroom();
+      return GetAllImageBathroom(image);
+    }
+
+    public string DeleteImageBathroom(ImageBathroom image)
+    {
+      var obj = _context.ImageBathrooms.FirstOrDefault(item => item.Id == image.Id);
+      if (obj != null)
+      {
+        try
+        {
+          _context.ImageBathrooms.Remove(obj);
+          _context.SaveChanges();
+          return "Done";
+
+        }
+        catch (Exception)
+        {
+          return "Error";
+          throw;
+        }
+
+      }
+      else
+        return "Error";
     }
 
     #endregion
 
     #region  Reception Images
 
-    public List<ImageReception> GetAllImageReception()
+    public List<ImageReception> GetAllImageReception(ImageReception image)
     {
-      return _context.ImageReceptions.ToList();
+      return _context.ImageReceptions.Where(x => x.PropertyId == image.PropertyId).ToList();
     }
 
     public List<ImageReception> InsertImageReception(ImageReception image)
@@ -1306,18 +1331,44 @@ namespace AqarSquare.Engine
       _context.ImageReceptions.Add(imageObj);
       _context.SaveChanges();
 
-      return GetAllImageReception();
+      return GetAllImageReception(image);
+    }
+
+    public string DeleteImageReception(ImageReception image)
+    {
+      var obj = _context.ImageReceptions.FirstOrDefault(item => item.Id == image.Id);
+      if (obj != null)
+      {
+        try
+        {
+          _context.ImageReceptions.Remove(obj);
+          _context.SaveChanges();
+          return "Done";
+
+        }
+        catch (Exception)
+        {
+          return "Error";
+          throw;
+        }
+
+      }
+      else
+        return "Error";
     }
 
     #endregion
 
     #region Garden Images
 
-    public List<ImageGarden> GetAllImageGarden()
+    public List<ImageGarden> GetAllImageGarden(ImageGarden image)
     {
-      return _context.ImageGardens.ToList();
+      return _context.ImageGardens.Where(x => x.PropertyId == image.PropertyId).ToList();
     }
-
+    public List<ImageGarden> GetAllImageGarden(int propertyId)
+    {
+      return _context.ImageGardens.Where(x => x.PropertyId == propertyId).ToList();
+    }
     public List<ImageGarden> InsertImageGarden(ImageGarden image)
     {
       var imageObj = new ImageGarden();
@@ -1329,15 +1380,63 @@ namespace AqarSquare.Engine
       _context.ImageGardens.Add(imageObj);
       _context.SaveChanges();
 
-      return GetAllImageGarden();
+      return GetAllImageGarden(image);
+    }
+
+    public string DeleteImageGarden(ImageGarden image)
+    {
+      var obj = _context.ImageGardens.FirstOrDefault(item => item.Id == image.Id);
+      if (obj != null)
+      {
+        try
+        {
+          _context.ImageGardens.Remove(obj);
+          _context.SaveChanges();
+          return "Done";
+
+        }
+        catch (Exception)
+        {
+          return "Error";
+          throw;
+        }
+
+      }
+      else
+        return "Error";
+    }
+    public string DeleteSelectedImageGarden(int[] itemsSelected)
+    {
+      var error = "";
+      try
+      {
+        for (int i = 0; i < itemsSelected.Length; i++)
+        {
+          var obj = _context.ImageGardens.Find(itemsSelected[i]);
+          if (obj != null)
+          { 
+            _context.ImageGardens.Remove(obj); 
+          }
+        }
+        _context.SaveChanges();
+        error = "Done";
+      }
+      catch (Exception)
+      {
+        error = "Error";
+        throw;
+      }
+      return error;
+
     }
 
     #endregion
-    #region Garden Images
 
-    public List<ImagePool> GetAllImagePool()
+    #region Pool Images
+
+    public List<ImagePool> GetAllImagePool(ImagePool image)
     {
-      return _context.ImagePools.ToList();
+      return _context.ImagePools.Where(x => x.PropertyId == image.PropertyId).ToList();
     }
 
     public List<ImagePool> InsertImagePool(ImagePool image)
@@ -1351,10 +1450,80 @@ namespace AqarSquare.Engine
       _context.ImagePools.Add(imageObj);
       _context.SaveChanges();
 
-      return GetAllImagePool();
+      return GetAllImagePool(image);
+    }
+
+    public string DeleteImagePool(ImagePool image)
+    {
+      var obj = _context.ImagePools.FirstOrDefault(item => item.Id == image.Id);
+      if (obj != null)
+      {
+        try
+        {
+          _context.ImagePools.Remove(obj);
+          _context.SaveChanges();
+          return "Done";
+
+        }
+        catch (Exception)
+        {
+          return "Error";
+          throw;
+        }
+
+      }
+      else
+        return "Error";
     }
 
     #endregion
+
+    #region Bedroom Images
+
+    public List<ImageBedroom> GetAllImageBedroom(ImageBedroom image)
+    {
+      return _context.ImageBedrooms.Where(x => x.PropertyId == image.PropertyId).ToList();
+    }
+
+    public List<ImageBedroom> InsertImageBedroom(ImageBedroom image)
+    {
+      var imageObj = new ImageBedroom();
+      imageObj.Image = image.Image;
+      imageObj.PropertyId = image.PropertyId;
+      imageObj.CreatedBy = image.CreatedBy;
+      imageObj.CreatedDate = _publicdateTime;
+
+      _context.ImageBedrooms.Add(imageObj);
+      _context.SaveChanges();
+
+      return GetAllImageBedroom(image);
+    }
+
+    public string DeleteImageBedroom(ImageBedroom image)
+    {
+      var obj = _context.ImageBedrooms.FirstOrDefault(item => item.Id == image.Id);
+      if (obj != null)
+      {
+        try
+        {
+          _context.ImageBedrooms.Remove(obj);
+          _context.SaveChanges();
+          return "Done";
+
+        }
+        catch (Exception)
+        {
+          return "Error";
+          throw;
+        }
+
+      }
+      else
+        return "Error";
+    }
+
+    #endregion
+
     #endregion
 
     #endregion
@@ -1363,15 +1532,15 @@ namespace AqarSquare.Engine
 
     #region ContactForm
 
-       
+
     public string CreateContactForm(ContactForm contactForm)
-    { 
+    {
       var contactFormObj = new ContactForm();
       try
       {
         contactFormObj.FullName = contactForm.FullName;
         contactFormObj.Email = contactForm.Email;
-        contactFormObj.Phone = contactForm.Phone; 
+        contactFormObj.Phone = contactForm.Phone;
         contactFormObj.CreatedDate = _publicdateTime;
         _context.ContactForms.Add(contactFormObj);
         _context.SaveChanges();
@@ -1386,7 +1555,7 @@ namespace AqarSquare.Engine
 
     }
 
-     
+
 
     #endregion
 

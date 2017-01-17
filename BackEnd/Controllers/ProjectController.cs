@@ -192,6 +192,7 @@ namespace Backend.Controllers
     {
       return Json(new EngineManager().GetAllContractTypeByStatus(), JsonRequestBehavior.AllowGet);
     }
+   
     public JsonResult FetchCountUserProperty()
     {
       var countItems = new EngineManager().GetAllUserProperty();
@@ -259,7 +260,11 @@ namespace Backend.Controllers
       return Json(new EngineManager().GetAllUserProperty(), JsonRequestBehavior.AllowGet);
     }
 
-    public JsonResult InsertImageBalaconies(int userId,int propertyId,string image)
+    public JsonResult GetAllImageBalaconies(ImageBalacony image)
+    {
+      return Json(new EngineManager().GetAllImageBalaconies(image), JsonRequestBehavior.AllowGet);
+    }
+    public JsonResult InsertImageBalaconies(int userId, int propertyId, string image)
     {
       var obj = new ImageBalacony();
       obj.PropertyId = propertyId;
@@ -271,6 +276,106 @@ namespace Backend.Controllers
     {
       return Json(new EngineManager().DeleteImageBalaconies(image), JsonRequestBehavior.AllowGet);
     }
+
+
+    public JsonResult GetAllImageBathroom(ImageBathroom image)
+    {
+      return Json(new EngineManager().GetAllImageBathroom(image), JsonRequestBehavior.AllowGet);
+    }
+    public JsonResult InsertImageBathroom(int userId, int propertyId, string image)
+    {
+      var obj = new ImageBathroom();
+      obj.PropertyId = propertyId;
+      obj.Image = image;
+      obj.CreatedBy = userId;
+      return Json(new EngineManager().InsertImageBathroom(obj), JsonRequestBehavior.AllowGet);
+    }
+    public JsonResult DeleteImageBathroom(ImageBathroom image)
+    {
+      return Json(new EngineManager().DeleteImageBathroom(image), JsonRequestBehavior.AllowGet);
+    }
+
+
+    public JsonResult GetAllImageBedroom(ImageBedroom image)
+    {
+      return Json(new EngineManager().GetAllImageBedroom(image), JsonRequestBehavior.AllowGet);
+    }
+    public JsonResult InsertImageBedroom(int userId, int propertyId, string image)
+    {
+      var obj = new ImageBedroom();
+      obj.PropertyId = propertyId;
+      obj.Image = image;
+      obj.CreatedBy = userId;
+      return Json(new EngineManager().InsertImageBedroom(obj), JsonRequestBehavior.AllowGet);
+    }
+    public JsonResult DeleteImageBedroom(ImageBedroom image)
+    {
+      return Json(new EngineManager().DeleteImageBedroom(image), JsonRequestBehavior.AllowGet);
+    }
+     
+
+    public JsonResult GetAllImageReception(ImageReception image)
+    {
+      return Json(new EngineManager().GetAllImageReception(image), JsonRequestBehavior.AllowGet);
+    }
+    public JsonResult InsertImageReception(int userId, int propertyId, string image)
+    {
+      var obj = new ImageReception();
+      obj.PropertyId = propertyId;
+      obj.Image = image;
+      obj.CreatedBy = userId;
+      return Json(new EngineManager().InsertImageReception(obj), JsonRequestBehavior.AllowGet);
+    }
+    public JsonResult DeleteImageReception(ImageReception image)
+    {
+      return Json(new EngineManager().DeleteImageReception(image), JsonRequestBehavior.AllowGet);
+    }
+
+
+    public JsonResult GetAllImageGardenByPropertyId(int propertyId)
+    {
+      return Json(new EngineManager().GetAllImageGarden(propertyId), JsonRequestBehavior.AllowGet);
+    }
+    public JsonResult GetAllImageGarden(ImageGarden image)
+    {
+      return Json(new EngineManager().GetAllImageGarden(image), JsonRequestBehavior.AllowGet);
+    }
+    public JsonResult InsertImageGarden(int userId, int propertyId, string image)
+    {
+      var obj = new ImageGarden();
+      obj.PropertyId = propertyId;
+      obj.Image = image;
+      obj.CreatedBy = userId;
+      return Json(new EngineManager().InsertImageGarden(obj), JsonRequestBehavior.AllowGet);
+    }
+    public JsonResult DeleteImageGarden(ImageGarden image)
+    {
+      return Json(new EngineManager().DeleteImageGarden(image), JsonRequestBehavior.AllowGet);
+    }
+    public JsonResult DeleteSelectedGardenImage(int[] itemsSelected)
+    {
+      return Json(new EngineManager().DeleteSelectedImageGarden(itemsSelected), JsonRequestBehavior.AllowGet);
+    }
+
+    public JsonResult GetAllImagePool(ImagePool image)
+    {
+      return Json(new EngineManager().GetAllImagePool(image), JsonRequestBehavior.AllowGet);
+    }
+    public JsonResult InsertImagePool(int userId, int propertyId, string image)
+    {
+      var obj = new ImagePool();
+      obj.PropertyId = propertyId;
+      obj.Image = image;
+      obj.CreatedBy = userId;
+      return Json(new EngineManager().InsertImagePool(obj), JsonRequestBehavior.AllowGet);
+    }
+    public JsonResult DeleteImagePool(ImagePool image)
+    {
+      return Json(new EngineManager().DeleteImagePool(image), JsonRequestBehavior.AllowGet);
+    }
+
+
+
     #endregion
     //#region Home
     //public JsonResult FetchTop5User()
