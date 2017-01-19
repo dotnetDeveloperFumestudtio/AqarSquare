@@ -1,0 +1,938 @@
+﻿
+<div class="wrapper wrapper-content animated fadeInRight" ng-app="angapp" ng-controller="PropertyDetailsController as Property">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="inqbox float-e-margins">
+        <div class="inqbox-content">
+          <h2>Property Details</h2>
+          <ol class="breadcrumb">
+            <li>
+              <a ui-sref="home"><i class="fa fa-laptop"></i> <span class="nav-label">home</span></a>
+            </li>
+            <li>
+              <a ui-sref="propertyuser"> <span class="nav-label">Property</span></a>
+            </li>
+            <li class="active">
+              <strong>Property Details Form</strong>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="tabs-container">
+      <ul class="nav nav-tabs tab-border-top-primary">
+        <li class="active">
+          <a data-toggle="tab" data-target="#tab-10">
+            Property information
+          </a>
+        </li>
+        <li class="">
+          <a data-toggle="tab" data-target="#tab-20">
+            Property Media
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="tab-content">
+
+    <input type="checkbox" ng-click="UpdatePropertyStatus(Property,Property.Status,Property.Id)"
+           ng-model="Property.Status" value="">
+
+    <div id="tab-10" class="tab-pane active">
+      <div class="row" block-ui="myBlockUI" ng-show="propertyInfoDiv">
+
+        <div class="col-lg-12">
+          <div class="inqbox float-e-margins">
+            <div class="inqbox-title border-top-success">
+            </div>
+            <div class="inqbox-content">
+              <div class="kform">
+                <form id="formProperty" role="form" class="form-horizontal" name="formProperty" ng-submit="formProperty.$valid && create(Property)" novalidate>
+                  <div class="section-divider mb40" id="spy1">
+                    <span>Form Property Details</span>
+                  </div>
+
+
+                  <div class="hr-line-dashed"></div>
+
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Title Ar</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" ng-model="Property.TitleAr"
+                             placeholder="Enter Property Title Ar" name="TitleArValidation" required="">
+                      <div ng-show="formProperty.$submitted || formProperty.TitleArValidation.$touched">
+                        <label id="-error" class="label.error" ng-show="formProperty.TitleArValidation.$error.required">Please type Property Title Ar.</label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="hr-line-dashed"></div>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Title</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" ng-model="Property.Title"
+                             placeholder="Enter Property Title" name="TitleValidation" required="">
+                      <div ng-show="formProperty.$submitted || formProperty.TitleValidation.$touched">
+                        <label id="-error" class="alert-error" ng-show="formProperty.TitleValidation.$error.required">Please type Property Title.</label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="hr-line-dashed"></div>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Description Ar</label>
+                    <div class="col-sm-10">
+
+                      <textarea type="text" class="gui-textarea" ng-model="Property.DescriptionAr"
+                                placeholder="Enter DescriptionAr" name="DescriptionArValidation" required=""></textarea>
+                      <div ng-show="formProperty.$submitted || formProperty.DescriptionArValidation.$touched">
+                        <label id="-error" class="alert-error" ng-show="formProperty.DescriptionArValidation.$error.required">Please type Property Description Ar.</label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="hr-line-dashed"></div>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Description</label>
+                    <div class="col-sm-10">
+                      <textarea type="text" class="gui-textarea" ng-model="Property.Description"
+                                placeholder="Enter Description" name="DescriptionValidation" required=""></textarea>
+                      <div ng-show="formProperty.$submitted || formProperty.DescriptionValidation.$touched">
+                        <label id="-error" class="alert-error" ng-show="formProperty.DescriptionValidation.$error.required">Please type Property Description.</label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="hr-line-dashed"></div>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Address Ar</label>
+                    <div class="col-sm-10">
+
+                      <textarea type="text" class="gui-textarea" ng-model="Property.AddressAr"
+                                placeholder="Enter Address Ar" name="AddressArrValidation" required=""></textarea>
+                      <div ng-show="formProperty.$submitted || formProperty.AddressArrValidation.$touched">
+                        <label id="-error" class="alert-error" ng-show="formProperty.AddressArrValidation.$error.required">Please type Property Address Ar.</label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="hr-line-dashed"></div>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Address </label>
+                    <div class="col-sm-10">
+
+                      <textarea type="text" class="gui-textarea" ng-model="Property.Address"
+                                placeholder="Enter Address" name="AddressValidation" required=""></textarea>
+                      <div ng-show="formProperty.$submitted || formProperty.AddressValidation.$touched">
+                        <label id="-error" class="alert-error" ng-show="formProperty.AddressValidation.$error.required">Please type Property Address.</label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="hr-line-dashed"></div>
+                  <div class="form-group" ng-class="{error: formProperty.PriceValidation.$invalid}">
+                    <label class="col-sm-2 control-label">Price</label>
+                    <div class="col-sm-10">
+                      <input type="number" class="form-control" ng-model="Property.Price"
+                             placeholder="Enter Property Price" name="PriceValidation"
+                             ng-minlength="4" ng-maxlength="7" required="">
+                      <div ng-show="formProperty.$submitted || formProperty.PriceValidation.$touched">
+                        <label id="-error" class="alert-error" ng-show="formProperty.PriceValidation.$error.required">Please type Property Price.</label>
+                        <label id="-error" class="alert-error" ng-show="formProperty.PriceValidation.$error.minlength">minimum 4 digit .</label>
+                        <label id="-error" class="alert-error" ng-show="formProperty.PriceValidation.$error.maxlength">maximum 7 digit.</label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="hr-line-dashed"></div>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Currency	</label>
+                    <div class="col-sm-10">
+                      <div class="i-checks">
+                        <label>
+                          <div ng-dropdown-multiselect="" options="currencydata"
+                               name="currencies" selected-model="currencymodel"
+                               extra-settings="currencysettings"></div>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="hr-line-dashed"></div>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Room No</label>
+                    <div class="col-sm-10">
+                      <input type="number" class="form-control" ng-model="Property.RoomsNo"
+                             placeholder="Enter Property Rooms No" name="RoomsNoValidation" required="">
+                      <div ng-show="formProperty.$submitted || formProperty.RoomsNoValidation.$touched">
+                        <label id="-error" class="alert-error" ng-show="formProperty.RoomsNoValidation.$error.required">Please type Property Rooms No.</label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="hr-line-dashed"></div>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Bathroom No</label>
+                    <div class="col-sm-10">
+                      <input type="number" class="form-control" ng-model="Property.BathroomNo"
+                             placeholder="Enter Property Bathroom No" name="BathroomNoValidation" required="">
+                      <div ng-show="formProperty.$submitted || formProperty.BathroomNoValidation.$touched">
+                        <label id="-error" class="alert-error" ng-show="formProperty.BathroomNoValidation.$error.required">Please type Property Bathroom No.</label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="hr-line-dashed"></div>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Bedroom No</label>
+                    <div class="col-sm-10">
+                      <input type="number" class="form-control" ng-model="Property.BedroomNo"
+                             placeholder="Enter Property Bedroom No" name="BedroomNoValidation" required="">
+                      <div ng-show="formProperty.$submitted || formProperty.BedroomNoValidation.$touched">
+                        <label id="-error" class="alert-error" ng-show="formProperty.BedroomNoValidation.$error.required">Please type Property Bedroom No.</label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="hr-line-dashed"></div>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Reception No</label>
+                    <div class="col-sm-10">
+                      <input type="number" class="form-control" ng-model="Property.ReceptionNo"
+                             placeholder="Enter Property Reception No" name="ReceptionNoValidation" required="">
+                      <div ng-show="formProperty.$submitted || formProperty.ReceptionNoValidation.$touched">
+                        <label id="-error" class="alert-error" ng-show="formProperty.ReceptionNoValidation.$error.required">Please type Property Reception No.</label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="hr-line-dashed"></div>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Lift</label>
+                    <div class="col-sm-10">
+                      <input type="checkbox" checked="checked" ng-model="Property.Lift"
+                             value="" name="LiftValidation"> <i></i>
+
+                      <div ng-show="formProperty.$submitted || formProperty.LiftValidation.$touched">
+                        <label id="-error" class="alert-error" ng-show="formProperty.LiftValidation.$error.required">Please check Property Lift.</label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="hr-line-dashed"></div>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Balacony</label>
+                    <div class="col-sm-10">
+                      <input type="checkbox" checked="checked" ng-model="Property.Balacony"
+                             value="" name="BalaconyValidation"> <i></i>
+
+                      <div ng-show="formProperty.$submitted || formProperty.BalaconyValidation.$touched">
+                        <label id="-error" class="alert-error" ng-show="formProperty.BalaconyValidation.$error.required">Please check Property Balacony.</label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="hr-line-dashed"></div>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Garden</label>
+                    <div class="col-sm-10">
+                      <input type="checkbox" checked="checked" ng-model="Property.Garden"
+                             value="" name="GardenValidation"> <i></i>
+
+                      <div ng-show="formProperty.$submitted || formProperty.GardenValidation.$touched">
+                        <label id="-error" class="alert-error" ng-show="formProperty.GardenValidation.$error.required">Please check Property Garden.</label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="hr-line-dashed"></div>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Pool</label>
+                    <div class="col-sm-10">
+                      <input type="checkbox" checked="checked" ng-model="Property.Pool"
+                             value="" name="PoolValidation"> <i></i>
+
+                      <div ng-show="formProperty.$submitted || formProperty.PoolValidation.$touched">
+                        <label id="-error" class="alert-error" ng-show="formProperty.PoolValidation.$error.required">Please check Property Pool.</label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="hr-line-dashed"></div>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Garden</label>
+                    <div class="col-sm-10">
+                      <input type="checkbox" checked="checked" ng-model="Property.Garage"
+                             value="" name="GarageValidation"> <i></i>
+
+                      <div ng-show="formProperty.$submitted || formProperty.GarageValidation.$touched">
+                        <label id="-error" class="alert-error" ng-show="formProperty.GarageValidation.$error.required">Please check Property Garage.</label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="hr-line-dashed"></div>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Square	</label>
+                    <div class="col-sm-10">
+                      <div class="i-checks">
+                        <label>
+                          <div ng-dropdown-multiselect="" options="squaredata"
+                               name="squares" selected-model="squaremodel"
+                               extra-settings="squaresettings"></div>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="hr-line-dashed"></div>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Contract Type	</label>
+                    <div class="col-sm-10">
+                      <div class="i-checks">
+                        <label>
+                          <div ng-dropdown-multiselect="" options="contracttypedata"
+                               name="contracttypes" selected-model="contracttypemodel"
+                               extra-settings="contracttypesettings"></div>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="hr-line-dashed"></div>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Property Type	</label>
+                    <div class="col-sm-10">
+                      <div class="i-checks">
+                        <label>
+                          <div ng-dropdown-multiselect="" options="propertytypedata"
+                               name="propertytypes" selected-model="propertytypemodel"
+                               extra-settings="propertytypesettings"></div>
+                        </label>
+                      </div>
+                    </div>
+                  </div>  <div class="hr-line-dashed"></div>
+                  <div class="form-group">
+                    <div class="col-sm-4 col-sm-offset-2">
+                      <button class="btn btn-white" type="submit">Cancel</button>
+                      <!--<button class="btn btn-primary" type="submit">Update</button>-->
+                      <input type="submit" class="btn btn-primary" value="Save" ng-disabled="formProperty.$invalid" />
+
+                    </div>
+                  </div>
+                </form>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div id="tab-20" class="tab-pane active">
+      <div class="row" block-ui="myBlockUI" ng-show="propertyMediaDiv">
+        <div class="col-lg-12">
+          <div class="inqbox float-e-margins">
+            <div class="inqbox-title border-top-success">
+
+            </div>
+            <div class="inqbox-content">
+              <div class="kform">
+                <div id="formProperty" role="form" class="form-horizontal" name="formProperty" ng-submit="formProperty.$valid && create(Property)" novalidate>
+
+                  <div class="section-divider mb40" id="spy1">
+                    <span>Form Property </span>
+                  </div>
+                  <div class="form-group">
+                    <button ng-show="finishButton" class="btn btn-primary"
+                            ng-click="uploadBathroomPic(picFile)">
+                      Finish
+                    </button>
+                  </div>
+                  <div class="form-group">
+                    <div class="tabs-container">
+                      <ul class="nav nav-tabs tab-border-top-primary">
+                        <li class="active">
+                          <a data-toggle="tab" data-target="#tab-1">
+                            Balacony
+                          </a>
+                        </li>
+                        <li class="">
+                          <a data-toggle="tab" data-target="#tab-2">
+                            Bathroom
+                          </a>
+                        </li>
+                        <li class="">
+                          <a data-toggle="tab" data-target="#tab-3">
+                            Bedroom
+                          </a>
+                        </li>
+                        <li class="">
+                          <a data-toggle="tab" data-target="#tab-4">
+                            Garden
+                          </a>
+                        </li>
+                        <li class="">
+                          <a data-toggle="tab" data-target="#tab-5">
+                            Pool
+                          </a>
+                        </li>
+                        <li class="">
+                          <a data-toggle="tab" data-target="#tab-6">
+                            Reception
+                          </a>
+                        </li>
+                      </ul>
+                      <div class="tab-content">
+                        <div id="tab-1" class="tab-pane active">
+                          <div class="panel-body">
+                            <div class="form-group">
+                              <div class="col-sm-10">
+                                <form name="formBalacony">
+                                  <label class="field prepend-icon append-button file">
+                                    <span class="button btn-primary">Choose File</span>
+
+                                    <input type="file" class="gui-file"
+                                           ngf-select ng-model="picFile" name="file"
+                                           accept="image/*" ngf-max-size="2MB" required
+                                           ngf-model-invalid="errorFile"
+                                           onchange="document.getElementById('uploader1').value = this.value;">
+                                    <input type="text" class="gui-input" id="uploader1" placeholder="Please Select A File">
+                                    <label class="field-icon">
+                                      <i class="fa fa-upload"></i>
+                                    </label>
+                                    <i ng-show="formBalacony.file.$error.maxSize">
+                                      File too large
+                                      {{errorFile.size / 1000000|number:1}}MB: max 2M
+                                    </i>
+                                  </label>
+                                  <div class="form-group">
+                                    <div class="col-sm-4 col-sm-offset-2">
+                                      <button ng-disabled="!formBalacony.$valid" class="btn btn-primary"
+                                              ng-click="uploadBalaconyPic(picFile)">
+                                        Upload
+                                      </button>
+
+                                    </div>
+                                  </div>
+
+                                  <span class="progress" ng-show="picFile.progress >= 0">
+                                    <div style="width:{{picFile.progress}}%"
+                                         ng-bind="picFile.progress + '%'"></div>
+                                  </span>
+                                  <span ng-show="picFile.result">Upload Successful</span>
+                                  <span class="err" ng-show="errorMsg">{{errorMsg}}</span>
+
+                                  <div class="hr-line-dashed"></div>
+                                  <div class="row">
+                                    <div class="row">
+                                      <div class="col-xs-6">
+                                        <h2 class="text-left">
+                                          Images Upload
+                                        </h2>
+                                      </div>
+                                      <div class="col-xs-6">
+                                        <div class="col-xs-6">
+
+                                          <a href="" class="btn btn-danger btn-right" ng-click="DeleteSelectedBalaconyImage(balaconyImages)">Delete Multiple Rows selected</a>
+
+                                          <a href="" class="btn btn-primary" ng-click="ChangeStatusSelectedBalaconyImage(balaconyImages)">Change Status Multiple Rows selected</a>
+
+                                        </div>
+                                      </div>
+                                    </div>
+
+                                    <div ng-repeat="image in balaconyImages"> 
+                                      <div class="row">
+
+                                        <div class="col-md-4 col-xs-6">
+                                          <div class="up-img">
+                                            <img class="thumbnail img-responsive" ng-src="{{MainURL}}/Upload/Balacony/{{image.Image}}" />
+                                          </div>
+                                        </div>
+
+
+                                        <div class="col-md-3 col-xs-6">
+                                          <input type="checkbox" id="check1" ng-true-value="{{image.Id}}" ng-false-v ng-false-value="''" ng-model="image.selected" />
+                                          <div class="col-md-3 col-xs-6">
+                                            <a class="state" data-toggle="#" ng-click="removeBalaconyImage(image)">
+                                              <img src="../../../Images/delete-icon.png" class="iconsthumb" />
+                                            </a>
+                                          </div>
+                                          <input type="checkbox" id="check1" ng-true-value="{{image.Id}}" ng-false-v ng-false-value="''" ng-model="image.selected" />
+
+
+                                        </div>
+
+                                      </div>
+
+                                    </div>
+                                  </div>
+
+                                </form>
+
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div id="tab-2" class="tab-pane">
+                          <div class="panel-body">
+                            <div class="form-group">
+                              <div class="col-sm-10">
+                                <form name="formBathroom">
+                                  <label class="field prepend-icon append-button file">
+                                    <span class="button btn-primary">Choose File</span>
+
+                                    <input type="file" class="gui-file"
+                                           ngf-select ng-model="picFile" name="file"
+                                           accept="image/*" ngf-max-size="2MB" required
+                                           ngf-model-invalid="errorFile"
+                                           onchange="document.getElementById('uploader1').value = this.value;">
+                                    <input type="text" class="gui-input" id="uploader1" placeholder="Please Select A File">
+                                    <label class="field-icon">
+                                      <i class="fa fa-upload"></i>
+                                    </label>
+                                    <i ng-show="formBathroom.file.$error.maxSize">
+                                      File too large
+                                      {{errorFile.size / 1000000|number:1}}MB: max 2M
+                                    </i>
+                                  </label>
+                                  <div class="form-group">
+                                    <div class="col-sm-4 col-sm-offset-2">
+                                      <button ng-disabled="!formBathroom.$valid" class="btn btn-primary"
+                                              ng-click="uploadBathroomPic(picFile)">
+                                        Upload
+                                      </button>
+
+                                    </div>
+                                  </div>
+
+                                  <span class="progress" ng-show="picFile.progress >= 0">
+                                    <div style="width:{{picFile.progress}}%"
+                                         ng-bind="picFile.progress + '%'"></div>
+                                  </span>
+                                  <span ng-show="picFile.result">Upload Successful</span>
+                                  <span class="err" ng-show="errorMsg">{{errorMsg}}</span>
+
+                                  <div class="hr-line-dashed"></div>
+                                  <div class="row">
+                                    <div class="row">
+                                      <div class="col-xs-6">
+                                        <h2 class="text-left">
+                                          Images Upload
+                                        </h2>
+                                      </div>
+                                      <div class="col-xs-6">
+
+                                        <a href="" class="btn btn-danger btn-right" ng-click="DeleteSelectedBathroomImage(bathroomImages)">Delete Multiple Rows selected</a>
+
+                                        <a href="" class="btn btn-primary" ng-click="ChangeStatusSelectedBathroomImage(bathroomImages)">Change Status Multiple Rows selected</a>
+
+                                      </div>
+                                    </div>
+
+                                    <div ng-repeat="image in bathroomImages">
+
+                                      <div class="row">
+
+                                        <div class="col-md-4 col-xs-6">
+                                          <div class="up-img">
+                                            <img class="thumbnail img-responsive" ng-src="{{MainURL}}/Upload/Bathroom/{{image.Image}}" />
+                                          </div>
+                                        </div>
+
+                                        <div class="col-md-3 col-xs-6">
+                                          <input type="checkbox" id="check1" ng-true-value="{{image.Id}}" ng-false-v ng-false-value="''" ng-model="image.selected" />
+                                          <div class="col-md-3 col-xs-6">
+                                            <a class="state" data-toggle="#" ng-click="removeBathroomImage(image)">
+                                              <img src="../../../Images/delete-icon.png" class="iconsthumb" />
+                                            </a>
+                                          </div>
+                                          <input type="checkbox" id="checkstatus" ng-true-value="{{image.Id}}" ng-false-v ng-false-value="''" ng-model="image.selected" />
+
+
+                                        </div>
+
+                                      </div>
+
+                                    </div>
+                                  </div>
+
+                                </form>
+
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div id="tab-3" class="tab-pane">
+                          <div class="panel-body">
+                            <div class="form-group">
+                              <div class="col-sm-10">
+                                <form name="formBedroom">
+                                  <label class="field prepend-icon append-button file">
+                                    <span class="button btn-primary">Choose File</span>
+
+                                    <input type="file" class="gui-file"
+                                           ngf-select ng-model="picFile" name="file"
+                                           accept="image/*" ngf-max-size="2MB" required
+                                           ngf-model-invalid="errorFile"
+                                           onchange="document.getElementById('uploader1').value = this.value;">
+                                    <input type="text" class="gui-input" id="uploader1" placeholder="Please Select A File">
+                                    <label class="field-icon">
+                                      <i class="fa fa-upload"></i>
+                                    </label>
+                                    <i ng-show="formBedroom.file.$error.maxSize">
+                                      File too large
+                                      {{errorFile.size / 1000000|number:1}}MB: max 2M
+                                    </i>
+                                  </label>
+                                  <div class="form-group">
+                                    <div class="col-sm-4 col-sm-offset-2">
+                                      <button ng-disabled="!formBedroom.$valid" class="btn btn-primary"
+                                              ng-click="uploadBedroomPic(picFile)">
+                                        Upload
+                                      </button>
+
+                                    </div>
+                                  </div>
+
+                                  <span class="progress" ng-show="picFile.progress >= 0">
+                                    <div style="width:{{picFile.progress}}%"
+                                         ng-bind="picFile.progress + '%'"></div>
+                                  </span>
+                                  <span ng-show="picFile.result">Upload Successful</span>
+                                  <span class="err" ng-show="errorMsg">{{errorMsg}}</span>
+
+                                  <div class="hr-line-dashed"></div>
+                                  <div class="row">
+                                    <div class="row">
+                                      <div class="col-xs-6">
+                                        <h2 class="text-left">
+                                          Images Upload
+                                        </h2>
+                                      </div>
+                                      <div class="col-xs-6">
+
+                                        <a href="" class="btn btn-danger btn-right" ng-click="DeleteSelectedBedroomImage(BedroomImages)">Delete Multiple Rows selected</a>
+
+                                        <a href="" class="btn btn-primary" ng-click="ChangeStatusSelectedBedroomImage(BedroomImages)">Change Status Multiple Rows selected</a>
+
+                                      </div>
+
+
+                                    </div>
+
+                                    <div ng-repeat="image in BedroomImages">
+
+                                      <div class="row">
+
+                                        <div class="col-md-4 col-xs-6">
+                                          <div class="up-img">
+                                            <img class="thumbnail img-responsive" ng-src="{{MainURL}}/Upload/Bedroom/{{image.Image}}" />
+                                          </div>
+                                        </div>
+
+
+                                        <div class="col-md-3 col-xs-6">
+                                          <input type="checkbox" id="check1" ng-true-value="{{image.Id}}" ng-false-v ng-false-value="''" ng-model="image.selected" />
+                                          <div class="col-md-3 col-xs-6">
+                                            <a class="state" data-toggle="#" ng-click="removeBedroomImage(image)">
+                                              <img src="../../../Images/delete-icon.png" class="iconsthumb" />
+                                            </a>
+                                          </div>
+                                          <input type="checkbox" id="check1" ng-true-value="{{image.Id}}" ng-false-v ng-false-value="''" ng-model="image.selected" />
+
+
+                                        </div>
+                                      </div>
+
+                                    </div>
+                                  </div>
+
+                                </form>
+
+                              </div>
+                            </div>
+                          </div>
+
+                        </div>
+
+                        <div id="tab-4" class="tab-pane">
+                          <div class="panel-body">
+                            <div class="form-group">
+                              <div class="col-sm-10">
+                                <form name="formGarden">
+                                  <label class="field prepend-icon append-button file">
+                                    <span class="button btn-primary">Choose File</span>
+
+                                    <input type="file" class="gui-file"
+                                           ngf-select ng-model="picFile" name="file"
+                                           accept="image/*" ngf-max-size="2MB" required
+                                           ngf-model-invalid="errorFile"
+                                           onchange="document.getElementById('uploader1').value = this.value;">
+                                    <input type="text" class="gui-input" id="uploader1" placeholder="Please Select A File">
+                                    <label class="field-icon">
+                                      <i class="fa fa-upload"></i>
+                                    </label>
+                                    <i ng-show="formGarden.file.$error.maxSize">
+                                      File too large
+                                      {{errorFile.size / 1000000|number:1}}MB: max 2M
+                                    </i>
+                                  </label>
+                                  <div class="form-group">
+                                    <div class="col-sm-4 col-sm-offset-2">
+                                      <button ng-disabled="!formGarden.$valid" class="btn btn-primary"
+                                              ng-click="uploadGardenPic(picFile)">
+                                        Upload
+                                      </button>
+
+                                    </div>
+                                  </div>
+
+                                  <span class="progress" ng-show="picFile.progress >= 0">
+                                    <div style="width:{{picFile.progress}}%"
+                                         ng-bind="picFile.progress + '%'"></div>
+                                  </span>
+                                  <span ng-show="picFile.result">Upload Successful</span>
+                                  <span class="err" ng-show="errorMsg">{{errorMsg}}</span>
+
+                                  <div class="hr-line-dashed"></div>
+
+                                  <div class="row">
+                                    <div class="col-xs-6">
+                                      <h2 class="text-left">
+                                        Images Upload
+                                      </h2>
+                                    </div>
+                                    <div class="col-xs-6">
+
+                                      <a href="" class="btn btn-danger btn-right" ng-click="DeleteSelectedGardenImage(GardenImages)">Delete Multiple Rows selected</a>
+
+                                      <a href="" class="btn btn-primary" ng-click="ChangeStatusSelectedGardenImage(GardenImages)">Change Status Multiple Rows selected</a>
+
+                                    </div>
+                                  </div>
+
+                                  <div ng-repeat="image in GardenImages">
+
+                                    <div class="row">
+                                      <div class="col-md-4 col-xs-6">
+                                        <div class="up-img">
+                                          <img class="thumbnail img-responsive" ng-src="{{MainURL}}/Upload/Garden/{{image.Image}}" />
+                                        </div>
+                                      </div>
+                                      <div class="col-md-3 col-xs-6">
+                                        <input type="checkbox" id="check1" ng-true-value="{{image.Id}}" ng-false-v ng-false-value="''" ng-model="image.selected" />
+                                        <div class="col-md-3 col-xs-6">
+                                          <a class="state" data-toggle="#" ng-click="removeGardenImage(image)">
+                                            <img src="../../../Images/delete-icon.png" class="iconsthumb" />
+                                          </a>
+                                        </div>
+                                        <input type="checkbox" id="checkstatus" ng-true-value="{{image.Id}}" ng-false-v ng-false-value="''" ng-model="image.selected" />
+
+
+                                      </div>
+
+                                    </div>
+                                  </div>
+
+                                </form>
+
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div id="tab-5" class="tab-pane">
+                          <div class="panel-body">
+                            <div class="form-group">
+                              <div class="col-sm-10">
+                                <form name="formPool">
+                                  <label class="field prepend-icon append-button file">
+                                    <span class="button btn-primary">Choose File</span>
+
+                                    <input type="file" class="gui-file"
+                                           ngf-select ng-model="picFile" name="file"
+                                           accept="image/*" ngf-max-size="2MB" required
+                                           ngf-model-invalid="errorFile"
+                                           onchange="document.getElementById('uploader1').value = this.value;">
+                                    <input type="text" class="gui-input" id="uploader1" placeholder="Please Select A File">
+                                    <label class="field-icon">
+                                      <i class="fa fa-upload"></i>
+                                    </label>
+                                    <i ng-show="formPool.file.$error.maxSize">
+                                      File too large
+                                      {{errorFile.size / 1000000|number:1}}MB: max 2M
+                                    </i>
+                                  </label>
+                                  <div class="form-group">
+                                    <div class="col-sm-4 col-sm-offset-2">
+                                      <button ng-disabled="!formPool.$valid" class="btn btn-primary"
+                                              ng-click="uploadPoolPic(picFile)">
+                                        Upload
+                                      </button>
+
+                                    </div>
+                                  </div>
+
+                                  <span class="progress" ng-show="picFile.progress >= 0">
+                                    <div style="width:{{picFile.progress}}%"
+                                         ng-bind="picFile.progress + '%'"></div>
+                                  </span>
+                                  <span ng-show="picFile.result">Upload Successful</span>
+                                  <span class="err" ng-show="errorMsg">{{errorMsg}}</span>
+
+                                  <div class="hr-line-dashed"></div>
+                                  <div class="row">
+                                    <div class="row">
+                                      <div class="col-xs-6">
+                                        <h2 class="text-left">
+                                          Images Upload
+                                        </h2>
+                                      </div>
+                                      <div class="col-xs-6">
+
+                                        <a href="" class="btn btn-danger btn-right" ng-click="DeleteSelectedPoolImage(PoolImages)">Delete Multiple Rows selected</a>
+
+                                        <a href="" class="btn btn-primary" ng-click="ChangeStatusSelectedPoolImage(PoolImages)">Change Status Multiple Rows selected</a>
+
+                                      </div>
+                                    </div>
+
+                                    <div ng-repeat="image in PoolImages">
+
+                                      <div class="row">
+
+                                        <div class="col-md-4 col-xs-6">
+                                          <div class="up-img">
+                                            <img class="thumbnail img-responsive" ng-src="{{MainURL}}/Upload/Pool/{{image.Image}}" />
+                                          </div>
+                                        </div>
+                                        <div class="col-md-3 col-xs-6">
+                                          <input type="checkbox" class="state" />
+                                        </div>
+
+                                        <div class="col-md-3 col-xs-6">
+                                          <input type="checkbox" id="check1" ng-true-value="{{image.Id}}" ng-false-v ng-false-value="''" ng-model="image.selected" />
+                                          <div class="col-md-3 col-xs-6">
+                                            <a class="state" data-toggle="#" ng-click="removePoolImage(image)">
+                                              <img src="../../../Images/delete-icon.png" class="iconsthumb" />
+                                            </a>
+                                          </div>
+                                          <input type="checkbox" id="check1" ng-true-value="{{image.Id}}" ng-false-v ng-false-value="''" ng-model="image.selected" />
+
+
+                                        </div>
+                                      </div>
+
+                                    </div>
+                                  </div>
+
+                                </form>
+
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div id="tab-6" class="tab-pane">
+                          <div class="panel-body">
+                            <div class="form-group">
+                              <div class="col-sm-10">
+                                <form name="formReception">
+                                  <label class="field prepend-icon append-button file">
+                                    <span class="button btn-primary">Choose File</span>
+
+                                    <input type="file" class="gui-file"
+                                           ngf-select ng-model="picFile" name="file"
+                                           accept="image/*" ngf-max-size="2MB" required
+                                           ngf-model-invalid="errorFile"
+                                           onchange="document.getElementById('uploader1').value = this.value;">
+                                    <input type="text" class="gui-input" id="uploader1" placeholder="Please Select A File">
+                                    <label class="field-icon">
+                                      <i class="fa fa-upload"></i>
+                                    </label>
+                                    <i ng-show="formReception.file.$error.maxSize">
+                                      File too large
+                                      {{errorFile.size / 1000000|number:1}}MB: max 2M
+                                    </i>
+                                  </label>
+                                  <div class="form-group">
+                                    <div class="col-sm-4 col-sm-offset-2">
+                                      <button ng-disabled="!formReception.$valid" class="btn btn-primary"
+                                              ng-click="uploadReceptionPic(picFile)">
+                                        Upload
+                                      </button>
+
+                                    </div>
+                                  </div>
+
+                                  <span class="progress" ng-show="picFile.progress >= 0">
+                                    <div style="width:{{picFile.progress}}%"
+                                         ng-bind="picFile.progress + '%'"></div>
+                                  </span>
+                                  <span ng-show="picFile.result">Upload Successful</span>
+                                  <span class="err" ng-show="errorMsg">{{errorMsg}}</span>
+
+                                  <div class="hr-line-dashed"></div>
+                                  <div class="row">
+                                    <div class="row">
+                                      <div class="col-xs-6">
+                                        <h2 class="text-left">
+                                          Images Upload
+                                        </h2>
+                                      </div>
+                                      <div class="col-xs-6">
+
+                                        <a href="" class="btn btn-danger btn-right" ng-click="DeleteSelectedReceptionImage(ReceptionImages)">Delete Multiple Rows selected</a>
+
+                                        <a href="" class="btn btn-primary" ng-click="ChangeStatusSelectedReceptionImage(ReceptionImages)">Change Status Multiple Rows selected</a>
+
+                                      </div>
+                                    </div>
+
+                                    <div ng-repeat="image in ReceptionImages">
+
+                                      <div class="row">
+
+                                        <div class="col-md-4 col-xs-6">
+                                          <div class="up-img">
+                                            <img class="thumbnail img-responsive" ng-src="{{MainURL}}/Upload/Reception/{{image.Image}}" />
+                                          </div>
+                                        </div>
+
+                                        <div class="col-md-3 col-xs-6">
+                                          <input type="checkbox" id="check1" ng-true-value="{{image.Id}}" ng-false-v ng-false-value="''" ng-model="image.selected" />
+                                          <div class="col-md-3 col-xs-6">
+                                            <a class="state" data-toggle="#" ng-click="removeReceptionImage(image)">
+                                              <img src="../../../Images/delete-icon.png" class="iconsthumb" />
+                                            </a>
+                                          </div>
+                                          <input type="checkbox" id="check1" ng-true-value="{{image.Id}}" ng-false-v ng-false-value="''" ng-model="image.selected" />
+
+
+                                        </div>
+                                      </div>
+
+                                    </div>
+                                  </div>
+
+                                </form>
+
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+
+</div>
+

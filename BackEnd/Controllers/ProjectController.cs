@@ -199,6 +199,10 @@ namespace Backend.Controllers
       return Json(new { TotalCount = countItems }, JsonRequestBehavior.AllowGet);
     }
 
+    public JsonResult FetchUserProperty()
+    {
+      return Json(new EngineManager().GetAllUserProperty(), JsonRequestBehavior.AllowGet);
+    }
     public JsonResult FetchUserPropertyByPageSize(int pageNumber, int pageSize)
     {
       var property = new EngineManager().GetAllUserProperty().ToPagedList(pageNumber, pageSize);
@@ -206,7 +210,13 @@ namespace Backend.Controllers
       return Json(new { Data = property.ToList(), TotalCount = countItems }, JsonRequestBehavior.AllowGet);
 
     }
+    public JsonResult FetchAdminPropertyByPageSize(int pageNumber, int pageSize)
+    {
+      var property = new EngineManager().GetAllAdminProperty().ToPagedList(pageNumber, pageSize);
+      var countItems = new EngineManager().GetAllAdminProperty().Count();
+      return Json(new { Data = property.ToList(), TotalCount = countItems }, JsonRequestBehavior.AllowGet);
 
+    }
     public JsonResult CreateProperty(PropertyBackend property)
     {
       string returnValue = new EngineManager().CreateProperty(property);
@@ -219,7 +229,7 @@ namespace Backend.Controllers
       var returnValue = 0;
       var returnMsg = "Done";
 
-      returnValue = new EngineManager().UpdatePropertyStatus(property.Id, property.Status);
+      returnValue = new EngineManager().UpdatePropertyStatus(property);
 
       if (returnValue == 0)
         returnMsg = "Error";
@@ -255,10 +265,6 @@ namespace Backend.Controllers
       return Json(new EngineManager().GetPropertyInfo(property), JsonRequestBehavior.AllowGet);
     }
 
-    public JsonResult FetchUserProperty()
-    {
-      return Json(new EngineManager().GetAllUserProperty(), JsonRequestBehavior.AllowGet);
-    }
 
     public JsonResult GetAllImageBalaconies(ImageBalacony image)
     {
@@ -373,8 +379,15 @@ namespace Backend.Controllers
     {
       return Json(new EngineManager().DeleteImagePool(image), JsonRequestBehavior.AllowGet);
     }
-
-
+   
+    public JsonResult CountUnApprovedProperty()
+    {
+      return Json(new EngineManager().CountUnApprovedProperty(), JsonRequestBehavior.AllowGet);
+    }
+    public JsonResult GetPropertyById(string propertyId)
+    {
+      return Json(new EngineManager().GetPropertyById(propertyId), JsonRequestBehavior.AllowGet);
+    }
 
     #endregion
     //#region Home

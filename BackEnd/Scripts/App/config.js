@@ -13,11 +13,11 @@
     .state('login', {
       url: "/login",
       templateUrl: "login.html"
-      
+
     })
      .state('logout', {
        url: "/login",
-       controller:"LogoutController",
+       controller: "LogoutController",
        templateUrl: "login.html"
 
      })
@@ -33,16 +33,43 @@
       url: "/square",
       templateUrl: "/Scripts/App/Square/Square.html"
     })
-    .state('property', {
+    .state('propertyadmin', {
       url: "/property",
-      templateUrl: "/Scripts/App/Property/Property.html"
+      templateUrl: "/Scripts/App/Property/PropertyAdmin.html"
     })
-    .state('propertyform', {
+    .state('propertyformadmin', {
       url: "/propertyform",
-      templateUrl: "/Scripts/App/Property/PropertyForm.html"
+      templateUrl: "/Scripts/App/Property/PropertyFormAdmin.html"
     })
+    .state('propertyuser', {
+      url: "/propertyuser",
+      templateUrl: "/Scripts/App/Property/PropertyUser.html"
+    })
+    .state('propertyformuser', {
+      url: "/propertyformuser",
+      templateUrl: "/Scripts/App/Property/PropertyFormUser.html"
+    })
+      .state('property-details', {
+        url: '/PropertyDetails:property_Id',
+        templateUrl: '/Scripts/App/Property/PropertyDetails.html',
+        controller: function ($scope, $stateParams) {
+          $scope.property_Id = $stateParams.property_Id;
+        }
+      })
+  .state('items-details', {
+    url: '/items-details/:propId',
+    templateUrl: "/Scripts/App/Property/PropertyDetails.html", 
+    controller: function ($scope, $stateParams) {
+      $scope.property_Id = $stateParams.propId;
+    },
+    // default uri params
+    params: {
+      propId: 'all',
+      page: 1
+    }
+  })
     .state('important', {
-      url: "/important", 
+      url: "/important",
       templateUrl: "/Scripts/App/ImportantNumber/Important.html"
 
     })
@@ -68,15 +95,15 @@
    .state('moderation', {
      url: "/moderation",
      templateUrl: "/Scripts/App/Moderation/List.html"
-   }) 
+   })
    .state('moderationreject', {
      url: "/moderationreject",
      templateUrl: "/Scripts/App/Moderation/ListReject.html"
-   }) 
+   })
    .state('moderationapprove', {
      url: "/moderationapprove",
      templateUrl: "/Scripts/App/Moderation/ListApprove.html"
-   }) 
+   })
    .state('attraction', {
      url: "/attraction",
      templateUrl: "/Scripts/App/Attraction/attraction.html"
@@ -88,7 +115,7 @@
    .state('selfie', {
      url: "/selfie",
      templateUrl: "/Scripts/App/Selfie/Selfie.html"
-   }) 
+   })
    .state('panoramic', {
      url: "/panoramic",
      templateUrl: "/Scripts/App/Panoramic/Panoramic.html"
@@ -108,7 +135,7 @@
    .state('report', {
      url: "/report",
      templateUrl: "/Scripts/App/Report/Report.html"
-   }) 
+   })
    // .state('topten', {
      // url: "/topten",
      // templateUrl: "/Scripts/App/TopTen/TopTen.html"
@@ -128,7 +155,7 @@
    .state('qrcode', {
      url: "/qrcode",
      templateUrl: "/Scripts/App/QrCode/QrCode.html"
-   }) 
+   })
    .state('changepassword', {
      url: "/changepassword",
      templateUrl: "/Scripts/App/ChangePassword/ChangePassword.html"
@@ -182,7 +209,7 @@
   // .otherwise('/Scripts/App/LogIn/LogIn.html')
 
   ;
-   
+
   //$urlRouterProvider.when('', '/index');
   $urlRouterProvider.otherwise('/home');
 

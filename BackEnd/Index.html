@@ -7,14 +7,25 @@
   <link rel="icon" type="image/png" sizes="32x32" href="Images/aqar/1/favicon-32x32.png">
 
   <style>
-     [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-    ng-cloak {
-        display: none !important;
+    [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x- ng-cloak {
+      display: none !important;
     }
 
-     .thumImg {
-       width: 100px;
-       height: 100px;
-     }
+    .counter {
+      border: 2px solid #1c84c6;
+      border-radius: 51%;
+      height: 30px;
+      width: 30px;
+      line-height: 26px;
+      text-align: center;
+      float: right;
+      margin-top: -5px;
+    }
+
+    .thumImg {
+      width: 100px;
+      height: 100px;
+    }
 
     .list {
       list-style: none outside none;
@@ -100,7 +111,7 @@
       height: 30px;
     }
 
-    
+
 
 
     .datetimepicker {
@@ -116,20 +127,20 @@
       width: 600px;
     }
 
-    .multiSelect .mselect {
-      margin-right: 20px;
-      float: left;
-      width: 200px;
-    }
+      .multiSelect .mselect {
+        margin-right: 20px;
+        float: left;
+        width: 200px;
+      }
 
-    .multiSelect .text {
-      clear: both;
-      font-size: 11px;
-    }
+      .multiSelect .text {
+        clear: both;
+        font-size: 11px;
+      }
 
-    .multiSelect label::after {
-      content: ":";
-    }
+      .multiSelect label::after {
+        content: ":";
+      }
 
     .btn.mover {
       display: block;
@@ -137,17 +148,17 @@
       vertical-align: top;
     }
 
-    .btn.mover.left {
-      padding: 4px 8px 4px 8px;
-      background-color: #009900;
-      border-color: #008400;
-    }
+      .btn.mover.left {
+        padding: 4px 8px 4px 8px;
+        background-color: #009900;
+        border-color: #008400;
+      }
 
-    .btn.mover.right {
-      margin-top: 9px;
-      padding: 4px 8px 4px 8px;
-      background-color: #009900;
-    }
+      .btn.mover.right {
+        margin-top: 9px;
+        padding: 4px 8px 4px 8px;
+        background-color: #009900;
+      }
 
     .clrblk {
       color: #000000;
@@ -179,7 +190,7 @@
       margin-right: 30px;
     }
 
-  /*.item, .placeholder {
+    /*.item, .placeholder {
         padding: 2px;
         width: 50px;
         height: 20px;
@@ -262,19 +273,19 @@
   <!-- Main filessssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss -->
   <link href="Scripts/AngularJS/angular-moment-picker.min.css" rel="stylesheet" />
   <script src="Scripts/AngularJS/angular-moment-picker.min.js"></script>
-  
-    <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyB3wGgcIinZF1DW9oiwSCG8JjGQC-nPutA"></script>
+
+  <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyB3wGgcIinZF1DW9oiwSCG8JjGQC-nPutA"></script>
 
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular-sanitize.min.js"></script>
   <script src="https://rawgit.com/allenhwkim/angularjs-google-maps/master/build/scripts/ng-map.js"></script>
-   
+
   <script src="Scripts/AngularJS/loginApp.js"></script>
   <script src="Scripts/AngularJS/userApp.js"></script>
   <script src="Scripts/AngularJS/messegeApp.js"></script>
   <script src="Scripts/AngularJS/paging.js"></script>
 
 </head>
-<body >
+<body>
   <div id="wrapper">
     <div ng-app="angapp" ng-controller="homeCtrl as hc">
       <nav class="navbar-default navbar-static-side fixed-menu" role="navigation">
@@ -331,9 +342,20 @@
                     </li>
 
 
-                    <li ui-sref="property" ui-sref-active="active">
-                      <a><i class="fa fa-laptop"></i> <span class="nav-label">User Property</span></a>
+                    <li ui-sref="propertyuser" ui-sref-active="active">
+                      <a>
+                        <i class="fa fa-laptop"></i> <span class="nav-label">
+                          User Property
+                          <div class="counter"><span ng-cloack ng-bind="CountunApproved1"></span></div>
+
+                          <!--(<span ng-cloack ng-bind="CountunApproved1"> </span>)-->
+                        </span>
+                      </a>
                     </li>
+                    <li ui-sref="propertyadmin" ui-sref-active="active">
+                      <a><i class="fa fa-laptop"></i> <span class="nav-label">Admin Property</span></a>
+                    </li>
+
 
 
                     <li ui-sref="city" ui-sref-active="active">
@@ -421,7 +443,7 @@
         <div class="footer">
 
           <div>
-            <strong>Copyright</strong> Aqar Square  &copy;  2017
+            <strong>Copyright</strong> Aqar Squares  &copy;  2017
           </div>
         </div>
 
@@ -711,8 +733,11 @@
     <script src="Scripts/App/Square/Squarepaging.js"></script>
     <script src="Scripts/App/Square/service.js"></script>
 
-    <script src="Scripts/App/Property/Controller.js"></script>
-    <script src="Scripts/App/Property/Propertypaging.js"></script>
+    <script src="Scripts/App/Property/PropertyAdminController.js"></script>
+    <script src="Scripts/App/Property/PropertyUserController.js"></script>
+    <script src="Scripts/App/Property/PropertypagingUser.js"></script>
+    <script src="Scripts/App/Property/PropertypagingAdmin.js"></script>
+    <script src="Scripts/App/Property/PropertyDetailsController.js"></script>
     <script src="Scripts/App/Property/service.js"></script>
 
     <script src="Scripts/App/Region/Region.js"></script>

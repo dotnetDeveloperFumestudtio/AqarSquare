@@ -43,7 +43,7 @@
         });
       }
       fillData = fillData.slice(1);
-      $scope.CategoryData = fillData; 
+      $scope.UserPropertyData = fillData;
     })
     .error(function (data, status, headers, config) {
       swal({ title: "Error!", text: "Something went wrong!", type: "error", timer: 2000, showConfirmButton: false });

@@ -996,7 +996,8 @@ namespace AqarSquare.Engine
             CreatedBy = p.CreatedBy,
             CreatedByUserName = GetUserNameById(p.CreatedBy),
             CreatedDate = p.CreatedDate,
-            ApprovedBy = GetUserNameById(p.ApprovedBy),
+            ApprovedBy = p.ApprovedBy,
+            ApprovedByUserName = GetUserNameById(p.ApprovedBy),
             ApprovedDate = p.ApprovedDate,
             UserId = p.UserId,
             ContractType = p.ContractType
@@ -1010,41 +1011,55 @@ namespace AqarSquare.Engine
 
     public List<PropertyBackend> GetAllAdminProperty()
     {
-      var propertyObj = _context.Properties.Where(x => x.UserId == Convert.ToInt32(UserTypes.Admin)).ToList().OrderByDescending(x => x.Id);
-      return propertyObj.Select(p => new PropertyBackend
+      var userType = Convert.ToInt32(UserTypes.Admin);
+      var propertyList = new List<PropertyBackend>();
+      var usersObj = _context.SystemUsers.Where(x => x.UserType == userType).ToList().OrderByDescending(x => x.Id);
+      foreach (var systemUser in usersObj)
       {
-        Id = p.Id,
-        PropertyId = p.PropertyId,
-        Title = p.Title,
-        TitleAr = p.TitleAr,
-        Description = p.Description,
-        DescriptionAr = p.DescriptionAr,
-        Address = p.Address,
-        AddressAr = p.AddressAr,
-        Late = p.Late,
-        Long = p.Long,
-        Price = p.Price,
-        BathroomNo = p.BathroomNo,
-        BedroomNo = p.BedroomNo,
-        RoomsNo = p.RoomsNo,
-        ReceptionNo = p.ReceptionNo,
-        Floor = p.Floor,
-        Balacony = p.Balacony,
-        Garage = p.Garage,
-        Garden = p.Garden,
-        Pool = p.Pool,
-        Lift = p.Lift,
-        Area = p.Area,
-        PropertyTypeName = GetPropertyTypeById(p.PropertyType),
-        Currency = p.Currency,
-        Status = p.Status,
-        CreatedBy = p.CreatedBy,
-        CreatedByUserName = GetUserNameById(p.CreatedBy),
-        CreatedDate = p.CreatedDate,
-        ApprovedBy = GetUserNameById(p.ApprovedBy),
-        ApprovedDate = p.ApprovedDate,
-        UserId = p.UserId
-      }).ToList();
+        var propertyObj = _context.Properties.Where(x => x.UserId == systemUser.Id).ToList().OrderByDescending(x => x.Id);
+        foreach (var p in propertyObj)
+        {
+          propertyList.Add(new PropertyBackend
+          {
+            Id = p.Id,
+            PropertyId = p.PropertyId,
+            Title = p.Title,
+            TitleAr = p.TitleAr,
+            Description = p.Description,
+            DescriptionAr = p.DescriptionAr,
+            Address = p.Address,
+            AddressAr = p.AddressAr,
+            Late = p.Late,
+            Long = p.Long,
+            Price = p.Price,
+            BathroomNo = p.BathroomNo,
+            BedroomNo = p.BedroomNo,
+            RoomsNo = p.RoomsNo,
+            ReceptionNo = p.ReceptionNo,
+            Floor = p.Floor,
+            Balacony = p.Balacony,
+            Garage = p.Garage,
+            Garden = p.Garden,
+            Pool = p.Pool,
+            Lift = p.Lift,
+            Area = p.Area,
+            PropertyTypeName = GetPropertyTypeById(p.PropertyType),
+            Currency = p.Currency,
+            Status = p.Status,
+            CreatedBy = p.CreatedBy,
+            CreatedByUserName = GetUserNameById(p.CreatedBy),
+            CreatedDate = p.CreatedDate,
+            ApprovedByUserName = GetUserNameById(p.ApprovedBy),
+            ApprovedBy = p.ApprovedBy,
+            ApprovedDate = p.ApprovedDate,
+            UserId = p.UserId,
+            ContractType = p.ContractType
+
+          });
+        }
+
+      }
+      return propertyList;
     }
 
     public static int RandNumber(int low, int high)
@@ -1090,6 +1105,7 @@ namespace AqarSquare.Engine
         propertyObj.Currency = p.Currency;
         propertyObj.Status = p.Status;
         propertyObj.CreatedBy = p.CreatedBy;
+        propertyObj.ApprovedBy = 0;
         propertyObj.CreatedDate = _publicdateTime;
         propertyObj.UserId = p.UserId;
         _context.Properties.Add(propertyObj);
@@ -1167,13 +1183,20 @@ namespace AqarSquare.Engine
         return "Error";
     }
 
-    public int UpdatePropertyStatus(int propertyId, bool? imageStatus)
+    //public int UpdatePropertyStatus(int propertyId, bool? imageStatus)
+    public int UpdatePropertyStatus(PropertyBackend property)
     {
-      var obj = _context.Cities.FirstOrDefault(item => item.Id == propertyId);
+      var obj = _context.Properties.FirstOrDefault(item => item.Id == property.Id);
       if (obj != null)
       {
         obj.CreatedDate = _publicdateTime;
-        obj.Status = imageStatus;
+        obj.ApprovedDate = _publicdateTime;
+        obj.Status = property.Status;
+        if (obj.Status == true)
+          obj.ApprovedBy = property.ApprovedBy;
+        else
+          obj.ApprovedBy = 0;
+
         _context.SaveChanges();
         return 1;
       }
@@ -1221,6 +1244,10 @@ namespace AqarSquare.Engine
     }
 
     #region Balacony Images
+    public List<ImageBalacony> GetAllImageBalacony(int propertyId)
+    {
+      return _context.ImageBalaconies.Where(x => x.PropertyId == propertyId).ToList();
+    }
 
     public List<ImageBalacony> GetAllImageBalaconies(ImageBalacony image)
     {
@@ -1268,6 +1295,10 @@ namespace AqarSquare.Engine
     #endregion
 
     #region Bathroom Images
+    public List<ImageBathroom> GetAllImageBathroom(int propertyId)
+    {
+      return _context.ImageBathrooms.Where(x => x.PropertyId == propertyId).ToList();
+    }
 
     public List<ImageBathroom> GetAllImageBathroom(ImageBathroom image)
     {
@@ -1314,6 +1345,11 @@ namespace AqarSquare.Engine
     #endregion
 
     #region  Reception Images
+
+    public List<ImageReception> GetAllImageReception(int propertyId)
+    {
+      return _context.ImageReceptions.Where(x => x.PropertyId == propertyId).ToList();
+    }
 
     public List<ImageReception> GetAllImageReception(ImageReception image)
     {
@@ -1414,8 +1450,8 @@ namespace AqarSquare.Engine
         {
           var obj = _context.ImageGardens.Find(itemsSelected[i]);
           if (obj != null)
-          { 
-            _context.ImageGardens.Remove(obj); 
+          {
+            _context.ImageGardens.Remove(obj);
           }
         }
         _context.SaveChanges();
@@ -1433,6 +1469,10 @@ namespace AqarSquare.Engine
     #endregion
 
     #region Pool Images
+    public List<ImagePool> GetAllImagePool(int propertyId)
+    {
+      return _context.ImagePools.Where(x => x.PropertyId == propertyId).ToList();
+    }
 
     public List<ImagePool> GetAllImagePool(ImagePool image)
     {
@@ -1480,6 +1520,11 @@ namespace AqarSquare.Engine
 
     #region Bedroom Images
 
+    public List<ImageBedroom> GetAllImageBedroom(int propertyId)
+    {
+      return _context.ImageBedrooms.Where(x => x.PropertyId == propertyId).ToList();
+    }
+
     public List<ImageBedroom> GetAllImageBedroom(ImageBedroom image)
     {
       return _context.ImageBedrooms.Where(x => x.PropertyId == image.PropertyId).ToList();
@@ -1523,6 +1568,74 @@ namespace AqarSquare.Engine
     }
 
     #endregion
+
+    public int CountUnApprovedProperty()
+    {
+      var count = 0;
+      var userType = Convert.ToInt32(UserTypes.Tenant);
+      var usersObj = _context.SystemUsers.Where(x => x.UserType == userType).ToList().OrderByDescending(x => x.Id);
+      foreach (var systemUser in usersObj)
+      {
+        var viewObj = _context.Properties.Count(item => item.ApprovedBy == 0
+                                                                 && item.UserId == systemUser.Id);
+        count = viewObj;
+      }
+      //return _context.Properties.Count(x => x.ApprovedBy == 0);
+      return count;
+
+    }
+
+    public PropertyBackend GetPropertyById(string propertyId)
+    {
+      var result = new PropertyBackend();
+
+      var viewObj = _context.Properties.FirstOrDefault(item => item.PropertyId == propertyId);
+      if (viewObj != null)
+      {
+        result.Id = viewObj.Id;
+        result.PropertyId = viewObj.PropertyId;
+        result.Title = viewObj.Title;
+        result.TitleAr = viewObj.TitleAr;
+        result.Description = viewObj.Description;
+        result.DescriptionAr = viewObj.DescriptionAr;
+        result.Address = viewObj.Address;
+        result.AddressAr = viewObj.AddressAr;
+        result.Late = viewObj.Late;
+        result.Long = viewObj.Long;
+        result.Price = viewObj.Price;
+        result.BathroomNo = viewObj.BathroomNo;
+        result.BedroomNo = viewObj.BedroomNo;
+        result.RoomsNo = viewObj.RoomsNo;
+        result.ReceptionNo = viewObj.ReceptionNo;
+        result.Floor = viewObj.Floor;
+        result.Balacony = viewObj.Balacony;
+        result.Garage = viewObj.Garage;
+        result.Garden = viewObj.Garden;
+        result.Pool = viewObj.Pool;
+        result.Lift = viewObj.Lift;
+        result.Area = viewObj.Area;
+        result.PropertyTypeName = GetPropertyTypeById(viewObj.PropertyType);
+        result.PropertyType = viewObj.PropertyType;
+        result.Currency = viewObj.Currency;
+        result.Status = viewObj.Status;
+        result.CreatedBy = viewObj.CreatedBy;
+        result.CreatedByUserName = GetUserNameById(viewObj.CreatedBy);
+        result.CreatedDate = viewObj.CreatedDate;
+        result.ApprovedBy = viewObj.ApprovedBy;
+        result.ApprovedByUserName = GetUserNameById(viewObj.ApprovedBy);
+        result.ApprovedDate = viewObj.ApprovedDate;
+        result.UserId = viewObj.UserId;
+        result.ContractType = viewObj.ContractType;
+        result.ListImageBedroom = GetAllImageBedroom(viewObj.Id);
+        result.ListImageBalacony = GetAllImageBalacony(viewObj.Id);
+        result.ListImagePool = GetAllImagePool(viewObj.Id);
+        result.ListImageReception = GetAllImageReception(viewObj.Id);
+        result.ListImageGarden = GetAllImageGarden(viewObj.Id);
+        result.ListImageBathroom = GetAllImageBathroom(viewObj.Id);
+      }
+
+      return result;
+    }
 
     #endregion
 

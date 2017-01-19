@@ -1,5 +1,6 @@
-﻿var app = angular.module('propertyapp', []);
-app.controller('PropertyController', function ($scope, $http, notify, blockUI, Upload, cfpLoadingBar, PropertyService) {
+﻿var app = angular.module('userpropertyapp', []);
+app.controller('PropertyUserController', function ($scope, $http, notify, blockUI, Upload, cfpLoadingBar, PropertyService) {
+  // $scope.callCountUnApproved();
 
   $scope.IsHidden = true;
   $scope.ShowHide = function () {
@@ -11,10 +12,10 @@ app.controller('PropertyController', function ($scope, $http, notify, blockUI, U
   cfpLoadingBar.start();
 
   var vm = this;
-  vm.totalItems = 0;
+  vm.totaluserItems = 0;
   vm.currentPage = 1;
   vm.pageNumber = 5;
-  vm.PropertyData = {};
+  vm.UserPropertyData = {};
   $scope.PropertyId = 26;
   $scope.current = {};
   $scope.isUpdate = false;
@@ -172,8 +173,7 @@ app.controller('PropertyController', function ($scope, $http, notify, blockUI, U
     });
   }
 
-  fetshData();
-
+  fetchUserData(); 
   $scope.tableSelection = {};
 
   $scope.isAll = false;
@@ -182,14 +182,14 @@ app.controller('PropertyController', function ($scope, $http, notify, blockUI, U
     //check if all selected or not
     if ($scope.isAll === false) {
       //set all row selected
-      angular.forEach(vm.PropertyData, function (row, index) {
+      angular.forEach(vm.UserPropertyData, function (row, index) {
         $scope.tableSelection[index] = true;
 
       });
       $scope.isAll = true;
     } else {
       //set all row unselected
-      angular.forEach(vm.PropertyData, function (row, index) {
+      angular.forEach(vm.UserPropertyData, function (row, index) {
         $scope.tableSelection[index] = false;
       });
       $scope.isAll = false;
@@ -306,10 +306,10 @@ app.controller('PropertyController', function ($scope, $http, notify, blockUI, U
 
         } else {
           $scope.PropertyId = data;
-          fetshData();
+          fetchUserData();
         }
         //if (data == "Done") {
-        //  fetshData();
+        //  fetchUserData();
 
         //}
         if ($scope.PropertyId != 0) {
@@ -356,7 +356,7 @@ app.controller('PropertyController', function ($scope, $http, notify, blockUI, U
 
     var getData = PropertyService.updateProperty(property);
     getData.then(function (msg) {
-      fetshData();
+      fetchUserData();
       clearControl();
     }, function (msg) {
       swal({ title: "Error!", text: msg.data, type: "error", timer: 2000, showConfirmButton: false });
@@ -400,7 +400,7 @@ app.controller('PropertyController', function ($scope, $http, notify, blockUI, U
        if (isConfirmAtt) {
          var getData = PropertyService.deleteProperty(property);
          getData.then(function (msg) {
-           fetshData();
+           fetchUserData();
            swal({ title: "Deleted!", type: "success", timer: 1000, showConfirmButton: false });
 
          }, function (msg) {
@@ -415,12 +415,12 @@ app.controller('PropertyController', function ($scope, $http, notify, blockUI, U
 
          //  $http.post($scope.URL + "FetchProperty")
          //    .then(function (response) {
-         //      vm.PropertyData = response.data;
+         //      vm.UserPropertyData = response.data;
          //    });
          //  notify("Recored Deleted Successfully");
 
-         //  var index = vm.PropertyData.indexOf(Property);
-         //  vm.PropertyData.splice(index, 1);
+         //  var index = vm.UserPropertyData.indexOf(Property);
+         //  vm.UserPropertyData.splice(index, 1);
 
          //});
 
@@ -436,7 +436,7 @@ app.controller('PropertyController', function ($scope, $http, notify, blockUI, U
   $scope.removeSelected = function (propertyId) {
     var getData = PropertyService.deletePropertySelected(propertyId);
     getData.then(function (msg) {
-      fetshData();
+      fetchUserData();
       swal({ title: "Deleted!", type: "success", timer: 1000, showConfirmButton: false });
 
     }, function (msg) {
@@ -453,13 +453,13 @@ app.controller('PropertyController', function ($scope, $http, notify, blockUI, U
     $scope.Property = {};
     //start from last index because starting from first index cause shifting
     //in the array because of array.splice()
-    for (var i = vm.PropertyData.length - 1; i >= 0; i--) {
+    for (var i = vm.UserPropertyData.length - 1; i >= 0; i--) {
       if ($scope.tableSelection[i]) {
         //delete row from data 
-        $scope.removeSelected(vm.PropertyData[i].Id);
-        //fetshData();
+        $scope.removeSelected(vm.UserPropertyData[i].Id);
+        //fetchUserData();
 
-        //vm.PropertyData.splice(i, 1);
+        //vm.UserPropertyData.splice(i, 1);
         //delete rowSelection property
         // delete $scope.tableSelection[i];
       }
@@ -482,14 +482,14 @@ app.controller('PropertyController', function ($scope, $http, notify, blockUI, U
 
         if (data == "Error") {
 
-          fetshData();
+          fetchUserData();
           //myBlockUi.stop();
           notify("Error,Recored Updated Fail");
 
         }
         else {
 
-          fetshData();
+          fetchUserData();
           //myBlockUi.stop();
           notify("Recored Updated Successfully");
         }
@@ -497,7 +497,7 @@ app.controller('PropertyController', function ($scope, $http, notify, blockUI, U
   };
 
   vm.pageChanged = function () {
-    fetshData();
+    fetchUserData();
 
   };
 
@@ -1117,19 +1117,18 @@ app.controller('PropertyController', function ($scope, $http, notify, blockUI, U
       });
   }
 
-  $scope.$watchCollection('[balaconyImages, bathroomImages,BedroomImages,GardenImages,PoolImages,ReceptionImages]', function (newValues) {
-    if (newValues[0].length != 0 && newValues[1].length != 0 &&
-             newValues[2].length != 0 && newValues[3].length != 0 &&
-             newValues[4].length != 0 && newValues[5].length != 0) {
-      $scope.finishButton = true;
+  //$scope.$watchCollection('[balaconyImages, bathroomImages,BedroomImages,GardenImages,PoolImages,ReceptionImages]', function (newValues) {
+  //  if (newValues[0].length != 0 && newValues[1].length != 0 &&
+  //           newValues[2].length != 0 && newValues[3].length != 0 &&
+  //           newValues[4].length != 0 && newValues[5].length != 0) {
+  //    $scope.finishButton = true; 
+  //  } else {
+  //    $scope.finishButton = false;
 
-    } else {
-      $scope.finishButton = false;
+  //  }
+  //});
 
-    }
-  });
-
-  function fetshData() {
+  function fetchUserData() {
 
     var myBlockUi = blockUI.instances.get('myBlockUI');
 
@@ -1138,7 +1137,7 @@ app.controller('PropertyController', function ($scope, $http, notify, blockUI, U
     });
     $http.post($scope.URL + "FetchUserPropertyByPageSize", { 'pageNumber': vm.currentPage, 'pageSize': vm.pageNumber })
     .success(function (data, status, headers, config) {
-      vm.totalItems = data.TotalCount;
+      vm.totaluserItems = data.TotalCount;
       var fillData = [{}];
 
       for (var i = 0; i < data.Data.length; i++) {
@@ -1171,11 +1170,12 @@ app.controller('PropertyController', function ($scope, $http, notify, blockUI, U
           "CreatedBy": data.Data[i].CreatedBy,
           "ApprovedDate": data.Data[i].ApprovedDate,
           "ApprovedBy": data.Data[i].ApprovedBy,
-          "UserId": data.Data[i].UserId
+          "UserId": data.Data[i].UserId,
+          "PropertyId": data.Data[i].PropertyId
         });
       }
       fillData = fillData.slice(1);
-      vm.PropertyData = fillData;
+      vm.UserPropertyData = fillData;
       cfpLoadingBar.complete();
     })
     .error(function (data, status, headers, config) {
@@ -1186,7 +1186,7 @@ app.controller('PropertyController', function ($scope, $http, notify, blockUI, U
     myBlockUi.stop();
 
 
-  }
+  } 
 
   function clearControl() {
     $scope.current.TitleAr = "";

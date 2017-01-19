@@ -15,7 +15,9 @@ var myApp = angular.module('angapp',
     'cityapp',
     'citySort',
     'squareapp',
-    'propertyapp',
+    'userpropertyapp',
+    'adminpropertyapp',
+    'detailspropertyapp',
     'importantapp',
     'categoryapp',
     'regionapp',
@@ -87,43 +89,60 @@ myApp.config([
   }
 ]);
 myApp.controller('homeCtrl', homeCtrl);
+myApp.run(function ($rootScope, $http) {
+  $rootScope.globalFoo = function () {
+    alert("I'm global foo!");
+  };
+  $rootScope.toJavaScriptDate = function (value) {
+    var pattern = /Date\(([^)]+)\)/;
+    var results = pattern.exec(value);
+    var dt = new Date(parseFloat(results[1]));
+    return (dt.getDate() + "/" + dt.getMonth() + 1) + "/" + dt.getFullYear() + "    " + dt.getHours() + " : " + dt.getMinutes();
+  }
+  $rootScope.CountUnApprovedProperty = function ()
+  {
+    $http.post("http://localhost:1717/Project/CountUnApprovedProperty")
+      .success(function (data) {
+      return data;
+        alert(data);
+    }).error(function (msg) {
+        console.log(msg);
+      });
+  }
+});
+myApp.factory('publicService', function () {
+  return {
+    foo: function () {
+    
+      return "";
 
-//function run($rootScope, $location, $cookieStore, $http, $state) {
-//  $rootScope.$state = $state;
-//  //sdsd
-//  var sideBar = localStorage.getItem('ngStorage-LocalMessage');
-//  if (sideBar === undefined || sideBar === null || sideBar.length === 0) {
-//    //  swal({ title: "Pleae Login First!!", text: "", type: "error", timer: 3000, showConfirmButton: false });
-//    $location.path("/login");
+     // alert("I'm foo!");
 
-//  } else {
-//    $location.path("/index");
-//  }
-//  // keep user logged in after page refresh
-//  $rootScope.globals = $cookieStore.get('globals') || {};
-//  if ($rootScope.globals.currentUser) {
-//    $http.defaults.headers.common['Authorization'] = 'Basic ' + $rootScope.globals.currentUser.authdata; // jshint ignore:line
-//  }
+    }
 
-//  $rootScope.$on('$locationChangeStart', function (event, next, current) {
-//    // redirect to login page if not logged in and trying to access a restricted page
-//    var restrictedPage = $.inArray($location.path(), ['/login', '/register']) === -1;
-//    var loggedIn = $rootScope.globals.currentUser;
-//    if (restrictedPage && !loggedIn) {
-//      $location.path('/login');
-//    }
-//  });
-//}
+  };
+});
+function homeCtrl($scope, $location, publicService,$http) {
+  $scope.callCountUnApproved = function () { 
+   // $scope.CountunApproved1 = publicService.foo();
+    this.returnCount = "";
+    $http.post("http://localhost:1717/Project/CountUnApprovedProperty")
+   .success(function (data) {
+     $scope.CountunApproved1 = data;
 
-function homeCtrl($scope, $location) {
-
+     return data;
+   }).error(function (msg) {
+     console.log(msg);
+   });
+  }
+  $scope.callCountUnApproved();
   // $scope.AdminUserName = sideBar.replace(/['"]+/g, '');
   $scope.AdminUserName = sideBar;
   $scope.AdminEmail = userEmail;
   $scope.UserId = "1";
 
   $scope.URL = "http://localhost:1717/Project/";
-  $scope.MainURL = "http://localhost:1717/"; 
+  $scope.MainURL = "http://localhost:1717/";
   $scope.setRoute = function (route) {
     $location.path(route);
   };
