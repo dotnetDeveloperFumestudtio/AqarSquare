@@ -355,9 +355,7 @@
                     <li ui-sref="propertyadmin" ui-sref-active="active">
                       <a><i class="fa fa-laptop"></i> <span class="nav-label">Admin Property</span></a>
                     </li>
-
-
-
+                     
                     <li ui-sref="city" ui-sref-active="active">
                       <a><i class="fa fa-laptop"></i> <span class="nav-label">city </span></a>
                     </li>
@@ -367,6 +365,12 @@
 
                     <li ui-sref-active="active">
                       <a ui-sref="user"><i class="fa fa-laptop"></i> <span class="nav-label">Users</span></a>
+                    </li>
+                    <li ui-sref-active="active">
+                      <a ui-sref="contactformpage"><i class="fa fa-laptop"></i> <span class="nav-label">Contact Form</span></a>
+                    </li>
+                    <li ui-sref-active="active">
+                      <a ui-sref="reservationpage"><i class="fa fa-laptop"></i> <span class="nav-label">Reservation</span></a>
                     </li>
                     <li ui-sref-active="active">
                       <a ui-sref="topten1"><i class="fa fa-laptop"></i> <span class="nav-label">Top Ten</span></a>
@@ -490,7 +494,7 @@
     <script src="Content/js/plugins/daterangepicker/daterangepicker.js"></script>
     <script src="/Scripts/AngularJS/chosen.jquery.js"></script>
     <script src="/Scripts/AngularJS/prism.js"></script>
-    <script>
+    <!--<script>
       $(document).ready(function () {
         "use strict";
 
@@ -696,7 +700,7 @@
 
 
 
-    </script>
+    </script>-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.0/lodash.js"></script>
     <script src="https://rawgit.com/dotansimha/angularjs-dropdown-multiselect/master/src/angularjs-dropdown-multiselect.js"></script>
 
@@ -733,12 +737,18 @@
     <script src="Scripts/App/Square/Squarepaging.js"></script>
     <script src="Scripts/App/Square/service.js"></script>
 
-    <script src="Scripts/App/Property/PropertyAdminController.js"></script>
-    <script src="Scripts/App/Property/PropertyUserController.js"></script>
-    <script src="Scripts/App/Property/PropertypagingUser.js"></script>
-    <script src="Scripts/App/Property/PropertypagingAdmin.js"></script>
-    <script src="Scripts/App/Property/PropertyDetailsController.js"></script>
+    <script src="Scripts/App/Property/CtrlPropertyAdmin.js"></script>
+    <script src="Scripts/App/Property/CtrlPropertyUser.js"></script>
+    <script src="Scripts/App/Property/CtrlPropertyDetails.js"></script>
+    <script src="Scripts/App/Property/PagingPropertyAdmin.js"></script>
+    <script src="Scripts/App/Property/PagingPropertyUser.js"></script>
     <script src="Scripts/App/Property/service.js"></script>
+    
+    <script src="Scripts/App/ContactForm/CtrlContactForm.js"></script>
+    <script src="Scripts/App/ContactForm/PagingPropertyUser.js"></script>
+
+    <script src="Scripts/App/Reservation/CtrlReservation.js"></script>
+    <script src="Scripts/App/Reservation/PagingReservation.js"></script>
 
     <script src="Scripts/App/Region/Region.js"></script>
     <script src="Scripts/App/Region/pagingRegion.js"></script>

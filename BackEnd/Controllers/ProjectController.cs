@@ -10,8 +10,10 @@ using AqarSquare.Engine.BusinessEntities;
 using System.Web.Mvc;
 using AqarSquare.Engine.BusinessEntities.BackEnd;
 using AqarSquare.Engine.Entities;
+using AqarSquares;
 using Newtonsoft.Json;
 using PagedList;
+using Reservation = AqarSquare.Engine.BusinessEntities.BackEnd.Reservation;
 
 namespace Backend.Controllers
 {
@@ -192,7 +194,7 @@ namespace Backend.Controllers
     {
       return Json(new EngineManager().GetAllContractTypeByStatus(), JsonRequestBehavior.AllowGet);
     }
-   
+
     public JsonResult FetchCountUserProperty()
     {
       var countItems = new EngineManager().GetAllUserProperty();
@@ -318,7 +320,7 @@ namespace Backend.Controllers
     {
       return Json(new EngineManager().DeleteImageBedroom(image), JsonRequestBehavior.AllowGet);
     }
-     
+
 
     public JsonResult GetAllImageReception(ImageReception image)
     {
@@ -379,7 +381,7 @@ namespace Backend.Controllers
     {
       return Json(new EngineManager().DeleteImagePool(image), JsonRequestBehavior.AllowGet);
     }
-   
+
     public JsonResult CountUnApprovedProperty()
     {
       return Json(new EngineManager().CountUnApprovedProperty(), JsonRequestBehavior.AllowGet);
@@ -390,6 +392,60 @@ namespace Backend.Controllers
     }
 
     #endregion
+
+    #region Contact
+
+    
+    public JsonResult FetchContactForm()
+    {
+      var countItems = new EngineManager().GetAllContactForm();
+      return Json(new { TotalCount = countItems }, JsonRequestBehavior.AllowGet);
+    }
+
+    public JsonResult FetchContactFormByPageSize(int pageNumber, int pageSize)
+    {
+      var form = new EngineManager().GetAllContactForm().ToPagedList(pageNumber, pageSize);
+      var countItems = new EngineManager().GetAllContactForm().Count();
+      return Json(new { Data = form.ToList(), TotalCount = countItems }, JsonRequestBehavior.AllowGet);
+
+    }
+
+    public JsonResult UpdateFormContactApprove(ContactFormBackend contactForm)
+    {
+      var returnMsg = ""; 
+      returnMsg = new EngineManager().UpdatedContactForm(contactForm); 
+      return Json(returnMsg, JsonRequestBehavior.AllowGet);
+    }
+
+    #endregion
+
+
+    #region Contact
+
+
+    public JsonResult FetchReservation()
+    {
+      var countItems = new EngineManager().GetAllReservation();
+      return Json(new { TotalCount = countItems }, JsonRequestBehavior.AllowGet);
+    }
+
+    public JsonResult FetchReservationByPageSize(int pageNumber, int pageSize)
+    {
+      var form = new EngineManager().GetAllReservation().ToPagedList(pageNumber, pageSize);
+      var countItems = new EngineManager().GetAllReservation().Count();
+      return Json(new { Data = form.ToList(), TotalCount = countItems }, JsonRequestBehavior.AllowGet);
+
+    }
+
+    public JsonResult UpdateReservationApprove(Reservation reservation)
+    {
+      var returnMsg = "";
+      returnMsg = new EngineManager().UpdatedReservation(reservation);
+      return Json(returnMsg, JsonRequestBehavior.AllowGet);
+    }
+
+    #endregion
+
     //#region Home
     //public JsonResult FetchTop5User()
     //{

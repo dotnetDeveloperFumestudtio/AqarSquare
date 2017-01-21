@@ -18,6 +18,8 @@ var myApp = angular.module('angapp',
     'userpropertyapp',
     'adminpropertyapp',
     'detailspropertyapp',
+    'contactformapp',
+    'reservationapp',
     'importantapp',
     'categoryapp',
     'regionapp',
@@ -99,13 +101,12 @@ myApp.run(function ($rootScope, $http) {
     var dt = new Date(parseFloat(results[1]));
     return (dt.getDate() + "/" + dt.getMonth() + 1) + "/" + dt.getFullYear() + "    " + dt.getHours() + " : " + dt.getMinutes();
   }
-  $rootScope.CountUnApprovedProperty = function ()
-  {
+  $rootScope.CountUnApprovedProperty = function () {
     $http.post("http://localhost:1717/Project/CountUnApprovedProperty")
       .success(function (data) {
-      return data;
+        return data;
         alert(data);
-    }).error(function (msg) {
+      }).error(function (msg) {
         console.log(msg);
       });
   }
@@ -113,18 +114,18 @@ myApp.run(function ($rootScope, $http) {
 myApp.factory('publicService', function () {
   return {
     foo: function () {
-    
+
       return "";
 
-     // alert("I'm foo!");
+      // alert("I'm foo!");
 
     }
 
   };
 });
-function homeCtrl($scope, $location, publicService,$http) {
-  $scope.callCountUnApproved = function () { 
-   // $scope.CountunApproved1 = publicService.foo();
+function homeCtrl($scope, $location, publicService, $http) {
+  $scope.callCountUnApproved = function () {
+    // $scope.CountunApproved1 = publicService.foo();
     this.returnCount = "";
     $http.post("http://localhost:1717/Project/CountUnApprovedProperty")
    .success(function (data) {

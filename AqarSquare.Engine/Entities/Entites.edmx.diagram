@@ -4,32 +4,33 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="ba3e39524c5949518718914d76642278" Name="Diagram1">
+      <Diagram DiagramId="ba3e39524c5949518718914d76642278" Name="Diagram1" ZoomLevel="64">
         <EntityTypeShape EntityType="AqarSquaresModel.City" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="AqarSquaresModel.ContractType" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AqarSquaresModel.ContractType" Width="1.5" PointX="0.5" PointY="3.125" IsExpanded="true" />
         <EntityTypeShape EntityType="AqarSquaresModel.Image360" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="AqarSquaresModel.MainMenuBackend" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="AqarSquaresModel.MainMenuFrontend" Width="1.5" PointX="8.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AqarSquaresModel.MainMenuBackend" Width="1.5" PointX="2.25" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AqarSquaresModel.MainMenuFrontend" Width="1.5" PointX="7" PointY="0.5" IsExpanded="true" />
         <EntityTypeShape EntityType="AqarSquaresModel.PriceAverage" Width="1.5" PointX="8.75" PointY="8.75" IsExpanded="true" />
         <EntityTypeShape EntityType="AqarSquaresModel.PropertyType" Width="1.5" PointX="2.75" PointY="9.75" IsExpanded="true" />
         <EntityTypeShape EntityType="AqarSquaresModel.PropertyVeiwed" Width="1.5" PointX="4.75" PointY="9.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="AqarSquaresModel.Square" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="AqarSquaresModel.SubMenuBackend" Width="1.5" PointX="10.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AqarSquaresModel.Square" Width="1.5" PointX="4.25" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AqarSquaresModel.SubMenuBackend" Width="1.5" PointX="9" PointY="0.5" IsExpanded="true" />
         <EntityTypeShape EntityType="AqarSquaresModel.SubMenuFrontend" Width="1.5" PointX="10.75" PointY="8.75" IsExpanded="true" />
         <EntityTypeShape EntityType="AqarSquaresModel.SystemUser" Width="1.5" PointX="6.75" PointY="11.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="AqarSquaresModel.TopTenProperty" Width="1.5" PointX="12.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AqarSquaresModel.TopTenProperty" Width="1.5" PointX="6.25" PointY="3.25" IsExpanded="true" />
         <EntityTypeShape EntityType="AqarSquaresModel.UserFavourite" Width="1.5" PointX="2.75" PointY="12.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="AqarSquaresModel.UserRate" Width="1.5" PointX="12.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AqarSquaresModel.UserRate" Width="1.5" PointX="8.875" PointY="3.5" IsExpanded="true" />
         <EntityTypeShape EntityType="AqarSquaresModel.ContactU" Width="1.5" PointX="9.375" PointY="12.75" />
         <EntityTypeShape EntityType="AqarSquaresModel.TbCurrency" Width="1.5" PointX="15.375" PointY="0.75" />
         <EntityTypeShape EntityType="AqarSquaresModel.Property" Width="1.5" PointX="11.375" PointY="12.75" />
-        <EntityTypeShape EntityType="AqarSquaresModel.ContactForm" Width="1.5" PointX="13.375" PointY="6.75" />
-        <EntityTypeShape EntityType="AqarSquaresModel.ImageBalacony" Width="1.5" PointX="5.75" PointY="3.75" />
+        <EntityTypeShape EntityType="AqarSquaresModel.ImageBalacony" Width="1.5" PointX="2.75" PointY="0.625" />
         <EntityTypeShape EntityType="AqarSquaresModel.ImageBathroom" Width="1.5" PointX="0.75" PointY="6.75" />
         <EntityTypeShape EntityType="AqarSquaresModel.ImageBedroom" Width="1.5" PointX="2.75" PointY="6.75" />
         <EntityTypeShape EntityType="AqarSquaresModel.ImageGarden" Width="1.5" PointX="4.75" PointY="6.75" />
         <EntityTypeShape EntityType="AqarSquaresModel.ImagePool" Width="1.5" PointX="13.75" PointY="10.75" />
         <EntityTypeShape EntityType="AqarSquaresModel.ImageReception" Width="1.5" PointX="13.75" PointY="13.75" />
+        <EntityTypeShape EntityType="AqarSquaresModel.ContactForm" Width="1.5" PointX="11.375" PointY="0.75" />
+        <EntityTypeShape EntityType="AqarSquaresModel.Reservation" Width="1.5" PointX="11.375" PointY="4.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

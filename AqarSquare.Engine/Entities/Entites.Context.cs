@@ -43,12 +43,13 @@ namespace AqarSquare.Engine.Entities
         public virtual DbSet<ContactU> ContactUs { get; set; }
         public virtual DbSet<TbCurrency> TbCurrencies { get; set; }
         public virtual DbSet<Property> Properties { get; set; }
-        public virtual DbSet<ContactForm> ContactForms { get; set; }
         public virtual DbSet<ImageBalacony> ImageBalaconies { get; set; }
         public virtual DbSet<ImageBathroom> ImageBathrooms { get; set; }
         public virtual DbSet<ImageBedroom> ImageBedrooms { get; set; }
         public virtual DbSet<ImageGarden> ImageGardens { get; set; }
         public virtual DbSet<ImagePool> ImagePools { get; set; }
         public virtual DbSet<ImageReception> ImageReceptions { get; set; }
+        public virtual DbSet<ContactForm> ContactForms { get; set; }
+        public virtual DbSet<Reservation> Reservations { get; set; }
     }
 }

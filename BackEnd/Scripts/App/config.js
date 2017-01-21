@@ -68,6 +68,16 @@
       page: 1
     }
   })
+    .state('contactformpage', {
+      url: "/contactformpage",
+      templateUrl: "/Scripts/App/ContactForm/ContactForm.html"
+
+  })
+    .state('reservationpage', {
+      url: "/reservationpage",
+      templateUrl: "/Scripts/App/Reservation/Reservation.html"
+
+  })
     .state('important', {
       url: "/important",
       templateUrl: "/Scripts/App/ImportantNumber/Important.html"

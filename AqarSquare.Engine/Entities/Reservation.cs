@@ -12,16 +12,14 @@ namespace AqarSquare.Engine.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class ContactForm
+    public partial class Reservation
     {
         public int Id { get; set; }
-        public string FullName { get; set; }
-        public string Phone { get; set; }
-        public string Email { get; set; }
-        public string Message { get; set; }
+        public Nullable<int> PropertyId { get; set; }
+        public Nullable<int> UserId { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
+        public Nullable<int> CreatedBy { get; set; }
         public Nullable<int> ApprovedBy { get; set; }
         public Nullable<System.DateTime> ApprovedDate { get; set; }
-        public Nullable<int> UserId { get; set; }
     }
 }

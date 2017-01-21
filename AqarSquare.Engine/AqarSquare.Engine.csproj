@@ -102,6 +102,8 @@
     <None Include="BusinessEntities\BackEnd\ImageGarden.cs" />
     <None Include="BusinessEntities\BackEnd\ImagePool.cs" />
     <None Include="BusinessEntities\BackEnd\ImageBedroom.cs" />
+    <Compile Include="BusinessEntities\BackEnd\ContactForm.cs" />
+    <Compile Include="BusinessEntities\BackEnd\Reservation.cs" />
     <Compile Include="BusinessEntities\BackEnd\PropertyInfo.cs" />
     <Compile Include="BusinessEntities\BackEnd\CurrencyBackend.cs" />
     <Compile Include="BusinessEntities\BackEnd\ContractTypeBackend.cs" />
@@ -176,6 +178,9 @@
       <DependentUpon>Entites.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\PropertyVeiwed.cs">
+      <DependentUpon>Entites.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Reservation.cs">
       <DependentUpon>Entites.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\Square.cs">

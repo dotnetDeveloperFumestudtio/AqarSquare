@@ -10,6 +10,8 @@ using System.Net;
 using System.ServiceModel.Web;
 using AqarSquare.Engine.BusinessEntities.BackEnd;
 using AqarSquare.Engine.Entities;
+using AqarSquares;
+using Reservation = AqarSquare.Engine.BusinessEntities.BackEnd.Reservation;
 
 
 namespace AqarSquare.Engine
@@ -622,27 +624,40 @@ namespace AqarSquare.Engine
 
     #region ContactForm
 
-    public List<ContactForm> GetAllContactForm()
+    public List<ContactFormBackend> GetAllContactForm()
     {
+      var returnContact = new List<ContactFormBackend>();
       var contactFormObj = _context.ContactForms.ToList().OrderByDescending(x => x.Id);
-      return contactFormObj.Select(c => new ContactForm
+      foreach (var c in contactFormObj)
       {
-        Id = c.Id,
-        FullName = c.FullName,
-        CreatedDate = c.CreatedDate,
-        Email = c.Email,
-        Phone = c.Phone,
-        Message = c.Message
-      }).ToList();
+        bool isTenant = false || c.UserId != 0;
+        returnContact.Add(new ContactFormBackend
+        {
+          Id = c.Id,
+          FullName = c.FullName,
+          CreatedDate = c.CreatedDate,
+          Email = c.Email,
+          Phone = c.Phone,
+          Message = c.Message,
+          UserId = c.UserId,
+          ApprovedBy = c.ApprovedBy,
+          ApprovedDate = c.ApprovedDate,
+          IsTenant = isTenant
+        });
+      }
+      return returnContact;
     }
 
-
-    public string UpdatedContactForm(ContactForm contactForm)
+    public string UpdatedContactForm(ContactFormBackend contactForm)
     {
       var contactFormObj = _context.ContactForms.FirstOrDefault(item => item.Id == contactForm.Id);
       if (contactFormObj != null)
       {
-        contactFormObj.ApprovedBy = contactForm.ApprovedBy;
+        if (contactFormObj.ApprovedBy == 0)
+          contactFormObj.ApprovedBy = contactForm.ApprovedBy;
+        else
+          contactFormObj.ApprovedBy = 0;
+
         contactFormObj.ApprovedDate = _publicdateTime;
 
         _context.SaveChanges();
@@ -1639,6 +1654,56 @@ namespace AqarSquare.Engine
 
     #endregion
 
+    #region ContactForm
+
+    public List<Reservation> GetAllReservation()
+    {
+      var returnReservation = new List<Reservation>();
+      var contactFormObj = _context.Reservations.ToList().OrderByDescending(x => x.Id);
+      foreach (var c in contactFormObj)
+      {
+        var userInfo = GetSystemUserById(c.UserId);
+        //var propertyInfo = GetPropertyById(c.PropertyId.ToString());
+        returnReservation.Add(new Reservation
+        {
+          Id = c.Id,
+          FullName = userInfo.FirstName + " " + userInfo.LastName,
+          CreatedDate = c.CreatedDate,
+          Email = userInfo.Email,
+          Phone = userInfo.Phone,
+          PropertyId = c.PropertyId.ToString(), 
+          ApprovedBy = c.ApprovedBy,
+          ApprovedDate = c.ApprovedDate
+        });
+      }
+      return returnReservation;
+    }
+
+    public string UpdatedReservation(Reservation reservation)
+    {
+      var reservationObj = _context.Reservations.FirstOrDefault(item => item.Id == reservation.Id);
+      if (reservationObj != null)
+      {
+        if (reservationObj.ApprovedBy == 0)
+          reservationObj.ApprovedBy = reservation.ApprovedBy;
+        else
+          reservationObj.ApprovedBy = 0;
+
+        reservationObj.ApprovedDate = _publicdateTime;
+
+        _context.SaveChanges();
+        return "Done";
+      }
+      else
+        return "Error";
+
+
+    }
+
+   
+
+    #endregion
+
     #endregion
 
     #region FrontEnd
@@ -1655,6 +1720,7 @@ namespace AqarSquare.Engine
         contactFormObj.Email = contactForm.Email;
         contactFormObj.Phone = contactForm.Phone;
         contactFormObj.CreatedDate = _publicdateTime;
+        contactFormObj.ApprovedBy = 0;
         _context.ContactForms.Add(contactFormObj);
         _context.SaveChanges();
 
