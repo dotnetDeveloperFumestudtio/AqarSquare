@@ -937,6 +937,10 @@
     <Content Include="Scripts\App\Category\RegService.js" />
     <Content Include="Scripts\App\ChangePassword\ChangePassword.html" />
     <Content Include="Scripts\App\ChangePassword\ChangePassword.js" />
+    <Content Include="Scripts\App\PhotoSession\CtrlPhotoSession.js" />
+    <Content Include="Scripts\App\PhotoSession\PagingPhotoSession.js" />
+    <Content Include="Scripts\App\PhotoSession\PhotoSession.html" />
+    <Content Include="Scripts\App\PhotoSession\service.js" />
     <Content Include="Scripts\App\Reservation\Reservation.html" />
     <Content Include="Scripts\App\Reservation\CtrlReservation.js" />
     <Content Include="Scripts\App\Reservation\PagingReservation.js" />

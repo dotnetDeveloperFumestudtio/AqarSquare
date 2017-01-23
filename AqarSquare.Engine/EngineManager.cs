@@ -11,6 +11,7 @@ using System.ServiceModel.Web;
 using AqarSquare.Engine.BusinessEntities.BackEnd;
 using AqarSquare.Engine.Entities;
 using AqarSquares;
+using PhotoSession = AqarSquare.Engine.BusinessEntities.BackEnd.PhotoSession;
 using Reservation = AqarSquare.Engine.BusinessEntities.BackEnd.Reservation;
 
 
@@ -66,7 +67,7 @@ namespace AqarSquare.Engine
     }
 
 
-    #region Helper methods
+    #region Users
 
     public string GetUserNameById(int? id)
     {
@@ -77,6 +78,7 @@ namespace AqarSquare.Engine
       else
         return null;
     }
+    
     public SystemUserBackend GetSystemUserByName(string userName)
     {
       SystemUserBackend result = null;
@@ -90,6 +92,7 @@ namespace AqarSquare.Engine
       //  }
       return result;
     }
+    
     public SystemUserBackend GetSystemUserById(int? userId)
     {
       SystemUserBackend result = null;
@@ -101,9 +104,10 @@ namespace AqarSquare.Engine
       return result;
     }
 
-    public List<SystemUserBackend> GetAllSystem()
+    public List<SystemUserBackend> GetAllAdminUsers()
     {
-      var systemUser = _context.SystemUsers.ToList();
+      var usertype = Convert.ToInt32(UserTypes.Admin);
+      var systemUser = _context.SystemUsers.Where(x => x.UserType == usertype).ToList();
       return systemUser.Select(systemUserBackend => new SystemUserBackend
       {
         Email = systemUserBackend.Email,
@@ -1123,6 +1127,7 @@ namespace AqarSquare.Engine
         propertyObj.ApprovedBy = 0;
         propertyObj.CreatedDate = _publicdateTime;
         propertyObj.UserId = p.UserId;
+        propertyObj.Space = p.Space;
         _context.Properties.Add(propertyObj);
         _context.SaveChanges();
 
@@ -1162,6 +1167,7 @@ namespace AqarSquare.Engine
         propertyObj.PropertyType = p.PropertyType;
         propertyObj.Currency = p.Currency;
         propertyObj.Status = p.Status;
+        propertyObj.Space = p.Space;
         propertyObj.CreatedBy = p.CreatedBy;
         propertyObj.CreatedDate = _publicdateTime;
         propertyObj.CreatedDate = _publicdateTime;
@@ -1654,7 +1660,7 @@ namespace AqarSquare.Engine
 
     #endregion
 
-    #region ContactForm
+    #region Reservation
 
     public List<Reservation> GetAllReservation()
     {
@@ -1703,6 +1709,57 @@ namespace AqarSquare.Engine
    
 
     #endregion
+
+    #region Reservation
+
+    public List<PhotoSession> GetAllPhotoSession()
+    {
+      var returnPhotoSession = new List<PhotoSession>();
+      var photoSessionObj = _context.PhotoSessions.ToList().OrderByDescending(x => x.Id);
+      foreach (var c in photoSessionObj)
+      {
+        var userInfo = GetSystemUserById(c.UserId);
+        //var propertyInfo = GetPropertyById(c.PropertyId.ToString());
+        returnPhotoSession.Add(new PhotoSession
+        {
+          Id = c.Id,
+          FullName = userInfo.FirstName + " " + userInfo.LastName,
+          CreatedDate = c.CreatedDate,
+          Email = userInfo.Email,
+          Phone = userInfo.Phone,
+          PropertyId = c.PropertyId.ToString(),
+          ApprovedBy = c.ApprovedBy,
+          ApprovedDate = c.ApprovedDate
+        });
+      }
+      return returnPhotoSession;
+    }
+
+    public string UpdatedPhotoSession(PhotoSession photoSession)
+    {
+      var photoSessionObj = _context.PhotoSessions.FirstOrDefault(item => item.Id == photoSession.Id);
+      if (photoSessionObj != null)
+      {
+        if (photoSessionObj.ApprovedBy == 0)
+          photoSessionObj.ApprovedBy = photoSession.ApprovedBy;
+        else
+          photoSessionObj.ApprovedBy = 0;
+
+        photoSessionObj.ApprovedDate = _publicdateTime;
+
+        _context.SaveChanges();
+        return "Done";
+      }
+      else
+        return "Error";
+
+
+    }
+
+
+
+    #endregion
+
 
     #endregion
 

@@ -81,6 +81,7 @@
           <Property Name="PropertyId" Type="int" />
           <Property Name="Image" Type="nvarchar" MaxLength="300" />
           <Property Name="Status" Type="bit" />
+          <Property Name="IsMainImage" Type="bit" />
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="CreatedBy" Type="int" />
         </EntityType>
@@ -92,6 +93,7 @@
           <Property Name="PropertyId" Type="int" />
           <Property Name="Image" Type="nvarchar" MaxLength="300" />
           <Property Name="Status" Type="bit" />
+          <Property Name="IsMainImage" Type="bit" />
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="CreatedBy" Type="int" />
         </EntityType>
@@ -103,6 +105,7 @@
           <Property Name="PropertyId" Type="int" />
           <Property Name="Image" Type="nvarchar" MaxLength="300" />
           <Property Name="Status" Type="bit" />
+          <Property Name="IsMainImage" Type="bit" />
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="CreatedBy" Type="int" />
         </EntityType>
@@ -114,6 +117,7 @@
           <Property Name="PropertyId" Type="int" />
           <Property Name="Image" Type="nvarchar" MaxLength="300" />
           <Property Name="Status" Type="bit" />
+          <Property Name="IsMainImage" Type="bit" />
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="CreatedBy" Type="int" />
         </EntityType>
@@ -125,6 +129,7 @@
           <Property Name="PropertyId" Type="int" />
           <Property Name="Image" Type="nvarchar" MaxLength="300" />
           <Property Name="Status" Type="bit" />
+          <Property Name="IsMainImage" Type="bit" />
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="CreatedBy" Type="int" />
         </EntityType>
@@ -135,6 +140,8 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="PropertyId" Type="int" />
           <Property Name="Image" Type="nvarchar" MaxLength="300" />
+          <Property Name="Status" Type="bit" />
+          <Property Name="IsMainImage" Type="bit" />
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="CreatedBy" Type="int" />
         </EntityType>
@@ -161,6 +168,18 @@
           <Property Name="IsDefault" Type="bit" />
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="CreatedBy" Type="int" />
+        </EntityType>
+        <EntityType Name="PhotoSession">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PropertyId" Type="int" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="ApprovedBy" Type="int" />
+          <Property Name="ApprovedDate" Type="datetime" />
         </EntityType>
         <EntityType Name="PriceAverage">
           <Key>
@@ -201,6 +220,7 @@
           <Property Name="Garage" Type="bit" />
           <Property Name="Pool" Type="bit" />
           <Property Name="Area" Type="int" />
+          <Property Name="Space" Type="int" />
           <Property Name="Currency" Type="nvarchar" MaxLength="300" />
           <Property Name="CurrencyKey" Type="nvarchar" MaxLength="50" />
           <Property Name="CreatedDate" Type="datetime" />
@@ -348,6 +368,7 @@
           <EntitySet Name="ImageReception" EntityType="Self.ImageReception" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MainMenuBackend" EntityType="Self.MainMenuBackend" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MainMenuFrontend" EntityType="Self.MainMenuFrontend" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PhotoSession" EntityType="Self.PhotoSession" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PriceAverage" EntityType="Self.PriceAverage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Property" EntityType="Self.Property" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PropertyType" EntityType="Self.PropertyType" Schema="dbo" store:Type="Tables" />
@@ -551,6 +572,8 @@
           <EntitySet Name="UserRates" EntityType="Self.UserRate" />
           <EntitySet Name="ContactUs" EntityType="AqarSquaresModel.ContactU" />
           <EntitySet Name="TbCurrencies" EntityType="AqarSquaresModel.TbCurrency" />
+          <EntitySet Name="ContactForms" EntityType="AqarSquaresModel.ContactForm" />
+          <EntitySet Name="Reservations" EntityType="AqarSquaresModel.Reservation" />
           <EntitySet Name="Properties" EntityType="AqarSquaresModel.Property" />
           <EntitySet Name="ImageBalaconies" EntityType="AqarSquaresModel.ImageBalacony" />
           <EntitySet Name="ImageBathrooms" EntityType="AqarSquaresModel.ImageBathroom" />
@@ -558,8 +581,7 @@
           <EntitySet Name="ImageGardens" EntityType="AqarSquaresModel.ImageGarden" />
           <EntitySet Name="ImagePools" EntityType="AqarSquaresModel.ImagePool" />
           <EntitySet Name="ImageReceptions" EntityType="AqarSquaresModel.ImageReception" />
-          <EntitySet Name="ContactForms" EntityType="AqarSquaresModel.ContactForm" />
-          <EntitySet Name="Reservations" EntityType="AqarSquaresModel.Reservation" />
+          <EntitySet Name="PhotoSessions" EntityType="AqarSquaresModel.PhotoSession" />
         </EntityContainer>
         <EntityType Name="ContactU">
           <Key>
@@ -592,6 +614,32 @@
           <Property Name="CurrencyKey" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="CreatedBy" Type="Int32" />
+        </EntityType>
+        <EntityType Name="ContactForm">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FullName" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="ApprovedBy" Type="Int32" />
+          <Property Name="ApprovedDate" Type="DateTime" Precision="3" />
+          <Property Name="UserId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Reservation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PropertyId" Type="Int32" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="ApprovedBy" Type="Int32" />
+          <Property Name="ApprovedDate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="Property">
           <Key>
@@ -631,6 +679,7 @@
           <Property Name="Long" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
           <Property Name="Late" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
           <Property Name="ContractType" Type="Int32" />
+          <Property Name="Space" Type="Int32" />
         </EntityType>
         <EntityType Name="ImageBalacony">
           <Key>
@@ -640,6 +689,7 @@
           <Property Name="PropertyId" Type="Int32" />
           <Property Name="Image" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
           <Property Name="Status" Type="Boolean" />
+          <Property Name="IsMainImage" Type="Boolean" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="CreatedBy" Type="Int32" />
         </EntityType>
@@ -651,6 +701,7 @@
           <Property Name="PropertyId" Type="Int32" />
           <Property Name="Image" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
           <Property Name="Status" Type="Boolean" />
+          <Property Name="IsMainImage" Type="Boolean" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="CreatedBy" Type="Int32" />
         </EntityType>
@@ -662,6 +713,7 @@
           <Property Name="PropertyId" Type="Int32" />
           <Property Name="Image" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
           <Property Name="Status" Type="Boolean" />
+          <Property Name="IsMainImage" Type="Boolean" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="CreatedBy" Type="Int32" />
         </EntityType>
@@ -673,6 +725,7 @@
           <Property Name="PropertyId" Type="Int32" />
           <Property Name="Image" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
           <Property Name="Status" Type="Boolean" />
+          <Property Name="IsMainImage" Type="Boolean" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="CreatedBy" Type="Int32" />
         </EntityType>
@@ -684,6 +737,7 @@
           <Property Name="PropertyId" Type="Int32" />
           <Property Name="Image" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
           <Property Name="Status" Type="Boolean" />
+          <Property Name="IsMainImage" Type="Boolean" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="CreatedBy" Type="Int32" />
         </EntityType>
@@ -694,24 +748,12 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="PropertyId" Type="Int32" />
           <Property Name="Image" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Boolean" />
+          <Property Name="IsMainImage" Type="Boolean" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="CreatedBy" Type="Int32" />
         </EntityType>
-        <EntityType Name="ContactForm">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FullName" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
-          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <Property Name="ApprovedBy" Type="Int32" />
-          <Property Name="ApprovedDate" Type="DateTime" Precision="3" />
-          <Property Name="UserId" Type="Int32" />
-        </EntityType>
-        <EntityType Name="Reservation">
+        <EntityType Name="PhotoSession">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -945,9 +987,38 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="ContactForms">
+            <EntityTypeMapping TypeName="AqarSquaresModel.ContactForm">
+              <MappingFragment StoreEntitySet="ContactForm">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ApprovedDate" ColumnName="ApprovedDate" />
+                <ScalarProperty Name="ApprovedBy" ColumnName="ApprovedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reservations">
+            <EntityTypeMapping TypeName="AqarSquaresModel.Reservation">
+              <MappingFragment StoreEntitySet="Reservation">
+                <ScalarProperty Name="ApprovedDate" ColumnName="ApprovedDate" />
+                <ScalarProperty Name="ApprovedBy" ColumnName="ApprovedBy" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="PropertyId" ColumnName="PropertyId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Properties">
             <EntityTypeMapping TypeName="AqarSquaresModel.Property">
               <MappingFragment StoreEntitySet="Property">
+                <ScalarProperty Name="Space" ColumnName="Space" />
                 <ScalarProperty Name="ContractType" ColumnName="ContractType" />
                 <ScalarProperty Name="Late" ColumnName="Late" />
                 <ScalarProperty Name="Long" ColumnName="Long" />
@@ -990,6 +1061,7 @@
               <MappingFragment StoreEntitySet="ImageBalacony">
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="IsMainImage" ColumnName="IsMainImage" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="PropertyId" ColumnName="PropertyId" />
@@ -1002,6 +1074,7 @@
               <MappingFragment StoreEntitySet="ImageBathroom">
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="IsMainImage" ColumnName="IsMainImage" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="PropertyId" ColumnName="PropertyId" />
@@ -1014,6 +1087,7 @@
               <MappingFragment StoreEntitySet="ImageBedroom">
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="IsMainImage" ColumnName="IsMainImage" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="PropertyId" ColumnName="PropertyId" />
@@ -1026,6 +1100,7 @@
               <MappingFragment StoreEntitySet="ImageGarden">
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="IsMainImage" ColumnName="IsMainImage" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="PropertyId" ColumnName="PropertyId" />
@@ -1038,6 +1113,7 @@
               <MappingFragment StoreEntitySet="ImagePool">
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="IsMainImage" ColumnName="IsMainImage" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="PropertyId" ColumnName="PropertyId" />
@@ -1050,30 +1126,17 @@
               <MappingFragment StoreEntitySet="ImageReception">
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="IsMainImage" ColumnName="IsMainImage" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="PropertyId" ColumnName="PropertyId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ContactForms">
-            <EntityTypeMapping TypeName="AqarSquaresModel.ContactForm">
-              <MappingFragment StoreEntitySet="ContactForm">
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="ApprovedDate" ColumnName="ApprovedDate" />
-                <ScalarProperty Name="ApprovedBy" ColumnName="ApprovedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="Message" ColumnName="Message" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="FullName" ColumnName="FullName" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Reservations">
-            <EntityTypeMapping TypeName="AqarSquaresModel.Reservation">
-              <MappingFragment StoreEntitySet="Reservation">
+          <EntitySetMapping Name="PhotoSessions">
+            <EntityTypeMapping TypeName="AqarSquaresModel.PhotoSession">
+              <MappingFragment StoreEntitySet="PhotoSession">
                 <ScalarProperty Name="ApprovedDate" ColumnName="ApprovedDate" />
                 <ScalarProperty Name="ApprovedBy" ColumnName="ApprovedBy" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />

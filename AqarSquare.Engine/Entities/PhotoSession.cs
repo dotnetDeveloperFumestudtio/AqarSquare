@@ -12,14 +12,14 @@ namespace AqarSquare.Engine.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class ImageBalacony
+    public partial class PhotoSession
     {
         public int Id { get; set; }
         public Nullable<int> PropertyId { get; set; }
-        public string Image { get; set; }
-        public Nullable<bool> Status { get; set; }
-        public Nullable<bool> IsMainImage { get; set; }
+        public Nullable<int> UserId { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<int> CreatedBy { get; set; }
+        public Nullable<int> ApprovedBy { get; set; }
+        public Nullable<System.DateTime> ApprovedDate { get; set; }
     }
 }

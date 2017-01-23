@@ -18,6 +18,7 @@ namespace AqarSquare.Engine.Entities
         public Nullable<int> PropertyId { get; set; }
         public string Image { get; set; }
         public Nullable<bool> Status { get; set; }
+        public Nullable<bool> IsMainImage { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<int> CreatedBy { get; set; }
     }

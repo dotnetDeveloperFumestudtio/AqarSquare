@@ -78,6 +78,11 @@
       templateUrl: "/Scripts/App/Reservation/Reservation.html"
 
   })
+    .state('photosessionpage', {
+      url: "/photosessionpage",
+      templateUrl: "/Scripts/App/PhotoSession/PhotoSession.html"
+
+  })
     .state('important', {
       url: "/important",
       templateUrl: "/Scripts/App/ImportantNumber/Important.html"

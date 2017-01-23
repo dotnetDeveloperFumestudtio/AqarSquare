@@ -13,6 +13,7 @@ using AqarSquare.Engine.Entities;
 using AqarSquares;
 using Newtonsoft.Json;
 using PagedList;
+using PhotoSession = AqarSquare.Engine.BusinessEntities.BackEnd.PhotoSession;
 using Reservation = AqarSquare.Engine.BusinessEntities.BackEnd.Reservation;
 
 namespace Backend.Controllers
@@ -420,7 +421,7 @@ namespace Backend.Controllers
     #endregion
 
 
-    #region Contact
+    #region Reservation
 
 
     public JsonResult FetchReservation()
@@ -441,6 +442,32 @@ namespace Backend.Controllers
     {
       var returnMsg = "";
       returnMsg = new EngineManager().UpdatedReservation(reservation);
+      return Json(returnMsg, JsonRequestBehavior.AllowGet);
+    }
+
+    #endregion
+     
+    #region PhotoSession
+
+
+    public JsonResult FetchPhotoSession()
+    {
+      var countItems = new EngineManager().GetAllPhotoSession();
+      return Json(new { TotalCount = countItems }, JsonRequestBehavior.AllowGet);
+    }
+
+    public JsonResult FetchPhotoSessionByPageSize(int pageNumber, int pageSize)
+    {
+      var form = new EngineManager().GetAllPhotoSession().ToPagedList(pageNumber, pageSize);
+      var countItems = new EngineManager().GetAllPhotoSession().Count();
+      return Json(new { Data = form.ToList(), TotalCount = countItems }, JsonRequestBehavior.AllowGet);
+
+    }
+
+    public JsonResult UpdatePhotoSessionApprove(PhotoSession photoSession)
+    {
+      var returnMsg = "";
+      returnMsg = new EngineManager().UpdatedPhotoSession(photoSession);
       return Json(returnMsg, JsonRequestBehavior.AllowGet);
     }
 

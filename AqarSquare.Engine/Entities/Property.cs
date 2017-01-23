@@ -48,5 +48,6 @@ namespace AqarSquare.Engine.Entities
         public string Long { get; set; }
         public string Late { get; set; }
         public Nullable<int> ContractType { get; set; }
+        public Nullable<int> Space { get; set; }
     }
 }

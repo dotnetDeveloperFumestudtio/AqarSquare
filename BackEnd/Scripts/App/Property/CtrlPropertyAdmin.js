@@ -1,7 +1,14 @@
 ﻿var app = angular.module('adminpropertyapp', []);
-app.controller('PropertyAdminController', function ($scope, $http, notify, blockUI, Upload, cfpLoadingBar, PropertyService) {
+app.controller('PropertyAdminController', function ($scope, $http, notify, blockUI, Upload, Map, cfpLoadingBar, PropertyService) {
   $scope.CountUnApprovedProperty();
   $scope.CountunApproved = 11;
+
+  $scope.place = {};
+  $scope.getpos = function (event) {
+    $scope.latlng = [event.latLng.lat(), event.latLng.lng()];
+    $scope.variable1 = $scope.latlng;
+
+  };
 
   $scope.IsHidden = true;
   $scope.ShowHide = function () {
@@ -173,7 +180,7 @@ app.controller('PropertyAdminController', function ($scope, $http, notify, block
 
     });
   }
-   
+
   fetchAdminData();
   $scope.tableSelection = {};
 
@@ -270,10 +277,12 @@ app.controller('PropertyAdminController', function ($scope, $http, notify, block
     cfpLoadingBar.start();
     //property.Late = $scope.variable1[0];
     //property.Long = $scope.variable1[1];
+    property.Late = $scope.place.lat;
+    property.Long = $scope.place.lng;
 
     property.TitleAr = $scope.current.TitleAr;
     property.Title = $scope.current.Title;
-    //property.Status = $scope.current.Status;
+    property.Status = $scope.current.Status;
     property.Description = $scope.current.Description;
     property.DescriptionAr = $scope.current.DescriptionAr;
     property.Address = $scope.current.Address;
@@ -295,6 +304,7 @@ app.controller('PropertyAdminController', function ($scope, $http, notify, block
     property.Currency = $scope.currencySelectedId;
     property.CreatedDate = $scope.current.CreatedDate;
     property.CreatedBy = $scope.UserId;
+    property.Space = $scope.Space;
     property.UserId = $scope.UserId;
     $http.post($scope.URL + "CreateProperty", { 'Property': property })
       .success(function (data, status, headers, config) {
@@ -307,7 +317,6 @@ app.controller('PropertyAdminController', function ($scope, $http, notify, block
 
         } else {
           $scope.PropertyId = data;
-          fetchUserData();
         }
         //if (data == "Done") {
         //  fetchUserData();
@@ -357,7 +366,6 @@ app.controller('PropertyAdminController', function ($scope, $http, notify, block
 
     var getData = PropertyService.updateProperty(property);
     getData.then(function (msg) {
-      fetchUserData();
       clearControl();
     }, function (msg) {
       swal({ title: "Error!", text: msg.data, type: "error", timer: 2000, showConfirmButton: false });
@@ -401,7 +409,7 @@ app.controller('PropertyAdminController', function ($scope, $http, notify, block
        if (isConfirmAtt) {
          var getData = PropertyService.deleteProperty(property);
          getData.then(function (msg) {
-           fetchUserData();
+           fetchAdminData();
            swal({ title: "Deleted!", type: "success", timer: 1000, showConfirmButton: false });
 
          }, function (msg) {
@@ -437,7 +445,7 @@ app.controller('PropertyAdminController', function ($scope, $http, notify, block
   $scope.removeSelected = function (propertyId) {
     var getData = PropertyService.deletePropertySelected(propertyId);
     getData.then(function (msg) {
-      fetchUserData();
+      fetchAdminData();
       swal({ title: "Deleted!", type: "success", timer: 1000, showConfirmButton: false });
 
     }, function (msg) {
@@ -483,14 +491,14 @@ app.controller('PropertyAdminController', function ($scope, $http, notify, block
 
         if (data == "Error") {
 
-          fetchUserData();
+          fetchAdminData();
           //myBlockUi.stop();
           notify("Error,Recored Updated Fail");
 
         }
         else {
 
-          fetchUserData();
+          fetchAdminData();
           //myBlockUi.stop();
           notify("Recored Updated Successfully");
         }
@@ -1122,12 +1130,12 @@ app.controller('PropertyAdminController', function ($scope, $http, notify, block
     if (newValues[0].length != 0 && newValues[1].length != 0 &&
              newValues[2].length != 0 && newValues[3].length != 0 &&
              newValues[4].length != 0 && newValues[5].length != 0) {
-      $scope.finishButton = true; 
+      $scope.finishButton = true;
     } else {
       $scope.finishButton = false;
 
     }
-  }); 
+  });
   function fetchAdminData() {
 
     var myBlockUi = blockUI.instances.get('myBlockUI');
@@ -1171,6 +1179,7 @@ app.controller('PropertyAdminController', function ($scope, $http, notify, block
           "ApprovedDate": data.Data[i].ApprovedDate,
           "ApprovedBy": data.Data[i].ApprovedBy,
           "UserId": data.Data[i].UserId,
+          "Space": data.Data[i].Space,
           "PropertyId": data.Data[i].PropertyId
         });
       }
@@ -1203,6 +1212,70 @@ app.controller('PropertyAdminController', function ($scope, $http, notify, block
   //  var dt = new Date(parseFloat(results[1]));
   //  return (dt.getDate() + "/" + dt.getMonth() + 1) + "/" + dt.getFullYear() + "    " + dt.getHours() + " : " + dt.getMinutes();
   //}
+
+
+  $scope.search = function () {
+    $scope.apiError = false;
+    Map.search($scope.searchPlace)
+    .then(
+        function (res) { // success
+          Map.addMarker(res);
+          $scope.place.name = res.name;
+          $scope.place.lat = res.geometry.location.lat();
+          $scope.place.lng = res.geometry.location.lng();
+        },
+        function (status) { // error
+          $scope.apiError = true;
+          $scope.apiStatus = status;
+        }
+    );
+  }
+
+  $scope.send = function () {
+    alert($scope.place.name + ' : ' + $scope.place.lat + ', ' + $scope.place.lng);
+  }
+
+  Map.init();
+
+});
+
+
+app.service('Map', function ($q) {
+
+  this.init = function () {
+    var options = {
+      center: new google.maps.LatLng(40.7127837, -74.00594130000002),
+      zoom: 13,
+      disableDefaultUI: true
+    }
+    this.map = new google.maps.Map(
+        document.getElementById("map"), options
+    );
+    this.places = new google.maps.places.PlacesService(this.map);
+  }
+
+  this.search = function (str) {
+    var d = $q.defer();
+    this.places.textSearch({ query: str }, function (results, status) {
+      if (status == 'OK') {
+        d.resolve(results[0]);
+      }
+      else d.reject(status);
+    });
+    return d.promise;
+  }
+
+  this.addMarker = function (res) {
+    if (this.marker) this.marker.setMap(null);
+    this.marker = new google.maps.Marker({
+      map: this.map,
+      position: res.geometry.location,
+      animation: google.maps.Animation.DROP,
+      draggable: true
+    });
+    this.map.setCenter(res.geometry.location);
+  }
+
 });
 
 angular.module('PropertySort', []).directive("sort", function () {

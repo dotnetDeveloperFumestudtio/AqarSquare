@@ -9,8 +9,8 @@ namespace AqarSquare.Engine
   [ServiceContract]
   public interface IAqarSquareService
   {
-    [OperationContract]
-    List<SystemUserBackend> GetAllSystem();
+    //[OperationContract]
+    //List<SystemUserBackend> GetAllSystem();
 
     [OperationContract]
     ContactUsBackend GetCountactUs();

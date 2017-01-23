@@ -54,5 +54,7 @@ namespace AqarSquare.Engine.BusinessEntities.BackEnd
     public List<ImageBathroom> ListImageBathroom { get; set; }
 
     public string ApprovedByUserName { get; set; }
+
+    public int? Space { get; set; }
   }
 }

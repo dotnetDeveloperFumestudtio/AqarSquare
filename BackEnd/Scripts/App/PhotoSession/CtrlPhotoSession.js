@@ -1,5 +1,5 @@
-﻿var app = angular.module('reservationapp', []);
-app.controller('ReservationController', function ($scope, $http, notify, blockUI, Upload, cfpLoadingBar) {
+﻿var app = angular.module('PhotoSessionapp', []);
+app.controller('PhotoSessionController', function ($scope, $http, notify, blockUI, Upload, cfpLoadingBar) {
 
   $scope.IsHidden = true;
   $scope.ShowHide = function () {
@@ -11,8 +11,8 @@ app.controller('ReservationController', function ($scope, $http, notify, blockUI
   vm.totaluserItems = 0;
   vm.currentPage = 1;
   vm.pageNumber = 5;
-  vm.reservationData = {};
-  $scope.reservationId = 26;
+  vm.PhotoSessionData = {};
+  $scope.PhotoSessionId = 26;
   $scope.current = {};
   $scope.isUpdate = false;
   $scope.isCreate = true;
@@ -20,7 +20,7 @@ app.controller('ReservationController', function ($scope, $http, notify, blockUI
   $scope.order = 'FullName';
   $scope.reverse = false;
 
-  fetchreservationData();
+  fetchPhotoSessionData();
   $scope.tableSelection = {};
 
   $scope.isAll = false;
@@ -29,23 +29,23 @@ app.controller('ReservationController', function ($scope, $http, notify, blockUI
     //check if all selected or not
     if ($scope.isAll === false) {
       //set all row selected
-      angular.forEach(vm.reservationData, function (row, index) {
+      angular.forEach(vm.PhotoSessionData, function (row, index) {
         $scope.tableSelection[index] = true;
 
       });
       $scope.isAll = true;
     } else {
       //set all row unselected
-      angular.forEach(vm.reservationData, function (row, index) {
+      angular.forEach(vm.PhotoSessionData, function (row, index) {
         $scope.tableSelection[index] = false;
       });
       $scope.isAll = false;
     }
   };
 
-  $scope.edit = function (reservation) {
-    if (reservation != null) {
-      $scope.current = reservation;
+  $scope.edit = function (PhotoSession) {
+    if (PhotoSession != null) {
+      $scope.current = PhotoSession;
 
     } else {
       swal({ title: "Error!", text: "Something went wrong!", type: "error", timer: 2000, showConfirmButton: false });
@@ -56,7 +56,7 @@ app.controller('ReservationController', function ($scope, $http, notify, blockUI
 
   };
 
-  $scope.update = function (reservation) {
+  $scope.update = function (PhotoSession) {
     // Get the reference to the block service.
     var myBlockUi = blockUI.instances.get('myBlockUI');
 
@@ -64,15 +64,15 @@ app.controller('ReservationController', function ($scope, $http, notify, blockUI
       message: 'Wait Please ...'
     });
     cfpLoadingBar.start();
-    reservation.ApprovedBy = $scope.UserId;
-    $http.post($scope.URL + "UpdateReservationApprove", { 'reservation': reservation })
+    PhotoSession.ApprovedBy = $scope.UserId;
+    $http.post($scope.URL + "UpdatePhotoSessionApprove", { 'PhotoSession': PhotoSession })
       .success(function (data, status, headers, config) {
-        fetchreservationData();
+        fetchPhotoSessionData();
         clearControl();
       });
   };
 
-  $scope.UpdatereservationStatus = function (reservation) {
+  $scope.UpdatePhotoSessionStatus = function (PhotoSession) {
     // Get the reference to the block service.
     var myBlockUi = blockUI.instances.get('myBlockUI');
 
@@ -81,19 +81,19 @@ app.controller('ReservationController', function ($scope, $http, notify, blockUI
     //});
     cfpLoadingBar.start();
 
-    $http.post($scope.URL + "UpdatereservationStatus", { 'reservation': reservation })
+    $http.post($scope.URL + "UpdatePhotoSessionStatus", { 'PhotoSession': PhotoSession })
       .success(function (data, status, headers, config) {
 
         if (data == "Error") {
 
-          fetchreservationData();
+          fetchPhotoSessionData();
           //myBlockUi.stop();
           notify("Error,Recored Updated Fail");
 
         }
         else {
 
-          fetchreservationData();
+          fetchPhotoSessionData();
           //myBlockUi.stop();
           notify("Recored Updated Successfully");
         }
@@ -101,18 +101,18 @@ app.controller('ReservationController', function ($scope, $http, notify, blockUI
   };
 
   vm.pageChanged = function () {
-    fetchreservationData();
+    fetchPhotoSessionData();
 
   };
 
-  function fetchreservationData() {
+  function fetchPhotoSessionData() {
 
     var myBlockUi = blockUI.instances.get('myBlockUI');
 
     myBlockUi.start({
       message: 'Wait Please ...'
     });
-    $http.post($scope.URL + "FetchReservationByPageSize", { 'pageNumber': vm.currentPage, 'pageSize': vm.pageNumber })
+    $http.post($scope.URL + "FetchPhotoSessionByPageSize", { 'pageNumber': vm.currentPage, 'pageSize': vm.pageNumber })
     .success(function (data, status, headers, config) {
       vm.totaluserItems = data.TotalCount;
       var fillData = [{}];
@@ -132,7 +132,7 @@ app.controller('ReservationController', function ($scope, $http, notify, blockUI
         });
       }
       fillData = fillData.slice(1);
-      vm.reservationData = fillData;
+      vm.PhotoSessionData = fillData;
       cfpLoadingBar.complete();
     })
     .error(function (data, status, headers, config) {
@@ -158,7 +158,7 @@ app.controller('ReservationController', function ($scope, $http, notify, blockUI
 
 });
 
-angular.module('reservationSort', []).directive("sort", function () {
+angular.module('PhotoSessionSort', []).directive("sort", function () {
   return {
     restrict: 'A',
     transclude: true,
