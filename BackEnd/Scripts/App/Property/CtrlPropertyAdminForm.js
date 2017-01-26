@@ -1,5 +1,5 @@
-﻿var app = angular.module('adminpropertyapp', []);
-app.controller('PropertyAdminController', function ($scope, $http, notify, blockUI, Upload, cfpLoadingBar, PropertyService) {
+﻿var app = angular.module('adminpropertyformapp', []);
+app.controller('PropertyAdminFormController', function ($scope, $http, notify, blockUI, Upload,Map, cfpLoadingBar, PropertyService) {
  
 
   $scope.place = {};
@@ -39,7 +39,46 @@ app.controller('PropertyAdminController', function ($scope, $http, notify, block
   $scope.propertytypemodel = [];
   $scope.contracttypeSelectedId = "";
   $scope.contracttypemodel = [];
+
+  $scope.userInChargeSelectedId = "";
+  $scope.userinchargemodel = [];
   $scope.balaconyImages = {};
+
+
+
+  $scope.userinchargesettings = {
+    displayProp: 'FullName', idProp: 'Id', enableSearch: true, scrollableHeight: '300px',
+    selectionLimit: 2,
+    showCheckAll: false,
+    showUncheckAll: false,
+    closeOnSelect: true,
+    scrollable: true,
+    smartButtonMaxItems: 1,
+    smartButtonTextConverter: function (itemText, originalItem) {
+      if (itemText === 'Jhon') {
+        return 'Jhonny!';
+      }
+
+      return itemText;
+    }
+  };
+  function getUsers() {
+    return $http.get($scope.URL + "FetchAdminUser");
+  };
+
+  bindUsers();
+
+  function bindUsers() {
+    var desg = getUsers();
+
+    desg.then(function (dsg) {
+      $scope.userinchargedata = dsg.data;
+      $scope.userincharge = dsg.data;
+    }, function (dsg) {
+      swal({ title: "Error!", text: "Something went wrong!", type: "error", timer: 2000, showConfirmButton: false });
+
+    });
+  }
 
 
   $scope.squaresettings = {
@@ -269,6 +308,21 @@ app.controller('PropertyAdminController', function ($scope, $http, notify, block
     }
     $scope.contracttypeSelectedId = parseInt(contracttypeId);
 
+
+    var userInChargeId = $scope.userinchargemodel.map(function (a) { return a.id; });
+    if (userInChargeId.length == 0) {
+      myBlockUi.stop();
+      cfpLoadingBar.complete();
+      swal({ title: "Error!", text: "must choose at least 1 User Incharge", type: "error", timer: 2000, showConfirmButton: false });
+      return;
+    }
+    if (userInChargeId.length > 1) {
+      myBlockUi.stop();
+      cfpLoadingBar.complete();
+      swal({ title: "Error!", text: "must choose just 1 Contract Type", type: "error", timer: 2000, showConfirmButton: false });
+      return;
+    }
+    $scope.userInChargeSelectedId = parseInt(userInChargeId);
     // Start blocking the element.
     //myBlockUi.start({
     //  message: 'Wait Please ...'
@@ -301,9 +355,10 @@ app.controller('PropertyAdminController', function ($scope, $http, notify, block
     property.propertyType = $scope.propertytypeSelectedId;
     property.ContractType = $scope.contracttypeSelectedId;
     property.Currency = $scope.currencySelectedId;
+    property.UserInCharge = $scope.userInChargeSelectedId;
     property.CreatedDate = $scope.current.CreatedDate;
     property.CreatedBy = $scope.UserId;
-    property.Space = $scope.Space;
+    property.Space = $scope.current.Space;
     property.UserId = $scope.UserId;
     $http.post($scope.URL + "CreateProperty", { 'Property': property })
       .success(function (data, status, headers, config) {
@@ -1125,16 +1180,16 @@ app.controller('PropertyAdminController', function ($scope, $http, notify, block
       });
   }
 
-  $scope.$watchCollection('[balaconyImages, bathroomImages,BedroomImages,GardenImages,PoolImages,ReceptionImages]', function (newValues) {
-    if (newValues[0].length != 0 && newValues[1].length != 0 &&
-             newValues[2].length != 0 && newValues[3].length != 0 &&
-             newValues[4].length != 0 && newValues[5].length != 0) {
-      $scope.finishButton = true;
-    } else {
-      $scope.finishButton = false;
+  //$scope.$watchCollection('[balaconyImages, bathroomImages,BedroomImages,GardenImages,PoolImages,ReceptionImages]', function (newValues) {
+  //  if (newValues[0].length != 0 && newValues[1].length != 0 &&
+  //           newValues[2].length != 0 && newValues[3].length != 0 &&
+  //           newValues[4].length != 0 && newValues[5].length != 0) {
+  //    $scope.finishButton = true;
+  //  } else {
+  //    $scope.finishButton = false;
 
-    }
-  });
+  //  }
+  //});
   function fetchAdminData() {
 
     var myBlockUi = blockUI.instances.get('myBlockUI');
@@ -1142,8 +1197,7 @@ app.controller('PropertyAdminController', function ($scope, $http, notify, block
     myBlockUi.start({
       message: 'Wait Please ...'
     });
-    $http.post($scope.URL + "FetchAdminProperty")
-   // $http.post($scope.URL + "FetchAdminPropertyByPageSize", { 'pageNumber': vm.currentPageAdmin, 'pageSize': vm.pageNumberAdmin })
+    $http.post($scope.URL + "FetchAdminPropertyByPageSize", { 'pageNumber': vm.currentPageAdmin, 'pageSize': vm.pageNumberAdmin })
     .success(function (data, status, headers, config) {
       vm.totaladminItems = data.TotalCount;
       var fillData = [{}];
@@ -1185,11 +1239,6 @@ app.controller('PropertyAdminController', function ($scope, $http, notify, block
       }
       fillData = fillData.slice(1);
       vm.AdminPropertyData = fillData;
-
-      $scope.tableSettings = new TableSettings(vm.AdminPropertyData);
-      $scope.tableSettings.setRows(5);
-      $scope.selectOptions = [1, 3, 5, 10];
-
       cfpLoadingBar.complete();
     })
     .error(function (data, status, headers, config) {
@@ -1217,11 +1266,71 @@ app.controller('PropertyAdminController', function ($scope, $http, notify, block
   //  var dt = new Date(parseFloat(results[1]));
   //  return (dt.getDate() + "/" + dt.getMonth() + 1) + "/" + dt.getFullYear() + "    " + dt.getHours() + " : " + dt.getMinutes();
   //}
-   
+
+
+  $scope.search = function () {
+    $scope.apiError = false;
+    Map.search($scope.searchPlace)
+    .then(
+        function (res) { // success
+          Map.addMarker(res);
+          $scope.place.name = res.name;
+          $scope.place.lat = res.geometry.location.lat();
+          $scope.place.lng = res.geometry.location.lng();
+        },
+        function (status) { // error
+          $scope.apiError = true;
+          $scope.apiStatus = status;
+        }
+    );
+  }
+
+  //$scope.send = function () {
+  //  alert($scope.place.name + ' : ' + $scope.place.lat + ', ' + $scope.place.lng);
+  //}
+
+  Map.init();
 
 });
 
- 
+
+app.service('Map', function ($q) {
+
+  this.init = function () {
+    var options = {
+      center: new google.maps.LatLng(30.0660891, 31.360248599999977),
+      zoom: 13,
+      disableDefaultUI: true
+    }
+    this.map = new google.maps.Map(
+        document.getElementById("map"), options
+    );
+    this.places = new google.maps.places.PlacesService(this.map);
+  }
+
+  this.search = function (str) {
+    var d = $q.defer();
+    this.places.textSearch({ query: str }, function (results, status) {
+      if (status == 'OK') {
+        d.resolve(results[0]);
+      }
+      else d.reject(status);
+    });
+    return d.promise;
+  }
+
+  this.addMarker = function (res) {
+    if (this.marker) this.marker.setMap(null);
+    this.marker = new google.maps.Marker({
+      map: this.map,
+      position: res.geometry.location,
+      animation: google.maps.Animation.DROP,
+      //draggable: true
+    });
+    this.map.setCenter(res.geometry.location);
+  }
+
+});
 
 angular.module('PropertySort', []).directive("sort", function () {
   return {

@@ -80,9 +80,24 @@
   })
     .state('photosessionpage', {
       url: "/photosessionpage",
-      templateUrl: "/Scripts/App/PhotoSession/PhotoSession.html"
-
-  })
+      templateUrl: "/Scripts/App/PhotoSession/PhotoSession.html" 
+    })
+   .state('user', {
+     url: "/user",
+     templateUrl: "/Scripts/App/User/User.html"
+   })
+   .state('tenantUser', {
+     url: "/tenantuser",
+     templateUrl: "/Scripts/App/TenantUser/TenantUser.html"
+   })
+   .state('propertytype', {
+     url: "/propertytype",
+     templateUrl: "/Scripts/App/PropertyType/PropertyType.html"
+   })
+   .state('contracttype', {
+     url: "/contracttype",
+     templateUrl: "/Scripts/App/ContractType/ContractType.html"
+   })
     .state('important', {
       url: "/important",
       templateUrl: "/Scripts/App/ImportantNumber/Important.html"
@@ -142,10 +157,6 @@
    .state('event', {
      url: "/event",
      templateUrl: "/Scripts/App/Events/Events.html"
-   })
-   .state('user', {
-     url: "/user",
-     templateUrl: "/Scripts/App/User/User.html"
    })
    .state('report', {
      url: "/report",

@@ -51,7 +51,11 @@ namespace Backend.Controllers
 
     public JsonResult FetchCity()
     {
-      return Json(new EngineManager().GetAllCity(), JsonRequestBehavior.AllowGet);
+      var city = new EngineManager().GetAllCity();
+
+      return Json(new { Data = city.ToList() }, JsonRequestBehavior.AllowGet);
+
+      //  return Json(new EngineManager().GetAllCity().ToList(), JsonRequestBehavior.AllowGet);
     }
 
     public JsonResult FetchCountCity()
@@ -109,6 +113,11 @@ namespace Backend.Controllers
       var returnMsg = new EngineManager().DeleteCity(citybac);
 
       return Json(returnMsg, JsonRequestBehavior.AllowGet);
+    }
+
+    public JsonResult DeleteSelectedCity(int[] itemsSelected)
+    {
+      return Json(new EngineManager().DeleteSelected(itemsSelected), JsonRequestBehavior.AllowGet);
     }
 
     #endregion
@@ -204,7 +213,13 @@ namespace Backend.Controllers
 
     public JsonResult FetchUserProperty()
     {
-      return Json(new EngineManager().GetAllUserProperty(), JsonRequestBehavior.AllowGet);
+      var obj = new EngineManager().GetAllUserProperty();
+      return Json(new { Data = obj.ToList() }, JsonRequestBehavior.AllowGet);
+    }
+    public JsonResult FetchAdminProperty()
+    {
+      var obj = new EngineManager().GetAllAdminProperty();
+      return Json(new { Data = obj.ToList() }, JsonRequestBehavior.AllowGet);
     }
     public JsonResult FetchUserPropertyByPageSize(int pageNumber, int pageSize)
     {
@@ -396,7 +411,7 @@ namespace Backend.Controllers
 
     #region Contact
 
-    
+
     public JsonResult FetchContactForm()
     {
       var countItems = new EngineManager().GetAllContactForm();
@@ -413,13 +428,12 @@ namespace Backend.Controllers
 
     public JsonResult UpdateFormContactApprove(ContactFormBackend contactForm)
     {
-      var returnMsg = ""; 
-      returnMsg = new EngineManager().UpdatedContactForm(contactForm); 
+      var returnMsg = "";
+      returnMsg = new EngineManager().UpdatedContactForm(contactForm);
       return Json(returnMsg, JsonRequestBehavior.AllowGet);
     }
 
     #endregion
-
 
     #region Reservation
 
@@ -446,7 +460,7 @@ namespace Backend.Controllers
     }
 
     #endregion
-     
+
     #region PhotoSession
 
 
@@ -473,6 +487,215 @@ namespace Backend.Controllers
 
     #endregion
 
+    #region Admin user
+
+    public JsonResult FetchAdminUser()
+    {
+      var obj = new EngineManager().GetAllAdminUsers();
+
+      return Json(new { Data = obj.ToList() }, JsonRequestBehavior.AllowGet);
+
+
+      return Json(new EngineManager().GetAllAdminUsers(), JsonRequestBehavior.AllowGet);
+    }
+
+    public JsonResult FetchCountAdminUser()
+    {
+      var countItems = new EngineManager().GetAllAdminUsers();
+      return Json(new { TotalCount = countItems }, JsonRequestBehavior.AllowGet);
+    }
+
+    public JsonResult FetchAdminUserByPageSize(int pageNumber, int pageSize)
+    {
+      var User = new EngineManager().GetAllAdminUsers().ToPagedList(pageNumber, pageSize);
+      var countItems = new EngineManager().GetAllAdminUsers().Count();
+      return Json(new { Data = User.ToList(), TotalCount = countItems }, JsonRequestBehavior.AllowGet);
+
+    }
+
+    public JsonResult CreateAdminUser(SystemUserBackend user)
+    {
+      string returnValue = new EngineManager().CreateAdminUser(user);
+
+      return Json(returnValue, JsonRequestBehavior.AllowGet);
+    }
+
+    public JsonResult UpdateAdminUser(SystemUserBackend user)
+    {
+      var returnMsg = new EngineManager().UpdateAdminUser(user);
+
+      return Json(returnMsg, JsonRequestBehavior.AllowGet);
+    }
+
+    #endregion
+
+    #region Tenant user
+
+    public JsonResult FetchTenantUser()
+    {
+      var obj = new EngineManager().GetAllTenantUsers();
+
+      return Json(new { Data = obj.ToList() }, JsonRequestBehavior.AllowGet);
+    }
+   
+    public JsonResult UpdateTenantUser(SystemUserBackend user)
+    {
+      var returnMsg = new EngineManager().UpdateTenantUser(user);
+
+      return Json(returnMsg, JsonRequestBehavior.AllowGet);
+    }
+
+    #endregion
+    
+    #region PropertyType
+
+    public JsonResult FetchPropertyType()
+    {
+      var propertyType = new EngineManager().GetAllPropertyType();
+
+      return Json(new { Data = propertyType.ToList() }, JsonRequestBehavior.AllowGet);
+       
+    }
+
+    public JsonResult FetchCountPropertyType()
+    {
+      var countItems = new EngineManager().GetAllPropertyType();
+      return Json(new { TotalCount = countItems }, JsonRequestBehavior.AllowGet);
+    }
+
+    public JsonResult FetchPropertyTypeByPageSize(int pageNumber, int pageSize)
+    {
+      var propertyType = new EngineManager().GetAllPropertyType().ToPagedList(pageNumber, pageSize);
+      var countItems = new EngineManager().GetAllPropertyType().Count();
+      return Json(new { Data = propertyType.ToList(), TotalCount = countItems }, JsonRequestBehavior.AllowGet);
+
+    }
+
+    public JsonResult CreatePropertyType(PropertyTypeBackend propertyType)
+    {
+      string returnValue = new EngineManager().CreatePropertyType(propertyType);
+
+      return Json(returnValue, JsonRequestBehavior.AllowGet);
+    }
+
+    public JsonResult UpdatePropertyTypeStatus(PropertyTypeBackend propertyType)
+    {
+      var returnValue = 0;
+      var returnMsg = "Done";
+
+      returnValue = new EngineManager().UpdatePropertyTypeStatus(propertyType.Id, propertyType.Status);
+
+      if (returnValue == 0)
+        returnMsg = "Error";
+
+      return Json(returnMsg, JsonRequestBehavior.AllowGet);
+    }
+
+    public JsonResult UpdatePropertyType(PropertyTypeBackend propertyType)
+    {
+      var returnValue = new EngineManager().UpdatedPropertyType(propertyType);
+
+      return Json(returnValue, JsonRequestBehavior.AllowGet);
+    }
+
+    public JsonResult DeletePropertyType(PropertyTypeBackend propertyType)
+    {
+      var returnMsg = new EngineManager().DeletePropertyType(propertyType);
+
+      return Json(returnMsg, JsonRequestBehavior.AllowGet);
+    }
+
+    public JsonResult DeletePropertyTypeSelected(int propertyTypeId)
+    {
+      var propertyTypebac = new PropertyTypeBackend();
+      propertyTypebac.Id = propertyTypeId;
+      var returnMsg = new EngineManager().DeletePropertyType(propertyTypebac);
+
+      return Json(returnMsg, JsonRequestBehavior.AllowGet);
+    }
+
+    public JsonResult DeleteSelectedPropertyType(int[] itemsSelected)
+    {
+      return Json(new EngineManager().DeleteSelected(itemsSelected), JsonRequestBehavior.AllowGet);
+    }
+
+    #endregion
+    
+    #region ContractType
+
+    public JsonResult FetchContractType()
+    {
+      var ContractType = new EngineManager().GetAllContractType();
+
+      return Json(new { Data = ContractType.ToList() }, JsonRequestBehavior.AllowGet);
+
+      //  return Json(new EngineManager().GetAllContractType().ToList(), JsonRequestBehavior.AllowGet);
+    }
+
+    public JsonResult FetchCountContractType()
+    {
+      var countItems = new EngineManager().GetAllContractType();
+      return Json(new { TotalCount = countItems }, JsonRequestBehavior.AllowGet);
+    }
+
+    public JsonResult FetchContractTypeByPageSize(int pageNumber, int pageSize)
+    {
+      var ContractType = new EngineManager().GetAllContractType().ToPagedList(pageNumber, pageSize);
+      var countItems = new EngineManager().GetAllContractType().Count();
+      return Json(new { Data = ContractType.ToList(), TotalCount = countItems }, JsonRequestBehavior.AllowGet);
+
+    }
+
+    public JsonResult CreateContractType(ContractTypeBackend contractType)
+    {
+      string returnValue = new EngineManager().CreateContractType(contractType);
+
+      return Json(returnValue, JsonRequestBehavior.AllowGet);
+    }
+
+    public JsonResult UpdateContractTypeStatus(ContractTypeBackend contractType)
+    {
+      var returnValue = 0;
+      var returnMsg = "Done";
+
+      returnValue = new EngineManager().UpdateContractTypeStatus(contractType.Id, contractType.Status);
+
+      if (returnValue == 0)
+        returnMsg = "Error";
+
+      return Json(returnMsg, JsonRequestBehavior.AllowGet);
+    }
+
+    public JsonResult UpdateContractType(ContractTypeBackend contractType)
+    {
+      var returnValue = new EngineManager().UpdatedContractType(contractType);
+
+      return Json(returnValue, JsonRequestBehavior.AllowGet);
+    }
+
+    public JsonResult DeleteContractType(ContractTypeBackend contractType)
+    {
+      var returnMsg = new EngineManager().DeleteContractType(contractType);
+
+      return Json(returnMsg, JsonRequestBehavior.AllowGet);
+    }
+
+    public JsonResult DeleteContractTypeSelected(int contractTypeId)
+    {
+      var contractTypebac = new ContractTypeBackend();
+      contractTypebac.Id = contractTypeId;
+      var returnMsg = new EngineManager().DeleteContractType(contractTypebac);
+
+      return Json(returnMsg, JsonRequestBehavior.AllowGet);
+    }
+
+    public JsonResult DeleteSelectedContractType(int[] itemsSelected)
+    {
+      return Json(new EngineManager().DeleteSelected(itemsSelected), JsonRequestBehavior.AllowGet);
+    }
+
+    #endregion
+   
     //#region Home
     //public JsonResult FetchTop5User()
     //{

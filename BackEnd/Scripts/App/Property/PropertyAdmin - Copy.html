@@ -1,4 +1,4 @@
-﻿
+﻿ 
 
 <div class="wrapper wrapper-content animated fadeInRight" ng-app="angapp" ng-controller="PropertyAdminController as Property" block-ui="blockUI" ng-cloak>
   <div class="row">
@@ -28,67 +28,53 @@
         </div>
         <div class="inqbox-content">
           <input type="button" class="btn btn-primary" value="Add New" ui-sref="propertyformadmin" />
-           <!--<a href="" class="btn btn-danger btn-right" ng-click="DeleteSelected(tableSettings.getFilteredData())">Delete Multiple Rows selected</a>-->
           <div class="table-responsive">
-            <input type="text" class="gui-input" placeholder="Search..." id="sgeneral" ng-model="mySearch" ng-change="tableSettings.search(mySearch)">
+            <table class="table table-striped table-bordered table-hover dataTables-example">
+              <thead>
+              <th>
+                <input type="checkbox" ng-model="isAll" ng-click="selectAllRows()" />
+              </th>
+              <th sort order="'title'" by="order" reverse="reverse">Title</th>
+              <th sort order="'titlear'" by="order" reverse="reverse">Title Ar</th>
+              <th sort order="'Status'" by="order" reverse="reverse">Status</th>
+              <th sort order="'CreatedDate'" by="order" reverse="reverse">Last Update</th>
+              <th sort order="'CreatedByUserName'" by="order" reverse="reverse">Update By</th>
 
+              <th> </th>
+              </thead>
+              <tbody>
+                <!--ng-class="{'success' : tableSelection[$index]}"-->
+                <tr ng-repeat="PropertyFor in Property.AdminPropertyData | orderBy:order:reverse" ng-class="{null:'test', '':'hidden'}[PropertyFor.ApprovedBy]">
+                  <td>
+                    <input type="checkbox" ng-model="tableSelection[$index]" />
+                  </td>
+                  <td>
+                    {{PropertyFor.Title}}
+                  </td>
+                  <td>{{PropertyFor.TitleAr}}</td>
+                  <td>
+                    <span class="label" ng-class="{true:'label-success', false:'label-danger', '':'hidden'}[PropertyFor.Status]">
+                      {{ PropertyFor.Status ? 'Active' : 'In Active' }}
+                    </span>
 
-            <!--simple-table attribute passes the settings-->
-            <table simple-table="tableSettings" class="table table-striped table-bordered table-hover dataTables-example">
-              <tr ng-repeat="record in tableSettings.getFilteredData() track by $index">
-                
-                <td title="Title" data-sort-by="Title">
-                  {{record.Title}}
-                </td>
-                <td title="TitleAr" data-sort-by="TitleAr">
-                  {{record.TitleAr}}
-                </td>
-                <td title="Status" data-sort-by="Status">
-                  <span class="label" ng-class="{true:'label-success', false:'label-danger', '':'hidden'}[record.Status]">
-                    {{ record.Status ? 'Active' : 'In Active' }}
-                  </span>
-                </td>
-                <td title='CreatedDate' data-sort-by="CreatedDate">
-                  {{record.CreatedDate}}
-                </td>
-                <!--not sortable-->
-                <td title='CreatedByUserName' data-sort-by="CreatedByUserName">
-                  {{record.CreatedByUserName}}
-                </td>
-                <td>
-                  <a data-target="#" ng-click="view(PropertyFor)">
-                    <img src="../../../Images/view-icon.png" class="iconsthumb" />
-                  </a>
+                    <!--<input type="checkbox" ng-click="UpdatePropertyStatus(PropertyFor)" ng-model="PropertyFor.Status" value="">-->
+                  </td>
+                  <td>{{PropertyFor.CreatedDate | date : 'yyyy-mm-dd'}}</td>
+                  <td>{{PropertyFor.CreatedByUserName}}</td>
+                  <td>
+                    <a data-target="#" ng-click="view(PropertyFor)">
+                      <img src="../../../Images/view-icon.png" class="iconsthumb" />
+                    </a>
 
-                  <a ui-sref="items-details({ propId:  record.PropertyId })"><img src="../../../Images/edit-icon.png" class="iconsthumb" /></a>
-                </td>
-              </tr>
+                    <a ui-sref="items-details({ propId:  PropertyFor.PropertyId })"><img src="../../../Images/edit-icon.png" class="iconsthumb" /></a>
+
+                  </td>
+                </tr>
+              </tbody>
             </table>
+            <uib-pagination boundary-links="true" total-items="Property.totaladminItems" ng-model="Property.currentPageAdmin" ng-change="Property.pageChanged()" items-per-page="Property.pageNumberAdmin" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></uib-pagination>
 
-            <nav ng-if="tableSettings.getTotalPages() > 1">
-              <ul class="pagination">
-                <!--First Page-->
-                <li ng-click="tableSettings.setPage(1)">
-                  <a href="javascript:void(0)">
-                    <span aria-hidden="true">&laquo;</span>
-                  </a>
-                </li>
-                <li ng-repeat="page in tableSettings.getTotalPagesArray() track by $index" ng-class="{disabled:$index+1 == tableSettings.getPage()}" ng-click="tableSettings.setPage($index+1)">
-                  <a href="javascript:void(0)" ng-class="{active:$index+1 == tableSettings.getPage() }">
-                    <span aria-hidden="true">{{$index+1}}</span>
-                  </a>
-                </li>
-                <!--Last Page-->
-                <li ng-click="tableSettings.setPage(tableSettings.getTotalPages())">
-                  <a href="javascript:void(0)">
-                    <span aria-hidden="true">&raquo;</span>
-                  </a>
-                </li>
-              </ul>
-              <div class="pageSize">
-                <select class="form-control input-sm" id="displayPerPage" ng-model="itemsPerPage" ng-init="itemsPerPage = 3" ng-change="tableSettings.setRows(itemsPerPage)" ng-options="item for item in selectOptions"></select>
-              </div>
-            </nav>
+
           </div>
         </div>
       </div>

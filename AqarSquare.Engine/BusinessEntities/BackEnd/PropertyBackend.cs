@@ -56,5 +56,6 @@ namespace AqarSquare.Engine.BusinessEntities.BackEnd
     public string ApprovedByUserName { get; set; }
 
     public int? Space { get; set; }
+    public int? UserInCharge { get; set; }
   }
 }

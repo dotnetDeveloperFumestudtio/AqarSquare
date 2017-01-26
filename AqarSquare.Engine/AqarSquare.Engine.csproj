@@ -205,6 +205,9 @@
     <Compile Include="Entities\TopTenProperty.cs">
       <DependentUpon>Entites.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entities\UserContact.cs">
+      <DependentUpon>Entites.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entities\UserFavourite.cs">
       <DependentUpon>Entites.tt</DependentUpon>
     </Compile>

@@ -39,6 +39,7 @@ namespace AqarSquare.Engine.Entities
         public Nullable<bool> Garage { get; set; }
         public Nullable<bool> Pool { get; set; }
         public Nullable<int> Area { get; set; }
+        public Nullable<int> Space { get; set; }
         public string Currency { get; set; }
         public string CurrencyKey { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
@@ -48,6 +49,6 @@ namespace AqarSquare.Engine.Entities
         public string Long { get; set; }
         public string Late { get; set; }
         public Nullable<int> ContractType { get; set; }
-        public Nullable<int> Space { get; set; }
+        public Nullable<int> UserInCharge { get; set; }
     }
 }

@@ -1,5 +1,5 @@
-﻿var app = angular.module('cityapp', []);
-app.controller('CityController', function ($scope, $http, notify, blockUI, cfpLoadingBar, cityService) {
+﻿var app = angular.module('ContractTypeapp', []);
+app.controller('ContractTypeController', function ($scope, $http, notify, blockUI, cfpLoadingBar, ContractTypeService) {
 
   $scope.IsHidden = true;
   $scope.ShowHide = function () {
@@ -12,7 +12,7 @@ app.controller('CityController', function ($scope, $http, notify, blockUI, cfpLo
   vm.totalItems = 0;
   vm.currentPage = 1;
   vm.pageNumber = 5;
-  vm.cityData = {};
+  vm.ContractTypeData = {};
   $scope.current = {};
   $scope.isUpdate = false;
   $scope.isCreate = true;
@@ -28,20 +28,20 @@ app.controller('CityController', function ($scope, $http, notify, blockUI, cfpLo
     //check if all selected or not
     if ($scope.isAll === false) {
       //set all row selected
-      angular.forEach(vm.cityData, function (row, index) {
+      angular.forEach(vm.ContractTypeData, function (row, index) {
         $scope.tableSelection[index] = true;
 
       });
       $scope.isAll = true;
     } else {
       //set all row unselected
-      angular.forEach(vm.cityData, function (row, index) {
+      angular.forEach(vm.ContractTypeData, function (row, index) {
         $scope.tableSelection[index] = false;
       });
       $scope.isAll = false;
     }
   };
-  $scope.create = function (city) {
+  $scope.create = function (ContractType) {
     // Get the reference to the block service.   
     var myBlockUi = blockUI.instances.get('myBlockUI');
 
@@ -52,19 +52,19 @@ app.controller('CityController', function ($scope, $http, notify, blockUI, cfpLo
     });
     cfpLoadingBar.start();
 
-    city.TitleAr = $scope.current.TitleAr;
-    city.Title = $scope.current.Title;
-    city.Status = $scope.current.Status;
-    city.CreatedDate = $scope.current.CreatedDate;
-    city.CreatedBy = $scope.UserId;
-    $http.post($scope.URL + "CreateCity", { 'city': city })
+    ContractType.TitleAr = $scope.current.TitleAr;
+    ContractType.Title = $scope.current.Title;
+    ContractType.Status = $scope.current.Status;
+    ContractType.CreatedDate = $scope.current.CreatedDate;
+    ContractType.CreatedBy = $scope.UserId;
+    $http.post($scope.URL + "CreateContractType", { 'ContractType': ContractType })
       .success(function (data, status, headers, config) {
         if (data == "Exist") {
 
           cfpLoadingBar.complete();
 
           myBlockUi.stop();
-          swal({ title: "Error!", text: "City name already exist!", type: "error", timer: 2000 });
+          swal({ title: "Error!", text: "ContractType name already exist!", type: "error", timer: 2000 });
 
         }
         if (data == "Done") {
@@ -79,9 +79,9 @@ app.controller('CityController', function ($scope, $http, notify, blockUI, cfpLo
     clearControl();
   };
 
-  $scope.edit = function (city) {
-    if (city != null) {
-      $scope.current = city;
+  $scope.edit = function (ContractType) {
+    if (ContractType != null) {
+      $scope.current = ContractType;
 
     } else {
       swal({ title: "Error!", text: "Something went wrong!", type: "error", timer: 2000, showConfirmButton: false });
@@ -92,7 +92,7 @@ app.controller('CityController', function ($scope, $http, notify, blockUI, cfpLo
 
   };
 
-  $scope.update = function (city) {
+  $scope.update = function (ContractType) {
     // Get the reference to the block service.
     var myBlockUi = blockUI.instances.get('myBlockUI');
 
@@ -103,14 +103,14 @@ app.controller('CityController', function ($scope, $http, notify, blockUI, cfpLo
     cfpLoadingBar.start();
 
 
-    city.Id = $scope.current.Id;
-    city.TitleAr = $scope.current.TitleAr;
-    city.Title = $scope.current.Title;
-    city.CreatedBy = $scope.current.CreatedBy;
-    city.Status = $scope.current.Status;
-    city.CreatedBy = $scope.UserId;
+    ContractType.Id = $scope.current.Id;
+    ContractType.TitleAr = $scope.current.TitleAr;
+    ContractType.Title = $scope.current.Title;
+    ContractType.CreatedBy = $scope.current.CreatedBy;
+    ContractType.Status = $scope.current.Status;
+    ContractType.CreatedBy = $scope.UserId;
 
-    var getData = cityService.updateCity(city);
+    var getData = ContractTypeService.updateContractType(ContractType);
     getData.then(function (msg) {
       fetshData();
       clearControl();
@@ -120,7 +120,7 @@ app.controller('CityController', function ($scope, $http, notify, blockUI, cfpLo
     });
 
 
-    //$http.post($scope.URL + "UpdateCity", { 'city': city })
+    //$http.post($scope.URL + "UpdateContractType", { 'ContractType': ContractType })
     //  .success(function (data, status, headers, config) {
     //    cfpLoadingBar.complete();
 
@@ -130,7 +130,7 @@ app.controller('CityController', function ($scope, $http, notify, blockUI, cfpLo
     //    //  cfpLoadingBar.complete(); 
 
     //    //  myblockUI.stop();
-    //    //  swal({ title: "Error!", text: "city name already exist!", type: "error", timer: 2000 });
+    //    //  swal({ title: "Error!", text: "ContractType name already exist!", type: "error", timer: 2000 });
 
     //    //}
     //    // if (data == "Done") {
@@ -141,10 +141,10 @@ app.controller('CityController', function ($scope, $http, notify, blockUI, cfpLo
     //clearControl();
   };
 
-  $scope.remove = function (city) {
+  $scope.remove = function (ContractType) {
     swal({
-      title: "Are you sure you want to delete the city ?",
-      text: city.NameEn,
+      title: "Are you sure you want to delete the ContractType ?",
+      text: ContractType.NameEn,
       type: "warning",
       showCancelButton: true,
       confirmButtonColor: "#DD6B55",
@@ -154,7 +154,7 @@ app.controller('CityController', function ($scope, $http, notify, blockUI, cfpLo
     },
      function (isConfirmAtt) {
        if (isConfirmAtt) {
-         var getData = cityService.deleteCity(city);
+         var getData = ContractTypeService.deleteContractType(ContractType);
          getData.then(function (msg) {
            fetshData();
            swal({ title: "Deleted!", type: "success", timer: 1000, showConfirmButton: false });
@@ -164,19 +164,19 @@ app.controller('CityController', function ($scope, $http, notify, blockUI, cfpLo
            $scope.msg = msg.data;
          });
 
-         //    $http.post($scope.URL + "Deletecity", { 'city': city })
+         //    $http.post($scope.URL + "DeleteContractType", { 'ContractType': ContractType })
          //.success(function (data, status, headers, config) {
          //  swal({ title: "Deleted!", type: "success", timer: 1000, showConfirmButton: false });
 
 
-         //  $http.post($scope.URL + "FetchCity")
+         //  $http.post($scope.URL + "FetchContractType")
          //    .then(function (response) {
-         //      vm.cityData = response.data;
+         //      vm.ContractTypeData = response.data;
          //    });
          //  notify("Recored Deleted Successfully");
 
-         //  var index = vm.cityData.indexOf(city);
-         //  vm.cityData.splice(index, 1);
+         //  var index = vm.ContractTypeData.indexOf(ContractType);
+         //  vm.ContractTypeData.splice(index, 1);
 
          //});
 
@@ -189,8 +189,8 @@ app.controller('CityController', function ($scope, $http, notify, blockUI, cfpLo
     $scope.isCreate = true;
   };
 
-  $scope.removeSelected = function (cityId) { 
-    var getData = cityService.deleteCitySelected(cityId);
+  $scope.removeSelected = function (ContractTypeId) {
+    var getData = ContractTypeService.deleteContractTypeSelected(ContractTypeId);
     getData.then(function (msg) {
       fetshData();
       swal({ title: "Deleted!", type: "success", timer: 1000, showConfirmButton: false });
@@ -200,22 +200,22 @@ app.controller('CityController', function ($scope, $http, notify, blockUI, cfpLo
       $scope.msg = msg.data;
     });
 
-     $scope.current = {};
+    $scope.current = {};
     $scope.isUpdate = false;
     $scope.isCreate = true;
   };
 
   $scope.removeSelectedRows = function () {
-    $scope.city = {};
+    $scope.ContractType = {};
     //start from last index because starting from first index cause shifting
     //in the array because of array.splice()
-    for (var i = vm.cityData.length - 1; i >= 0; i--) {
+    for (var i = vm.ContractTypeData.length - 1; i >= 0; i--) {
       if ($scope.tableSelection[i]) {
         //delete row from data 
-        $scope.removeSelected(vm.cityData[i].Id);
+        $scope.removeSelected(vm.ContractTypeData[i].Id);
         //fetshData();
 
-        //vm.cityData.splice(i, 1);
+        //vm.ContractTypeData.splice(i, 1);
         //delete rowSelection property
         // delete $scope.tableSelection[i];
       }
@@ -224,7 +224,7 @@ app.controller('CityController', function ($scope, $http, notify, blockUI, cfpLo
 
   };
 
-  $scope.UpdateCityStatus = function (city) {
+  $scope.UpdateContractTypeStatus = function (ContractType) {
     // Get the reference to the block service.
     var myBlockUi = blockUI.instances.get('myBlockUI');
 
@@ -233,7 +233,7 @@ app.controller('CityController', function ($scope, $http, notify, blockUI, cfpLo
     });
     cfpLoadingBar.start();
 
-    $http.post($scope.URL + "UpdateCityStatus", { 'city': city })
+    $http.post($scope.URL + "UpdateContractTypeStatus", { 'ContractType': ContractType })
       .success(function (data, status, headers, config) {
 
         if (data == "Error") {
@@ -252,6 +252,26 @@ app.controller('CityController', function ($scope, $http, notify, blockUI, cfpLo
       });
   };
 
+
+  $scope.DeleteSelected = function (list) {
+    var itemList = [];
+    angular.forEach(list, function (value, key) {
+      if (list[key].selected) {
+        itemList.push(list[key].selected);
+      }
+    });
+    $http.post($scope.URL + "DeleteSelectedContractType", itemList)
+      .success(function (data) {
+        fetshData();
+        swal({ title: "Deleted!", type: "success", timer: 1000, showConfirmButton: false });
+
+
+      }).error(function (msg) {
+        console.log(msg);
+      });
+  }
+
+
   vm.pageChanged = function () {
     fetshData();
 
@@ -264,7 +284,8 @@ app.controller('CityController', function ($scope, $http, notify, blockUI, cfpLo
     myBlockUi.start({
       message: 'Wait Please ...'
     });
-    $http.post($scope.URL + "FetchCityByPageSize", { 'pageNumber': vm.currentPage, 'pageSize': vm.pageNumber })
+    //  $http.post($scope.URL + "FetchContractTypeByPageSize", { 'pageNumber': vm.currentPage, 'pageSize': vm.pageNumber })
+    $http.post($scope.URL + "FetchContractType")
     .success(function (data, status, headers, config) {
       vm.totalItems = data.TotalCount;
       var fillData = [{}];
@@ -275,13 +296,18 @@ app.controller('CityController', function ($scope, $http, notify, blockUI, cfpLo
           "TitleAr": data.Data[i].TitleAr,
           "Title": data.Data[i].Title,
           "Status": data.Data[i].Status,
-          "CreatedDate": toJavaScriptDate(data.Data[i].CreatedDate),
+          "CreatedDate": $scope.toJavaScriptDate(data.Data[i].CreatedDate),
           "CreatedByUserName": data.Data[i].CreatedByUserName,
           "CreatedBy": data.Data[i].CreatedBy
         });
       }
       fillData = fillData.slice(1);
-      vm.cityData = fillData;
+      vm.ContractTypeData = fillData;
+
+      $scope.tableSettings = new TableSettings(vm.ContractTypeData);
+      $scope.tableSettings.setRows(5);
+      $scope.selectOptions = [1, 3, 5, 10];
+
       cfpLoadingBar.complete();
     })
     .error(function (data, status, headers, config) {
@@ -297,42 +323,40 @@ app.controller('CityController', function ($scope, $http, notify, blockUI, cfpLo
   function clearControl() {
     $scope.current.TitleAr = "";
     $scope.current.Title = "";
+    $scope.current = {};
     $scope.attractionmodel = '';
     $scope.isUpdate = false;
     $scope.isAdd = false;
     $scope.isCreate = true;
   }
-  function toJavaScriptDate(value) {
-    var pattern = /Date\(([^)]+)\)/;
-    var results = pattern.exec(value);
-    var dt = new Date(parseFloat(results[1]));
-    return (dt.getDate() + "/" + dt.getMonth() + 1) + "/" + dt.getFullYear() + "    " + dt.getHours() + " : " + dt.getMinutes();
-  }
+
+
+
 });
 
-angular.module('citySort', []).directive("sort", function () {
-  return {
-    restrict: 'A',
-    transclude: true,
-    template:
-      '<a ng-click="onClick()">' +
-        '<span ng-transclude></span>' +
-        '<i class="glyphicon" ng-class="{\'glyphicon-sort-by-alphabet\' : order === by && !reverse,  \'glyphicon-sort-by-alphabet-alt\' : order===by && reverse}"></i>' +
-      '</a>',
-    scope: {
-      order: '=',
-      by: '=',
-      reverse: '='
-    },
-    link: function (scope, element, attrs) {
-      scope.onClick = function () {
-        if (scope.order === scope.by) {
-          scope.reverse = !scope.reverse
-        } else {
-          scope.by = scope.order;
-          scope.reverse = false;
-        }
-      }
-    }
-  }
-});
+//angular.module('ContractTypeSort', []).directive("sort", function () {
+//  return {
+//    restrict: 'A',
+//    transclude: true,
+//    template:
+//      '<a ng-click="onClick()">' +
+//        '<span ng-transclude></span>' +
+//        '<i class="glyphicon" ng-class="{\'glyphicon-sort-by-alphabet\' : order === by && !reverse,  \'glyphicon-sort-by-alphabet-alt\' : order===by && reverse}"></i>' +
+//      '</a>',
+//    scope: {
+//      order: '=',
+//      by: '=',
+//      reverse: '='
+//    },
+//    link: function (scope, element, attrs) {
+//      scope.onClick = function () {
+//        if (scope.order === scope.by) {
+//          scope.reverse = !scope.reverse
+//        } else {
+//          scope.by = scope.order;
+//          scope.reverse = false;
+//        }
+//      }
+//    }
+//  }
+//});

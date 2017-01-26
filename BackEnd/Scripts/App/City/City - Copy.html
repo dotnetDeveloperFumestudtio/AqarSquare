@@ -1,0 +1,234 @@
+﻿ 
+<div class="wrapper wrapper-content animated fadeInRight" ng-app="angapp" ng-controller="CityController as City" block-ui="blockUI">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="inqbox float-e-margins">
+        <div class="inqbox-content">
+          <h2>City </h2>
+          <ol class="breadcrumb">
+            <li>
+              <a ui-sref="home"><i class=" fa fa-laptop"></i> <span class="nav-label">home</span></a>
+            </li>
+            <li class="active">
+              <strong>City</strong>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="inqbox float-e-margins">
+        <div class="inqbox-title border-top-danger">
+          <h5>List of City</h5>
+        </div>
+        <div class="inqbox-content">
+          <input type="button" class="btn btn-danger" value="Remove Selected Rows" ng-click="removeSelectedRows()" />
+
+
+          <div class="table-responsive">
+            <table class="table table-striped table-bordered table-hover dataTables-example">
+              <thead>
+              <th>
+                <input type="checkbox" ng-model="isAll" ng-click="selectAllRows()" />
+              </th>
+              <th sort order="'title'" by="order" reverse="reverse">Title</th>
+              <th sort order="'titlear'" by="order" reverse="reverse">Title Ar</th>
+              <th sort order="'Status'" by="order" reverse="reverse">Status</th>
+              <th sort order="'CreatedDate'" by="order" reverse="reverse">Last Update</th>
+              <th sort order="'CreatedByUserName'" by="order" reverse="reverse">Update By</th>
+
+              <th> </th>
+              </thead>
+              <tbody>
+                <tr ng-repeat="CityFor in City.cityData | orderBy:order:reverse" ng-class="{'success' : tableSelection[$index]}">
+                  <td>
+                    <input type="checkbox" ng-model="tableSelection[$index]" />
+                  </td>
+                  <td>{{CityFor.Title}}</td>
+                  <td>{{CityFor.TitleAr}}</td>
+                  <td>
+                    <span class="label" ng-class="{true:'label-success', false:'label-danger', '':'hidden'}[CityFor.Status]">
+                      {{ CityFor.Status ? 'Active' : 'In Active' }}
+                    </span>
+
+                    <!--<input type="checkbox" ng-click="UpdateCityStatus(CityFor)" ng-model="CityFor.Status" value="">-->
+                  </td>
+                  <td>{{CityFor.CreatedDate | date : 'yyyy-mm-dd'}}</td>
+                  <td>{{CityFor.CreatedByUserName}}</td>
+                  <td>
+                    <a data-target="#" ng-click="edit(CityFor)"><img src="../../../Images/edit-icon.png" class="iconsthumb" /></a>
+                    <a data-target="#" ng-click="remove(CityFor)"><img src="../../../Images/delete-icon.png" class="iconsthumb" /></a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <uib-pagination boundary-links="true" total-items="City.totalItems" ng-model="City.currentPage" ng-change="City.pageChanged()" items-per-page="City.pageNumber" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></uib-pagination>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-12">
+      <div class="filters">
+        <div class="filter">
+          <label for="sgeneral">General Search</label>
+          <input type="text" id="sgeneral" ng-model="mySearch" ng-change="myTableSettings.search(mySearch)">
+        </div>
+        <div class="filter">
+          <label for="sname">Name Search</label>
+          <input type="text" id="sname" ng-model="nameSearch" ng-change="myTableSettings.search(nameSearch,'name')">
+        </div>
+        <div class="filter">
+          <label for="scountry">Country Search</label>
+          <input type="text" id="scountry" ng-model="countrySearch" ng-change="myTableSettings.search(countrySearch,'country')">
+        </div>
+        <div class="filter">
+          <label for="scountry">Eye Color Search</label>
+          <input type="text" id="seye" ng-model="eyeColorSearch" ng-change="myTableSettings.search(eyeColorSearch,'description.eye_color')">
+        </div>
+        <div class="filter">
+          <label for="displayPerPage">Results per page:</label>
+          <select id="displayPerPage" ng-model="itemsPerPage" ng-init="itemsPerPage = 3" ng-change="myTableSettings.setRows(itemsPerPage)" ng-options="item for item in selectOptions"></select>
+        </div>
+      </div>
+      <!--simple-table attribute passes the settings-->
+      <table simple-table="myTableSettings" class="table table-striped table-bordered table-hover dataTables-example">
+        <tr ng-repeat="person in myTableSettings.getFilteredData() track by $index">
+          <td title="Id" data-sort-by="Id">
+            {{person.id}}
+          </td>
+          <td title="Name" data-sort-by="Name">
+            {{person.name}}
+          </td>
+          <!--not sortable-->
+          <td title="Description">
+            <span ng-repeat="description in person.description">
+              <p>Hair color: {{description.hair_color}}  </p>
+              <p>Eye color: <b>{{description.eye_color}} </b> </p>
+            </span>
+          </td>
+          <td title='Country' data-sort-by="Country">
+            {{person.country}}
+          </td>
+          <!--not sortable-->
+          <td title='Age'>
+            {{person.age}}
+          </td>
+        </tr>
+      </table>
+      <nav ng-if="myTableSettings.getTotalPages() > 1">
+        <ul class="pagination">
+          <!--First Page-->
+          <li ng-click="myTableSettings.setPage(1)">
+            <a href="javascript:void(0)">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          <li ng-repeat="page in myTableSettings.getTotalPagesArray() track by $index" ng-class="{disabled:$index+1 == myTableSettings.getPage()}" ng-click="myTableSettings.setPage($index+1)">
+            <a href="javascript:void(0)" ng-class="{active:$index+1 == myTableSettings.getPage() }">
+              <span aria-hidden="true">{{$index+1}}</span>
+            </a>
+          </li>
+          <!--Last Page-->
+          <li ng-click="myTableSettings.setPage(myTableSettings.getTotalPages())">
+            <a href="javascript:void(0)">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+        </ul>
+      </nav> 
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="inqbox float-e-margins">
+        <div class="inqbox-title border-top-success">
+
+        </div>
+        <div class="inqbox-content">
+          <div class="kform">
+            <form id="formCity" role="form" class="form-horizontal" name="formCity" ng-submit="formCity.$valid && create(City)" novalidate>
+              <div class="section-divider mb40" id="spy1">
+                <span>Form City</span>
+              </div>
+
+              <div class="form-group">
+                <div class="tabs-container" style="    width: 450px;">
+                  <ul class="nav nav-tabs tab-border-top-primary">
+                    <li class="active">
+                      <a data-toggle="tab" data-target="#tab-1">
+                        <img src="../../../Content/CountryLang/iconegypt.png" />
+                      </a>
+                    </li>
+
+                    <li class="">
+                      <a data-toggle="tab" data-target="#tab-2">
+                        <img src="../../../Content/CountryLang/iconusa.png" />
+                      </a>
+                    </li>
+                  </ul>
+                  <div class="tab-content">
+                    <div id="tab-1" class="tab-pane active">
+                      <div class="panel-body">
+                        <div class="form-group">
+                          <label class="col-sm-2 control-label">TitleAr</label>
+                          <div class="col-sm-10">
+                            <input type="text" class="form-control" ng-model="current.TitleAr" placeholder="Enter City Title Ar" name="TitleArValidation" required="">
+                          </div>
+                          <div ng-show="formCity.$submitted || formCity.TitleArValidation.$touched">
+                            <label id="-error" class="error" ng-show="formCity.TitleArValidation.$error.required">Please type City Title Ar.</label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="tab-2" class="tab-pane">
+                      <div class="panel-body">
+                        <div class="form-group">
+                          <label class="col-sm-2 control-label">Title</label>
+                          <div class="col-sm-10">
+                            <input type="text" class="form-control" ng-model="current.Title" placeholder="Enter City Title" name="TitleValidation" required="">
+                          </div>
+                          <div ng-show="formCity.$submitted || formCity.TitleValidation.$touched">
+                            <label id="-error" class="error" ng-show="formCity.TitleValidation.$error.required">Please type City Title.</label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Status	</label>
+
+                <div class="col-sm-10">
+                  <div class="i-checks">
+                    <label>
+                      <input type="checkbox" checked="checked" ng-model="current.Status" value=""> <i></i>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="hr-line-dashed"></div>
+              <div class="form-group">
+                <div class="col-sm-4 col-sm-offset-2">
+                  <!--<button id="btnCancel" class="btn btn-white" type="submit">Cancel</button>
+                  <button class="btn btn-primary" type="submit">Update</button>-->
+                  <input type="submit" class="btn btn-primary pull-right" value="Save" ng-show="isCreate" ng-disabled="formCity.$invalid" />
+                  <input type="button" class="btn btn-primary pull-right" value="Update" ng-show="isUpdate" ng-click="update(City)" ng-disabled="formCity.$invalid" />
+
+
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>

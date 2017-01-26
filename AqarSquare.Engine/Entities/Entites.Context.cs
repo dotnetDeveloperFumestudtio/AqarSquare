@@ -36,7 +36,6 @@ namespace AqarSquare.Engine.Entities
         public virtual DbSet<Square> Squares { get; set; }
         public virtual DbSet<SubMenuBackend> SubMenuBackends { get; set; }
         public virtual DbSet<SubMenuFrontend> SubMenuFrontends { get; set; }
-        public virtual DbSet<SystemUser> SystemUsers { get; set; }
         public virtual DbSet<TopTenProperty> TopTenProperties { get; set; }
         public virtual DbSet<UserFavourite> UserFavourites { get; set; }
         public virtual DbSet<UserRate> UserRates { get; set; }
@@ -44,7 +43,6 @@ namespace AqarSquare.Engine.Entities
         public virtual DbSet<TbCurrency> TbCurrencies { get; set; }
         public virtual DbSet<ContactForm> ContactForms { get; set; }
         public virtual DbSet<Reservation> Reservations { get; set; }
-        public virtual DbSet<Property> Properties { get; set; }
         public virtual DbSet<ImageBalacony> ImageBalaconies { get; set; }
         public virtual DbSet<ImageBathroom> ImageBathrooms { get; set; }
         public virtual DbSet<ImageBedroom> ImageBedrooms { get; set; }
@@ -52,5 +50,8 @@ namespace AqarSquare.Engine.Entities
         public virtual DbSet<ImagePool> ImagePools { get; set; }
         public virtual DbSet<ImageReception> ImageReceptions { get; set; }
         public virtual DbSet<PhotoSession> PhotoSessions { get; set; }
+        public virtual DbSet<Property> Properties { get; set; }
+        public virtual DbSet<UserContact> UserContacts { get; set; }
+        public virtual DbSet<SystemUser> SystemUsers { get; set; }
     }
 }

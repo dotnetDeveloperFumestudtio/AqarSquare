@@ -1135,7 +1135,8 @@ app.controller('PropertyUserController', function ($scope, $http, notify, blockU
     myBlockUi.start({
       message: 'Wait Please ...'
     });
-    $http.post($scope.URL + "FetchUserPropertyByPageSize", { 'pageNumber': vm.currentPage, 'pageSize': vm.pageNumber })
+ //   $http.post($scope.URL + "FetchUserPropertyByPageSize", { 'pageNumber': vm.currentPage, 'pageSize': vm.pageNumber })
+    $http.post($scope.URL + "FetchUserProperty")
     .success(function (data, status, headers, config) {
       vm.totaluserItems = data.TotalCount;
       var fillData = [{}];
@@ -1176,6 +1177,11 @@ app.controller('PropertyUserController', function ($scope, $http, notify, blockU
       }
       fillData = fillData.slice(1);
       vm.UserPropertyData = fillData;
+      
+
+      $scope.tableSettings = new TableSettings(fillData);
+      $scope.tableSettings.setRows(5);
+      $scope.selectOptions = [1, 3, 5, 10];
       cfpLoadingBar.complete();
     })
     .error(function (data, status, headers, config) {
@@ -1196,13 +1202,7 @@ app.controller('PropertyUserController', function ($scope, $http, notify, blockU
     $scope.isAdd = false;
     $scope.isCreate = true;
   }
-
-  function toJavaScriptDate(value) {
-    var pattern = /Date\(([^)]+)\)/;
-    var results = pattern.exec(value);
-    var dt = new Date(parseFloat(results[1]));
-    return (dt.getDate() + "/" + dt.getMonth() + 1) + "/" + dt.getFullYear() + "    " + dt.getHours() + " : " + dt.getMinutes();
-  }
+   
 });
 
 angular.module('PropertySort', []).directive("sort", function () {

@@ -1,5 +1,5 @@
 ﻿
-<div class="wrapper wrapper-content animated fadeInRight" ng-app="angapp" ng-controller="UserController as User" block-ui="myBlockUI">
+<div class="wrapper wrapper-content animated fadeInRight" ng-app="angapp" ng-controller="TenantUserController as User" block-ui="myBlockUI">
   <div class="row">
     <div class="col-lg-12">
       <div class="inqbox float-e-margins">
@@ -25,15 +25,14 @@
 
         </div>
         <div class="inqbox-content">
-            <!--<a href="" class="btn btn-danger btn-right" ng-click="DeleteSelected(tableSettings.getFilteredData())">Delete Multiple Rows selected</a>-->
+          <!--<a href="" class="btn btn-danger btn-right" ng-click="DeleteSelected(tableSettings1.getFilteredData())">Delete Multiple Rows selected</a>-->
           <div class="table-responsive">
-            <input type="text" class="gui-input" placeholder="Search..." id="sgeneral" ng-model="mySearch" ng-change="tableSettings.search(mySearch)">
+            <input type="text" class="gui-input" placeholder="Search..." id="sgeneral" ng-model="mySearch" ng-change="tableSettings1.search(mySearch)">
 
 
-            <!--simple-table attribute passes the settings-->
-            <table simple-table="tableSettings" class="table table-striped table-bordered table-hover dataTables-example">
-              <tr ng-repeat="record in tableSettings.getFilteredData() track by $index">
-                
+            <table simple-table="tableSettings1" class="table table-striped table-bordered table-hover dataTables-example">
+              <tr ng-repeat="record in tableSettings1.getFilteredData() track by $index">
+
                 <td title="FullName" data-sort-by="FullName">
                   {{record.FirstName}}
                   {{record.LastName}}
@@ -60,28 +59,28 @@
               </tr>
             </table>
 
-            <nav ng-if="tableSettings.getTotalPages() > 1">
+            <nav ng-if="tableSettings1.getTotalPages() > 1">
               <ul class="pagination">
                 <!--First Page-->
-                <li ng-click="tableSettings.setPage(1)">
+                <li ng-click="tableSettings1.setPage(1)">
                   <a href="javascript:void(0)">
                     <span aria-hidden="true">&laquo;</span>
                   </a>
                 </li>
-                <li ng-repeat="page in tableSettings.getTotalPagesArray() track by $index" ng-class="{disabled:$index+1 == tableSettings.getPage()}" ng-click="tableSettings.setPage($index+1)">
-                  <a href="javascript:void(0)" ng-class="{active:$index+1 == tableSettings.getPage() }">
+                <li ng-repeat="page in tableSettings1.getTotalPagesArray() track by $index" ng-class="{disabled:$index+1 == tableSettings1.getPage()}" ng-click="tableSettings1.setPage($index+1)">
+                  <a href="javascript:void(0)" ng-class="{active:$index+1 == tableSettings1.getPage() }">
                     <span aria-hidden="true">{{$index+1}}</span>
                   </a>
                 </li>
                 <!--Last Page-->
-                <li ng-click="tableSettings.setPage(tableSettings.getTotalPages())">
+                <li ng-click="tableSettings1.setPage(tableSettings1.getTotalPages())">
                   <a href="javascript:void(0)">
                     <span aria-hidden="true">&raquo;</span>
                   </a>
                 </li>
               </ul>
               <div class="pageSize">
-                <select class="form-control input-sm" id="displayPerPage" ng-model="itemsPerPage" ng-init="itemsPerPage = 3" ng-change="tableSettings.setRows(itemsPerPage)" ng-options="item for item in selectOptions"></select>
+                <select class="form-control input-sm" id="displayPerPage" ng-model="itemsPerPage" ng-init="itemsPerPage = 3" ng-change="tableSettings1.setRows(itemsPerPage)" ng-options="item for item in selectOptions"></select>
               </div>
             </nav>
           </div>
@@ -109,7 +108,7 @@
                   <label class="col-sm-2 control-label">First Name</label>
                   <div class="col-sm-10">
                     <input type="text" ng-model="current.FirstName" name="firstNameValidation"
-                           required="" class="form-control">
+                           disabled="" class="form-control">
                   </div>
                   <div ng-show="formUser.$submitted || formUser.firstNameValidation.$touched">
                     <label id="-error" class="alert-error" ng-show="formUser.firstNameValidation.$error.required">Please type First Name.</label>
@@ -120,7 +119,7 @@
                   <label class="col-sm-2 control-label">Last Name</label>
                   <div class="col-sm-10">
                     <input type="text" ng-model="current.LastName" name="lastNameValidation"
-                           required="" class="form-control">
+                           disabled="" class="form-control">
                   </div>
                   <div ng-show="formUser.$submitted || formUser.lastNameValidation.$touched">
                     <label id="-error" class="alert-error" ng-show="formUser.lastNameValidation.$error.required">Please type Last Name.</label>
@@ -130,36 +129,13 @@
                 <div class="hr-line-dashed"></div>
                 <div class="form-group">
                   <label class="col-sm-2 control-label">Email</label>
-                  <div class="col-sm-10"><input type="text" ng-model="current.Email" required="" class="form-control"></div>
-                </div>
-                <div class="hr-line-dashed"></div>
-                <div class="form-group">
-                  <label class="col-sm-2 control-label">WhatsApp	</label>
-                  <div class="col-sm-10">
-                    <input ng-model="current.WhatsApp" required="" type="number"
-                           name="whatsValidation" class="form-control">
-                  </div>
-                  <div ng-show="formUser.$submitted || formUser.whatsValidation.$touched">
-                    <label id="-error" class="alert-error" ng-show="formUser.whatsValidation.$error.required">Please type WhatsApp No.</label>
-                  </div>
-                </div>
-                <div class="hr-line-dashed"></div>
-                <div class="form-group">
-                  <label class="col-sm-2 control-label">Viber	</label>
-                  <div class="col-sm-10">
-                    <input ng-model="current.Viber" type="number"
-                           name="viberValidation" required="" class="form-control">
-                  </div>
-
-                  <div ng-show="formUser.$submitted || formUser.viberValidation.$touched">
-                    <label id="-error" class="alert-error" ng-show="formUser.viberValidation.$error.required">Please type Viber No.</label>
-                  </div>
-                </div>
+                  <div class="col-sm-10"><input type="text" ng-model="current.Email" disabled="" class="form-control"></div>
+                </div> 
                 <div class="hr-line-dashed"></div>
                 <div class="form-group">
                   <label class="col-sm-2 control-label">Phone	</label>
                   <div class="col-sm-10">
-                    <input ng-model="current.Phone" name="phoneValidation" required="" type="number" class="form-control">
+                    <input ng-model="current.Phone" name="phoneValidation" disabled="" type="number" class="form-control">
                   </div>
                   <div ng-show="formUser.$submitted || formUser.phoneValidation.$touched">
                     <label id="-error" class="alert-error" ng-show="formUser.phoneValidation.$error.required">Please type Phone No.</label>
@@ -172,8 +148,7 @@
                   <div class="col-sm-10">
                     <div class="i-checks">
                       <label>
-                        <input type="checkbox"  
-                               ng-model="current.Status" value=""> <i></i>
+                        <input type="checkbox" ng-model="current.Status" value=""> <i></i>
                       </label>
                     </div>
                   </div>
@@ -183,10 +158,9 @@
 
               <div class="form-group" style=" width: 100%;">
                 <div class="col-sm-4 col-sm-offset-2">
-                  <!--<input type="button" class="btn btn-primary" value="Update" ng-click="update(User)" ng-disabled="formUser.$invalid" />-->
-                  <input type="submit" class="btn btn-primary pull-right" value="Save" ng-show="isCreate" ng-disabled="formUser.$invalid" />
-                  <input type="button" class="btn btn-primary pull-right" value="Update" ng-show="isUpdate" ng-click="update(User)" ng-disabled="formUser.$invalid" />
- 
+                  <input type="button" class="btn btn-primary" value="Block" ng-click="update(current)" ng-disabled="!current.Status  || !current.FirstName" />
+                  <input type="button" class="btn btn-primary" value="UnBlock" ng-click="update(current)" ng-disabled="current.Status  || !current.FirstName" />
+
                 </div>
               </div>
             </form>

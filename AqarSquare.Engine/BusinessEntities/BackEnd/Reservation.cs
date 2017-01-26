@@ -9,7 +9,7 @@ namespace AqarSquare.Engine.BusinessEntities.BackEnd
     public int Id { get; set; }
     public string FullName { get; set; }
     public string Email { get; set; }
-    public string Phone { get; set; }
+    public int? Phone { get; set; }
     public string PropertyId { get; set; }
     public bool? Status { get; set; }
     public DateTime? CreatedDate { get; set; }

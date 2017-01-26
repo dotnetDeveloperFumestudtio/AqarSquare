@@ -9,7 +9,7 @@
   $scope.pageChanged = function () {
     //fetsh message data  from databae 
 
-    $http.post($scope.URL + "FetchUserByPageSize", { 'pageNumber': $scope.currentPage, 'pageSize': $scope.pageNumber })
+    $http.post($scope.URL + "FetchAdminUserByPageSize", { 'pageNumber': $scope.currentPage, 'pageSize': $scope.pageNumber })
     .success(function (data, status, headers, config) {
       $scope.totalItems = data.TotalCount;
       var fillData = [{}];
@@ -20,10 +20,10 @@
           "FirstName": data.Data[i].FirstName,
           "LastName": data.Data[i].LastName,
           "Email": data.Data[i].Email,
-          "Country": data.Data[i].Country,
-          "Telephone": data.Data[i].Telephone,
-          "UserBrithDate": data.Data[i].UserBrithDate,
-          "UserAge": data.Data[i].UserAge,
+          "WhatsApp": data.Data[i].WhatsApp,
+          "Viber": data.Data[i].Viber,
+          "Phone": data.Data[i].Phone,
+          "CreatedDate": data.Data[i].CreatedDate,
           "Status": data.Data[i].Status
         });
       }

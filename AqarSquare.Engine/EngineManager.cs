@@ -67,56 +67,7 @@ namespace AqarSquare.Engine
     }
 
 
-    #region Users
 
-    public string GetUserNameById(int? id)
-    {
-      var _user = _context.SystemUsers.FirstOrDefault(user => user.Id == id);
-
-      if (_user != null)
-        return _user.FirstName + " " + _user.LastName;
-      else
-        return null;
-    }
-    
-    public SystemUserBackend GetSystemUserByName(string userName)
-    {
-      SystemUserBackend result = null;
-      //using (var context = new AqarSquaresEntities())
-      //{
-      SystemUser systemUser = _context.SystemUsers.FirstOrDefault(item => item.FirstName == userName);
-      if (systemUser != null)
-      {
-        result = new SystemUserBackend(systemUser, Header);
-      }
-      //  }
-      return result;
-    }
-    
-    public SystemUserBackend GetSystemUserById(int? userId)
-    {
-      SystemUserBackend result = null;
-      var systemUser = _context.SystemUsers.FirstOrDefault(item => item.Id == userId);
-      if (systemUser != null)
-      {
-        result = new SystemUserBackend(systemUser, Header);
-      }
-      return result;
-    }
-
-    public List<SystemUserBackend> GetAllAdminUsers()
-    {
-      var usertype = Convert.ToInt32(UserTypes.Admin);
-      var systemUser = _context.SystemUsers.Where(x => x.UserType == usertype).ToList();
-      return systemUser.Select(systemUserBackend => new SystemUserBackend
-      {
-        Email = systemUserBackend.Email,
-        FirstName = systemUserBackend.FirstName,
-        Id = systemUserBackend.Id
-      }).ToList();
-    }
-
-    #endregion
 
     #region Non-Service Methods
 
@@ -386,6 +337,31 @@ namespace AqarSquare.Engine
       }
       else
         return "Error";
+    }
+
+    public string DeleteSelected(int[] itemsSelected)
+    {
+      var error = "";
+      try
+      {
+        for (int i = 0; i < itemsSelected.Length; i++)
+        {
+          var obj = _context.Cities.Find(itemsSelected[i]);
+          if (obj != null)
+          {
+            _context.Cities.Remove(obj);
+          }
+        }
+        _context.SaveChanges();
+        error = "Done";
+      }
+      catch (Exception)
+      {
+        error = "Error";
+        throw;
+      }
+      return error;
+
     }
 
     public int UpdateCityStatus(int cityId, bool? imageStatus)
@@ -1128,6 +1104,7 @@ namespace AqarSquare.Engine
         propertyObj.CreatedDate = _publicdateTime;
         propertyObj.UserId = p.UserId;
         propertyObj.Space = p.Space;
+        propertyObj.UserInCharge = p.UserInCharge;
         _context.Properties.Add(propertyObj);
         _context.SaveChanges();
 
@@ -1677,7 +1654,7 @@ namespace AqarSquare.Engine
           CreatedDate = c.CreatedDate,
           Email = userInfo.Email,
           Phone = userInfo.Phone,
-          PropertyId = c.PropertyId.ToString(), 
+          PropertyId = c.PropertyId.ToString(),
           ApprovedBy = c.ApprovedBy,
           ApprovedDate = c.ApprovedDate
         });
@@ -1706,7 +1683,7 @@ namespace AqarSquare.Engine
 
     }
 
-   
+
 
     #endregion
 
@@ -1760,7 +1737,215 @@ namespace AqarSquare.Engine
 
     #endregion
 
+    #region Admin User
 
+    public bool IsUserEmailAvailable(SystemUserBackend user)
+    {
+      var returnVal = false;
+
+      var userObj = _context.SystemUsers.Where(x => x.Email == user.Email.Trim()).ToList();
+
+      if (userObj.Any())
+        returnVal = true;
+
+      return returnVal;
+    }
+
+
+    public string GetUserNameById(int? id)
+    {
+      SystemUser _user = _context.SystemUsers.FirstOrDefault(user => user.Id == id);
+
+      if (_user != null)
+        return _user.FirstName + " " + _user.LastName;
+      else
+        return null;
+    }
+
+    public SystemUserBackend GetSystemUserById(int? userId)
+    {
+      var result = new SystemUserBackend();
+      var user = _context.SystemUsers.FirstOrDefault(item => item.Id == userId);
+      var userContact = _context.UserContacts.FirstOrDefault(item => item.UserId == userId);
+      if (user != null)
+      {
+        result.FirstName = user.FirstName;
+        result.LastName = user.LastName;
+        result.Email = user.Email;
+        if (userContact != null)
+        {
+          result.Phone = userContact.Phone;
+          result.Phone2 = userContact.Phone2;
+          result.WhatsApp = userContact.WhatsApp;
+          result.Viber = userContact.Viber;
+        }
+        result.Status = user.Status;
+        result.CreatedDate = user.CreatedDate;
+      }
+      return result;
+    }
+
+    public List<SystemUserBackend> GetAllAdminUsers()
+    {
+      var usertype = Convert.ToInt32(UserTypes.Admin);
+      var returnList = new List<SystemUserBackend>();
+      var systemUser = _context.SystemUsers.Where(x => x.UserType == usertype).ToList();
+      foreach (var user in systemUser)
+      {
+        var userData = GetSystemUserById(user.Id);
+        returnList.Add(new SystemUserBackend
+        {
+          Id = user.Id,
+          FullName = GetUserNameById(user.Id),
+          FirstName = userData.FirstName,
+          LastName = userData.LastName,
+          Email = userData.Email,
+          WhatsApp = userData.WhatsApp,
+          Viber = userData.Viber,
+          Status = userData.Status,
+          Phone = userData.Phone,
+          Phone2 = userData.Phone2,
+          CreatedDate = userData.CreatedDate
+        });
+      }
+      return returnList;
+      //return systemUser.Select(systemUserBackend => new SystemUserBackend
+      //{
+      //  Email = systemUserBackend.Email,
+      //  FirstName = systemUserBackend.FirstName,
+      //  Id = systemUserBackend.Id,
+      //  Status = systemUserBackend.Status,
+
+      //}).ToList();
+    }
+
+
+    public string CreateAdminUser(SystemUserBackend user)
+    {
+      if (IsUserEmailAvailable(user))
+        return "Exist";
+      var userType = Convert.ToInt32(UserTypes.Admin);
+      var userObj = new SystemUser();
+      try
+      {
+        userObj.FirstName = user.FirstName;
+        userObj.LastName = user.LastName;
+        userObj.Email = user.Email;
+        userObj.Password = "123";
+        userObj.Status = user.Status;
+        userObj.UserType = userType;
+        userObj.CreatedDate = _publicdateTime;
+
+
+        _context.SystemUsers.Add(userObj);
+        _context.SaveChanges();
+
+        var userContactObj = new UserContact();
+        userContactObj.Phone = user.Phone;
+        userContactObj.Phone2 = user.Phone2;
+        userContactObj.WhatsApp = user.WhatsApp;
+        userContactObj.Viber = user.Viber;
+        userContactObj.UserId = userObj.Id;
+        userContactObj.CreatedDate = _publicdateTime;
+
+        _context.UserContacts.Add(userContactObj);
+
+        _context.SaveChanges();
+
+        return "Done";
+      }
+      catch (Exception)
+      {
+        return "Error";
+        throw;
+      }
+
+    }
+
+    public string UpdateAdminUser(SystemUserBackend user)
+    {
+      var userObj = _context.SystemUsers.FirstOrDefault(item => item.Id == user.Id);
+      var userContactObj = _context.UserContacts.FirstOrDefault(item => item.UserId == user.Id);
+
+      if (userObj != null)
+      {
+
+        userObj.FirstName = user.FirstName;
+        userObj.LastName = user.LastName;
+        userObj.Email = user.Email;
+        userObj.Status = user.Status;
+        userObj.CreatedDate = _publicdateTime;
+
+        userContactObj.WhatsApp = user.WhatsApp;
+        userContactObj.Viber = user.Viber;
+        userContactObj.Phone = user.Phone;
+        userContactObj.Phone2 = user.Phone2;
+
+
+        _context.SaveChanges();
+        return "Done";
+      }
+      else
+        return "Error";
+
+
+    }
+
+
+    #endregion
+
+    #region Tenant User
+
+    public List<SystemUserBackend> GetAllTenantUsers()
+    {
+      var usertype = Convert.ToInt32(UserTypes.Tenant);
+      var returnList = new List<SystemUserBackend>();
+      var systemUser = _context.SystemUsers.Where(x => x.UserType == usertype).ToList();
+      foreach (var user in systemUser)
+      {
+        returnList.Add(new SystemUserBackend
+        {
+          Id = user.Id,
+          FirstName = user.FirstName,
+          LastName = user.LastName,
+          Email = user.Email,
+          Status = user.Status,
+          CreatedDate = user.CreatedDate
+
+        });
+      }
+      return returnList;
+    }
+
+    public string UpdateTenantUser(SystemUserBackend user)
+    {
+      var userObj = _context.SystemUsers.FirstOrDefault(item => item.Id == user.Id);
+
+      if (userObj != null)
+      {
+        if (userObj.Status == false)
+          userObj.Status = true;
+        else
+          userObj.Status = false;
+
+        //userObj.FirstName = user.FirstName;
+        //userObj.LastName = user.LastName;
+        //userObj.Email = user.Email;
+        //userObj.Status = user.Status; 
+        userObj.CreatedDate = _publicdateTime;
+
+        _context.SaveChanges();
+        return "Done";
+      }
+      else
+        return "Error";
+
+
+    }
+
+    #endregion
+
+     
     #endregion
 
     #region FrontEnd

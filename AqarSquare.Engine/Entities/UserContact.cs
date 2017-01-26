@@ -12,18 +12,15 @@ namespace AqarSquare.Engine.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class SystemUser
+    public partial class UserContact
     {
         public int Id { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Password { get; set; }
-        public string Email { get; set; }
-        public string PhoneNo { get; set; }
-        public string PhoneNo1 { get; set; }
-        public Nullable<bool> Status { get; set; }
-        public Nullable<bool> Online { get; set; }
+        public Nullable<int> UserId { get; set; }
+        public Nullable<int> WhatsApp { get; set; }
+        public Nullable<int> Viber { get; set; }
+        public Nullable<int> Phone { get; set; }
+        public Nullable<int> Phone2 { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
-        public Nullable<int> UserType { get; set; }
+        public Nullable<int> CreatedBy { get; set; }
     }
 }

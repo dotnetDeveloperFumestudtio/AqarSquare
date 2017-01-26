@@ -23,6 +23,8 @@
           "DescriptionAr": data.Data[i].DescriptionAr,
           "Address": data.Data[i].Address,
           "AddressAr": data.Data[i].AddressAr,
+          "Late": data.Data[i].Late,
+          "Long": data.Data[i].Long,
           "Price": data.Data[i].Price,
           "BathroomNo": data.Data[i].BathroomNo,
           "BedroomNo": data.Data[i].BedroomNo,
@@ -37,9 +39,14 @@
           "PropertyTypeName": data.Data[i].PropertyTypeName,
           "Currency": data.Data[i].Currency,
           "Status": data.Data[i].Status,
-          "CreatedDate": toJavaScriptDate(data.Data[i].CreatedDate),
+          "CreatedDate": $scope.toJavaScriptDate(data.Data[i].CreatedDate),
           "CreatedByUserName": data.Data[i].CreatedByUserName,
-          "CreatedBy": data.Data[i].CreatedBy
+          "CreatedBy": data.Data[i].CreatedBy,
+          "ApprovedDate": data.Data[i].ApprovedDate,
+          "ApprovedBy": data.Data[i].ApprovedBy,
+          "UserId": data.Data[i].UserId,
+          "Space": data.Data[i].Space,
+          "PropertyId": data.Data[i].PropertyId
         });
       }
       fillData = fillData.slice(1);
