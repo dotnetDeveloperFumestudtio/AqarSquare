@@ -849,6 +849,8 @@
     <Content Include="Scripts\AngularJS\1\lf-ng-md-file-input.js" />
     <Content Include="Scripts\AngularJS\angular-searchAndSelect.js" />
     <Content Include="Scripts\AngularJS\flexi-list.min.js" />
+    <Content Include="Scripts\AngularJS\UsedFiles\angular-base64.js" />
+    <Content Include="Scripts\AngularJS\UsedFiles\angular-cookies.min.js" />
     <Content Include="Scripts\AngularJS\UsedFiles\angular-simple-table.js" />
     <Content Include="Scripts\App\3D\Object3D.html" />
     <Content Include="Scripts\App\3D\Object3D.js" />
@@ -942,6 +944,7 @@
     <Content Include="Scripts\App\ContractType\ContractType.html" />
     <Content Include="Scripts\App\ContractType\CtrContractType.js" />
     <Content Include="Scripts\App\ContractType\service.js" />
+    <Content Include="Scripts\App\LogIn\authenticationService.js" />
     <Content Include="Scripts\App\PropertyType\PropertyType.html" />
     <Content Include="Scripts\App\PropertyType\CtrlPropertyType.js" />
     <Content Include="Scripts\App\PropertyType\service.js" />

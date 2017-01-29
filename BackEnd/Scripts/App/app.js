@@ -13,7 +13,7 @@ var myApp = angular.module('angapp',
     'Homeapp',
     'loginapplication',
     'contactapp',
-    'cityapp', 
+    'cityapp',
     'squareapp',
     'userpropertyapp',
     'adminpropertyapp',
@@ -68,15 +68,35 @@ myApp.config(config);
 //});
 var sideBar = "";
 var userEmail = "";
-myApp.run(function ($rootScope, $state, $location, $window) {
+myApp.run(function ($rootScope, $state, $location, $window, $cookieStore, $http) {
 
-  $rootScope.$state = $state;
-  //userEmail = localStorage.getItem('ngStorage-Email'); 
+  // keep user logged in after page refresh
+  $rootScope.globals = $cookieStore.get('globals') || {};
+  if ($rootScope.globals.currentUser) {
+    $http.defaults.headers.common['Authorization'] = 'Basic ' + $rootScope.globals.currentUser.authdata; // jshint ignore:line
+  }
+
+  $rootScope.$on('$locationChangeStart', function (event, next, current) {
+    // redirect to login page if not logged in and trying to access a restricted page
+    // var restrictedPage = $.inArray($location.path(), ['/login', '/register']) === -1;
+    var loggedIn = $rootScope.globals.currentUser;
+    //if (restrictedPage && !loggedIn) {
+    // if (!loggedIn) {
+    $rootScope.globals = $cookieStore.get('globals') || {};
+    if (!$rootScope.globals.currentUser) {
+      //   $location.path('/login');
+      $window.location.href = 'Login.html';
+
+    }
+  });
+
+  //$rootScope.$state = $state;
+  //userEmail = localStorage.getItem('ngStorage-Email');
   //sideBar = localStorage.getItem('ngStorage-LocalMessage');
 
 
-  userEmail = $window.localStorage.getItem('user-Email');
-  sideBar = $window.localStorage.getItem('user-name');
+  //userEmail = $window.localStorage.getItem('user-Email');
+  //sideBar = $window.localStorage.getItem('user-name');
   //if (sideBar === undefined || sideBar === null || sideBar.length === 0) {
   //  //  swal({ title: "Pleae Login First!!", text: "", type: "error", timer: 3000, showConfirmButton: false });
   //  //$location.path("login.html");
@@ -142,7 +162,6 @@ function homeCtrl($scope, $location, publicService, $http) {
    });
   }
   $scope.callCountUnApproved();
-  // $scope.AdminUserName = sideBar.replace(/['"]+/g, '');
   $scope.AdminUserName = sideBar;
   $scope.AdminEmail = userEmail;
   $scope.UserId = "1";

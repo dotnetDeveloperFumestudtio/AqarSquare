@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/png" sizes="32x32" href="Images/favicon-32x32.png">
-  <title>ETA Login</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="Images/aqar/1/favicon-32x32.png">
+  <title>Aqar Squares Login</title>
   <link href="Content/css/bootstrap.min.css" rel="stylesheet">
   <link href="Content/css/animate.css" rel="stylesheet">
   <link href="Content/css/style.css" rel="stylesheet">
@@ -12,7 +12,7 @@
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
   <script src="/Scripts/angular.min.js"></script>
-
+  <script src="Scripts/AngularJS/UsedFiles/angular-base64.js"></script>
   <script src="//code.angularjs.org/1.2.13/angular-cookies.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui/0.4.0/angular-ui.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.4/angular-messages.min.js"></script>
@@ -28,9 +28,10 @@
   <script src="Scripts/AngularJS/angular-notify.js"></script>
   <link href="Content/Angularcss/angular-notify.css" rel="stylesheet" />
   <!--/* button style */-->
-  <script src="//code.angularjs.org/1.2.13/angular-cookies.js"></script>
 
-  <script src="Scripts/AngularJS/spin.min.js"></script> 
+  <script src="Scripts/AngularJS/UsedFiles/angular-cookies.min.js"></script>
+
+  <script src="Scripts/AngularJS/spin.min.js"></script>
   <script src="Scripts/AngularJS/angular-busy.min.js"></script>
   <!--/* busy pop up loading best practice*/-->
 
@@ -63,7 +64,7 @@
   <div class="loginColumns animated fadeInDown">
     <div class="row">
       <div class="col-md-6">
-        <h2 class="font-bold">Welcome to Tourism Control Panel</h2>
+        <h2 class="font-bold">Welcome to Aqar Squares Control Panel</h2>
 
         <p>
           Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
@@ -77,22 +78,22 @@
       </div>
       <div class="col-md-6">
         <div class="inqbox-content">
-          <!--<form class="m-t" role="form">--> 
-            <form role="form" class="m-t" name="formlogin" ng-submit="formlogin.$valid && checkUser(hc)" novalidate>
+          <!--<form class="m-t" role="form">-->
+          <form role="form" class="m-t" name="formlogin" ng-submit="formlogin.$valid && checkUser(hc)" novalidate>
 
-              <div class="form-group">
-                <input type="text" ng-model="current.Username" class="form-control"
-                        placeholder="Username" required>
-              </div>
-              <div class="form-group">
-                <input type="password" ng-model="current.Password" class="form-control"
-                        placeholder="Password" required>
-              </div> 
-              <button type="submit" ng-disabled="formlogin.$invalid" class="btn btn-primary block full-width m-b">Login</button>
-              <a href="forgetpassword.html">
-                <small>Forgot password?</small>
-              </a>
-            </form>
+            <div class="form-group">
+              <input type="text" ng-model="current.Email" class="form-control"
+                     placeholder="Email" required>
+            </div>
+            <div class="form-group">
+              <input type="password" ng-model="current.Password" class="form-control"
+                     placeholder="Password" required>
+            </div>
+            <button type="submit" ng-disabled="formlogin.$invalid" class="btn btn-primary block full-width m-b">Login</button>
+            <a href="forgetpassword.html">
+              <small>Forgot password?</small>
+            </a>
+          </form>
         </div>
       </div>
     </div>
@@ -107,21 +108,21 @@
     </div>
   </div>
   <script>
-    var myApp = angular.module('logapp', ['ngStorage', 'blockUI']);
-
+    var myApp = angular.module('logapp', ['ngStorage', 'blockUI', 'base64', 'ngCookies']);
 
     myApp.controller('homeCtrl', homeCtrl);
-     
-    function homeCtrl($scope, $location, $localStorage, blockUI, $http, $window) {
-      $window.location.href = 'Index.html';
+
+    function homeCtrl($scope, $location, $localStorage, blockUI, $cookieStore, $http, $window, $base64) {
+      //  $window.location.href = 'Index.html';
 
       window.localStorage.clear();
-      $scope.URL = "http://localhost:1716/Project/";
-      $scope.MainURL = "http://localhost:1716/"; 
-      $scope.current = {}; 
+      $scope.URL = "http://localhost:1717/Project/";
+      $scope.MainURL = "http://localhost:1717/";
+      $scope.current = {};
       $scope.checkUser = function (login) {
-        login.Username = $scope.current.Username;
+        login.Email = $scope.current.Email;
         login.Password = $scope.current.Password;
+
 
         // Get the reference to the block service.
         var myBlockUi = blockUI.instances.get('myBlockUI');
@@ -130,16 +131,33 @@
         myBlockUi.start({
           message: 'Wait Please ...'
         });
-        $window.location.href = 'Index.html';
+        //$window.location.href = 'Index.html';
 
-        $http.post($scope.URL + "CheckUser", { 'username': login.Username, 'password': login.Password })
+        $http.post($scope.URL + "Login", { 'email': login.Email, 'password': login.Password })
      .success(function (data, status, headers, config) {
-       if (data.UserId != 0) { 
+       if (data.Data.Id != 0) {
+
+         var authdata = $base64.encode(login.Email + ':' + login.Password);
+
+         $scope.globals = {
+           currentUser: {
+             authdata: authdata
+           }
+         };
+
+         $http.defaults.headers.common['Authorization'] = 'Basic ' + authdata; // jshint ignore:line
+         var now = new Date(),
+       // this will set the expiration to 12 months
+       exp = new Date(now.getFullYear() + 1, now.getMonth(), now.getDate());
+         $cookieStore.put('globals', $scope.globals, {
+           expires: exp
+         });
+
+         $scope.UserId = data.Id;
          $window.localStorage.setItem('user-name', login.Username);
          $window.localStorage.setItem('user-Email', data.Email);
-         $window.localStorage.setItem('user-UserId', data.UserId);
+         $window.localStorage.setItem('user-UserId', $scope.UserId);
          $window.location.href = 'Index.html';
-
          myBlockUi.stop();
          swal({ title: "Success!", text: "Login Successed!", type: "success", timer: 2000, showConfirmButton: false });
 
@@ -153,10 +171,6 @@
 
       };
 
-      function clearSession() {
-        localStorage.clear();
-
-      }
     }
 
 
@@ -164,5 +178,5 @@
 
 </body>
 
- 
+
 </html>

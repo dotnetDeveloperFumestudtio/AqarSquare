@@ -25,6 +25,20 @@ namespace Backend.Controllers
     {
       return View();
     }
+    #region Home
+    public JsonResult TotalCountUserProperty()
+    {
+      return Json(new EngineManager().GetAllUserProperty(), JsonRequestBehavior.AllowGet);
+    }
+    public JsonResult TotalCountAdminProperty()
+    {
+      return Json(new EngineManager().GetAllAdminProperty(), JsonRequestBehavior.AllowGet);
+    }
+    public JsonResult TotalCountUser()
+    {
+      return Json(new EngineManager().GetAllTenantUsers().Count(), JsonRequestBehavior.AllowGet);
+    }
+    #endregion
 
     #region Contact
 
@@ -488,15 +502,21 @@ namespace Backend.Controllers
     #endregion
 
     #region Admin user
+    public JsonResult Login(string email, string password)
+    {
+      var userBackEnd = new SystemUserBackend();
+      userBackEnd.Email = email;
+      userBackEnd.Password = password;
+      var obj = new EngineManager().Login(userBackEnd);
 
+      return Json(new { Data = obj }, JsonRequestBehavior.AllowGet);
+
+    }
     public JsonResult FetchAdminUser()
     {
       var obj = new EngineManager().GetAllAdminUsers();
 
       return Json(new { Data = obj.ToList() }, JsonRequestBehavior.AllowGet);
-
-
-      return Json(new EngineManager().GetAllAdminUsers(), JsonRequestBehavior.AllowGet);
     }
 
     public JsonResult FetchCountAdminUser()
@@ -537,7 +557,7 @@ namespace Backend.Controllers
 
       return Json(new { Data = obj.ToList() }, JsonRequestBehavior.AllowGet);
     }
-   
+
     public JsonResult UpdateTenantUser(SystemUserBackend user)
     {
       var returnMsg = new EngineManager().UpdateTenantUser(user);
@@ -546,7 +566,7 @@ namespace Backend.Controllers
     }
 
     #endregion
-    
+
     #region PropertyType
 
     public JsonResult FetchPropertyType()
@@ -554,7 +574,7 @@ namespace Backend.Controllers
       var propertyType = new EngineManager().GetAllPropertyType();
 
       return Json(new { Data = propertyType.ToList() }, JsonRequestBehavior.AllowGet);
-       
+
     }
 
     public JsonResult FetchCountPropertyType()
@@ -620,7 +640,7 @@ namespace Backend.Controllers
     }
 
     #endregion
-    
+
     #region ContractType
 
     public JsonResult FetchContractType()
@@ -695,7 +715,7 @@ namespace Backend.Controllers
     }
 
     #endregion
-   
+
     //#region Home
     //public JsonResult FetchTop5User()
     //{
