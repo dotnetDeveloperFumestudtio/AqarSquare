@@ -16,10 +16,10 @@ namespace AqarSquare.Engine.Entities
     {
         public int Id { get; set; }
         public Nullable<int> UserId { get; set; }
-        public Nullable<int> WhatsApp { get; set; }
-        public Nullable<int> Viber { get; set; }
-        public Nullable<int> Phone { get; set; }
-        public Nullable<int> Phone2 { get; set; }
+        public string WhatsApp { get; set; }
+        public string Viber { get; set; }
+        public string Phone { get; set; }
+        public string Phone2 { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<int> CreatedBy { get; set; }
     }

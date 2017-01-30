@@ -98,90 +98,90 @@
      url: "/contracttype",
      templateUrl: "/Scripts/App/ContractType/ContractType.html"
    })
-    .state('important', {
-      url: "/important",
-      templateUrl: "/Scripts/App/ImportantNumber/Important.html"
+    //.state('important', {
+    //  url: "/important",
+    //  templateUrl: "/Scripts/App/ImportantNumber/Important.html"
 
-    })
-    .state('category', {
-      url: "/category",
-      templateUrl: "/Scripts/App/Category/Category.html"
+    //})
+    //.state('category', {
+    //  url: "/category",
+    //  templateUrl: "/Scripts/App/Category/Category.html"
 
-    })
-    .state('region', {
-      url: "/region",
-      templateUrl: "/Scripts/App/Region/Region.html"
+    //})
+    //.state('region', {
+    //  url: "/region",
+    //  templateUrl: "/Scripts/App/Region/Region.html"
 
-    })
-   .state('usefullink', {
-     url: "/usefullink",
-     templateUrl: "/Scripts/App/UsefulLink/UsefulLink.html"
-   })
+    //})
+   //.state('usefullink', {
+   //  url: "/usefullink",
+   //  templateUrl: "/Scripts/App/UsefulLink/UsefulLink.html"
+   //})
 
-   .state('language', {
-     url: "/language",
-     templateUrl: "/Scripts/App/Language/Language.html"
-   })
-   .state('moderation', {
-     url: "/moderation",
-     templateUrl: "/Scripts/App/Moderation/List.html"
-   })
-   .state('moderationreject', {
-     url: "/moderationreject",
-     templateUrl: "/Scripts/App/Moderation/ListReject.html"
-   })
-   .state('moderationapprove', {
-     url: "/moderationapprove",
-     templateUrl: "/Scripts/App/Moderation/ListApprove.html"
-   })
-   .state('attraction', {
-     url: "/attraction",
-     templateUrl: "/Scripts/App/Attraction/attraction.html"
-   })
-   .state('attractiongallery', {
-     url: "/attractiongallery",
-     templateUrl: "/Scripts/App/Attraction/AttractionGallery.html"
-   })
-   .state('selfie', {
-     url: "/selfie",
-     templateUrl: "/Scripts/App/Selfie/Selfie.html"
-   })
-   .state('panoramic', {
-     url: "/panoramic",
-     templateUrl: "/Scripts/App/Panoramic/Panoramic.html"
-   })
-   .state('object3d', {
-     url: "/3D",
-     templateUrl: "/Scripts/App/3D/Object3D.html"
-   })
-   .state('event', {
-     url: "/event",
-     templateUrl: "/Scripts/App/Events/Events.html"
-   })
-   .state('report', {
-     url: "/report",
-     templateUrl: "/Scripts/App/Report/Report.html"
-   })
+   //.state('language', {
+   //  url: "/language",
+   //  templateUrl: "/Scripts/App/Language/Language.html"
+   //})
+   //.state('moderation', {
+   //  url: "/moderation",
+   //  templateUrl: "/Scripts/App/Moderation/List.html"
+   //})
+   //.state('moderationreject', {
+   //  url: "/moderationreject",
+   //  templateUrl: "/Scripts/App/Moderation/ListReject.html"
+   //})
+   //.state('moderationapprove', {
+   //  url: "/moderationapprove",
+   //  templateUrl: "/Scripts/App/Moderation/ListApprove.html"
+   //})
+   //.state('attraction', {
+   //  url: "/attraction",
+   //  templateUrl: "/Scripts/App/Attraction/attraction.html"
+   //})
+   //.state('attractiongallery', {
+   //  url: "/attractiongallery",
+   //  templateUrl: "/Scripts/App/Attraction/AttractionGallery.html"
+   //})
+   //.state('selfie', {
+   //  url: "/selfie",
+   //  templateUrl: "/Scripts/App/Selfie/Selfie.html"
+   //})
+   //.state('panoramic', {
+   //  url: "/panoramic",
+   //  templateUrl: "/Scripts/App/Panoramic/Panoramic.html"
+   //})
+   //.state('object3d', {
+   //  url: "/3D",
+   //  templateUrl: "/Scripts/App/3D/Object3D.html"
+   //})
+   //.state('event', {
+   //  url: "/event",
+   //  templateUrl: "/Scripts/App/Events/Events.html"
+   //})
+   //.state('report', {
+   //  url: "/report",
+   //  templateUrl: "/Scripts/App/Report/Report.html"
+   //})
    // .state('topten', {
      // url: "/topten",
      // templateUrl: "/Scripts/App/TopTen/TopTen.html"
    // })
-   .state('topten1', {
-     url: "/topten",
-     templateUrl: "/Scripts/App/TopTen/TopTen - Copy.html"
-   })
-   .state('image', {
-     url: "/image",
-     templateUrl: "/Scripts/App/Image/Image.html"
-   })
-   .state('video', {
-     url: "/video",
-     templateUrl: "/Scripts/App/Video/Video.html"
-   })
-   .state('qrcode', {
-     url: "/qrcode",
-     templateUrl: "/Scripts/App/QrCode/QrCode.html"
-   })
+   //.state('topten1', {
+   //  url: "/topten",
+   //  templateUrl: "/Scripts/App/TopTen/TopTen - Copy.html"
+   //})
+   //.state('image', {
+   //  url: "/image",
+   //  templateUrl: "/Scripts/App/Image/Image.html"
+   //})
+   //.state('video', {
+   //  url: "/video",
+   //  templateUrl: "/Scripts/App/Video/Video.html"
+   //})
+   //.state('qrcode', {
+   //  url: "/qrcode",
+   //  templateUrl: "/Scripts/App/QrCode/QrCode.html"
+   //})
    .state('changepassword', {
      url: "/changepassword",
      templateUrl: "/Scripts/App/ChangePassword/ChangePassword.html"
@@ -190,48 +190,48 @@
        url: "/notification",
        templateUrl: "/Scripts/App/Notification/Notification.html"
      })
-   .state('usernationlty', {
-     url: "/usernationlty",
-     templateUrl: "/Scripts/App/Reports/UserNationalty/UsersNationalty.html"
-   })
+   //.state('usernationlty', {
+   //  url: "/usernationlty",
+   //  templateUrl: "/Scripts/App/Reports/UserNationalty/UsersNationalty.html"
+   //})
 
-   .state('3d', {
-     url: "/3d",
-     templateUrl: "/Scripts/App/Reports/3D/3D.html"
-   })
+   //.state('3d', {
+   //  url: "/3d",
+   //  templateUrl: "/Scripts/App/Reports/3D/3D.html"
+   //})
 
-   .state('qrstatistics', {
-     url: "/qrstatistics",
-     templateUrl: "/Scripts/App/Reports/QrCode/QrCode.html"
-   })
-   .state('langstatistics', {
-     url: "/langstatistics",
-     templateUrl: "/Scripts/App/Reports/Language/Language.html"
-   })
-   .state('attratestatistics', {
-     url: "/attratestatistics",
-     templateUrl: "/Scripts/App/Reports/Attraction/Attraction.html"
-   })
-   .state('toptenattratestatistics', {
-     url: "/toptenattratestatistics",
-     templateUrl: "/Scripts/App/Reports/Attraction/AttractionTopTen.html"
-   })
-   .state('useragestatistics', {
-     url: "/useragestatistics",
-     templateUrl: "/Scripts/App/Reports/UserAge/UserAge.html"
-   })
-   .state('selfiestatistics', {
-     url: "/selfiestatistics",
-     templateUrl: "/Scripts/App/Reports/Selfie/Selfie.html"
-   })
-   .state('notificationstatistics', {
-     url: "/notificationstatistics",
-     templateUrl: "/Scripts/App/Reports/Notification/Notification.html"
-   })
-   .state('violationstatistics', {
-     url: "/violationstatistics",
-     templateUrl: "/Scripts/App/Reports/Violation/Violation.html"
-   })
+   //.state('qrstatistics', {
+   //  url: "/qrstatistics",
+   //  templateUrl: "/Scripts/App/Reports/QrCode/QrCode.html"
+   //})
+   //.state('langstatistics', {
+   //  url: "/langstatistics",
+   //  templateUrl: "/Scripts/App/Reports/Language/Language.html"
+   //})
+   //.state('attratestatistics', {
+   //  url: "/attratestatistics",
+   //  templateUrl: "/Scripts/App/Reports/Attraction/Attraction.html"
+   //})
+   //.state('toptenattratestatistics', {
+   //  url: "/toptenattratestatistics",
+   //  templateUrl: "/Scripts/App/Reports/Attraction/AttractionTopTen.html"
+   //})
+   //.state('useragestatistics', {
+   //  url: "/useragestatistics",
+   //  templateUrl: "/Scripts/App/Reports/UserAge/UserAge.html"
+   //})
+   //.state('selfiestatistics', {
+   //  url: "/selfiestatistics",
+   //  templateUrl: "/Scripts/App/Reports/Selfie/Selfie.html"
+   //})
+   //.state('notificationstatistics', {
+   //  url: "/notificationstatistics",
+   //  templateUrl: "/Scripts/App/Reports/Notification/Notification.html"
+   //})
+   //.state('violationstatistics', {
+   //  url: "/violationstatistics",
+   //  templateUrl: "/Scripts/App/Reports/Violation/Violation.html"
+   //})
   // .otherwise('/Scripts/App/LogIn/LogIn.html')
 
   ;

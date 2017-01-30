@@ -7,25 +7,24 @@
   };
    
   $scope.pageChanged = function () {
-    //fetsh message data  from databae 
+    //fetsh message data  from Square 
 
-    $http.post($scope.URL + "FetchObject3DByPageSize", { 'pageNumber': $scope.currentPage, 'pageSize': $scope.pageNumber })
+    $http.post($scope.URL + "FetchCityByPageSize", { 'pageNumber': $scope.currentPage, 'pageSize': $scope.pageNumber })
     .success(function (data, status, headers, config) {
       $scope.totalItems = data.TotalCount;
       var fillData = [{}];
 
       for (var i = 0; i < data.Data.length; i++) {
         fillData.push({
-          "AttractionNameEn": data.Data[i].AttractionNameEn,
           "Id": data.Data[i].Id,
-          "NameAr": data.Data[i].NameAr,
-          "NameFr": data.Data[i].NameFr,
-          "NameIta": data.Data[i].NameIta,
-          "NameRu": data.Data[i].NameRu,
-          "NameGe": data.Data[i].NameGe,
-          "NameEn": data.Data[i].NameEn,
-          "ImageUrl": data.Data[i].ImageUrl,
-          "FileUrl": data.Data[i].FileUrl
+          "TitleAr": data.Data[i].TitleAr,
+          "Title": data.Data[i].Title,
+          "Status": data.Data[i].Status,
+          "CreatedDate": toJavaScriptDate(data.Data[i].CreatedDate),
+          "CityTitle": data.Data[i].CityTitle,
+          "CityId": data.Data[i].CityId,
+          "CreatedByUserName": data.Data[i].CreatedByUserName,
+          "CreatedBy": data.Data[i].CreatedBy
         });
       }
       fillData = fillData.slice(1);
@@ -40,5 +39,12 @@
 
   $scope.maxSize = 5;
   $scope.bigTotalItems = 175;
-  $scope.bigCurrentPage = 1;
+  $scope.bigCurrentPage = 1; 
+  function toJavaScriptDate(value) {
+    var pattern = /Date\(([^)]+)\)/;
+    var results = pattern.exec(value);
+    var dt = new Date(parseFloat(results[1]));
+    return (dt.getDate() + "/" + dt.getMonth() + 1) + "/" + dt.getFullYear() + "    " + dt.getHours() + " : " + dt.getMinutes();
+  }
+
 });

@@ -24,10 +24,14 @@ public class UploadHandler : IHttpHandler
         }
         else
         {
-          fname = file.FileName;
-          imagePth = file.FileName;
+          fname = DateTime.Now.Minute + "_" + DateTime.Now.Millisecond + "." + file.FileName;
+//          fname = Guid.NewGuid() + "." + file.FileName;
+        //  fname = Guid.NewGuid() + "." + fname.Split('.')[1];
+          imagePth = fname;
+         
+         // imagePth = context.Server.MapPath("~/Upload/") + fname;
         }
-        fname = Path.Combine(context.Server.MapPath("~/Images/"), fname);
+        fname = Path.Combine(context.Server.MapPath("~/Upload/Balacony/"), fname); 
         file.SaveAs(fname);
 
       }

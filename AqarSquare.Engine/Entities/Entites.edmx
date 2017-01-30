@@ -317,6 +317,8 @@
           <Property Name="Online" Type="bit" />
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="UserType" Type="int" />
+          <Property Name="UniqueId" Type="nvarchar" MaxLength="300" />
+          <Property Name="UserImage" Type="nvarchar" MaxLength="300" />
         </EntityType>
         <EntityType Name="TbCurrency">
           <Key>
@@ -343,10 +345,10 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserId" Type="int" />
-          <Property Name="WhatsApp" Type="int" />
-          <Property Name="Viber" Type="int" />
-          <Property Name="Phone" Type="int" />
-          <Property Name="Phone2" Type="int" />
+          <Property Name="WhatsApp" Type="nvarchar" MaxLength="50" />
+          <Property Name="Viber" Type="nvarchar" MaxLength="50" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="Phone2" Type="nvarchar" MaxLength="50" />
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="CreatedBy" Type="int" />
         </EntityType>
@@ -774,10 +776,10 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserId" Type="Int32" />
-          <Property Name="WhatsApp" Type="Int32" />
-          <Property Name="Viber" Type="Int32" />
-          <Property Name="Phone" Type="Int32" />
-          <Property Name="Phone2" Type="Int32" />
+          <Property Name="WhatsApp" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Viber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Phone2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="CreatedBy" Type="Int32" />
         </EntityType>
@@ -796,6 +798,8 @@
           <Property Name="Online" Type="Boolean" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="UserType" Type="Int32" />
+          <Property Name="UniqueId" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="UserImage" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1181,6 +1185,8 @@
           <EntitySetMapping Name="SystemUsers">
             <EntityTypeMapping TypeName="AqarSquaresModel.SystemUser">
               <MappingFragment StoreEntitySet="SystemUser">
+                <ScalarProperty Name="UserImage" ColumnName="UserImage" />
+                <ScalarProperty Name="UniqueId" ColumnName="UniqueId" />
                 <ScalarProperty Name="UserType" ColumnName="UserType" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="Online" ColumnName="Online" />

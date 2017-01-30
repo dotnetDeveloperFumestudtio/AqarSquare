@@ -1755,95 +1755,95 @@ namespace AqarSquare.Engine
       return returnVal;
     }
 
-//    public SecurityUser AdminLogIn(string username, string password)
-//    {
-//      var result = new SecurityUser();
+    //    public SecurityUser AdminLogIn(string username, string password)
+    //    {
+    //      var result = new SecurityUser();
 
-//      using (var context = new Entities.Entities())
-//      {
-//        var securityUser = context.Security_users.FirstOrDefault(item => item.UserName == username && item.Password == password);
-//        if (securityUser != null)
-//        {
-//          result.UserId = securityUser.LogID;
-//          result.UserName = securityUser.UserName;
-//          result.Email = securityUser.Email;
-//        }
-//      }
-//      return result;
-//    }
+    //      using (var context = new Entities.Entities())
+    //      {
+    //        var securityUser = context.Security_users.FirstOrDefault(item => item.UserName == username && item.Password == password);
+    //        if (securityUser != null)
+    //        {
+    //          result.UserId = securityUser.LogID;
+    //          result.UserName = securityUser.UserName;
+    //          result.Email = securityUser.Email;
+    //        }
+    //      }
+    //      return result;
+    //    }
 
-//    public string ChangePassword(string userId, string oldPassword, string newPassword)
-//    {
-//      var result = "";
-//      int userid = Convert.ToInt32(userId);
-//      using (var context = new Entities.Entities())
-//      {
-//        var securityUser = context.Security_users.FirstOrDefault(item => item.LogID == userid);
+    //    public string ChangePassword(string userId, string oldPassword, string newPassword)
+    //    {
+    //      var result = "";
+    //      int userid = Convert.ToInt32(userId);
+    //      using (var context = new Entities.Entities())
+    //      {
+    //        var securityUser = context.Security_users.FirstOrDefault(item => item.LogID == userid);
 
-//        if (securityUser != null)
-//        {
-//          if (securityUser.Password == oldPassword)
-//          {
-//            securityUser.Password = newPassword;
-//            context.SaveChanges();
-//            result = "Changed";
-//          }
-//          else
-//            result = "WrongPassword";
-//        }
-//        else
-//        {
-//          result = "WrongUser";
+    //        if (securityUser != null)
+    //        {
+    //          if (securityUser.Password == oldPassword)
+    //          {
+    //            securityUser.Password = newPassword;
+    //            context.SaveChanges();
+    //            result = "Changed";
+    //          }
+    //          else
+    //            result = "WrongPassword";
+    //        }
+    //        else
+    //        {
+    //          result = "WrongUser";
 
-//        }
-//      }
-//      return result;
-//    }
-//    public string AdminForgetPassword(string userEmail)
-//    {
-//      var result = "";
-//      var returnId = 1;
-//      try
-//      {
-//        using (var context = new Entities.Entities())
-//        {
-//          var user = context.Security_users.FirstOrDefault(item => item.Email == userEmail);
-//          if (user != null)
-//          {
-//            string password = Membership.GeneratePassword(7, 1);
-//            user.Password = password;
-//            context.SaveChanges();
-//            var subject = "Forget Password";
-//            var body = string.Format(@"Dear {0},
-//      your new Password: {1}
-//       
-//     Regards, 
-//     The Concierge Team
-//     ",
-//              user.UserName, password);
+    //        }
+    //      }
+    //      return result;
+    //    }
+    //    public string AdminForgetPassword(string userEmail)
+    //    {
+    //      var result = "";
+    //      var returnId = 1;
+    //      try
+    //      {
+    //        using (var context = new Entities.Entities())
+    //        {
+    //          var user = context.Security_users.FirstOrDefault(item => item.Email == userEmail);
+    //          if (user != null)
+    //          {
+    //            string password = Membership.GeneratePassword(7, 1);
+    //            user.Password = password;
+    //            context.SaveChanges();
+    //            var subject = "Forget Password";
+    //            var body = string.Format(@"Dear {0},
+    //      your new Password: {1}
+    //       
+    //     Regards, 
+    //     The Concierge Team
+    //     ",
+    //              user.UserName, password);
 
-//            //   returnId = EmailHelper.CheckSendEmail(user.Email, subject, body);
+    //            //   returnId = EmailHelper.CheckSendEmail(user.Email, subject, body);
 
 
-//          }
-//          if (returnId != 0)
-//          {
-//            result = "MAIL_SENT";
-//          }
-//          else
-//          {
-//            result = "NOT_VALID";
+    //          }
+    //          if (returnId != 0)
+    //          {
+    //            result = "MAIL_SENT";
+    //          }
+    //          else
+    //          {
+    //            result = "NOT_VALID";
 
-//          }
-//        }
-//      }
-//      catch (Exception e)
-//      {
-//        result = "NOT_VALID";
-//      }
-//      return result;
+    //          }
+    //        }
+    //      }
+    //      catch (Exception e)
+    //      {
+    //        result = "NOT_VALID";
+    //      }
+    //      return result;
 
-//    }
+    //    }
 
     public bool IsUserEmailAvailable(SystemUserBackend user)
     {

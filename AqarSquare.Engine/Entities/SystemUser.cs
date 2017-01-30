@@ -25,5 +25,7 @@ namespace AqarSquare.Engine.Entities
         public Nullable<bool> Online { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<int> UserType { get; set; }
+        public string UniqueId { get; set; }
+        public string UserImage { get; set; }
     }
 }
