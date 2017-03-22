@@ -21,5 +21,6 @@ namespace AqarSquare.Engine.Entities
         public Nullable<bool> IsMainImage { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<int> CreatedBy { get; set; }
+        public string Thumb { get; set; }
     }
 }

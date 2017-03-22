@@ -25,19 +25,24 @@ namespace Backend.Controllers
     {
       return View();
     }
+
     #region Home
+   
     public JsonResult TotalCountUserProperty()
     {
       return Json(new EngineManager().GetAllUserProperty(), JsonRequestBehavior.AllowGet);
     }
+   
     public JsonResult TotalCountAdminProperty()
     {
       return Json(new EngineManager().GetAllAdminProperty(), JsonRequestBehavior.AllowGet);
     }
+   
     public JsonResult TotalCountUser()
     {
       return Json(new EngineManager().GetAllTenantUsers().Count(), JsonRequestBehavior.AllowGet);
     }
+   
     #endregion
 
     #region Contact
@@ -268,7 +273,18 @@ namespace Backend.Controllers
 
       return Json(returnMsg, JsonRequestBehavior.AllowGet);
     }
+    public JsonResult CheckAsMainImage(ImageBalacony image, int imageCategory)
+    {
+      var returnValue = 0;
+      var returnMsg = "Done";
 
+      returnValue = new EngineManager().CheckAsMainImage(image, imageCategory);
+
+      if (returnValue == 0)
+        returnMsg = "Error";
+
+      return Json(returnMsg, JsonRequestBehavior.AllowGet);
+    }
     public JsonResult UpdateProperty(PropertyBackend property)
     {
       var returnValue = new EngineManager().UpdatedProperty(property);
@@ -421,6 +437,19 @@ namespace Backend.Controllers
       return Json(new EngineManager().GetPropertyById(propertyId), JsonRequestBehavior.AllowGet);
     }
 
+    //public JsonResult MainImage(PropertyBackend property)
+    //{
+    //  var returnValue = 0;
+    //  var returnMsg = "Done";
+
+    //  returnValue = new EngineManager().UpdateCityStatus(city.Id, city.Status);
+
+    //  if (returnValue == 0)
+    //    returnMsg = "Error";
+
+    //  return Json(returnMsg, JsonRequestBehavior.AllowGet);
+    //}
+
     #endregion
 
     #region Contact
@@ -502,6 +531,7 @@ namespace Backend.Controllers
     #endregion
 
     #region Admin user
+
     public JsonResult Login(string email, string password)
     {
       var userBackEnd = new SystemUserBackend();
@@ -512,13 +542,23 @@ namespace Backend.Controllers
       return Json(new { Data = obj }, JsonRequestBehavior.AllowGet);
 
     }
+
+    public JsonResult GetAllRoles()
+    {
+
+      return Json(new EngineManager().GetAllRoles(), JsonRequestBehavior.AllowGet);
+    }
+
     public JsonResult FetchAdminUser()
+    {
+      return Json(new EngineManager().GetAllAdminUsers(), JsonRequestBehavior.AllowGet);
+    }
+    public JsonResult FetchAdminUserList()
     {
       var obj = new EngineManager().GetAllAdminUsers();
 
       return Json(new { Data = obj.ToList() }, JsonRequestBehavior.AllowGet);
     }
-
     public JsonResult FetchCountAdminUser()
     {
       var countItems = new EngineManager().GetAllAdminUsers();
@@ -547,6 +587,20 @@ namespace Backend.Controllers
       return Json(returnMsg, JsonRequestBehavior.AllowGet);
     }
 
+    public JsonResult AdminForgetPassword(string userEmail)
+    {
+      return Json(new EngineManager().AdminForgetPassword(userEmail), JsonRequestBehavior.AllowGet);
+    }
+
+    public JsonResult ChangePassword(string userId, string oldPassword, string newPassword)
+    {
+      return Json(new EngineManager().ChangePassword(userId, oldPassword, newPassword), JsonRequestBehavior.AllowGet);
+    }
+    public JsonResult GetUserDataById(string userId)
+    {
+      int converUser = Convert.ToInt32(userId);
+      return Json(new EngineManager().GetSystemUserById(converUser), JsonRequestBehavior.AllowGet);
+    }
     #endregion
 
     #region Tenant user

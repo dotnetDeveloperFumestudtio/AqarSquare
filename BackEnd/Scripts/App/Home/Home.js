@@ -1,7 +1,8 @@
 ﻿var app = angular.module('Homeapp', []);
-app.controller('HomeController', function ($scope, $http, notify, blockUI, Upload, $timeout, cfpLoadingBar, $location) {
-
-
+app.controller('HomeController', function ($scope, $http, notify, blockUI, currentUserData, $timeout, cfpLoadingBar, $location) {
+ // $scope.AdminUserName = "hamada";
+ 
+ // alert($scope.AdminUserName);
   cfpLoadingBar.start();
   var myBlockUi = blockUI.instances.get('myBlockUI');
 

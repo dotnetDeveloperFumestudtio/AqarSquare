@@ -11,7 +11,21 @@ namespace AqarSquare.Engine
     English = 0,
     Arabic = 1
   }
-
+  public enum ImageCategory
+  {
+    Balacony = 1,
+    Bathroom = 2,
+    Reception = 3,
+    Garden = 4,
+    Pool = 5,
+    Bedroom = 6
+  }
+  public enum PropertyContractStatus
+  {
+    Pending = 0,
+    SoldByAqar = 1,
+    Sold = 2
+  }
   public enum UserTypes
   {
     Admin = 1,

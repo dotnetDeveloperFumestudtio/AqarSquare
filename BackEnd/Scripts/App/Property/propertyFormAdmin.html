@@ -97,7 +97,6 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label">Address Ar</label>
                 <div class="col-sm-10">
-
                   <textarea type="text" class="gui-textarea" ng-model="current.AddressAr"
                             placeholder="Enter Address Ar" name="AddressArrValidation" required=""></textarea>
                   <div ng-show="formProperty.$submitted || formProperty.AddressArrValidation.$touched">
@@ -216,7 +215,8 @@
                   <div ng-show="formProperty.$submitted || formProperty.ReceptionNoValidation.$touched">
                     <label id="-error" class="alert-error" ng-show="formProperty.ReceptionNoValidation.$error.required">Please type Property Reception No.</label>
                     <label id="-error" class="alert-error" ng-show="formProperty.ReceptionNoValidation.$error.minlength">minimum 1 digit .</label>
-                    <label id="-error" class="alert-error" ng-show="formProperty.ReceptionNoValidation.$error.maxlength">maximum 1 digit.</label>  </div>
+                    <label id="-error" class="alert-error" ng-show="formProperty.ReceptionNoValidation.$error.maxlength">maximum 1 digit.</label>
+                  </div>
                 </div>
               </div>
               <div class="hr-line-dashed"></div>
@@ -293,6 +293,18 @@
               </div>
               <div class="hr-line-dashed"></div>
               <div class="form-group">
+                <label class="col-sm-2 control-label">Air Condition</label>
+                <div class="col-sm-10">
+                  <input type="checkbox" checked="checked" ng-model="current.AirCondtion"
+                         value="" name="AirCondtionValidation"> <i></i>
+                  <!--<div ng-show="formProperty.$submitted || formProperty.AirCondtionValidation.$touched">
+                    <label id="-error" class="alert-error" ng-show="formProperty.AirCondtionValidation.$error.required">Please check Property Status.</label>
+                  </div>-->
+                </div>
+              </div>
+
+              <!--<div class="hr-line-dashed"></div>
+              <div class="form-group">
                 <label class="col-sm-2 control-label">Status</label>
                 <div class="col-sm-10">
                   <input type="checkbox" checked="checked" ng-model="current.Status"
@@ -302,7 +314,7 @@
                     <label id="-error" class="alert-error" ng-show="formProperty.StatusValidation.$error.required">Please check Property Status.</label>
                   </div>
                 </div>
-              </div>
+              </div>-->
               <div class="hr-line-dashed"></div>
               <div class="form-group">
                 <label class="col-sm-2 control-label">Square	</label>
@@ -483,12 +495,65 @@
                                     </div>
                                   </div>
                                 </div>
+                                <!--simple-table attribute passes the settings-->
+                                <table simple-table="tableBalacony" class="table table-striped table-bordered table-hover dataTables-example">
+                                  <tr ng-repeat="record in tableBalacony.getFilteredData() track by $index">
 
+                                    <td title="Image">
+                                      <img class="thumbnail img-responsive" ng-src="{{MainURL}}/Upload/Balacony/{{record.Image}}" />
+
+                                    </td>
+                                    <td title="Status" data-sort-by="Status">
+                                      <span class="label" ng-class="{true:'label-success', false:'label-danger', '':'hidden'}[record.Status]">
+                                        {{ record.Status ? 'Active' : 'In Active' }}
+                                      </span>
+                                    </td>
+                                    <td title='IsMain'>
+                                      <input type="checkbox" ng-click="CheckAsMainImage(record,1)" ng-model="record.IsMainImage" value="">
+                                    </td>
+                                    <td>
+                                      <input type="checkbox" id="check1" ng-true-value="{{record.Id}}" ng-false-v ng-false-value="''" ng-model="record.selected" />
+                                    </td>
+                                    <td>
+                                      <div class="col-md-3 col-xs-6">
+                                        <a class="state" data-toggle="#" ng-click="removeBalaconyImage(image)">
+                                          <img src="../../../Images/delete-icon.png" class="iconsthumb" />
+                                        </a>
+                                      </div>
+                                    </td>
+
+                                  </tr>
+                                </table>
+
+                                <nav ng-if="tableBalacony.getTotalPages() > 1">
+                                  <ul class="pagination">
+                                    <!--First Page-->
+                                    <li ng-click="tableBalacony.setPage(1)">
+                                      <a href="javascript:void(0)">
+                                        <span aria-hidden="true">&laquo;</span>
+                                      </a>
+                                    </li>
+                                    <li ng-repeat="page in tableBalacony.getTotalPagesArray() track by $index" ng-class="{disabled:$index+1 == tableBalacony.getPage()}" ng-click="tableBalacony.setPage($index+1)">
+                                      <a href="javascript:void(0)" ng-class="{active:$index+1 == tableBalacony.getPage() }">
+                                        <span aria-hidden="true">{{$index+1}}</span>
+                                      </a>
+                                    </li>
+                                    <!--Last Page-->
+                                    <li ng-click="tableBalacony.setPage(tableBalacony.getTotalPages())">
+                                      <a href="javascript:void(0)">
+                                        <span aria-hidden="true">&raquo;</span>
+                                      </a>
+                                    </li>
+                                  </ul>
+                                  <div class="pageSize">
+                                    <select class="form-control input-sm" id="displayPerPage" ng-model="itemsPerPage" ng-init="itemsPerPage = 3" ng-change="tableBalacony.setRows(itemsPerPage)" ng-options="item for item in selectOptions"></select>
+                                  </div>
+                                </nav>
                                 <div ng-repeat="image in balaconyImages">
 
                                   <div class="row">
 
-                                    <div class="col-md-4 col-xs-6">
+                                    <!--<div class="col-md-4 col-xs-6">
                                       <div class="up-img">
                                         <img class="thumbnail img-responsive" ng-src="{{MainURL}}/Upload/Balacony/{{image.Image}}" />
                                       </div>
@@ -503,9 +568,10 @@
                                         </a>
                                       </div>
                                       <input type="checkbox" id="check1" ng-true-value="{{image.Id}}" ng-false-v ng-false-value="''" ng-model="image.selected" />
+                                      <input type="checkbox" ng-click="MainImage(image)" ng-model="image.Status" value="">
 
 
-                                    </div>
+                                    </div>-->
 
                                   </div>
 
@@ -974,7 +1040,6 @@
             </div>
           </div>
 
-          di
 
         </div>
       </div>
@@ -987,11 +1052,12 @@
     <span>{{ apiStatus }}</span>
   </div>
 
-  <form name="searchForm" novalidate
-        ng-submit="search()">
+  <form name="searchForm" novalidate ng-submit="search()">
     <div class="input-group">
-      <input name="place" type="text" class="form-control"
-             ng-model="searchPlace" required autofocus />
+      <!--<input name="place" type="text" class="form-control"
+             ng-model="searchPlace" required autofocus />-->
+      <div><input ng-model="searchPlace" class="form-control" googleplace /></div>
+
       <span class="input-group-btn">
         <button class="btn btn-primary"
                 ng-disabled="searchForm.$invalid">
@@ -1003,7 +1069,7 @@
 
   <div id="map"></div>
 
-  <form name="resForm" class="form-horizontal" novalidate
+  <!--<form name="resForm" class="form-horizontal" novalidate
         ng-submit="send()">
     <div class="form-group">
       <label for="resName" class="col-xs-2 control-label">Name</label>
@@ -1030,11 +1096,12 @@
       <div class="col-xs-offset-2 col-xs-10">
         <button class="btn btn-success"
                 ng-disabled="resForm.$invalid">
+          ">
           Confirm
         </button>
       </div>
     </div>
-  </form>
+  </form>-->
   <!--<div class="form-group">
     <ng-map center="{{latlng}}" zoom="17" on-click="getpos($event)">
       <marker position="{{latlng}}" title="Hello World!" on-dragend="getpos($event)"
@@ -1042,6 +1109,7 @@
     </ng-map>
     {{latlng}}
   </div>-->
+
 
 </div>
 

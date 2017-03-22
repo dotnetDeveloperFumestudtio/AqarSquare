@@ -1,4 +1,13 @@
 ﻿<div class="row">
+  <!--<h1 restrict access="Admin">Hello admin</h1>
+  <h1 restrict access="Editor">Hello editor</h1>
+  <div ng-if="isAuthorized(userRoles.Admin)">You're admin.</div>
+  <div ng-if="isAuthorized(userRoles.Editor)">You're Editor.</div>
+  <div ng-switch on="currentUser.Role">
+    <div ng-switch-when="userRoles.Admin">You're admin.</div>
+    <div ng-switch-when="userRoles.Editor">You're editor.</div>
+    <div ng-switch-default>You're something else.</div>
+  </div>-->
   <div class="col-lg-8">
     <div class="row">
       <div class="col-lg-4">
@@ -58,28 +67,28 @@
         <div class="row">
           <div class="col-lg-6" style="width: 100%;">
             <!--<table class="table table-hover margin bottom">
-              <thead>
-                <tr>
-                  <th style="width: 1%" class="text-center">No.</th>
-                  <th>User Name</th>
-                  <th class="text-center">BrithDate</th>
-                  <th class="text-center">Telephone</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr ng-repeat="UserFor in UserData">
-                  <td class="text-center" ng-cloack ng-bind="$index+1"> </td>
-                  <td>
-                    <span ng-cloack ng-bind="UserFor.FirstName"></span>
-                    <span ng-cloack ng-bind="UserFor.LastName"></span>
-                  </td>
-                  <td class="text-center small">
-                    <span ng-cloack ng-bind="UserFor.UserBrithDate "></span>
-                  </td>
-                  <td class="text-center"><span class="label label-primary" ng-cloack ng-bind="UserFor.Telephone"></span></td>
-                </tr>
-              </tbody>
-            </table>-->
+                  <thead>
+                    <tr>
+                      <th style="width: 1%" class="text-center">No.</th>
+                      <th>User Name</th>
+                      <th class="text-center">BrithDate</th>
+                      <th class="text-center">Telephone</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="UserFor in UserData">
+                      <td class="text-center" ng-cloack ng-bind="$index+1"> </td>
+                      <td>
+                        <span ng-cloack ng-bind="UserFor.FirstName"></span>
+                        <span ng-cloack ng-bind="UserFor.LastName"></span>
+                      </td>
+                      <td class="text-center small">
+                        <span ng-cloack ng-bind="UserFor.UserBrithDate "></span>
+                      </td>
+                      <td class="text-center"><span class="label label-primary" ng-cloack ng-bind="UserFor.Telephone"></span></td>
+                    </tr>
+                  </tbody>
+                </table>-->
           </div>
           <div class="col-lg-6">
             <div id="world-map" style="height: 300px;"></div>
@@ -125,16 +134,16 @@
   </div>
 
   <!--<div class="col-lg-4">
-    <div class="inqbox-content">
-      <div ng-repeat="UserNatFor in UserNationlatyData">
-        <div>
-          <span ng-cloack ng-bind="UserNatFor.CountryName"></span>
-          <small class="pull-right"><span ng-cloack ng-bind="UserNatFor.Count"></span>/<span ng-cloack ng-bind="UserNatFor.CountryCount"></span></small>
+        <div class="inqbox-content">
+          <div ng-repeat="UserNatFor in UserNationlatyData">
+            <div>
+              <span ng-cloack ng-bind="UserNatFor.CountryName"></span>
+              <small class="pull-right"><span ng-cloack ng-bind="UserNatFor.Count"></span>/<span ng-cloack ng-bind="UserNatFor.CountryCount"></span></small>
+            </div>
+            <div class="progress progress-small">
+              <div style="width: {{UserNatFor.Count}}%;" class="progress-bar"></div>
+            </div>
+          </div>
         </div>
-        <div class="progress progress-small">
-          <div style="width: {{UserNatFor.Count}}%;" class="progress-bar"></div>
-        </div>
-      </div>
-    </div>
-  </div>-->
+      </div>-->
 </div>

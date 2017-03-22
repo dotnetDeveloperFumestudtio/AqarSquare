@@ -16,8 +16,10 @@ namespace AqarSquare.Engine.Entities
     {
         public int Id { get; set; }
         public Nullable<int> PropertyId { get; set; }
+        public Nullable<int> CategoryType { get; set; }
         public string Image { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<int> CreatedBy { get; set; }
+        public string Thumb { get; set; }
     }
 }

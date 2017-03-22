@@ -9,16 +9,17 @@
   <style>
     [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x- ng-cloak {
       display: none !important;
-    } 
+    }
     /*table pager */
     .pageSize {
       width: 131px;
-    float: right;
+      float: right;
     }
     /*highlight the disapproved property*/
     .test {
-    background-color: #9dbdd2 !important;
-  }
+      background-color: #9dbdd2 !important;
+    }
+
     .counter {
       border: 2px solid #1c84c6;
       border-radius: 51%;
@@ -236,7 +237,7 @@
 
   <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui/0.4.0/angular-ui.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.4/angular-messages.min.js"></script>
-   
+
 
   <script src="https://rawgithub.com/angular-ui/ui-sortable/master/src/sortable.js"></script>
 
@@ -247,7 +248,7 @@
   <!--/* notification */-->
   <script src="Scripts/AngularJS/angular-notify.js"></script>
   <link href="Content/Angularcss/angular-notify.css" rel="stylesheet" />
-  <!--/* button style */--> 
+  <!--/* button style */-->
   <script src="Scripts/AngularJS/UsedFiles/angular-cookies.min.js"></script>
   <script src="Scripts/AngularJS/spin.min.js"></script>
   <script src="Scripts/AngularJS/angular-image-dimensions.js"></script>
@@ -320,7 +321,7 @@
                 </div>
                 <div class="media-body profile-name" style="white-space: nowrap;">
                   <h4 class="media-heading"><span ng-cloack ng-bind="AdminUserName"></span> <a data-toggle="collapse" data-target="#loguserinfo" class="pull-right"><i class="fa fa-angle-down"></i></a></h4>
-                  <span>Software Engineer</span>
+                  <span ng-cloack ng-bind="AdminUserRole"></span>
                 </div>
               </div>
               <div class="leftpanel-userinfo collapse" id="loguserinfo" style="position: absolute; background: #3b4354!important">
@@ -347,7 +348,7 @@
                       <a><i class="fa fa-home"></i> <span class="nav-label">Dashboards</span></a>
                     </li>
 
-                    <li class="nav-parent">
+                    <li class="nav-parent" restrict access="Admin">
                       <a href="#"><i class="fa fa-laptop"></i> <span class="nav-label">Users</span></a>
                       <ul class="children">
 
@@ -360,7 +361,7 @@
                       </ul>
                     </li>
 
-                    <li ui-sref="propertyuser" ui-sref-active="active">
+                    <li ui-sref="propertyuser" ui-sref-active="active" restrict access="Admin">
                       <a>
                         <i class="fa fa-laptop"></i> <span class="nav-label">
                           User Property
@@ -370,17 +371,17 @@
                         </span>
                       </a>
                     </li>
-                    <li ui-sref="propertyadmin" ui-sref-active="active">
+                    <li ui-sref="propertyadmin" ui-sref-active="active" restrict access="Admin">
                       <a><i class="fa fa-laptop"></i> <span class="nav-label">Admin Property</span></a>
                     </li>
 
-                    <li ui-sref="city" ui-sref-active="active">
+                    <li ui-sref="city" ui-sref-active="active" restrict access="Admin">
                       <a><i class="fa fa-laptop"></i> <span class="nav-label">city </span></a>
                     </li>
-                    <li ui-sref="square" ui-sref-active="active">
+                    <li ui-sref="square" ui-sref-active="active" restrict access="Admin">
                       <a><i class="fa fa-laptop"></i> <span class="nav-label">Square </span></a>
                     </li>
-                    <li ui-sref-active="active">
+                    <li ui-sref-active="active" restrict access="Admin">
                       <a ui-sref="contactformpage"><i class="fa fa-laptop"></i> <span class="nav-label">Contact Form</span></a>
                     </li>
                     <li ui-sref-active="active">
@@ -389,17 +390,17 @@
                     <li ui-sref-active="active">
                       <a ui-sref="photosessionpage"><i class="fa fa-laptop"></i> <span class="nav-label">Photo Session</span></a>
                     </li>
-                    <li ui-sref-active="active">
+                    <li ui-sref-active="active" restrict access="Admin">
                       <a ui-sref="propertytype"><i class="fa fa-laptop"></i> <span class="nav-label">Property Type</span></a>
                     </li>
-                    <li ui-sref-active="active">
+                    <li ui-sref-active="active" restrict access="Admin">
                       <a ui-sref="contracttype"><i class="fa fa-laptop"></i> <span class="nav-label">Contract Type</span></a>
                     </li>
-                    <li ui-sref-active="active">
+                    <!--<li ui-sref-active="active">
                       <a ui-sref="topten1"><i class="fa fa-laptop"></i> <span class="nav-label">Top Ten</span></a>
-                    </li>
-                   
-                    <li class="nav-parent">
+                    </li>-->
+
+                    <li class="nav-parent" restrict access="Admin">
                       <a href="#"><i class="fa fa-laptop"></i> <span class="nav-label">Settings</span></a>
                       <ul class="children">
                         <li><a ui-sref="contactUs">Contact Us</a></li>
@@ -458,7 +459,6 @@
 
         <div style="clear: both; height: 61px;"></div>
         <div class="wrapper wrapper-content animated fadeInRight" ng-app="angapp" ng-controller="HomeController as Home">
-
           <div ui-view>
 
           </div>
@@ -723,8 +723,8 @@
 
     </script>-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.0/lodash.js"></script>
-    <script src="https://rawgit.com/dotansimha/angularjs-dropdown-multiselect/master/src/angularjs-dropdown-multiselect.js"></script>
-
+    <!--<script src="https://rawgit.com/dotansimha/angularjs-dropdown-multiselect/master/src/angularjs-dropdown-multiselect.js"></script>-->
+    <script src="Scripts/AngularJS/angularjs-dropdown-multiselect.js"></script>
     <!--<script src="Scripts/AngularJS/flexi-list.min.js"></script>-->
 
     <script src="Scripts/AngularJS/UsedFiles/angular-simple-table.js" type="text/javascript"></script>
@@ -742,7 +742,7 @@
     <script src="Scripts/App/Notification/Notification.js"></script>
     <!--<script src="Scripts/App/Reports/UserNationalty/UserNationalty.js"></script>-->
     <script src="Scripts/App/ChangePassword/ChangePassword.js"></script>
-    <script src="Scripts/App/LogIn/loginApp.js"></script> 
+    <script src="Scripts/App/LogIn/loginApp.js"></script>
     <script src="Scripts/App/ContactUs/contact.js"></script>
     <script src="Scripts/App/datetimepicker.js"></script>
     <!--<script src="Scripts/App/ImportantNumber/important.js"></script>
@@ -781,60 +781,46 @@
     <script src="Scripts/App/TenantUser/CtrlTenantUser.js"></script>
     <script src="Scripts/App/User/pagingUser.js"></script>
 
-    <script src="Scripts/App/PropertyType/CtrlPropertyType.js"></script> 
+    <script src="Scripts/App/PropertyType/CtrlPropertyType.js"></script>
     <script src="Scripts/App/PropertyType/service.js"></script>
 
 
     <script src="Scripts/App/ContractType/CtrContractType.js"></script>
     <script src="Scripts/App/ContractType/service.js"></script>
-    
+
 
     <!--<script src="Scripts/App/Region/Region.js"></script>
     <script src="Scripts/App/Region/pagingRegion.js"></script>-->
-
     <!--<script src="Scripts/App/Selfie/Selfie.js"></script>
     <script src="Scripts/App/Selfie/pagingSelfie.js"></script>-->
-
     <!--<script src="Scripts/App/Panoramic/Panoramic.js"></script>
     <script src="Scripts/App/Panoramic/pagingPanoramic.js"></script>-->
-
     <!--<script src="Scripts/App/3D/Object3D.js"></script>
     <script src="Scripts/App/3D/paging3D.js"></script>-->
-
     <!--<script src="Scripts/App/UsefulLink/UsefulLink.js"></script>
     <script src="Scripts/App/UsefulLink/pagingUsefull.js"></script>-->
-
     <!--<script src="Scripts/App/Language/Language.js"></script>
     <script src="Scripts/App/Language/pagingLanguage.js"></script>-->
-
     <!--<script src="Scripts/App/Moderation/List.js"></script>
     <script src="Scripts/App/Moderation/ListReject.js"></script>
     <script src="Scripts/App/Moderation/ListApprove.js"></script>
     <script src="Scripts/App/Moderation/Moderationpaging.js"></script>
     <script src="Scripts/App/Moderation/ModerationRejectpaging.js"></script>
     <script src="Scripts/App/Moderation/ModerationApprovepaging.js"></script>-->
-
     <!--<script src="Scripts/App/Event/Event.js"></script>
     <script src="Scripts/App/Event/pagingEvent.js"></script>-->
-
     <!--<script src="Scripts/App/Events/Events.js"></script>
     <script src="Scripts/App/Events/pagingEvents.js"></script>-->
-
-
     <!--<script src="Scripts/App/Report/Report.js"></script>
     <script src="Scripts/App/Report/pagingReport.js"></script>-->
-
     <!--<script src="Scripts/App/Attraction/Attraction.js"></script>
     <script src="Scripts/App/Attraction/Attractionpaging.js"></script>-->
-
     <!--<script src="Scripts/App/QrCode/QrCode.js"></script>-->
     <!--<script src="Scripts/App/TopTen/TopTen.js"></script>
     <script src="Scripts/App/TopTen/TopTen - Copy.js"></script>
     <script src="Scripts/App/TopTen/TopTenpaging.js"></script>-->
-
     <!--<script src="Scripts/App/Image/Image.js"></script>
     <script src="Scripts/App/Image/pagingImage.js"></script>-->
-
     <!--<script src="Scripts/App/Video/Video.js"></script>
     <script src="Scripts/App/Video/pagingVideo.js"></script>-->
 

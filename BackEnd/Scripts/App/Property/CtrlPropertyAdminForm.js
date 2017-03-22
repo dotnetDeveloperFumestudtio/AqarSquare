@@ -1,7 +1,9 @@
 ﻿var app = angular.module('adminpropertyformapp', []);
 app.controller('PropertyAdminFormController', function ($scope, $http, notify, blockUI, Upload,Map, cfpLoadingBar, PropertyService) {
  
-
+  $scope.tableBalacony = new TableSettings($scope.balaconyImages);
+  $scope.tableBalacony.setRows(5);
+  $scope.selectOptions = [1, 3, 5, 10];
   $scope.place = {};
   $scope.getpos = function (event) {
     $scope.latlng = [event.latLng.lat(), event.latLng.lng()];
@@ -351,6 +353,7 @@ app.controller('PropertyAdminFormController', function ($scope, $http, notify, b
     property.Garden = $scope.current.Garden;
     property.Pool = $scope.current.Pool;
     property.Lift = $scope.current.Lift;
+    property.AirCondtion = $scope.current.AirCondtion;
     property.Area = $scope.squareSelectedId;
     property.propertyType = $scope.propertytypeSelectedId;
     property.ContractType = $scope.contracttypeSelectedId;
@@ -604,6 +607,10 @@ app.controller('PropertyAdminFormController', function ($scope, $http, notify, b
         // $scope.divuploadmedia = false;
         myBlockUi.stop();
         $scope.balaconyImages = data;
+        $scope.tableBalacony = new TableSettings($scope.balaconyImages);
+        $scope.tableBalacony.setRows(5);
+        $scope.selectOptions = [1, 3, 5, 10];
+
         notify("File Uploaded Successfuly");
         // clearControl();
       });
@@ -639,6 +646,9 @@ app.controller('PropertyAdminFormController', function ($scope, $http, notify, b
                $http.post($scope.URL + "GetAllImageBalaconies", { 'image': image })
                    .success(function (data, status, headers, config) {
                      $scope.balaconyImages = data;
+                     $scope.tableBalacony = new TableSettings($scope.balaconyImages);
+                     $scope.tableBalacony.setRows(5);
+                     $scope.selectOptions = [1, 3, 5, 10];
 
                    }).error(function (data, status, headers, config) {
                      swal({ title: "Error!", text: "Something went wrong!", type: "error", timer: 2000, showConfirmButton: false });
@@ -671,6 +681,9 @@ app.controller('PropertyAdminFormController', function ($scope, $http, notify, b
 
                       .success(function (dataReturn, status, headers, config) {
                         $scope.BalaconyImages = dataReturn;
+                        $scope.tableBalacony = new TableSettings($scope.BalaconyImages);
+                        $scope.tableBalacony.setRows(5);
+                        $scope.selectOptions = [1, 3, 5, 10];
                         swal({ title: "Deleted!", type: "success", timer: 1000, showConfirmButton: false });
 
                       }).error(function (dataerror, status, headers, config) {
@@ -682,6 +695,31 @@ app.controller('PropertyAdminFormController', function ($scope, $http, notify, b
         console.log(msg);
       });
   }
+     
+  $scope.CheckAsMainImage = function (image, imageCategory) {
+    // Get the reference to the block service.
+    var myBlockUi = blockUI.instances.get('myBlockUI');
+
+    myBlockUi.start({
+      message: 'Wait Please ...'
+    });
+    cfpLoadingBar.start();
+
+    //Image.Id = imageId;
+    //Image.Status = imageStatus;
+    $http.post($scope.URL + "CheckAsMainImage", { 'Image': image, 'ImageCategory': imageCategory })
+      .success(function (data, status, headers, config) { 
+        if (data == "Error") { 
+          myBlockUi.stop();
+          notify("Error,Recored Updated Fail");
+
+        }
+        else {
+          myBlockUi.stop();
+          notify("Recored Updated Successfully");
+        }
+      });
+  };
 
 
   $scope.uploadBathroomPic = function (file) {
@@ -1292,8 +1330,7 @@ app.controller('PropertyAdminFormController', function ($scope, $http, notify, b
   Map.init();
 
 });
-
-
+ 
 app.service('Map', function ($q) {
 
   this.init = function () {
@@ -1369,6 +1406,25 @@ app.factory('Scopes', function ($rootScope) {
     },
     get: function (key) {
       return mem[key];
+    }
+  };
+});
+
+myApp.directive('googleplace', function () {
+  return {
+    require: 'ngModel',
+    link: function (scope, element, attrs, model) {
+      var options = {
+        types: [],
+        componentRestrictions: {}
+      };
+      scope.gPlace = new google.maps.places.Autocomplete(element[0], options);
+
+      google.maps.event.addListener(scope.gPlace, 'place_changed', function () {
+        scope.$apply(function () {
+          model.$setViewValue(element.val());
+        });
+      });
     }
   };
 });

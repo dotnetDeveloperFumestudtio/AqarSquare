@@ -843,6 +843,7 @@
     <Content Include="Images\ms-icon-70x70.png" />
     <Content Include="Images\view-icon.png" />
     <Content Include="Index.html" />
+    <Content Include="login - Copy.html" />
     <Content Include="Scripts\AngularJS\1\angular-aria.min.js" />
     <Content Include="Scripts\AngularJS\1\angular-material.min.css" />
     <Content Include="Scripts\AngularJS\1\lf-ng-md-file-input.css" />
@@ -932,6 +933,8 @@
     <Content Include="Scripts\App\ContractType\CtrContractType.js" />
     <Content Include="Scripts\App\ContractType\service.js" />
     <Content Include="Scripts\App\LogIn\authenticationService.js" />
+    <Content Include="Scripts\App\modules\common\Auth\Auth - Copy.js" />
+    <Content Include="Scripts\App\modules\common\Auth\Auth.js" />
     <Content Include="Scripts\App\PropertyType\PropertyType.html" />
     <Content Include="Scripts\App\PropertyType\CtrlPropertyType.js" />
     <Content Include="Scripts\App\PropertyType\service.js" />

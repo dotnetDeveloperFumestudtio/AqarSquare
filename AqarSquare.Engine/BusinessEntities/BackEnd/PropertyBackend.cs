@@ -14,7 +14,7 @@ namespace AqarSquare.Engine.BusinessEntities.BackEnd
     public string Title { get; set; }
     public string TitleAr { get; set; }
     public int? UserId { get; set; }
-    public bool? Status { get; set; }
+    public bool? Approved { get; set; }
     public string Description { get; set; }
     public string DescriptionAr { get; set; }
     public string Late { get; set; }
@@ -57,5 +57,7 @@ namespace AqarSquare.Engine.BusinessEntities.BackEnd
 
     public int? Space { get; set; }
     public int? UserInCharge { get; set; }
+
+    public bool? AirCondtion { get; set; }
   }
 }

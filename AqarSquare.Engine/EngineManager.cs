@@ -1,20 +1,19 @@
 ﻿
-using System.Text.RegularExpressions;
-using System.Web.Security;
-using System.Web.UI.WebControls;
+using System.IO;
 using AqarSquare.Engine.BusinessEntities;
+using AqarSquare.Engine.BusinessEntities.BackEnd;
+using AqarSquare.Engine.Entities;
+using AqarSquares;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.ServiceModel.Web;
-using AqarSquare.Engine.BusinessEntities.BackEnd;
-using AqarSquare.Engine.Entities;
-using AqarSquares;
+using System.Web.Security;
 using PhotoSession = AqarSquare.Engine.BusinessEntities.BackEnd.PhotoSession;
 using Reservation = AqarSquare.Engine.BusinessEntities.BackEnd.Reservation;
 
-
+using System.Drawing;
 namespace AqarSquare.Engine
 {
   public class EngineManager : IAqarSquareService
@@ -939,6 +938,12 @@ namespace AqarSquare.Engine
 
     #region Property
 
+    public int GetCountPoropertyByUserId(int userId)
+    {
+      return _context.Properties.Count(x => x.UserId == userId);
+    }
+
+
     public List<CurrencyBackend> GetAllCurrency()
     {
       var obj = _context.TbCurrencies.ToList().OrderByDescending(x => x.Id);
@@ -984,10 +989,11 @@ namespace AqarSquare.Engine
             Garden = p.Garden,
             Pool = p.Pool,
             Lift = p.Lift,
+            AirCondtion = p.AirCondtion,
             Area = p.Area,
             PropertyTypeName = GetPropertyTypeById(p.PropertyType),
             Currency = p.Currency,
-            Status = p.Status,
+            Approved = p.Approved,
             CreatedBy = p.CreatedBy,
             CreatedByUserName = GetUserNameById(p.CreatedBy),
             CreatedDate = p.CreatedDate,
@@ -1038,9 +1044,10 @@ namespace AqarSquare.Engine
             Pool = p.Pool,
             Lift = p.Lift,
             Area = p.Area,
+            AirCondtion = p.AirCondtion,
             PropertyTypeName = GetPropertyTypeById(p.PropertyType),
             Currency = p.Currency,
-            Status = p.Status,
+            Approved = p.Approved,
             CreatedBy = p.CreatedBy,
             CreatedByUserName = GetUserNameById(p.CreatedBy),
             CreatedDate = p.CreatedDate,
@@ -1089,21 +1096,26 @@ namespace AqarSquare.Engine
         propertyObj.RoomsNo = p.RoomsNo;
         propertyObj.ReceptionNo = p.ReceptionNo;
         propertyObj.Floor = p.Floor;
-        propertyObj.Balacony = p.Balacony;
-        propertyObj.Garage = p.Garage;
-        propertyObj.Garden = p.Garden;
-        propertyObj.Pool = p.Pool;
-        propertyObj.Lift = p.Lift;
+        propertyObj.Balacony = (p.Balacony == null) ? false : true;
+        propertyObj.Garage = (p.Garage == null) ? false : true;
+        propertyObj.Garden = (p.Garden == null) ? false : true;
+        propertyObj.Pool = (p.Pool == null) ? false : true;
+        propertyObj.Lift = (p.Lift == null) ? false : true;
+        propertyObj.AirCondtion = (p.AirCondtion == null) ? false : true;
         propertyObj.Area = p.Area;
         propertyObj.PropertyType = p.PropertyType;
         propertyObj.ContractType = p.ContractType;
         propertyObj.Currency = p.Currency;
-        propertyObj.Status = p.Status;
+        propertyObj.Approved = true;
         propertyObj.CreatedBy = p.CreatedBy;
         propertyObj.ApprovedBy = 0;
         propertyObj.CreatedDate = _publicdateTime;
         propertyObj.UserId = p.UserId;
         propertyObj.Space = p.Space;
+        propertyObj.IsDelete = false;
+        propertyObj.IsPublished = true;
+        propertyObj.IsAqarContract = Convert.ToInt32(PropertyContractStatus.Pending);
+        propertyObj.IsNotAqarContract = Convert.ToInt32(PropertyContractStatus.Pending);
         propertyObj.UserInCharge = p.UserInCharge;
         _context.Properties.Add(propertyObj);
         _context.SaveChanges();
@@ -1140,10 +1152,11 @@ namespace AqarSquare.Engine
         propertyObj.Garden = p.Garden;
         propertyObj.Pool = p.Pool;
         propertyObj.Lift = p.Lift;
+        propertyObj.AirCondtion = p.AirCondtion;
         propertyObj.Area = p.Area;
         propertyObj.PropertyType = p.PropertyType;
         propertyObj.Currency = p.Currency;
-        propertyObj.Status = p.Status;
+        propertyObj.Approved = p.Approved;
         propertyObj.Space = p.Space;
         propertyObj.CreatedBy = p.CreatedBy;
         propertyObj.CreatedDate = _publicdateTime;
@@ -1189,8 +1202,8 @@ namespace AqarSquare.Engine
       {
         obj.CreatedDate = _publicdateTime;
         obj.ApprovedDate = _publicdateTime;
-        obj.Status = property.Status;
-        if (obj.Status == true)
+        obj.Approved = property.Approved;
+        if (obj.Approved == true)
           obj.ApprovedBy = property.ApprovedBy;
         else
           obj.ApprovedBy = 0;
@@ -1202,7 +1215,140 @@ namespace AqarSquare.Engine
         return 0;
 
     }
+    public int CheckAsMainImage(ImageBalacony image, int imageCategory)
+    {
+      var retunValue = 0;
+      ClearImageIsMain(image.PropertyId);
 
+      if (imageCategory == Convert.ToInt32(ImageCategory.Balacony))
+      {
+        var obj = _context.ImageBalaconies.FirstOrDefault(item => item.Id == image.Id);
+        if (obj != null)
+        {
+          obj.CreatedDate = _publicdateTime;
+          obj.IsMainImage = true;
+          _context.SaveChanges();
+          retunValue = 1;
+        }
+        else
+          retunValue = 0;
+      }
+      if (imageCategory == Convert.ToInt32(ImageCategory.Bathroom))
+      {
+        var obj = _context.ImageBathrooms.FirstOrDefault(item => item.Id == image.Id);
+        if (obj != null)
+        {
+          obj.CreatedDate = _publicdateTime;
+          obj.IsMainImage = true;
+          _context.SaveChanges();
+          retunValue = 1;
+        }
+        else
+          retunValue = 0;
+      }
+      if (imageCategory == Convert.ToInt32(ImageCategory.Reception))
+      {
+        var obj = _context.ImageReceptions.FirstOrDefault(item => item.Id == image.Id);
+        if (obj != null)
+        {
+          obj.CreatedDate = _publicdateTime;
+          obj.IsMainImage = true;
+          _context.SaveChanges();
+          retunValue = 1;
+        }
+        else
+          retunValue = 0;
+      }
+      if (imageCategory == Convert.ToInt32(ImageCategory.Garden))
+      {
+        var obj = _context.ImageGardens.FirstOrDefault(item => item.Id == image.Id);
+        if (obj != null)
+        {
+          obj.CreatedDate = _publicdateTime;
+          obj.IsMainImage = true;
+          _context.SaveChanges();
+          retunValue = 1;
+        }
+        else
+          retunValue = 0;
+      }
+      if (imageCategory == Convert.ToInt32(ImageCategory.Pool))
+      {
+        var obj = _context.ImagePools.FirstOrDefault(item => item.Id == image.Id);
+        if (obj != null)
+        {
+          obj.CreatedDate = _publicdateTime;
+          obj.IsMainImage = true;
+          _context.SaveChanges();
+          retunValue = 1;
+        }
+        else
+          retunValue = 0;
+      }
+      if (imageCategory == Convert.ToInt32(ImageCategory.Bedroom))
+      {
+        var obj = _context.ImageBedrooms.FirstOrDefault(item => item.Id == image.Id);
+        if (obj != null)
+        {
+          obj.CreatedDate = _publicdateTime;
+          obj.IsMainImage = true;
+          _context.SaveChanges();
+          retunValue = 1;
+        }
+        else
+          retunValue = 0;
+      }
+      return retunValue;
+    }
+
+    public void ClearImageIsMain(int? propertyId)
+    {
+      var obj1 = _context.ImageBalaconies.FirstOrDefault(item => item.PropertyId == propertyId);
+      var obj2 = _context.ImageBathrooms.FirstOrDefault(item => item.PropertyId == propertyId);
+      var obj3 = _context.ImageReceptions.FirstOrDefault(item => item.PropertyId == propertyId);
+      var obj4 = _context.ImageGardens.FirstOrDefault(item => item.PropertyId == propertyId);
+      var obj5 = _context.ImagePools.FirstOrDefault(item => item.PropertyId == propertyId);
+      var obj6 = _context.ImageBedrooms.FirstOrDefault(item => item.PropertyId == propertyId);
+
+      if (obj1 != null)
+      {
+        obj1.CreatedDate = _publicdateTime;
+        obj1.IsMainImage = false;
+        obj1.CreatedDate = _publicdateTime;
+      }
+      if (obj2 != null)
+      {
+        obj2.IsMainImage = false;
+        obj2.CreatedDate = _publicdateTime;
+        obj2.IsMainImage = false;
+      }
+      if (obj3 != null)
+      {
+        obj3.CreatedDate = _publicdateTime;
+        obj3.IsMainImage = false;
+        obj3.CreatedDate = _publicdateTime;
+      }
+      if (obj4 != null)
+      {
+        obj4.IsMainImage = false;
+        obj4.CreatedDate = _publicdateTime;
+        obj4.IsMainImage = false;
+      }
+      if (obj5 != null)
+      {
+        obj5.IsMainImage = false;
+        obj5.CreatedDate = _publicdateTime;
+        obj5.IsMainImage = false;
+      }
+      if (obj6 != null)
+      {
+        obj6.IsMainImage = false;
+        obj6.CreatedDate = _publicdateTime;
+        obj6.IsMainImage = false;
+      }
+      _context.SaveChanges();
+
+    }
     public string GetPropertyTypeById(int? propertyTypeId)
     {
       var obj = _context.PropertyTypes.FirstOrDefault(p => p.Id == propertyTypeId);
@@ -1234,7 +1380,7 @@ namespace AqarSquare.Engine
       var userInfo = GetSystemUserById(property.UserId);
       result.ViewCount = viewObj;
       result.Email = userInfo.Email;
-      result.Status = property.Status;
+      result.Status = property.Approved;
       result.CreatedDate = property.CreatedDate;
       result.CreatedByUserName = GetUserNameById(property.UserId);
 
@@ -1258,9 +1404,16 @@ namespace AqarSquare.Engine
       var imageObj = new ImageBalacony();
       imageObj.Image = image.Image;
       imageObj.PropertyId = image.PropertyId;
+      imageObj.Status = true;
+      imageObj.IsMainImage = false;
       imageObj.CreatedBy = image.CreatedBy;
       imageObj.CreatedDate = _publicdateTime;
 
+      Image image1 = Image.FromFile(@"D:\M-Saber\Projects\Aqar Squaers\Project\AqarSquare\BackEnd\Upload\Balacony\" + image.Image);
+      Image thumb = image1.GetThumbnailImage(120, 120, () => false, IntPtr.Zero);
+      thumb.Save(Path.ChangeExtension(@"D:\M-Saber\Projects\Aqar Squaers\Project\AqarSquare\BackEnd\Upload\Balacony\Thumb\" + image.Image + "thumb", "jpg"));
+     
+      imageObj.Thumb = thumb.ToString();
       _context.ImageBalaconies.Add(imageObj);
       _context.SaveChanges();
 
@@ -1308,6 +1461,8 @@ namespace AqarSquare.Engine
       var imageObj = new ImageBathroom();
       imageObj.Image = image.Image;
       imageObj.PropertyId = image.PropertyId;
+      imageObj.Status = true;
+      imageObj.IsMainImage = false;
       imageObj.CreatedBy = image.CreatedBy;
       imageObj.CreatedDate = _publicdateTime;
 
@@ -1359,6 +1514,8 @@ namespace AqarSquare.Engine
       var imageObj = new ImageReception();
       imageObj.Image = image.Image;
       imageObj.PropertyId = image.PropertyId;
+      imageObj.Status = true;
+      imageObj.IsMainImage = false;
       imageObj.CreatedBy = image.CreatedBy;
       imageObj.CreatedDate = _publicdateTime;
 
@@ -1408,6 +1565,8 @@ namespace AqarSquare.Engine
       var imageObj = new ImageGarden();
       imageObj.Image = image.Image;
       imageObj.PropertyId = image.PropertyId;
+      imageObj.Status = true;
+      imageObj.IsMainImage = false;
       imageObj.CreatedBy = image.CreatedBy;
       imageObj.CreatedDate = _publicdateTime;
 
@@ -1482,6 +1641,8 @@ namespace AqarSquare.Engine
       var imageObj = new ImagePool();
       imageObj.Image = image.Image;
       imageObj.PropertyId = image.PropertyId;
+      imageObj.Status = true;
+      imageObj.IsMainImage = false;
       imageObj.CreatedBy = image.CreatedBy;
       imageObj.CreatedDate = _publicdateTime;
 
@@ -1533,6 +1694,8 @@ namespace AqarSquare.Engine
       var imageObj = new ImageBedroom();
       imageObj.Image = image.Image;
       imageObj.PropertyId = image.PropertyId;
+      imageObj.Status = true;
+      imageObj.IsMainImage = false;
       imageObj.CreatedBy = image.CreatedBy;
       imageObj.CreatedDate = _publicdateTime;
 
@@ -1615,7 +1778,7 @@ namespace AqarSquare.Engine
         result.PropertyTypeName = GetPropertyTypeById(viewObj.PropertyType);
         result.PropertyType = viewObj.PropertyType;
         result.Currency = viewObj.Currency;
-        result.Status = viewObj.Status;
+        result.Approved = viewObj.Approved;
         result.CreatedBy = viewObj.CreatedBy;
         result.CreatedByUserName = GetUserNameById(viewObj.CreatedBy);
         result.CreatedDate = viewObj.CreatedDate;
@@ -1687,7 +1850,7 @@ namespace AqarSquare.Engine
 
     #endregion
 
-    #region Reservation
+    #region PhotoSession
 
     public List<PhotoSession> GetAllPhotoSession()
     {
@@ -1739,6 +1902,36 @@ namespace AqarSquare.Engine
 
     #region Admin User
 
+    protected int GetUserRoleId(int userId)
+    {
+      var roleId = 0;
+      var userRole = _context.Users_Role.FirstOrDefault(x => x.UserId == userId);
+      if (userRole != null)
+        if (userRole.RoleId != null)
+          roleId = (int)userRole.RoleId;
+
+      return roleId;
+    }
+
+    protected string GetUserRole(int userId)
+    {
+      var roleName = "";
+      var userRole = _context.Users_Role.FirstOrDefault(x => x.UserId == userId);
+      if (userRole != null)
+      {
+        var roleId = userRole.RoleId;
+        var firstOrDefault = _context.Roles.FirstOrDefault(x => x.Id == roleId);
+        if (firstOrDefault != null)
+        {
+          var role1 = firstOrDefault.Role1;
+          if (role1 != null)
+            roleName = role1;
+        }
+      }
+
+      return roleName;
+    }
+
     public SystemUserBackend Login(SystemUserBackend user)
     {
       var returnVal = new SystemUserBackend();
@@ -1748,102 +1941,83 @@ namespace AqarSquare.Engine
                                                                && x.UserType == userType);
       if (checkUser != null)
       {
+        var userRole = GetUserRole(checkUser.Id);
         returnVal.FullName = GetUserNameById(checkUser.Id);
         returnVal.Id = checkUser.Id;
+        returnVal.Role = userRole;
+
       }
 
       return returnVal;
     }
 
-    //    public SecurityUser AdminLogIn(string username, string password)
-    //    {
-    //      var result = new SecurityUser();
+    public string ChangePassword(string userId, string oldPassword, string newPassword)
+    {
+      var result = "";
+      int userid = Convert.ToInt32(userId);
 
-    //      using (var context = new Entities.Entities())
-    //      {
-    //        var securityUser = context.Security_users.FirstOrDefault(item => item.UserName == username && item.Password == password);
-    //        if (securityUser != null)
-    //        {
-    //          result.UserId = securityUser.LogID;
-    //          result.UserName = securityUser.UserName;
-    //          result.Email = securityUser.Email;
-    //        }
-    //      }
-    //      return result;
-    //    }
+      var securityUser = _context.SystemUsers.FirstOrDefault(item => item.Id == userid);
 
-    //    public string ChangePassword(string userId, string oldPassword, string newPassword)
-    //    {
-    //      var result = "";
-    //      int userid = Convert.ToInt32(userId);
-    //      using (var context = new Entities.Entities())
-    //      {
-    //        var securityUser = context.Security_users.FirstOrDefault(item => item.LogID == userid);
+      if (securityUser != null)
+      {
+        if (securityUser.Password == oldPassword)
+        {
+          securityUser.Password = newPassword;
+          _context.SaveChanges();
+          result = "Changed";
+        }
+        else
+          result = "WrongPassword";
+      }
+      else
+      {
+        result = "WrongUser";
 
-    //        if (securityUser != null)
-    //        {
-    //          if (securityUser.Password == oldPassword)
-    //          {
-    //            securityUser.Password = newPassword;
-    //            context.SaveChanges();
-    //            result = "Changed";
-    //          }
-    //          else
-    //            result = "WrongPassword";
-    //        }
-    //        else
-    //        {
-    //          result = "WrongUser";
+      }
+      return result;
+    }
 
-    //        }
-    //      }
-    //      return result;
-    //    }
-    //    public string AdminForgetPassword(string userEmail)
-    //    {
-    //      var result = "";
-    //      var returnId = 1;
-    //      try
-    //      {
-    //        using (var context = new Entities.Entities())
-    //        {
-    //          var user = context.Security_users.FirstOrDefault(item => item.Email == userEmail);
-    //          if (user != null)
-    //          {
-    //            string password = Membership.GeneratePassword(7, 1);
-    //            user.Password = password;
-    //            context.SaveChanges();
-    //            var subject = "Forget Password";
-    //            var body = string.Format(@"Dear {0},
-    //      your new Password: {1}
-    //       
-    //     Regards, 
-    //     The Concierge Team
-    //     ",
-    //              user.UserName, password);
+    public string AdminForgetPassword(string userEmail)
+    {
+      var result = "";
+      const int returnId = 1;
+      try
+      {
+        var user = _context.SystemUsers.FirstOrDefault(item => item.Email == userEmail);
+        if (user != null)
+        {
+          string password = Membership.GeneratePassword(7, 1);
+          user.Password = password;
+          _context.SaveChanges();
+          var subject = "Forget Password";
+          var body = string.Format(@"Dear {0},
+          your new Password: {1}
+           
+         Regards, 
+         The Concierge Team
+         ",
+            user.FirstName + "" + user.LastName, password);
 
-    //            //   returnId = EmailHelper.CheckSendEmail(user.Email, subject, body);
+          //   returnId = EmailHelper.CheckSendEmail(user.Email, subject, body);
 
+        }
+        if (returnId != 0)
+        {
+          result = "MAIL_SENT";
+        }
+        else
+        {
+          result = "NOT_VALID";
 
-    //          }
-    //          if (returnId != 0)
-    //          {
-    //            result = "MAIL_SENT";
-    //          }
-    //          else
-    //          {
-    //            result = "NOT_VALID";
+        }
+      }
+      catch (Exception e)
+      {
+        result = "NOT_VALID";
+      }
+      return result;
 
-    //          }
-    //        }
-    //      }
-    //      catch (Exception e)
-    //      {
-    //        result = "NOT_VALID";
-    //      }
-    //      return result;
-
-    //    }
+    }
 
     public bool IsUserEmailAvailable(SystemUserBackend user)
     {
@@ -1885,6 +2059,8 @@ namespace AqarSquare.Engine
           result.Viber = userContact.Viber;
         }
         result.Status = user.Status;
+        result.Role = GetUserRole(user.Id);
+        result.RoleId = GetUserRoleId(user.Id);
         result.CreatedDate = user.CreatedDate;
       }
       return result;
@@ -1897,6 +2073,7 @@ namespace AqarSquare.Engine
       var systemUser = _context.SystemUsers.Where(x => x.UserType == usertype).ToList();
       foreach (var user in systemUser)
       {
+        var propertyCount = GetCountPoropertyByUserId(user.Id);
         var userData = GetSystemUserById(user.Id);
         returnList.Add(new SystemUserBackend
         {
@@ -1910,7 +2087,10 @@ namespace AqarSquare.Engine
           Status = userData.Status,
           Phone = userData.Phone,
           Phone2 = userData.Phone2,
-          CreatedDate = userData.CreatedDate
+          CreatedDate = userData.CreatedDate,
+          UserPropertyCount = propertyCount,
+          Role = userData.Role,
+          RoleId = userData.RoleId
         });
       }
       return returnList;
@@ -1953,9 +2133,14 @@ namespace AqarSquare.Engine
         userContactObj.CreatedDate = _publicdateTime;
 
         _context.UserContacts.Add(userContactObj);
-
         _context.SaveChanges();
 
+        var userRole = new Users_Role();
+        userRole.RoleId = user.RoleId;
+        userRole.UserId = userObj.Id;
+
+        _context.Users_Role.Add(userRole);
+        _context.SaveChanges();
         return "Done";
       }
       catch (Exception)
@@ -1970,6 +2155,7 @@ namespace AqarSquare.Engine
     {
       var userObj = _context.SystemUsers.FirstOrDefault(item => item.Id == user.Id);
       var userContactObj = _context.UserContacts.FirstOrDefault(item => item.UserId == user.Id);
+      var userRoleObj = _context.Users_Role.FirstOrDefault(item => item.UserId == user.Id);
 
       if (userObj != null)
       {
@@ -1985,7 +2171,7 @@ namespace AqarSquare.Engine
         userContactObj.Phone = user.Phone;
         userContactObj.Phone2 = user.Phone2;
 
-
+        userRoleObj.RoleId = user.RoleId;
         _context.SaveChanges();
         return "Done";
       }
@@ -1995,6 +2181,23 @@ namespace AqarSquare.Engine
 
     }
 
+    public List<RoleBackend> GetAllRoles()
+    {
+      var roleObj = _context.Roles.ToList().OrderByDescending(x => x.Id);
+
+      var roleList = new List<RoleBackend>();
+
+      foreach (var role in roleObj)
+      {
+        roleList.Add(new RoleBackend
+        {
+          Id = role.Id,
+          RoleTitle = role.Role1
+        });
+
+      }
+      return roleList;
+    }
     #endregion
 
     #region Tenant User

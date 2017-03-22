@@ -57,9 +57,9 @@
   <!-- Main filessssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss -->
   <link href="Scripts/AngularJS/angular-moment-picker.min.css" rel="stylesheet" />
   <script src="Scripts/AngularJS/angular-moment-picker.min.js"></script>
-  <!--<script src="Scripts/App/modules/common/Auth/Auth.js"></script>-->
+
 </head>
-<body class="gray-bg" ng-app="angapp" ng-controller="homeCtrl as hc" block-ui="myBlockUI">
+<body class="gray-bg" ng-app="logapp" ng-controller="homeCtrl as hc" block-ui="myBlockUI">
 
   <div class="loginColumns animated fadeInDown">
     <div class="row">
@@ -79,7 +79,7 @@
       <div class="col-md-6">
         <div class="inqbox-content">
           <!--<form class="m-t" role="form">-->
-          <form role="form" class="m-t" name="formlogin" ng-submit="formlogin.$valid && login(hc)" novalidate>
+          <form role="form" class="m-t" name="formlogin" ng-submit="formlogin.$valid && checkUser(hc)" novalidate>
 
             <div class="form-group">
               <input type="text" ng-model="current.Email" class="form-control"
@@ -108,78 +108,79 @@
     </div>
   </div>
   <script>
-    var myApp = angular.module('angapp', ['ngStorage', 'blockUI', 'base64', 'ngCookies' ]);
-    myApp.value('currentUser', '');
-
-    myApp.service('session', function () {
-      this.create = function (sessionId, userId, userRole) {
-        this.id = sessionId;
-        this.userId = userId;
-        this.userRole = userRole;
-      };
-      this.destroy = function () {
-        this.id = null;
-        this.userId = null;
-        this.userRole = null;
-      };
-    });
-    myApp.factory('authService', function ($http, session, currentUser) {
-      var authService = {};
-
-      authService.login = function (credentials) {
-        return $http
-
-        .post("http://localhost:1717/Project/Login", { 'email': credentials.Email, 'password': credentials.Password })
-         // .post($scope.URL + "Login", credentials)
-          .then(function (res) {
-            session.create(res.data.Data.Id, res.data.Data.FullName, res.data.Data.Role);
-            
-            return res.data.Data;
-          });
-      };
-
-      authService.isAuthenticated = function () {
-        return !!session.userId;
-      };
-
-      authService.isAuthorized = function (authorizedRoles) {
-        if (!angular.isArray(authorizedRoles)) {
-          authorizedRoles = [authorizedRoles];
-        }
-        return (authService.isAuthenticated() &&
-          authorizedRoles.indexOf(session.userRole) !== -1);
-      };
-
-      return authService;
-    });
+    var myApp = angular.module('logapp', ['ngStorage', 'blockUI', 'base64', 'ngCookies']);
 
     myApp.controller('homeCtrl', homeCtrl);
 
     function homeCtrl($scope, $location, $localStorage, blockUI, $cookieStore, $http, $window,
-      $base64, authEvents, authService, $rootScope) {
-      $scope.setCurrentUser = function (user) {
-        $scope.currentUser = user;
-      }; 
-      $scope.login = function (credentials) {
-        credentials.Email = $scope.current.Email;
-        credentials.Password = $scope.current.Password;
+      $base64, authEvents) {
 
-        authService.login(credentials).then(function (user) {
-          $rootScope.$broadcast(authEvents.loginSuccess);
-          $window.localStorage.setItem('userRole', user.Role);
-          $window.localStorage.setItem('user', user);
-          $window.localStorage.setItem('userId', user.Id);
+      
 
-          $scope.setCurrentUser(user);
-          $window.location.href = 'Index.html';
+      //  $window.location.href = 'Index.html';
 
-        }, function () {
-          $rootScope.$broadcast(authEvents.loginFailed);
-        });
-      };
+     // window.localStorage.clear();
       $scope.URL = "http://localhost:1717/Project/";
       $scope.MainURL = "http://localhost:1717/";
       $scope.current = {};
+      $scope.checkUser = function (login) {
+        login.Email = $scope.current.Email;
+        login.Password = $scope.current.Password;
+
+        $scope.credentials = {
+          email: login.Email,
+          password: login.Password
+        };
+        // Get the reference to the block service.
+        var myBlockUi = blockUI.instances.get('myBlockUI');
+
+        // Start blocking the element.
+        myBlockUi.start({
+          message: 'Wait Please ...'
+        });
+        //$window.location.href = 'Index.html';
+
+        $http.post($scope.URL + "Login", { 'email': login.Email, 'password': login.Password })
+     .success(function (data, status, headers, config) {
+       if (data.Data.Id != 0) {
+         $rootScope.$broadcast(authEvents.loginSuccess);
+         $scope.setCurrentUser(data.Data);
+
+         var authdata = $base64.encode(login.Email + ':' + login.Password);
+
+         $scope.globals = {
+           currentUser: {
+             authdata: authdata
+           }
+         };
+
+         $http.defaults.headers.common['Authorization'] = 'Basic ' + authdata; // jshint ignore:line
+         var now = new Date(),
+       // this will set the expiration to 12 months
+       exp = new Date(now.getFullYear() + 1, now.getMonth(), now.getDate());
+         $cookieStore.put('globals', $scope.globals, {
+           expires: exp
+         });
+
+         $scope.UserId = data.Id;
+         $window.localStorage.setItem('user-name', login.Username);
+         $window.localStorage.setItem('user-Email', data.Email);
+         $window.localStorage.setItem('user-UserId', $scope.UserId);
+         $window.location.href = 'Index.html';
+         myBlockUi.stop();
+         swal({ title: "Success!", text: "Login Successed!", type: "success", timer: 2000, showConfirmButton: false });
+
+
+       } else {
+
+         $rootScope.$broadcast(authEvents.loginFailed);
+         swal({ title: "Error!", text: "Login Faild!", type: "error", timer: 2000, showConfirmButton: false });
+         myBlockUi.stop();
+
+       }
+     });
+
+      };
 
     }
 
@@ -192,12 +193,41 @@
       notAuthorized: 'auth-not-authorized'
     });
     myApp.constant('USER_ROLES', {
-      All: '*',
-      Admin: 'Admin',
-      Editor: 'Editor',
-      SuperAdmin: 'SuperAdmin'
+      all: '*',
+      admin: 'admin',
+      editor: 'editor',
+      guest: 'guest'
     });
-  
+
+    myApp.factory('AuthService', function($http, Session) {
+      var authService = {};
+
+      authService.login = function(credentials) {
+        return $http
+        .post($scope.URL + "Login", { 'email': login.Email, 'password': login.Password })
+          .post('/login', credentials)
+          .then(function(res) {
+            Session.create(res.data.id, res.data.user.id,
+              res.data.user.role);
+            return res.data.user;
+          });
+      };
+
+      authService.isAuthenticated = function() {
+        return !!Session.userId;
+      };
+
+      authService.isAuthorized = function(authorizedRoles) {
+        if (!angular.isArray(authorizedRoles)) {
+          authorizedRoles = [authorizedRoles];
+        }
+        return (authService.isAuthenticated() &&
+          authorizedRoles.indexOf(Session.userRole) !== -1);
+      };
+
+      return authService;
+    });
+
   </script>
 
 </body>

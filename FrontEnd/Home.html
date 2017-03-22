@@ -1,4 +1,13 @@
 ﻿<div class="row">
+  <!--<h1 restrict access="Admin">Hello admin</h1>
+  <h1 restrict access="Editor">Hello editor</h1>
+  <div ng-if="isAuthorized(userRoles.Admin)">You're admin.</div>
+  <div ng-if="isAuthorized(userRoles.Editor)">You're Editor.</div>
+  <div ng-switch on="currentUser.Role">
+    <div ng-switch-when="userRoles.Admin">You're admin.</div>
+    <div ng-switch-when="userRoles.Editor">You're editor.</div>
+    <div ng-switch-default>You're something else.</div>
+  </div>-->
   <div class="col-lg-8">
     <div class="row">
       <div class="col-lg-4">
@@ -9,7 +18,7 @@
             </div>
             <div class="col-xs-8 text-right">
               <span> Total Vilolation </span>
-              <h2 class="font-bold" ng-cloack ng-bind="TotalViolation"> </h2>
+              <!--<h2 class="font-bold" ng-cloack ng-bind="TotalViolation"> </h2>-->
             </div>
           </div>
         </div>
@@ -22,7 +31,7 @@
             </div>
             <div class="col-xs-8 text-right">
               <span> Total Attraction  </span>
-              <h2 class="font-bold" ng-cloack ng-bind="TotalAttraction"> </h2>
+              <!--<h2 class="font-bold" ng-cloack ng-bind="TotalAttraction"> </h2>-->
             </div>
           </div>
         </div>
@@ -35,7 +44,7 @@
             </div>
             <div class="col-xs-8 text-right">
               <span> Total Users </span>
-              <h2 class="font-bold" ng-cloack ng-bind="TotalUser"> </h2>
+              <!--<h2 class="font-bold" ng-cloack ng-bind="TotalUser"> </h2>-->
             </div>
           </div>
         </div>
@@ -57,29 +66,29 @@
       <div class="inqbox-content" style="height: 241px;">
         <div class="row">
           <div class="col-lg-6" style="width: 100%;">
-            <table class="table table-hover margin bottom">
-              <thead>
-                <tr>
-                  <th style="width: 1%" class="text-center">No.</th>
-                  <th>User Name</th>
-                  <th class="text-center">BrithDate</th>
-                  <th class="text-center">Telephone</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr ng-repeat="UserFor in UserData">
-                  <td class="text-center" ng-cloack ng-bind="$index+1"> </td>
-                  <td>
-                    <span ng-cloack ng-bind="UserFor.FirstName"></span>
-                    <span ng-cloack ng-bind="UserFor.LastName"></span>
-                  </td>
-                  <td class="text-center small">
-                    <span ng-cloack ng-bind="UserFor.UserBrithDate "></span>
-                  </td>
-                  <td class="text-center"><span class="label label-primary" ng-cloack ng-bind="UserFor.Telephone"></span></td>
-                </tr>
-              </tbody>
-            </table>
+            <!--<table class="table table-hover margin bottom">
+                  <thead>
+                    <tr>
+                      <th style="width: 1%" class="text-center">No.</th>
+                      <th>User Name</th>
+                      <th class="text-center">BrithDate</th>
+                      <th class="text-center">Telephone</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="UserFor in UserData">
+                      <td class="text-center" ng-cloack ng-bind="$index+1"> </td>
+                      <td>
+                        <span ng-cloack ng-bind="UserFor.FirstName"></span>
+                        <span ng-cloack ng-bind="UserFor.LastName"></span>
+                      </td>
+                      <td class="text-center small">
+                        <span ng-cloack ng-bind="UserFor.UserBrithDate "></span>
+                      </td>
+                      <td class="text-center"><span class="label label-primary" ng-cloack ng-bind="UserFor.Telephone"></span></td>
+                    </tr>
+                  </tbody>
+                </table>-->
           </div>
           <div class="col-lg-6">
             <div id="world-map" style="height: 300px;"></div>
@@ -102,7 +111,7 @@
         </div>
       </div>
       <div class="inqbox-content paper" contenteditable="true">
-        Dear (<span ng-cloack ng-bind="AdminUserName"></span>) Good Morrning <br>
+        <!--Dear (<span ng-cloack ng-bind="AdminUserName"></span>) Good Morrning <br>-->
       </div>
     </div>
   </div>
@@ -114,8 +123,8 @@
             Latest Violation
           </div>
           <div class="panel-body">
-            <p ng-cloack ng-bind="LatestViolationSummry"></p>
-            <div class="singlepostinfo"><span ng-cloack ng-bind="LatestViolationDate"></span> by <strong ng-cloack ng-bind="LatestViolationUserName"> </strong></div>
+            <!--<p ng-cloack ng-bind="LatestViolationSummry"></p>-->
+            <!--<div class="singlepostinfo"><span ng-cloack ng-bind="LatestViolationDate"></span> by <strong ng-cloack ng-bind="LatestViolationUserName"> </strong></div>-->
           </div>
         </div>
       </div>
@@ -124,17 +133,17 @@
 
   </div>
 
-  <div class="col-lg-4">
-    <div class="inqbox-content">
-      <div ng-repeat="UserNatFor in UserNationlatyData">
-        <div>
-          <span ng-cloack ng-bind="UserNatFor.CountryName"></span>
-          <small class="pull-right"><span ng-cloack ng-bind="UserNatFor.Count"></span>/<span ng-cloack ng-bind="UserNatFor.CountryCount"></span></small>
+  <!--<div class="col-lg-4">
+        <div class="inqbox-content">
+          <div ng-repeat="UserNatFor in UserNationlatyData">
+            <div>
+              <span ng-cloack ng-bind="UserNatFor.CountryName"></span>
+              <small class="pull-right"><span ng-cloack ng-bind="UserNatFor.Count"></span>/<span ng-cloack ng-bind="UserNatFor.CountryCount"></span></small>
+            </div>
+            <div class="progress progress-small">
+              <div style="width: {{UserNatFor.Count}}%;" class="progress-bar"></div>
+            </div>
+          </div>
         </div>
-        <div class="progress progress-small">
-          <div style="width: {{UserNatFor.Count}}%;" class="progress-bar"></div>
-        </div>
-      </div>
-    </div>
-  </div>
+      </div>-->
 </div>

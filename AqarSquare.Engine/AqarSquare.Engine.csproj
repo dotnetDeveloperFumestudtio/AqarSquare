@@ -36,6 +36,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AqarSquare.Engine">
+      <HintPath>..\AqarSquare.Engine - Copy\bin\Debug\AqarSquare.Engine.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
@@ -60,6 +63,8 @@
     <Reference Include="System.Core">
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Design" />
     <Reference Include="System.Runtime.Serialization">
       <Private>True</Private>
     </Reference>
@@ -110,7 +115,9 @@
     <Compile Include="BusinessEntities\BackEnd\ContractTypeBackend.cs" />
     <Compile Include="BusinessEntities\BackEnd\PropertyTypeBackend.cs" />
     <Compile Include="BusinessEntities\BackEnd\PropertyBackend.cs" />
+    <Compile Include="BusinessEntities\BackEnd\RoleBackend.cs" />
     <Compile Include="BusinessEntities\BackEnd\SystemUserBackend.cs" />
+    <Compile Include="BusinessEntities\BackEnd\UserRole.cs" />
     <Compile Include="BusinessEntities\BusinessEntityBase.cs" />
     <Compile Include="BusinessEntities\FrontEnd\SystemUserFrontEnd.cs" />
     <Compile Include="BusinessEntities\HeaderData.cs" />
@@ -187,6 +194,9 @@
     <Compile Include="Entities\Reservation.cs">
       <DependentUpon>Entites.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entities\Role.cs">
+      <DependentUpon>Entites.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entities\Square.cs">
       <DependentUpon>Entites.tt</DependentUpon>
     </Compile>
@@ -212,6 +222,9 @@
       <DependentUpon>Entites.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\UserRate.cs">
+      <DependentUpon>Entites.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Users_Role.cs">
       <DependentUpon>Entites.tt</DependentUpon>
     </Compile>
     <Compile Include="Enumerations.cs" />
