@@ -1475,7 +1475,7 @@ function $UrlMatcherFactory() {
    * <pre>
    * // Defines a custom type that gets a value from a service,
    * // where each service gets different types of values from
-   * // a backend API:
+   * // a FrontEnd API:
    * $urlMatcherFactoryProvider.type('dbObject', {}, function(Users, Posts) {
    *
    *   // Matches up services to URL parameter names

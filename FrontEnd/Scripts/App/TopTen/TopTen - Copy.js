@@ -109,7 +109,7 @@ app.controller('sortableController', function ($scope, $http, notify, blockUI, U
     $scope.saveStaticTopTen();
   };
 
-  $scope.saveStaticTopTen = function (topTenBackEnd) {
+  $scope.saveStaticTopTen = function (topTenFrontEnd) {
     // Get the reference to the block service.
     var myBlockUi = blockUI.instances.get('myBlockUI');
     // Start blocking the element.
@@ -125,7 +125,7 @@ app.controller('sortableController', function ($scope, $http, notify, blockUI, U
 
     }
 
-    $http.post($scope.URL + "CreateStaticTopTen", { 'topTenBackEnd': fillData })
+    $http.post($scope.URL + "CreateStaticTopTen", { 'topTenFrontEnd': fillData })
       .success(function (data, status, headers, config) {
         cfpLoadingBar.complete();
 

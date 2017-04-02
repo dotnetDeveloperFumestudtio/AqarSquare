@@ -57,5 +57,6 @@ namespace AqarSquare.Engine.Entities
         public Nullable<bool> IsPublished { get; set; }
         public Nullable<System.DateTime> ContractDate { get; set; }
         public Nullable<int> ContactValue { get; set; }
+        public string Image { get; set; }
     }
 }

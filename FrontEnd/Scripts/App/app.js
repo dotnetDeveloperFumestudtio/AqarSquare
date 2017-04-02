@@ -1,6 +1,8 @@
-﻿/// <reference path="D:\M-Saber\Projects\ETA\Project\Web_App\login.html" />
+﻿/// <reference path="modules/Directives/footer.html" />
+/// <reference path="modules/Directives/footer.html" />
 /// <reference path="D:\M-Saber\Projects\ETA\Project\Web_App\login.html" />
-var myApp = angular.module('angapp',
+/// <reference path="D:\M-Saber\Projects\ETA\Project\Web_App\login.html" />
+var myApp = angular.module('aqarapp',
   ['ui.router',
     'ngCookies',
     'ngFileUpload',
@@ -26,87 +28,21 @@ var myApp = angular.module('angapp',
      'UsersTenantapp',
      'PropertyTypeapp',
      'ContractTypeapp',
-   // 'importantapp',
-   // 'categoryapp',
-   // 'regionapp',
-   // 'UsefulLinkapp',
-    //'moderationapp',
-    //'moderationrejectapp',
-    //'moderationapproveapp',
-   // 'Languageapp',
-    // 'Selfieapp',
-   //  'Object3Dapp',
-     //'Panoramicapp',
-    // 'Eventapp',
-   // 'Attractionapp',
-    // 'Reportapp',
     'userapp',
     'ui.sortable',
-    //'toptenapp',
-    //'toptenapp1',
     'Notificationapp',
-   // 'QrCodeapp',
-   // 'statisticsapp',
     'ui',
-   // 'Imageapp',
-   // 'Videoapp',
     'ngAnimate',
-   // 'toptenapp',
     'ui.bootstrap',
     'moment-picker',
     'angularjs-dropdown-multiselect',
     'cgNotify',
     'blockUI',
-   // 'dropzone',
     'angular-loading-bar',
-    //'mymap', 
     'pascalprecht.translate']);
 myApp.config(config);
-//myApp.run(function ($rootScope, $state) {
-
-//  $rootScope.$state = $state;
-//});
 var sideBar = "";
 var userEmail = "";
-//myApp.run(function ($rootScope, $state, $location, $window, $cookieStore, $http) {
-
-//  // keep user logged in after page refresh
-//  $rootScope.globals = $cookieStore.get('globals') || {};
-//  if ($rootScope.globals.currentUser) {
-//    $http.defaults.headers.common['Authorization'] = 'Basic ' + $rootScope.globals.currentUser.authdata; // jshint ignore:line
-//  }
-
-//  $rootScope.$on('$locationChangeStart', function (event, next, current) {
-//    // redirect to login page if not logged in and trying to access a restricted page
-//    // var restrictedPage = $.inArray($location.path(), ['/login', '/register']) === -1;
-//    //  var loggedIn = $rootScope.globals.currentUser;
-//    //if (restrictedPage && !loggedIn) {
-//    // if (!loggedIn) {
-//    $rootScope.globals = $cookieStore.get('globals') || {};
-//    if (!$rootScope.globals.currentUser) {
-//      //   $location.path('/login');
-//      $window.location.href = 'Login.html';
-
-//    }
-//  });
-
-//  //$rootScope.$state = $state;
-//  //userEmail = localStorage.getItem('ngStorage-Email');
-//  //sideBar = localStorage.getItem('ngStorage-LocalMessage');
-
-
-//  //userEmail = $window.localStorage.getItem('user-Email');
-//  //sideBar = $window.localStorage.getItem('user-name');
-//  //if (sideBar === undefined || sideBar === null || sideBar.length === 0) {
-//  //  //  swal({ title: "Pleae Login First!!", text: "", type: "error", timer: 3000, showConfirmButton: false });
-//  //  //$location.path("login.html");
-//  //  $window.location.href = 'Login.html';
-
-//  //}
-//  //else {
-//  //  $location.path("/index");
-//  //}
-//});
 myApp.run(function ($rootScope, authService) {
   $rootScope.$on('$stateChangeStart', function (event, next) {
     var authorizedRoles = next.data.authorizedRoles;
@@ -305,3 +241,151 @@ function homeCtrl($scope, $window, $location, publicService, $http, USER_ROLES, 
   };
 
 }
+
+app.directive('nav', function () {
+  return {
+    restrict: 'A',
+    templateUrl: 'Scripts/App/modules/Directives/main.html'
+  };
+}
+    );
+app.directive('side', function () {
+  return {
+    restrict: 'A',
+    templateUrl: 'Scripts/App/modules/Directives/side-menu.html'
+  };
+}
+);
+
+app.directive('footer', function () {
+  return {
+    restrict: 'A',
+    templateUrl: '/Scripts/App/modules/Directives/footer.html'
+  };
+}
+); 
+/*Range Slider*/
+
+app.directive("slider", function ($document, $timeout) {
+  return {
+    restrict: "E",
+    scope: {
+      model: "=",
+      property: "@",
+      step: "@"
+    },
+    replace: true,
+    template: "<div class=\"slider-control\">\n<div class=\"slider\">\n</div>\n</div>",
+    link: function (scope, element, attrs) {
+      var fn, getP, handles, i, j, len, mv, pTotal, ref, setP, step, updatePositions;
+      element = element.children();
+      element.css('position', 'relative');
+      handles = [];
+      pTotal = 0;
+      step = function () {
+        if ((scope.step != null)) {
+          return parseFloat(scope.step);
+        } else {
+          return 0;
+        }
+      };
+      getP = function (i) {
+        if (scope.property != null) {
+          return scope.model[i][scope.property];
+        } else {
+          return scope.model[i];
+        }
+      };
+      setP = function (i, p) {
+        var s;
+        s = step();
+        if (s > 0) {
+          p = Math.round(p / s) * s;
+        }
+        if (scope.property != null) {
+          return scope.model[i][scope.property] = p;
+        } else {
+          return scope.model[i] = p;
+        }
+      };
+      updatePositions = function () {
+        var handle, i, j, len, p, pRunningTotal, results, x;
+        pTotal = scope.model.reduce(function (sum, item, i) {
+          return sum + getP(i);
+        }, 0);
+        pRunningTotal = 0;
+        results = [];
+        for (i = j = 0, len = handles.length; j < len; i = ++j) {
+          handle = handles[i];
+          p = getP(i);
+          pRunningTotal += p;
+          x = pRunningTotal / pTotal * 100;
+          results.push(handle.css({
+            left: x + "%",
+            top: "-" + handle.prop("clientHeight") / 2 + "px"
+          }));
+        }
+        return results;
+      };
+      ref = scope.model;
+      fn = function (mv, i) {
+        var handle, startPleft, startPright, startX;
+        if (i === scope.model.length - 1) {
+          return;
+        }
+        handle = angular.element('<div class="slider-handle text-center"> <span>2,000</span></div>');
+        handle.css("position", "absolute");
+        handles.push(handle);
+        element.append(handle);
+        startX = 0;
+        startPleft = startPright = 0;
+        return handle.on("mousedown", function (event) {
+          var mousemove, mouseup;
+          mousemove = (function (_this) {
+            return function (event) {
+              return scope.$apply(function () {
+                var dp;
+                dp = (event.screenX - startX) / element.prop("clientWidth") * pTotal;
+                if (dp < -startPleft || dp > startPright) {
+                  return;
+                }
+                setP(i, startPleft + dp);
+                setP(i + 1, startPright - dp);
+                return updatePositions();
+              });
+            };
+          })(this);
+          mouseup = function () {
+            $document.unbind("mousemove", mousemove);
+            return $document.unbind("mouseup", mouseup);
+          };
+          event.preventDefault();
+          startX = event.screenX;
+          startPleft = getP(i);
+          startPright = getP(i + 1);
+          $document.on("mousemove", mousemove);
+          return $document.on("mouseup", mouseup);
+        });
+      };
+      for (i = j = 0, len = ref.length; j < len; i = ++j) {
+        mv = ref[i];
+        fn(mv, i);
+      }
+      return scope.$watch("model", updatePositions, true);
+    }
+  };
+});
+
+app.controller("Ctrl", function ($scope) {
+  $scope.probs = [
+      {
+        p: .1
+      }, {
+        p: .5
+      }, {
+        p: .4
+      }
+  ];
+  return $scope.otherProbs = [3, 3, 4];
+});
+

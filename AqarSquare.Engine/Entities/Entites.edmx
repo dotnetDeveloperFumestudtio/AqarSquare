@@ -246,6 +246,7 @@
           <Property Name="IsPublished" Type="bit" />
           <Property Name="ContractDate" Type="datetime" />
           <Property Name="ContactValue" Type="int" />
+          <Property Name="Image" Type="nvarchar" MaxLength="300" />
         </EntityType>
         <EntityType Name="PropertyType">
           <Key>
@@ -600,7 +601,6 @@
           <EntitySet Name="PhotoSessions" EntityType="AqarSquaresModel.PhotoSession" />
           <EntitySet Name="UserContacts" EntityType="AqarSquaresModel.UserContact" />
           <EntitySet Name="SystemUsers" EntityType="AqarSquaresModel.SystemUser" />
-          <EntitySet Name="Properties" EntityType="AqarSquaresModel.Property" />
           <EntitySet Name="Roles" EntityType="AqarSquaresModel.Role" />
           <EntitySet Name="Users_Role" EntityType="AqarSquaresModel.Users_Role" />
           <EntitySet Name="Image360" EntityType="AqarSquaresModel.Image360" />
@@ -610,6 +610,7 @@
           <EntitySet Name="ImageGardens" EntityType="AqarSquaresModel.ImageGarden" />
           <EntitySet Name="ImagePools" EntityType="AqarSquaresModel.ImagePool" />
           <EntitySet Name="ImageReceptions" EntityType="AqarSquaresModel.ImageReception" />
+          <EntitySet Name="Properties" EntityType="AqarSquaresModel.Property" />
         </EntityContainer>
         <EntityType Name="ContactU">
           <Key>
@@ -711,54 +712,6 @@
           <Property Name="UserType" Type="Int32" />
           <Property Name="UniqueId" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
           <Property Name="UserImage" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="Property">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
-          <Property Name="TitleAr" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
-          <Property Name="UserId" Type="Int32" />
-          <Property Name="Approved" Type="Boolean" />
-          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="DescriptionAr" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="AddressAr" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Price" Type="Int32" />
-          <Property Name="Discount" Type="Int32" />
-          <Property Name="DiscountValue" Type="Int32" />
-          <Property Name="RoomsNo" Type="Int32" />
-          <Property Name="BathroomNo" Type="Int32" />
-          <Property Name="Floor" Type="Int32" />
-          <Property Name="PropertyId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="PropertyType" Type="Int32" />
-          <Property Name="BedroomNo" Type="Int32" />
-          <Property Name="ReceptionNo" Type="Int32" />
-          <Property Name="Area" Type="Int32" />
-          <Property Name="Space" Type="Int32" />
-          <Property Name="Lift" Type="Boolean" />
-          <Property Name="Balacony" Type="Boolean" />
-          <Property Name="Garden" Type="Boolean" />
-          <Property Name="Garage" Type="Boolean" />
-          <Property Name="Pool" Type="Boolean" />
-          <Property Name="AirCondtion" Type="Boolean" />
-          <Property Name="Currency" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
-          <Property Name="CurrencyKey" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <Property Name="CreatedBy" Type="Int32" />
-          <Property Name="ApprovedBy" Type="Int32" />
-          <Property Name="ApprovedDate" Type="DateTime" Precision="3" />
-          <Property Name="Long" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
-          <Property Name="Late" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
-          <Property Name="ContractType" Type="Int32" />
-          <Property Name="UserInCharge" Type="Int32" />
-          <Property Name="IsDelete" Type="Boolean" />
-          <Property Name="IsAqarContract" Type="Int32" />
-          <Property Name="IsNotAqarContract" Type="Int32" />
-          <Property Name="IsPublished" Type="Boolean" />
-          <Property Name="ContractDate" Type="DateTime" Precision="3" />
-          <Property Name="ContactValue" Type="Int32" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -864,6 +817,55 @@
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="CreatedBy" Type="Int32" />
           <Property Name="Thumb" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Property">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="TitleAr" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="Approved" Type="Boolean" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DescriptionAr" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AddressAr" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Int32" />
+          <Property Name="Discount" Type="Int32" />
+          <Property Name="DiscountValue" Type="Int32" />
+          <Property Name="RoomsNo" Type="Int32" />
+          <Property Name="BathroomNo" Type="Int32" />
+          <Property Name="Floor" Type="Int32" />
+          <Property Name="PropertyId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PropertyType" Type="Int32" />
+          <Property Name="BedroomNo" Type="Int32" />
+          <Property Name="ReceptionNo" Type="Int32" />
+          <Property Name="Area" Type="Int32" />
+          <Property Name="Space" Type="Int32" />
+          <Property Name="Lift" Type="Boolean" />
+          <Property Name="Balacony" Type="Boolean" />
+          <Property Name="Garden" Type="Boolean" />
+          <Property Name="Garage" Type="Boolean" />
+          <Property Name="Pool" Type="Boolean" />
+          <Property Name="AirCondtion" Type="Boolean" />
+          <Property Name="Currency" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="CurrencyKey" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="ApprovedBy" Type="Int32" />
+          <Property Name="ApprovedDate" Type="DateTime" Precision="3" />
+          <Property Name="Long" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Late" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="ContractType" Type="Int32" />
+          <Property Name="UserInCharge" Type="Int32" />
+          <Property Name="IsDelete" Type="Boolean" />
+          <Property Name="IsAqarContract" Type="Int32" />
+          <Property Name="IsNotAqarContract" Type="Int32" />
+          <Property Name="IsPublished" Type="Boolean" />
+          <Property Name="ContractDate" Type="DateTime" Precision="3" />
+          <Property Name="ContactValue" Type="Int32" />
+          <Property Name="Image" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1134,55 +1136,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Properties">
-            <EntityTypeMapping TypeName="AqarSquaresModel.Property">
-              <MappingFragment StoreEntitySet="Property">
-                <ScalarProperty Name="ContactValue" ColumnName="ContactValue" />
-                <ScalarProperty Name="ContractDate" ColumnName="ContractDate" />
-                <ScalarProperty Name="IsPublished" ColumnName="IsPublished" />
-                <ScalarProperty Name="IsNotAqarContract" ColumnName="IsNotAqarContract" />
-                <ScalarProperty Name="IsAqarContract" ColumnName="IsAqarContract" />
-                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
-                <ScalarProperty Name="UserInCharge" ColumnName="UserInCharge" />
-                <ScalarProperty Name="ContractType" ColumnName="ContractType" />
-                <ScalarProperty Name="Late" ColumnName="Late" />
-                <ScalarProperty Name="Long" ColumnName="Long" />
-                <ScalarProperty Name="ApprovedDate" ColumnName="ApprovedDate" />
-                <ScalarProperty Name="ApprovedBy" ColumnName="ApprovedBy" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CurrencyKey" ColumnName="CurrencyKey" />
-                <ScalarProperty Name="Currency" ColumnName="Currency" />
-                <ScalarProperty Name="AirCondtion" ColumnName="AirCondtion" />
-                <ScalarProperty Name="Pool" ColumnName="Pool" />
-                <ScalarProperty Name="Garage" ColumnName="Garage" />
-                <ScalarProperty Name="Garden" ColumnName="Garden" />
-                <ScalarProperty Name="Balacony" ColumnName="Balacony" />
-                <ScalarProperty Name="Lift" ColumnName="Lift" />
-                <ScalarProperty Name="Space" ColumnName="Space" />
-                <ScalarProperty Name="Area" ColumnName="Area" />
-                <ScalarProperty Name="ReceptionNo" ColumnName="ReceptionNo" />
-                <ScalarProperty Name="BedroomNo" ColumnName="BedroomNo" />
-                <ScalarProperty Name="PropertyType" ColumnName="PropertyType" />
-                <ScalarProperty Name="PropertyId" ColumnName="PropertyId" />
-                <ScalarProperty Name="Floor" ColumnName="Floor" />
-                <ScalarProperty Name="BathroomNo" ColumnName="BathroomNo" />
-                <ScalarProperty Name="RoomsNo" ColumnName="RoomsNo" />
-                <ScalarProperty Name="DiscountValue" ColumnName="DiscountValue" />
-                <ScalarProperty Name="Discount" ColumnName="Discount" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="AddressAr" ColumnName="AddressAr" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="DescriptionAr" ColumnName="DescriptionAr" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Approved" ColumnName="Approved" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="TitleAr" ColumnName="TitleAr" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Roles">
             <EntityTypeMapping TypeName="AqarSquaresModel.Role">
               <MappingFragment StoreEntitySet="Role">
@@ -1293,6 +1246,56 @@
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="PropertyId" ColumnName="PropertyId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Properties">
+            <EntityTypeMapping TypeName="AqarSquaresModel.Property">
+              <MappingFragment StoreEntitySet="Property">
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="ContactValue" ColumnName="ContactValue" />
+                <ScalarProperty Name="ContractDate" ColumnName="ContractDate" />
+                <ScalarProperty Name="IsPublished" ColumnName="IsPublished" />
+                <ScalarProperty Name="IsNotAqarContract" ColumnName="IsNotAqarContract" />
+                <ScalarProperty Name="IsAqarContract" ColumnName="IsAqarContract" />
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="UserInCharge" ColumnName="UserInCharge" />
+                <ScalarProperty Name="ContractType" ColumnName="ContractType" />
+                <ScalarProperty Name="Late" ColumnName="Late" />
+                <ScalarProperty Name="Long" ColumnName="Long" />
+                <ScalarProperty Name="ApprovedDate" ColumnName="ApprovedDate" />
+                <ScalarProperty Name="ApprovedBy" ColumnName="ApprovedBy" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CurrencyKey" ColumnName="CurrencyKey" />
+                <ScalarProperty Name="Currency" ColumnName="Currency" />
+                <ScalarProperty Name="AirCondtion" ColumnName="AirCondtion" />
+                <ScalarProperty Name="Pool" ColumnName="Pool" />
+                <ScalarProperty Name="Garage" ColumnName="Garage" />
+                <ScalarProperty Name="Garden" ColumnName="Garden" />
+                <ScalarProperty Name="Balacony" ColumnName="Balacony" />
+                <ScalarProperty Name="Lift" ColumnName="Lift" />
+                <ScalarProperty Name="Space" ColumnName="Space" />
+                <ScalarProperty Name="Area" ColumnName="Area" />
+                <ScalarProperty Name="ReceptionNo" ColumnName="ReceptionNo" />
+                <ScalarProperty Name="BedroomNo" ColumnName="BedroomNo" />
+                <ScalarProperty Name="PropertyType" ColumnName="PropertyType" />
+                <ScalarProperty Name="PropertyId" ColumnName="PropertyId" />
+                <ScalarProperty Name="Floor" ColumnName="Floor" />
+                <ScalarProperty Name="BathroomNo" ColumnName="BathroomNo" />
+                <ScalarProperty Name="RoomsNo" ColumnName="RoomsNo" />
+                <ScalarProperty Name="DiscountValue" ColumnName="DiscountValue" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="AddressAr" ColumnName="AddressAr" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="DescriptionAr" ColumnName="DescriptionAr" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Approved" ColumnName="Approved" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="TitleAr" ColumnName="TitleAr" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

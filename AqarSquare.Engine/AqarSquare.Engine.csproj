@@ -119,7 +119,7 @@
     <Compile Include="BusinessEntities\BackEnd\SystemUserBackend.cs" />
     <Compile Include="BusinessEntities\BackEnd\UserRole.cs" />
     <Compile Include="BusinessEntities\BusinessEntityBase.cs" />
-    <Compile Include="BusinessEntities\FrontEnd\SystemUserFrontEnd.cs" />
+    <Compile Include="BusinessEntities\FrontEnd\CityFrontEnd.cs" />
     <Compile Include="BusinessEntities\HeaderData.cs" />
     <Compile Include="EngineManager.cs" />
     <Compile Include="Entities\City.cs">

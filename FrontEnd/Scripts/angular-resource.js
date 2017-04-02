@@ -82,7 +82,7 @@ function shallowClearAndCopy(src, dst) {
  * Requires the {@link ngResource `ngResource`} module to be installed.
  *
  * By default, trailing slashes will be stripped from the calculated URLs,
- * which can pose problems with server backends that do not expect that
+ * which can pose problems with server FrontEnds that do not expect that
  * behavior.  This can be disabled by configuring the `$resourceProvider` like
  * this:
  *

@@ -45,7 +45,6 @@ namespace AqarSquare.Engine.Entities
         public virtual DbSet<PhotoSession> PhotoSessions { get; set; }
         public virtual DbSet<UserContact> UserContacts { get; set; }
         public virtual DbSet<SystemUser> SystemUsers { get; set; }
-        public virtual DbSet<Property> Properties { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<Users_Role> Users_Role { get; set; }
         public virtual DbSet<Image360> Image360 { get; set; }
@@ -55,5 +54,6 @@ namespace AqarSquare.Engine.Entities
         public virtual DbSet<ImageGarden> ImageGardens { get; set; }
         public virtual DbSet<ImagePool> ImagePools { get; set; }
         public virtual DbSet<ImageReception> ImageReceptions { get; set; }
+        public virtual DbSet<Property> Properties { get; set; }
     }
 }

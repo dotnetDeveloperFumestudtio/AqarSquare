@@ -25,7 +25,6 @@
         <EntityTypeShape EntityType="AqarSquaresModel.PhotoSession" Width="1.5" PointX="5.375" PointY="15.75" />
         <EntityTypeShape EntityType="AqarSquaresModel.UserContact" Width="1.5" PointX="15.375" PointY="7.75" />
         <EntityTypeShape EntityType="AqarSquaresModel.SystemUser" Width="1.5" PointX="15.375" PointY="11.75" />
-        <EntityTypeShape EntityType="AqarSquaresModel.Property" Width="1.5" PointX="0.75" PointY="15.75" />
         <EntityTypeShape EntityType="AqarSquaresModel.Role" Width="1.5" PointX="0.75" PointY="6.75" />
         <EntityTypeShape EntityType="AqarSquaresModel.Users_Role" Width="1.5" PointX="2.75" PointY="6.75" />
         <EntityTypeShape EntityType="AqarSquaresModel.Image360" Width="1.5" PointX="11.375" PointY="12.75" />
@@ -35,6 +34,7 @@
         <EntityTypeShape EntityType="AqarSquaresModel.ImageGarden" Width="1.5" PointX="13.375" PointY="16.75" />
         <EntityTypeShape EntityType="AqarSquaresModel.ImagePool" Width="1.5" PointX="15.375" PointY="16.75" />
         <EntityTypeShape EntityType="AqarSquaresModel.ImageReception" Width="1.5" PointX="17.375" PointY="0.75" />
+        <EntityTypeShape EntityType="AqarSquaresModel.Property" Width="1.5" PointX="0.75" PointY="15.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

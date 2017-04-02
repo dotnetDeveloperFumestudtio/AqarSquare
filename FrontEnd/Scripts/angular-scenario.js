@@ -12316,7 +12316,7 @@ function toDebugString(obj) {
   $HttpProvider,
   $HttpParamSerializerProvider,
   $HttpParamSerializerJQLikeProvider,
-  $HttpBackendProvider,
+  $HttpFrontEndProvider,
   $xhrFactoryProvider,
   $LocationProvider,
   $LogProvider,
@@ -12477,7 +12477,7 @@ function publishExternalAPI(angular) {
         $http: $HttpProvider,
         $httpParamSerializer: $HttpParamSerializerProvider,
         $httpParamSerializerJQLike: $HttpParamSerializerJQLikeProvider,
-        $httpBackend: $HttpBackendProvider,
+        $httpFrontEnd: $HttpFrontEndProvider,
         $xhrFactory: $xhrFactoryProvider,
         $location: $LocationProvider,
         $log: $LogProvider,
@@ -20531,8 +20531,8 @@ function $HttpProvider() {
    **/
   var interceptorFactories = this.interceptors = [];
 
-  this.$get = ['$httpBackend', '$$cookieReader', '$cacheFactory', '$rootScope', '$q', '$injector',
-      function($httpBackend, $$cookieReader, $cacheFactory, $rootScope, $q, $injector) {
+  this.$get = ['$httpFrontEnd', '$$cookieReader', '$cacheFactory', '$rootScope', '$q', '$injector',
+      function($httpFrontEnd, $$cookieReader, $cacheFactory, $rootScope, $q, $injector) {
 
     var defaultCache = $cacheFactory('$http');
 
@@ -20558,7 +20558,7 @@ function $HttpProvider() {
      * @ngdoc service
      * @kind function
      * @name $http
-     * @requires ng.$httpBackend
+     * @requires ng.$httpFrontEnd
      * @requires $cacheFactory
      * @requires $rootScope
      * @requires $q
@@ -20570,7 +20570,7 @@ function $HttpProvider() {
      * object or via [JSONP](http://en.wikipedia.org/wiki/JSONP).
      *
      * For unit testing applications that use `$http` service, see
-     * {@link ngMock.$httpBackend $httpBackend mock}.
+     * {@link ngMock.$httpFrontEnd $httpFrontEnd mock}.
      *
      * For a higher level of abstraction, please check out the {@link ngResource.$resource
      * $resource} service.
@@ -20640,13 +20640,13 @@ function $HttpProvider() {
      *
      * ## Writing Unit Tests that use $http
      * When unit testing (using {@link ngMock ngMock}), it is necessary to call
-     * {@link ngMock.$httpBackend#flush $httpBackend.flush()} to flush each pending
+     * {@link ngMock.$httpFrontEnd#flush $httpFrontEnd.flush()} to flush each pending
      * request using trained responses.
      *
      * ```
-     * $httpBackend.expectGET(...);
+     * $httpFrontEnd.expectGET(...);
      * $http.get(...);
-     * $httpBackend.flush();
+     * $httpFrontEnd.flush();
      * ```
      *
      * ## Deprecation Notice
@@ -20899,7 +20899,7 @@ function $HttpProvider() {
      * - [XSRF](http://en.wikipedia.org/wiki/Cross-site_request_forgery)
      *
      * Both server and the client must cooperate in order to eliminate these threats. Angular comes
-     * pre-configured with strategies that address these issues, but for this to work backend server
+     * pre-configured with strategies that address these issues, but for this to work FrontEnd server
      * cooperation is required.
      *
      * ### JSON Vulnerability Protection
@@ -21372,7 +21372,7 @@ function $HttpProvider() {
      * Makes the request.
      *
      * !!! ACCESSES CLOSURE VARS:
-     * $httpBackend, defaults, $log, $rootScope, defaultCache, $http.pendingRequests
+     * $httpFrontEnd, defaults, $log, $rootScope, defaultCache, $http.pendingRequests
      */
     function sendReq(config, reqData) {
       var deferred = $q.defer(),
@@ -21415,7 +21415,7 @@ function $HttpProvider() {
 
 
       // if we won't have the response in cache, set the xsrf headers and
-      // send the request to the backend
+      // send the request to the FrontEnd
       if (isUndefined(cachedResp)) {
         var xsrfValue = urlIsSameOrigin(config.url)
             ? $$cookieReader()[config.xsrfCookieName || defaults.xsrfCookieName]
@@ -21424,7 +21424,7 @@ function $HttpProvider() {
           reqHeaders[(config.xsrfHeaderName || defaults.xsrfHeaderName)] = xsrfValue;
         }
 
-        $httpBackend(config.method, url, reqData, done, reqHeaders, config.timeout,
+        $httpFrontEnd(config.method, url, reqData, done, reqHeaders, config.timeout,
             config.withCredentials, config.responseType,
             createApplyHandlers(config.eventHandlers),
             createApplyHandlers(config.uploadEventHandlers));
@@ -21456,7 +21456,7 @@ function $HttpProvider() {
 
 
       /**
-       * Callback registered to $httpBackend():
+       * Callback registered to $httpFrontEnd():
        *  - caches the response if desired
        *  - resolves the raw $http promise
        *  - calls $apply
@@ -21551,28 +21551,28 @@ function $xhrFactoryProvider() {
 
 /**
  * @ngdoc service
- * @name $httpBackend
+ * @name $httpFrontEnd
  * @requires $window
  * @requires $document
  * @requires $xhrFactory
  *
  * @description
- * HTTP backend used by the {@link ng.$http service} that delegates to
+ * HTTP FrontEnd used by the {@link ng.$http service} that delegates to
  * XMLHttpRequest object or JSONP and deals with browser incompatibilities.
  *
  * You should never need to use this service directly, instead use the higher-level abstractions:
  * {@link ng.$http $http} or {@link ngResource.$resource $resource}.
  *
- * During testing this implementation is swapped with {@link ngMock.$httpBackend mock
- * $httpBackend} which can be trained with responses.
+ * During testing this implementation is swapped with {@link ngMock.$httpFrontEnd mock
+ * $httpFrontEnd} which can be trained with responses.
  */
-function $HttpBackendProvider() {
+function $HttpFrontEndProvider() {
   this.$get = ['$browser', '$window', '$document', '$xhrFactory', function($browser, $window, $document, $xhrFactory) {
-    return createHttpBackend($browser, $xhrFactory, $browser.defer, $window.angular.callbacks, $document[0]);
+    return createHttpFrontEnd($browser, $xhrFactory, $browser.defer, $window.angular.callbacks, $document[0]);
   }];
 }
 
-function createHttpBackend($browser, createXhr, $browserDefer, callbacks, rawDocument) {
+function createHttpFrontEnd($browser, createXhr, $browserDefer, callbacks, rawDocument) {
   // TODO(vojta): fix the signature
   return function(method, url, post, callback, headers, timeout, withCredentials, responseType, eventHandlers, uploadEventHandlers) {
     $browser.$$incOutstandingRequestCount();

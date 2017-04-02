@@ -1,838 +1,1006 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aqar Square Dashboard</title>
-  <link rel="icon" type="image/png" sizes="32x32" href="Images/aqar/1/favicon-32x32.png">
 
+  
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+  <title>Aqar Square</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="Images/aqar/1/favicon-32x32.png">
+  <link rel="stylesheet" href="Content/css/bootstrap.css">
+  <link rel="stylesheet" href="Content/css/materialize.css">
+  <link rel="stylesheet" href="Content/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+  <link rel="stylesheet" href="Content/css/slick.css">
+  <link rel="stylesheet" href="Content/css/slick-theme.css">
+  <link rel="stylesheet" href="Content/css/jquery.bxslider.css">
   <style>
     [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x- ng-cloak {
       display: none !important;
     }
-    /*table pager */
-    .pageSize {
-      width: 131px;
-      float: right;
-    }
-    /*highlight the disapproved property*/
-    .test {
-      background-color: #9dbdd2 !important;
-    }
-
-    .counter {
-      border: 2px solid #1c84c6;
-      border-radius: 51%;
-      height: 30px;
-      width: 30px;
-      line-height: 26px;
-      text-align: center;
-      float: right;
-      margin-top: -5px;
-    }
-
-    .thumImg {
-      width: 100px;
-      height: 100px;
-    }
-
-    .list {
-      list-style: none outside none;
-      margin: 10px 0 30px;
-    }
-
-    .apps-container {
-      border: 2px dotted #2ec1d9;
-      margin: 10px 10px 0 0;
-      padding: 5px;
-      min-width: 200px;
-      min-height: 50px;
-      border-radius: 5px;
-      -webkit-border-radius: 5px;
-      -moz-border-radius: 5px;
-    }
-
-    .app {
-      padding: 5px 10px;
-      margin: 5px 0;
-      border: 2px solid #5b6681;
-      border-radius: 5px;
-      background-color: rgba(51,122,183,.65);
-      font-size: 1.1em;
-      font-weight: bold;
-      text-align: center;
-      cursor: move;
-    }
-
-
-    /***  Extra ***/
-
-    /*body {
-            font-family: Verdana, 'Trebuchet ms', Tahoma;
-          }*/
-
-    .logList {
-      margin-top: 58px;
-      width: 250px;
-      min-height: 300px;
-      padding: 5px 15px;
-      border: 3px solid #475d6f;
-      border-radius: 15px;
-      color: #7aa8d0;
-      font-weight: bold;
-    }
-
-    .logItem {
-      margin-bottom: 10px;
-    }
-
-    .logList:before {
-      content: 'log';
-      padding: 0 5px;
-      position: relative;
-      top: -1.1em;
-      background-color: #FFF;
-    }
-
-    /*.container {
-            width: 750px;
-            margin: auto;
-          }
-      */
-    h2 {
-      text-align: center;
-    }
-
-    .floatleft {
-      float: left;
-    }
-
-    .floatright {
-      float: right;
-    }
-
-    .clear {
-      clear: both;
-    }
-
-    .iconsthumb {
-      width: 30px;
-      height: 30px;
-    }
-
-
-
-
-    .datetimepicker {
-      width: 400px;
-    }
-
-    .validateError {
-      color: red;
-    }
-
-    .multiSelect {
-      overflow: auto;
-      width: 600px;
-    }
-
-      .multiSelect .mselect {
-        margin-right: 20px;
-        float: left;
-        width: 200px;
-      }
-
-      .multiSelect .text {
-        clear: both;
-        font-size: 11px;
-      }
-
-      .multiSelect label::after {
-        content: ":";
-      }
-
-    .btn.mover {
-      display: block;
-      margin-top: 25px;
-      vertical-align: top;
-    }
-
-      .btn.mover.left {
-        padding: 4px 8px 4px 8px;
-        background-color: #009900;
-        border-color: #008400;
-      }
-
-      .btn.mover.right {
-        margin-top: 9px;
-        padding: 4px 8px 4px 8px;
-        background-color: #009900;
-      }
-
-    .clrblk {
-      color: #000000;
-      font-size: 16px;
-      font-weight: 600;
-    }
-    /* demo css */
-
-    .fL {
-      float: left !important;
-    }
-
-    .fR {
-      float: right !important;
-    }
-
-    .width10p {
-      width: 8%;
-      padding-left: 5px;
-    }
-
-    .leftms {
-      width: 36%;
-    }
-
-    .top {
-      max-height: 350px;
-      overflow-y: auto;
-      margin-right: 30px;
-    }
-
-    /*.item, .placeholder {
-        padding: 2px;
-        width: 50px;
-        height: 20px;
-        border: 1px solid #333;
-        background: #EEE;
-      }*/
-
-    /*.placeholder {
-        background: #AEF;
-      }*/
   </style>
 
-  <link href="Content/css/bootstrap.min.css" rel="stylesheet">
-  <link href="Content/fonts/font-awesome/css/font-awesome.css" rel="stylesheet">
-  <link href="Content/css/plugins/iCheck/custom.css" rel="stylesheet">
-  <link href="Content/css/plugins/chosen/chosen.css" rel="stylesheet">
-  <link href="Content/css/plugins/colorpicker/bootstrap-colorpicker.min.css" rel="stylesheet">
-  <link href="Content/css/plugins/cropper/cropper.min.css" rel="stylesheet">
-  <link href="Content/css/plugins/switchery/switchery.css" rel="stylesheet">
-  <link href="Content/css/plugins/jasny/jasny-bootstrap.min.css" rel="stylesheet">
-  <link href="Content/css/plugins/nouslider/jquery.nouislider.css" rel="stylesheet">
-  <link href="Content/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
-  <link href="Content/css/plugins/ionRangeSlider/ion.rangeSlider.css" rel="stylesheet">
-  <link href="Content/css/plugins/ionRangeSlider/ion.rangeSlider.skinFlat.css" rel="stylesheet">
-  <link href="Content/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
-  <link href="Content/css/plugins/clockpicker/clockpicker.css" rel="stylesheet">
-  <link href="Content/css/plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet">
-  <link href="Content/css/animate.css" rel="stylesheet">
-  <link href="Content/css/style.css" rel="stylesheet">
-  <link href="Content/css/forms/kforms.css" rel="stylesheet">
-  <link href="Scripts/App/datetimepicker.css" rel="stylesheet" />
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-  <script src="/Scripts/angular.min.js"></script>
 
-  <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui/0.4.0/angular-ui.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.4/angular-messages.min.js"></script>
-
-
-  <script src="https://rawgithub.com/angular-ui/ui-sortable/master/src/sortable.js"></script>
-
-  <script src="Scripts/AngularJS/angular-ui-router.min.js"></script>
-  <script src="Scripts/AngularJS/angular-material.min.js"></script>
-  <script src="Scripts/angular-animate.js"></script>
-  <script src="Scripts/angular-ui/ui-bootstrap-tpls.js"></script>
-  <!--/* notification */-->
-  <script src="Scripts/AngularJS/angular-notify.js"></script>
-  <link href="Content/Angularcss/angular-notify.css" rel="stylesheet" />
-  <!--/* button style */-->
-  <script src="Scripts/AngularJS/UsedFiles/angular-cookies.min.js"></script>
-  <script src="Scripts/AngularJS/spin.min.js"></script>
-  <script src="Scripts/AngularJS/angular-image-dimensions.js"></script>
-  <!--/* busy pop up loading */-->
-  <!--<link href="Content/Angularcss/angular-busy.css" rel="stylesheet">
-  <link href="Content/Angularcss/gh-fork-ribbon.css" rel="stylesheet">-->
-  <script src="Scripts/AngularJS/angular-busy.min.js"></script>
-  <!--/* busy pop up loading best practice*/-->
-
-  <link rel="stylesheet" href="Content/Angularcss/angular-block-ui.min.css" />
-  <!-- After AngularJS -->
-  <script src="Scripts/AngularJS/angular-block-ui.min.js"></script>
-
-  <!--/* loading bar*/-->
-
-  <link rel='stylesheet' href='Content/Angularcss/loading-bar.min.css' type='text/css' media='all' />
-  <script type='text/javascript' src='Scripts/AngularJS/loading-bar.min.js'></script>
-
-  <!-- loadingbar -->
-  <script src="Scripts/AngularJS/loading-bar.js"></script>
-  <link href='Content/Angularcss/loading-bar.css' rel='stylesheet' />
-
-
-  <script src="Scripts/AngularJS/angular-translate.min.js"></script>
-
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/ngstorage/0.3.6/ngStorage.min.js"></script>
-  <link href="Content/Angularcss/sweetalert.css" rel="stylesheet" />
-  <script src="Scripts/AngularJS/sweetalert-dev.js"></script>
-  <!-- Main filessssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss -->
-  <link href="Scripts/AngularJS/angular-moment-picker.min.css" rel="stylesheet" />
-  <script src="Scripts/AngularJS/angular-moment-picker.min.js"></script>
-
-  <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyB3wGgcIinZF1DW9oiwSCG8JjGQC-nPutA"></script>
-
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular-sanitize.min.js"></script>
-  <script src="https://rawgit.com/allenhwkim/angularjs-google-maps/master/build/scripts/ng-map.js"></script>
-
-  <script src="Scripts/AngularJS/loginApp.js"></script>
-  <script src="Scripts/AngularJS/userApp.js"></script>
-  <script src="Scripts/AngularJS/messegeApp.js"></script>
-  <script src="Scripts/AngularJS/paging.js"></script>
 
 </head>
-<body>
-  <div id="wrapper">
-    <div ng-app="angapp" ng-controller="homeCtrl as hc">
-      <nav class="navbar-default navbar-static-side fixed-menu" role="navigation">
-        <div class="sidebar-collapse">
-          <div id="hover-menu"></div>
-          <ul class="nav metismenu" id="side-menu">
-            <li>
-              <div class="logopanel" style="margin-left: 0px; z-index: 99999">
-                <div class="profile-element">
-                  <a href="index.html">
-                    <img src="Images/aqar/try1.png" />
-                  </a>
-                </div>
-                <div class="logo-element">
+<body ng-app="aqarapp"  >
 
-                  <img src="Images/aqar/1/favicon-32x32.png" />
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="leftpanel-profile">
-                <div class="media-left">
-                  <a href="Index.html">
-                    <img src="Images/avatar.png" class="media-object img-circle" />
-                  </a>
-                </div>
-                <div class="media-body profile-name" style="white-space: nowrap;">
-                  <h4 class="media-heading"><span ng-cloack ng-bind="AdminUserName"></span> <a data-toggle="collapse" data-target="#loguserinfo" class="pull-right"><i class="fa fa-angle-down"></i></a></h4>
-                  <span ng-cloack ng-bind="AdminUserRole"></span>
-                </div>
-              </div>
-              <div class="leftpanel-userinfo collapse" id="loguserinfo" style="position: absolute; background: #3b4354!important">
-                <h5 class="sidebar-title">Address</h5>
-                <address>
-                  Egypt
-                  Cairo
-                </address>
-                <h5 class="sidebar-title">Contact</h5>
-                <ul class="list-group">
-                  <li class="list-group-item">
-                    <label class="pull-left">Email</label>
-                    <span class="pull-right" ng-cloack ng-bind="AdminEmail"> </span>
-                  </li>
-                </ul>
-              </div>
-            </li>
-            <li>
-              <!-- START : Left sidebar -->
-              <div class="nano left-sidebar">
-                <div class="nano-content">
-                  <ul class="nav nav-pills nav-stacked nav-inq">
-                    <li ui-sref="home" ui-sref-active="active">
-                      <a><i class="fa fa-home"></i> <span class="nav-label">Dashboards</span></a>
-                    </li>
+  <header>
+    <div class="slider">
+      <img src="images/banner.jpg" class="slide1">
+      <img src="images/banner2.jpg" class="slide2">
+      <img src="images/banner3.jpg" class="slide3">
+      <!--<img src="images/banner4.jpg" class="slide4">
+      <img src="images/banner5.jpg" class="slide5">
+      <img src="images/banner6.jpg" class="slide6">
+      <img src="images/banner7.jpg" class="slide7">
+      <img src="images/banner8.jpg" class="slide8">-->
+    </div>
+    <div class="overlay">
+      <a class="text-center logo">
+        <img src="images/logo.png" class="logo-center">
+      </a>
+    </div>
+    <nav class="navbar navbar-default navbar-fixed-top hov" nav>
+      <!-- /.container-fluid -->
+    </nav>
 
-                    <li class="nav-parent" restrict access="Admin">
-                      <a href="#"><i class="fa fa-laptop"></i> <span class="nav-label">Users</span></a>
-                      <ul class="children">
-
-                        <li ui-sref-active="active">
-                          <a ui-sref="user"><i class="fa fa-laptop"></i> <span class="nav-label">Admin Users</span></a>
-                        </li>
-                        <li ui-sref-active="active">
-                          <a ui-sref="tenantUser"><i class="fa fa-laptop"></i> <span class="nav-label">Tenant Users</span></a>
-                        </li>
-                      </ul>
-                    </li>
-
-                    <li ui-sref="propertyuser" ui-sref-active="active" restrict access="Admin">
-                      <a>
-                        <i class="fa fa-laptop"></i> <span class="nav-label">
-                          User Property
-                          <div class="counter"><span ng-cloack ng-bind="CountunApproved1"></span></div>
-
-                          <!--(<span ng-cloack ng-bind="CountunApproved1"> </span>)-->
-                        </span>
-                      </a>
-                    </li>
-                    <li ui-sref="propertyadmin" ui-sref-active="active" restrict access="Admin">
-                      <a><i class="fa fa-laptop"></i> <span class="nav-label">Admin Property</span></a>
-                    </li>
-
-                    <li ui-sref="city" ui-sref-active="active" restrict access="Admin">
-                      <a><i class="fa fa-laptop"></i> <span class="nav-label">city </span></a>
-                    </li>
-                    <li ui-sref="square" ui-sref-active="active" restrict access="Admin">
-                      <a><i class="fa fa-laptop"></i> <span class="nav-label">Square </span></a>
-                    </li>
-                    <li ui-sref-active="active" restrict access="Admin">
-                      <a ui-sref="contactformpage"><i class="fa fa-laptop"></i> <span class="nav-label">Contact Form</span></a>
-                    </li>
-                    <li ui-sref-active="active">
-                      <a ui-sref="reservationpage"><i class="fa fa-laptop"></i> <span class="nav-label">Intersted List</span></a>
-                    </li>
-                    <li ui-sref-active="active">
-                      <a ui-sref="photosessionpage"><i class="fa fa-laptop"></i> <span class="nav-label">Photo Session</span></a>
-                    </li>
-                    <li ui-sref-active="active" restrict access="Admin">
-                      <a ui-sref="propertytype"><i class="fa fa-laptop"></i> <span class="nav-label">Property Type</span></a>
-                    </li>
-                    <li ui-sref-active="active" restrict access="Admin">
-                      <a ui-sref="contracttype"><i class="fa fa-laptop"></i> <span class="nav-label">Contract Type</span></a>
-                    </li>
-                    <!--<li ui-sref-active="active">
-                      <a ui-sref="topten1"><i class="fa fa-laptop"></i> <span class="nav-label">Top Ten</span></a>
-                    </li>-->
-
-                    <li class="nav-parent" restrict access="Admin">
-                      <a href="#"><i class="fa fa-laptop"></i> <span class="nav-label">Settings</span></a>
-                      <ul class="children">
-                        <li><a ui-sref="contactUs">Contact Us</a></li>
-                      </ul>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <!-- END : Left sidebar -->
-            </li>
-          </ul>
-        </div>
-      </nav>
-      <div id="page-wrapper" class="gray-bg">
-        <!-- BEGIN HEADER -->
-        <div id="header">
-          <nav class="navbar navbar-fixed-top white-bg show-menu-full" id="nav" role="navigation" style="margin-bottom: 0">
-            <div class="navbar-header">
-              <!--<a class="navbar-minimalize minimalize-styl-2 btn" href="javascript:void(0)"><i class="fa fa-bars" style="font-size:27px;"></i> </a>-->
-              <form role="search" class="navbar-form-custom">
-                <div class="form-group">
-                  <div class="kform inq">
-                    <div>
-                    </div>
-                  </div>
-                </div>
-              </form>
-            </div>
-            <ul class="nav navbar-top-links navbar-right">
-              <li class="dropdown pull-right">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                  <span class="pl15" ng-cloack ng-bind="AdminUserName">  </span>
-                  <span class="caret caret-tp"></span>
-                </a>
-                <ul class="dropdown-menu animated m-t-xs">
-                  <li ui-sref="changepassword">
-                    <a class="animated animated-short fadeInUp">
-                      <i class="fa fa-inbox"></i> Change Password
-                    </a>
-                  </li>
-
-                  <li class="divider"></li>
-                  <li>
-                    <a href="login.html" class="animated animated-short fadeInUp">
-                      <i class="fa fa-sign-out"></i> Logout
-                    </a>
-                  </li>
-
-
-                </ul>
-              </li>
-            </ul>
-          </nav>
-        </div>
-        <!-- END HEADER -->
-
-        <div style="clear: both; height: 61px;"></div>
-        <div class="wrapper wrapper-content animated fadeInRight" ng-app="angapp" ng-controller="HomeController as Home">
-          <div ui-view>
-
-          </div>
-        </div>
-
-
-        <div class="footer">
-
-          <div>
-            <strong>Copyright</strong> Aqar Squares  &copy;  2017
-          </div>
-        </div>
-
-
-      </div>
+    <div side>
 
     </div>
 
-    <!-- Mainly scripts -->
-    <!--<script src="Content/js/jquery-2.1.1.js"></script>
-    <script src="Scripts/AngularJS/jquery-ui.min.js"></script>-->
+    <div class="selectors">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="options">
+              <a href="" class="act">
+                Rent
+              </a>
+              <a href="">
+                Buy
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4 col-xs-12">
+            <div class="mate-slider">
+              <div class="slide-top">
+                <div class="inner-top"></div>
+              </div>
+              <div class="carousel">
+                <a class="carousel-item" href="#one!">
+                  <h2>
+                    Furnished Apartment
+                  </h2>
+                </a>
+                <a class="carousel-item" href="#two!">
+                  <h2>
+                    Villa
+                  </h2>
+                </a>
+                <a class="carousel-item" href="#three!">
+                  <h2>
+                    content 3
+                  </h2>
+                </a>
+                <a class="carousel-item" href="#four!">
+                  <h2>
+                    content 4
+                  </h2>
+                </a>
+                <a class="carousel-item" href="#five!">
+                  <h2>
+                    content 5
+                  </h2>
+                </a>
+                <a class="carousel-item" href="#sex!">
+                  <h2>
+                    Appartment
+                  </h2>
+                </a>
+              </div>
+              <div class="slide-btm">
+                <div class="inner-btm"></div>
+              </div>
+            </div>
 
-    <script src="Content/js/bootstrap.min.js"></script>
-    <script src="Content/js/plugins/metisMenu/jquery.metisMenu.js"></script>
-    <script src="Content/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-    <!-- Custom and plugin javascript -->
-    <script src="Content/js/main.js"></script>
-    <script src="Content/js/plugins/pace/pace.min.js"></script>
-    <!-- Chosen -->
-    <script src="Content/js/plugins/chosen/chosen.jquery.js"></script>
-    <!-- JSKnob -->
-    <script src="Content/js/plugins/jsKnob/jquery.knob.js"></script>
-    <!-- Input Mask-->
-    <script src="Content/js/plugins/jasny/jasny-bootstrap.min.js"></script>
-    <!-- Date picker -->
-    <script src="Content/js/plugins/datapicker/bootstrap-datepicker.js"></script>
-    <!-- NouSlider -->
-    <!--<script src="Content/js/plugins/nouslider/jquery.nouislider.min.js"></script>-->
-    <!-- Switchery -->
-    <script src="Content/js/plugins/switchery/switchery.js"></script>
-    <!-- IonRangeSlider -->
-    <script src="Content/js/plugins/ionRangeSlider/ion.rangeSlider.min.js"></script>
-    <!-- iCheck -->
-    <script src="Content/js/plugins/iCheck/icheck.min.js"></script>
-    <!-- Color picker -->
-    <script src="Content/js/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
-    <!-- Clock picker -->
-    <script src="Content/js/plugins/clockpicker/clockpicker.js"></script>
-    <!-- Image cropper -->
-    <script src="Content/js/plugins/cropper/cropper.min.js"></script>
-    <!-- Date range use moment.js same as full calendar plugin -->
-    <script src="Content/js/plugins/fullcalendar/moment.min.js"></script>
-    <!-- Date range picker -->
-    <script src="Content/js/plugins/daterangepicker/daterangepicker.js"></script>
-    <script src="/Scripts/AngularJS/chosen.jquery.js"></script>
-    <script src="/Scripts/AngularJS/prism.js"></script>
-    <!--<script>
-      $(document).ready(function () {
-        "use strict";
+          </div>
+          <div class="col-md-3 col-xs-6">
+            <div class="cus-pad">
+              <div class="materialSelect inline empty">
+                <ul class="select">
+                  <li data-selected="true">Choose something...</li>
+                  <li data-value="0">First option</li>
+                  <li data-value="1">Second option</li>
+                  <li data-value="2">Third option</li>
+                </ul>
+                <div class="message">Please select something</div>
+              </div>
+              <div class="materialSelect inline empty">
+                <ul class="select">
+                  <li data-selected="true">Choose something...</li>
+                  <li data-value="0">First option</li>
+                  <li data-value="1">Second option</li>
+                  <li data-value="2">Third option</li>
+                </ul>
+                <div class="message">Please select something</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 col-xs-6">
+            <div class="cus-pad">
+              <div class="materialSelect inline empty">
+                <ul class="select">
+                  <li data-selected="true">Choose something...</li>
+                  <li data-value="0">First option</li>
+                  <li data-value="1">Second option</li>
+                  <li data-value="2">Third option</li>
+                </ul>
+                <div class="message">Please select something</div>
+              </div>
+              <div class="materialSelect inline empty">
+                <ul class="select">
+                  <li data-selected="true">Choose something...</li>
+                  <li data-value="0">First option</li>
+                  <li data-value="1">Second option</li>
+                  <li data-value="2">Third option</li>
+                </ul>
+                <div class="message">Please select something</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-2 col-xs-12">
+            <a href="search-result.html" class="search-button">
+              <button type="button" class="btn btn-default">Search</button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
 
-        var $inputImage = $("#inputImage");
-        if (window.FileReader) {
-          $inputImage.change(function () {
-            var fileReader = new FileReader(),
-                    files = this.files,
-                    file;
+  <div class="featured-choosen">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-xs-12">
+          <h2 class="text-center">
+            <img src="images/title-top.png">
+            <span>Featured Apartements</span>
+          </h2>
+        </div>
+      </div>
 
-            if (!files.length) {
-              return;
-            }
+      <div class="row">
+        <div class="featured-slider">
+          <div>
+            <div class="cont">
+              <div class="overlay">
+                <div class="link">
+                  <div class="to"></div>
+                  <a href="property-details.html">
+                    View Details
+                  </a>
+                  <div class="bo"></div>
+                </div>
+              </div>
+              <div class="base">
+                <span>
+                  For Rent
+                </span>
+                <img src="images/feat-1.jpg" class="img-responsive">
+              </div>
+              <div class="info">
+                <h4>
+                  Nasr City Apartement
+                </h4>
+                <p class="loc">
+                  <img src="images/location-icon.png">
+                  <span>
+                    Nasr City, Abbas Al Akkad
+                  </span>
+                </p>
+                <div class="opti">
+                  <div class="le">
+                    <img src="images/area-icon.png">
+                    <span>250 M</span>
+                  </div>
+                  <div class="ri">
+                    <img src="images/bed-icon.png">
+                    <span>3</span>
 
-            file = files[0];
+                    <img src="images/bathtub-icon.png">
+                    <span>2</span>
 
-            if (/^image\/\w+$/.test(file.type)) {
-              fileReader.readAsDataURL(file);
-              fileReader.onload = function () {
-                $inputImage.val("");
-                $image.cropper("reset", true).cropper("replace", this.result);
-              };
-            } else {
-              showMessage("Please choose an image file.");
-            }
-          });
-        } else {
-          $inputImage.addClass("hide");
-        }
+                    <img src="images/stairs-icon.png">
+                    <span>6</span>
+                  </div>
+                  <div class="clearfix"></div>
+                </div>
+                <hr>
+                <div class="opti">
+                  <div class="ri">
+                    <p>
+                      8,000 EG
+                    </p>
+                  </div>
+                  <div class="clearfix"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="cont">
+              <div class="overlay">
+                <div class="link">
+                  <div class="to"></div>
+                  <a href="property-details.html">
+                    View Details
+                  </a>
+                  <div class="bo"></div>
+                </div>
+              </div>
+              <div class="base">
+                <span>
+                  For Sale
+                </span>
+                <img src="images/feat-2.jpg" class="img-responsive">
+              </div>
+              <div class="info">
+                <h4>
+                  Nasr City Apartement
+                </h4>
+                <p class="loc">
+                  <img src="images/location-icon.png">
+                  <span>
+                    Nasr City, Abbas Al Akkad
+                  </span>
+                </p>
+                <div class="opti">
+                  <div class="le">
+                    <img src="images/area-icon.png">
+                    <span>250 M</span>
+                  </div>
+                  <div class="ri">
+                    <img src="images/bed-icon.png">
+                    <span>3</span>
 
+                    <img src="images/bathtub-icon.png">
+                    <span>2</span>
 
-        $("#rotateRight").click(function () {
-          $image.cropper("rotate", -45);
-        });
+                    <img src="images/stairs-icon.png">
+                    <span>6</span>
+                  </div>
+                  <div class="clearfix"></div>
+                </div>
+                <hr>
+                <div class="opti">
+                  <div class="ri">
+                    <p>
+                      8,000 EG
+                    </p>
+                  </div>
+                  <div class="clearfix"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="cont">
+              <div class="overlay">
+                <div class="link">
+                  <div class="to"></div>
+                  <a href="property-details.html">
+                    View Details
+                  </a>
+                  <div class="bo"></div>
+                </div>
+              </div>
+              <div class="base">
+                <span>
+                  For Rent
+                </span>
+                <img src="images/feat-3.jpg" class="img-responsive">
+              </div>
+              <div class="info">
+                <h4>
+                  Nasr City Apartement
+                </h4>
+                <p class="loc">
+                  <img src="images/location-icon.png">
+                  <span>
+                    Nasr City, Abbas Al Akkad
+                  </span>
+                </p>
+                <div class="opti">
+                  <div class="le">
+                    <img src="images/area-icon.png">
+                    <span>250 M</span>
+                  </div>
+                  <div class="ri">
+                    <img src="images/bed-icon.png">
+                    <span>3</span>
 
-        $("#setDrag").click(function () {
-          $image.cropper("setDragMode", "crop");
-        });
+                    <img src="images/bathtub-icon.png">
+                    <span>2</span>
 
-        $('#data_1 .input-group.date').datepicker({
-          todayBtn: "linked",
-          keyboardNavigation: false,
-          forceParse: false,
-          calendarWeeks: true,
-          autoclose: true
-        });
+                    <img src="images/stairs-icon.png">
+                    <span>6</span>
+                  </div>
+                  <div class="clearfix"></div>
+                </div>
+                <hr>
+                <div class="opti">
+                  <div class="ri">
+                    <p>
+                      8,000 EG
+                    </p>
+                  </div>
+                  <div class="clearfix"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="cont">
+              <div class="overlay">
+                <div class="link">
+                  <div class="to"></div>
+                  <a href="property-details.html">
+                    View Details
+                  </a>
+                  <div class="bo"></div>
+                </div>
+              </div>
+              <div class="base">
+                <span>
+                  For Sale
+                </span>
+                <img src="images/feat-4.jpg" class="img-responsive">
+              </div>
+              <div class="info">
+                <h4>
+                  Nasr City Apartement
+                </h4>
+                <p class="loc">
+                  <img src="images/location-icon.png">
+                  <span>
+                    Nasr City, Abbas Al Akkad
+                  </span>
+                </p>
+                <div class="opti">
+                  <div class="le">
+                    <img src="images/area-icon.png">
+                    <span>250 M</span>
+                  </div>
+                  <div class="ri">
+                    <img src="images/bed-icon.png">
+                    <span>3</span>
 
-        $('#data_2 .input-group.date').datepicker({
-          startView: 1,
-          todayBtn: "linked",
-          keyboardNavigation: false,
-          forceParse: false,
-          autoclose: true,
-          format: "dd/mm/yyyy"
-        });
+                    <img src="images/bathtub-icon.png">
+                    <span>2</span>
 
-        $('#data_3 .input-group.date').datepicker({
-          startView: 2,
-          todayBtn: "linked",
-          keyboardNavigation: false,
-          forceParse: false,
-          autoclose: true
-        });
+                    <img src="images/stairs-icon.png">
+                    <span>6</span>
+                  </div>
+                  <div class="clearfix"></div>
+                </div>
+                <hr>
+                <div class="opti">
+                  <div class="ri">
+                    <p>
+                      8,000 EG
+                    </p>
+                  </div>
+                  <div class="clearfix"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="cont">
+              <div class="overlay">
+                <div class="link">
+                  <div class="to"></div>
+                  <a href="property-details.html">
+                    View Details
+                  </a>
+                  <div class="bo"></div>
+                </div>
+              </div>
+              <div class="base">
+                <span>
+                  For Rent
+                </span>
+                <img src="images/feat-5.jpg" class="img-responsive">
+              </div>
+              <div class="info">
+                <h4>
+                  Nasr City Apartement
+                </h4>
+                <p class="loc">
+                  <img src="images/location-icon.png">
+                  <span>
+                    Nasr City, Abbas Al Akkad
+                  </span>
+                </p>
+                <div class="opti">
+                  <div class="le">
+                    <img src="images/area-icon.png">
+                    <span>250 M</span>
+                  </div>
+                  <div class="ri">
+                    <img src="images/bed-icon.png">
+                    <span>3</span>
 
-        $('#data_4 .input-group.date').datepicker({
-          minViewMode: 1,
-          keyboardNavigation: false,
-          forceParse: false,
-          autoclose: true,
-          todayHighlight: true
-        });
+                    <img src="images/bathtub-icon.png">
+                    <span>2</span>
 
-        $('#data_5 .input-daterange').datepicker({
-          keyboardNavigation: false,
-          forceParse: false,
-          autoclose: true
-        });
+                    <img src="images/stairs-icon.png">
+                    <span>6</span>
+                  </div>
+                  <div class="clearfix"></div>
+                </div>
+                <hr>
+                <div class="opti">
+                  <div class="ri">
+                    <p>
+                      8,000 EG
+                    </p>
+                  </div>
+                  <div class="clearfix"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="cont">
+              <div class="overlay">
+                <div class="link">
+                  <div class="to"></div>
+                  <a href="property-details.html">
+                    View Details
+                  </a>
+                  <div class="bo"></div>
+                </div>
+              </div>
+              <div class="base">
+                <span>
+                  For Sale
+                </span>
+                <img src="images/feat-1.jpg" class="img-responsive">
+              </div>
+              <div class="info">
+                <h4>
+                  Nasr City Apartement
+                </h4>
+                <p class="loc">
+                  <img src="images/location-icon.png">
+                  <span>
+                    Nasr City, Abbas Al Akkad
+                  </span>
+                </p>
+                <div class="opti">
+                  <div class="le">
+                    <img src="images/area-icon.png">
+                    <span>250 M</span>
+                  </div>
+                  <div class="ri">
+                    <img src="images/bed-icon.png">
+                    <span>3</span>
 
-        var elem = document.querySelector('.js-switch');
-        var switchery = new Switchery(elem, { color: '#1AB394' });
+                    <img src="images/bathtub-icon.png">
+                    <span>2</span>
 
-        var elem_2 = document.querySelector('.js-switch_2');
-        var switchery_2 = new Switchery(elem_2, { color: '#ED5565' });
+                    <img src="images/stairs-icon.png">
+                    <span>6</span>
+                  </div>
+                  <div class="clearfix"></div>
+                </div>
+                <hr>
+                <div class="opti">
+                  <div class="ri">
+                    <p>
+                      8,000 EG
+                    </p>
+                  </div>
+                  <div class="clearfix"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="cont">
+              <div class="overlay">
+                <div class="link">
+                  <div class="to"></div>
+                  <a href="property-details.html">
+                    View Details
+                  </a>
+                  <div class="bo"></div>
+                </div>
+              </div>
+              <div class="base">
+                <span>
+                  For Sale
+                </span>
+                <img src="images/feat-2.jpg" class="img-responsive">
+              </div>
+              <div class="info">
+                <h4>
+                  Nasr City Apartement
+                </h4>
+                <p class="loc">
+                  <img src="images/location-icon.png">
+                  <span>
+                    Nasr City, Abbas Al Akkad
+                  </span>
+                </p>
+                <div class="opti">
+                  <div class="le">
+                    <img src="images/area-icon.png">
+                    <span>250 M</span>
+                  </div>
+                  <div class="ri">
+                    <img src="images/bed-icon.png">
+                    <span>3</span>
 
-        var elem_3 = document.querySelector('.js-switch_3');
-        var switchery_3 = new Switchery(elem_3, { color: '#1AB394' });
+                    <img src="images/bathtub-icon.png">
+                    <span>2</span>
 
-        $('.i-checks').iCheck({
-          checkboxClass: 'icheckbox_square-green',
-          radioClass: 'iradio_square-green'
-        });
+                    <img src="images/stairs-icon.png">
+                    <span>6</span>
+                  </div>
+                  <div class="clearfix"></div>
+                </div>
+                <hr>
+                <div class="opti">
+                  <div class="ri">
+                    <p>
+                      8,000 EG
+                    </p>
+                  </div>
+                  <div class="clearfix"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="cont">
+              <div class="overlay">
+                <div class="link">
+                  <div class="to"></div>
+                  <a href="property-details.html">
+                    View Details
+                  </a>
+                  <div class="bo"></div>
+                </div>
+              </div>
+              <div class="base">
+                <span>
+                  For Rent
+                </span>
+                <img src="images/feat-3.jpg" class="img-responsive">
+              </div>
+              <div class="info">
+                <h4>
+                  Nasr City Apartement
+                </h4>
+                <p class="loc">
+                  <img src="images/location-icon.png">
+                  <span>
+                    Nasr City, Abbas Al Akkad
+                  </span>
+                </p>
+                <div class="opti">
+                  <div class="le">
+                    <img src="images/area-icon.png">
+                    <span>250 M</span>
+                  </div>
+                  <div class="ri">
+                    <img src="images/bed-icon.png">
+                    <span>3</span>
 
-        $('input[name="daterange"]').daterangepicker();
+                    <img src="images/bathtub-icon.png">
+                    <span>2</span>
 
-        $('#reportrange span').html(moment().subtract(29, 'days').format('MMMM D, YYYY') + ' - ' + moment().format('MMMM D, YYYY'));
+                    <img src="images/stairs-icon.png">
+                    <span>6</span>
+                  </div>
+                  <div class="clearfix"></div>
+                </div>
+                <hr>
+                <div class="opti">
+                  <div class="le">
+                    <img src="images/fav-icon.png">
+                    <img src="images/share-icon.png">
+                  </div>
+                  <div class="ri">
+                    <p>
+                      8,000 EG
+                    </p>
+                  </div>
+                  <div class="clearfix"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="cont">
+              <div class="overlay">
+                <div class="link">
+                  <div class="to"></div>
+                  <a href="property-details.html">
+                    View Details
+                  </a>
+                  <div class="bo"></div>
+                </div>
+              </div>
+              <div class="base">
+                <span>
+                  For Sale
+                </span>
+                <img src="images/feat-4.jpg" class="img-responsive">
+              </div>
+              <div class="info">
+                <h4>
+                  Nasr City Apartement
+                </h4>
+                <p class="loc">
+                  <img src="images/location-icon.png">
+                  <span>
+                    Nasr City, Abbas Al Akkad
+                  </span>
+                </p>
+                <div class="opti">
+                  <div class="le">
+                    <img src="images/area-icon.png">
+                    <span>250 M</span>
+                  </div>
+                  <div class="ri">
+                    <img src="images/bed-icon.png">
+                    <span>3</span>
 
-        $('#reportrange').daterangepicker({
-          format: 'MM/DD/YYYY',
-          startDate: moment().subtract(29, 'days'),
-          endDate: moment(),
-          minDate: '01/01/2012',
-          maxDate: '12/31/2015',
-          dateLimit: { days: 60 },
-          showDropdowns: true,
-          showWeekNumbers: true,
-          timePicker: false,
-          timePickerIncrement: 1,
-          timePicker12Hour: true,
-          ranges: {
-            'Today': [moment(), moment()],
-            'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-            'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-            'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-            'This Month': [moment().startOf('month'), moment().endOf('month')],
-            'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-          },
-          opens: 'right',
-          drops: 'down',
-          buttonClasses: ['btn', 'btn-sm'],
-          applyClass: 'btn-primary',
-          cancelClass: 'btn-default',
-          separator: ' to ',
-          locale: {
-            applyLabel: 'Submit',
-            cancelLabel: 'Cancel',
-            fromLabel: 'From',
-            toLabel: 'To',
-            customRangeLabel: 'Custom',
-            daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
-            monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-            firstDay: 1
-          }
-        }, function (start, end, label) {
-          console.log(start.toISOString(), end.toISOString(), label);
-          $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-        });
+                    <img src="images/bathtub-icon.png">
+                    <span>2</span>
 
+                    <img src="images/stairs-icon.png">
+                    <span>6</span>
+                  </div>
+                  <div class="clearfix"></div>
+                </div>
+                <hr>
+                <div class="opti">
+                  <div class="le">
+                    <img src="images/fav-icon.png">
+                    <img src="images/share-icon.png">
+                  </div>
+                  <div class="ri">
+                    <p>
+                      8,000 EG
+                    </p>
+                  </div>
+                  <div class="clearfix"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="cont">
+              <div class="overlay">
+                <div class="link">
+                  <div class="to"></div>
+                  <a href="property-details.html">
+                    View Details
+                  </a>
+                  <div class="bo"></div>
+                </div>
+              </div>
+              <div class="base">
+                <span>
+                  For Rent
+                </span>
+                <img src="images/feat-5.jpg" class="img-responsive">
+              </div>
+              <div class="info">
+                <h4>
+                  Nasr City Apartement
+                </h4>
+                <p class="loc">
+                  <img src="images/location-icon.png">
+                  <span>
+                    Nasr City, Abbas Al Akkad
+                  </span>
+                </p>
+                <div class="opti">
+                  <div class="le">
+                    <img src="images/area-icon.png">
+                    <span>250 M</span>
+                  </div>
+                  <div class="ri">
+                    <img src="images/bed-icon.png">
+                    <span>3</span>
 
-      });
-      var config = {
-        '.chosen-select': {},
-        '.chosen-select-deselect': { allow_single_deselect: true },
-        '.chosen-select-no-single': { disable_search_threshold: 10 },
-        '.chosen-select-no-results': { no_results_text: 'Oops, nothing found!' },
-        '.chosen-select-width': { width: "95%" }
-      }
-      for (var selector in config) {
-        $(selector).chosen(config[selector]);
-      }
+                    <img src="images/bathtub-icon.png">
+                    <span>2</span>
 
-      $("#ionrange_1").ionRangeSlider({
-        min: 0,
-        max: 5000,
-        type: 'double',
-        prefix: "$",
-        maxPostfix: "+",
-        prettify: false,
-        hasGrid: true
-      });
-
-      $("#ionrange_2").ionRangeSlider({
-        min: 0,
-        max: 10,
-        type: 'single',
-        step: 0.1,
-        postfix: " carats",
-        prettify: false,
-        hasGrid: true
-      });
-
-      $("#ionrange_3").ionRangeSlider({
-        min: -50,
-        max: 50,
-        from: 0,
-        postfix: "°",
-        prettify: false,
-        hasGrid: true
-      });
-
-      $("#ionrange_4").ionRangeSlider({
-        values: [
-            "January", "February", "March",
-            "April", "May", "June",
-            "July", "August", "September",
-            "October", "November", "December"
-        ],
-        type: 'single',
-        hasGrid: true
-      });
-
-      $("#ionrange_5").ionRangeSlider({
-        min: 10000,
-        max: 100000,
-        step: 100,
-        postfix: " km",
-        from: 55000,
-        hideMinMax: true,
-        hideFromTo: false
-      });
-
-      $(".dial").knob();
-
-
-
-
-    </script>-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.0/lodash.js"></script>
-    <!--<script src="https://rawgit.com/dotansimha/angularjs-dropdown-multiselect/master/src/angularjs-dropdown-multiselect.js"></script>-->
-    <script src="Scripts/AngularJS/angularjs-dropdown-multiselect.js"></script>
-    <!--<script src="Scripts/AngularJS/flexi-list.min.js"></script>-->
-
-    <script src="Scripts/AngularJS/UsedFiles/angular-simple-table.js" type="text/javascript"></script>
-    <!--<script src="Scripts/AngularJS/dropzone-directive.js"></script>
-    <script src="Scripts/AngularJS/dropzone.js"></script>
-    <script src="Scripts/AngularJS/dropzone.min.js"></script>-->
-    <script src="Scripts/AngularJS/ng-file-upload-shim.min.js"></script>
-    <script src="Scripts/AngularJS/ng-file-upload.min.js"></script>
-
-    <script src="Scripts/App/config.js"></script>
-    <script src="Scripts/App/app.js"></script>
-
-    <script src="Scripts/App/Home/Home.js"></script>
-    <!--<script src="Scripts/App/Reports/Reports.js"></script>-->
-    <script src="Scripts/App/Notification/Notification.js"></script>
-    <!--<script src="Scripts/App/Reports/UserNationalty/UserNationalty.js"></script>-->
-    <script src="Scripts/App/ChangePassword/ChangePassword.js"></script>
-    <script src="Scripts/App/LogIn/loginApp.js"></script>
-    <script src="Scripts/App/ContactUs/contact.js"></script>
-    <script src="Scripts/App/datetimepicker.js"></script>
-    <!--<script src="Scripts/App/ImportantNumber/important.js"></script>
-    <script src="Scripts/App/ImportantNumber/paging.js"></script>
-
-    <script src="Scripts/App/Category/Category.js"></script>
-    <script src="Scripts/App/Category/paging.js"></script>-->
-
-    <script src="Scripts/App/City/CtrlCity.js"></script>
-    <!--<script src="Scripts/App/City/Citypaging.js"></script>-->
-    <script src="Scripts/App/City/service.js"></script>
-
-    <script src="Scripts/App/Square/Controller.js"></script>
-    <script src="Scripts/App/Square/Squarepaging.js"></script>
-    <script src="Scripts/App/Square/service.js"></script>
-
-    <script src="Scripts/App/Property/CtrlPropertyAdmin.js"></script>
-    <script src="Scripts/App/Property/CtrlPropertyAdminForm.js"></script>
-    <script src="Scripts/App/Property/CtrlPropertyUser.js"></script>
-    <script src="Scripts/App/Property/CtrlPropertyDetails.js"></script>
-    <script src="Scripts/App/Property/PagingPropertyAdmin.js"></script>
-    <script src="Scripts/App/Property/PagingPropertyUser.js"></script>
-    <script src="Scripts/App/Property/service.js"></script>
-
-    <script src="Scripts/App/ContactForm/CtrlContactForm.js"></script>
-    <script src="Scripts/App/ContactForm/PagingPropertyUser.js"></script>
-
-    <script src="Scripts/App/Reservation/CtrlReservation.js"></script>
-    <script src="Scripts/App/Reservation/PagingReservation.js"></script>
-
-    <script src="Scripts/App/PhotoSession/CtrlPhotoSession.js"></script>
-    <script src="Scripts/App/PhotoSession/PagingPhotoSession.js"></script>
-
-
-    <script src="Scripts/App/User/CtrlUser.js"></script>
-    <script src="Scripts/App/TenantUser/CtrlTenantUser.js"></script>
-    <script src="Scripts/App/User/pagingUser.js"></script>
-
-    <script src="Scripts/App/PropertyType/CtrlPropertyType.js"></script>
-    <script src="Scripts/App/PropertyType/service.js"></script>
-
-
-    <script src="Scripts/App/ContractType/CtrContractType.js"></script>
-    <script src="Scripts/App/ContractType/service.js"></script>
-
-
-    <!--<script src="Scripts/App/Region/Region.js"></script>
-    <script src="Scripts/App/Region/pagingRegion.js"></script>-->
-    <!--<script src="Scripts/App/Selfie/Selfie.js"></script>
-    <script src="Scripts/App/Selfie/pagingSelfie.js"></script>-->
-    <!--<script src="Scripts/App/Panoramic/Panoramic.js"></script>
-    <script src="Scripts/App/Panoramic/pagingPanoramic.js"></script>-->
-    <!--<script src="Scripts/App/3D/Object3D.js"></script>
-    <script src="Scripts/App/3D/paging3D.js"></script>-->
-    <!--<script src="Scripts/App/UsefulLink/UsefulLink.js"></script>
-    <script src="Scripts/App/UsefulLink/pagingUsefull.js"></script>-->
-    <!--<script src="Scripts/App/Language/Language.js"></script>
-    <script src="Scripts/App/Language/pagingLanguage.js"></script>-->
-    <!--<script src="Scripts/App/Moderation/List.js"></script>
-    <script src="Scripts/App/Moderation/ListReject.js"></script>
-    <script src="Scripts/App/Moderation/ListApprove.js"></script>
-    <script src="Scripts/App/Moderation/Moderationpaging.js"></script>
-    <script src="Scripts/App/Moderation/ModerationRejectpaging.js"></script>
-    <script src="Scripts/App/Moderation/ModerationApprovepaging.js"></script>-->
-    <!--<script src="Scripts/App/Event/Event.js"></script>
-    <script src="Scripts/App/Event/pagingEvent.js"></script>-->
-    <!--<script src="Scripts/App/Events/Events.js"></script>
-    <script src="Scripts/App/Events/pagingEvents.js"></script>-->
-    <!--<script src="Scripts/App/Report/Report.js"></script>
-    <script src="Scripts/App/Report/pagingReport.js"></script>-->
-    <!--<script src="Scripts/App/Attraction/Attraction.js"></script>
-    <script src="Scripts/App/Attraction/Attractionpaging.js"></script>-->
-    <!--<script src="Scripts/App/QrCode/QrCode.js"></script>-->
-    <!--<script src="Scripts/App/TopTen/TopTen.js"></script>
-    <script src="Scripts/App/TopTen/TopTen - Copy.js"></script>
-    <script src="Scripts/App/TopTen/TopTenpaging.js"></script>-->
-    <!--<script src="Scripts/App/Image/Image.js"></script>
-    <script src="Scripts/App/Image/pagingImage.js"></script>-->
-    <!--<script src="Scripts/App/Video/Video.js"></script>
-    <script src="Scripts/App/Video/pagingVideo.js"></script>-->
-
-    <script src="Scripts/AngularJS/translation.js"></script>
-
-
-    <script src="Content/js/plugins/validate/jquery.validate.min.js"></script>
-
-
-
-
+                    <img src="images/stairs-icon.png">
+                    <span>6</span>
+                  </div>
+                  <div class="clearfix"></div>
+                </div>
+                <hr>
+                <div class="opti">
+                  <div class="le">
+                    <img src="images/fav-icon.png">
+                    <img src="images/share-icon.png">
+                  </div>
+                  <div class="ri">
+                    <p>
+                      8,000 EG
+                    </p>
+                  </div>
+                  <div class="clearfix"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+
+
+  <div class="animated-select">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-3 col-xs-6">
+          <div class="animated">
+            <img src="images/animated-option-1.jpg" class="img-responsive">
+            <div class="overlay text-center">
+              <div class="slide-top">
+                <div class="inner-top"></div>
+              </div>
+              <div class="hovers">
+                <a href="" class="base">
+                  Furnished Apartment
+                </a>
+                <a href="" class="added">
+                  Search Now
+                </a>
+              </div>
+              <div class="slide-btm">
+                <div class="inner-btm"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 col-xs-6">
+          <div class="animated">
+            <img src="images/animated-option-2.jpg" class="img-responsive">
+            <div class="overlay text-center">
+              <div class="slide-top">
+                <div class="inner-top"></div>
+              </div>
+              <div class="hovers">
+                <a href="" class="base">
+                  Furnished Apartment
+                </a>
+                <a href="" class="added">
+                  Search Now
+                </a>
+              </div>
+              <div class="slide-btm">
+                <div class="inner-btm"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 col-xs-6">
+          <div class="animated">
+            <img src="images/animated-option-3.jpg" class="img-responsive">
+            <div class="overlay text-center">
+              <div class="slide-top">
+                <div class="inner-top"></div>
+              </div>
+              <div class="hovers">
+                <a href="" class="base">
+                  Furnished Apartment
+                </a>
+                <a href="" class="added">
+                  Search Now
+                </a>
+              </div>
+              <div class="slide-btm">
+                <div class="inner-btm"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 col-xs-6">
+          <div class="animated">
+            <img src="images/animated-option-4.jpg" class="img-responsive">
+            <div class="overlay text-center">
+              <div class="slide-top">
+                <div class="inner-top"></div>
+              </div>
+              <div class="hovers">
+                <a href="" class="base">
+                  Furnished Apartment
+                </a>
+                <a href="" class="added">
+                  Search Now
+                </a>
+              </div>
+              <div class="slide-btm">
+                <div class="inner-btm"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="in-touch">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-6 col-xs-12">
+          <div class="form-mess">
+            <h4>
+              <img src="images/in-touch-top.png">
+              <span>
+                Get In Touch
+              </span>
+            </h4>
+
+            <p>
+              Drop US A Message.....
+            </p>
+
+            <form>
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Name *" required>
+              </div>
+
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Phone *" required>
+              </div>
+              <div class="form-group">
+                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email *" required>
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control mess" placeholder="Message *" required>
+              </div>
+              <button type="submit" class="btn btn-default">Send Message</button>
+            </form>
+          </div>
+        </div>
+        <div class="col-md-6 col-xs-12">
+          <div class="logo-social">
+            <div class="row">
+              <div class="col-xs-4">
+                <img src="images/logo-inline.png" class="img-responsive">
+              </div>
+              <div class="col-xs-8">
+                <div class="soc">
+                  <a href="">
+                    <i class="fa fa-facebook" aria-hidden="true"></i>
+                  </a>
+                  <a href="">
+                    <i class="fa fa-twitter" aria-hidden="true"></i>
+                  </a>
+                  <a href="">
+                    <i class="fa fa-google-plus" aria-hidden="true"></i>
+                  </a>
+                  <a href="">
+                    <i class="fa fa-linkedin" aria-hidden="true"></i>
+                  </a>
+                </div>
+              </div>
+              <div class="clearfix"></div>
+              <hr>
+            </div>
+            <p class="desc">
+              Lorem Ipsum is that it has a more-or-less normal distribution of letters,
+              as opposed to using 'Content here, content here', making it look like readable
+              English. Many desktop publishing packages and web page editors now use Lorem Ipsum
+              as their default model text, and a search for 'lorem ipsum' will uncover many web sites
+              still in their infancy.
+            </p>
+            <div class="row">
+              <div class="contact-ways cus-mar">
+                <div class="col-xs-6">
+                  <div class="row">
+                    <div class="col-xs-3">
+                      <img src="images/phone-icon.png" class="img-responsive icons">
+                    </div>
+                    <div class="col-xs-9">
+                      <span>
+                        01119002778
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-xs-6">
+                  <div class="row">
+                    <div class="col-xs-3">
+                      <img src="images/WhatsApp-icon.png" class="img-responsive icons">
+                    </div>
+                    <div class="col-xs-9">
+                      <span>
+                        01119002778
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="contact-ways">
+                <div class="col-xs-6" style="margin-bottom: 0!important;">
+                  <div class="row">
+                    <div class="col-xs-3">
+                      <img src="images/viber-icon.png" class="img-responsive icons">
+                    </div>
+
+                    <div class="col-xs-9">
+                      <span>
+                        01119002778
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-xs-6" style="margin-bottom: 0!important;">
+                  <div class="row">
+                    <div class="col-xs-3">
+                      <img src="images/mail-icon.png" class="img-responsive icons">
+                    </div>
+                    <div class="col-xs-9">
+                      <span>
+                        01119002778
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!--ng-app="angapp" ng-controller="homeCtrl as hc"--> 
+   
+
+
+  <footer footer></footer>
+
+  <script src="Content/js/jquery-1.11.3.min.js"></script>
+  <script src="Content/js/bootstrap.js"></script>
+  <script src="Content/js/slick.js"></script>
+  <script src="Content/js/jquery.bxslider.min.js"></script>
+  <script src="Content/js/materialize.js"></script>
+  <script src="Content/js/angular.min.js"></script>
+  <!--<script src="Content/js/app.js"></script>-->
+  <script src="Content/js/three.min.js"></script>
+  <script src="Content/js/photo-sphere-viewer.min.js"></script>
+  <script src="Content/js/plugin.js"></script>
+  <script src="Scripts/App/app.js"></script>
+  <script src="Scripts/AngularJS/translation.js"></script>
+
+  <script src="Scripts/AngularJS/angular-ui-router.min.js"></script>
+
+
+
+
 
 </body>
 </html>

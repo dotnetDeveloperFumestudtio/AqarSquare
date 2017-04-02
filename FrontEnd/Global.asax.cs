@@ -5,7 +5,7 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using Web_App;
 
-namespace BackEnd
+namespace FrontEnd
 {
     public class MvcApplication : System.Web.HttpApplication
     {
