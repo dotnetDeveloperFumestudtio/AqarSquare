@@ -47,7 +47,7 @@
   }
 
   angular
-      .module('angapp')
+      .module('aqar')
       .config(configtranslate) ;
 
 })();

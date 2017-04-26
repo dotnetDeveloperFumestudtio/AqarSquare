@@ -1,0 +1,317 @@
+
+<!--Header-->
+<div class="container hidden-xs">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <img src="/Images/responsButton.png">
+        </button>
+        <a class="navbar-brand" href="index.html">
+          <img src="/Images/logo-inline.png" class="img-responsive">
+        </a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="index.html">Home</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Rent<span class="caret"></span></a>
+                <ul class="dropdown-menu btm-bor">
+                    <li class="top-bor"><a href="#">Drop Down</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="#">Drop Down</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="#">Drop Down</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="#">Drop Down</a></li>
+                </ul>
+            </li>
+            <li><a href="index.html">Buy</a></li>
+            <li><a href="top-designs.html">Top Designs</a></li>
+            <li><a href="post-new-property.html">List Your Property</a></li>
+            <li><a href="contact-us.html">Contact Us </a></li>
+            <li>
+                <a href="" class="account pm-mobile-menu-trigger">
+
+                  <img src="/Images/user.png">
+            </a>
+
+            </li>
+        </ul>
+    </div><!-- /.navbar-collapse -->
+</div>
+<!--Header-->
+
+
+
+<!--Trigger Side Menu Show-->
+<script>
+    (function($) {
+
+        'use strict';
+
+        $('.pm-mobile-menu-trigger').on('click', function(e) {
+
+            if( !menuOpen ){
+
+                menuOpen = true;
+                $('body').removeClass('menu-collapsed').addClass('menu-opened');
+                $('#pm-mobile-menu-overlay').addClass('active');
+
+                //Show the neccessary menu
+                $('.pm-mobile-global-menu-container', '#pm-mobile-global-menu').addClass('active');
+
+                //Hide other menus
+                $('.pm-mobile-global-sign-in-container', '#pm-mobile-global-menu').removeClass('active');
+                $('.pm-mobile-global-registration-container', '#pm-mobile-global-menu').removeClass('active');
+
+                methods.activateCloseMenuBtn();
+
+            }
+
+            e.preventDefault();
+
+        });
+
+        $('#pm-mobile-menu-overlay').on('click', function(e) {
+
+            if( menuOpen ){
+                menuOpen = false;
+                $('body').removeClass('menu-opened').addClass('menu-collapsed');
+                $('#pm-mobile-menu-overlay').removeClass('active');
+
+                methods.hideCloseMenuBtn();
+
+            }
+
+            e.preventDefault();
+
+        });
+
+        var menuLoop = '',
+            menuOpen = false,
+            menuHover = true;
+
+        var methods = {
+
+            activateCloseMenuBtn : function(e) {
+
+                var xOffset = 20,
+                    yOffset = -20,
+                    contentWidth = $('body').width(),
+                    mouseX = 0,
+                    mouseY = 0;
+
+                // cache the selector
+                var follower = $("#pm-mobile-menu-hover-close-btn");
+                var xp = 0,
+                    yp = 0,
+                    speed = 4;
+
+                $("#pm-mobile-menu-overlay").css("cursor", "none");
+
+                $('#pm-mobile-menu-hover-close-btn').animate({
+                    'opacity' : 1
+                });
+
+                $("#pm-mobile-menu-overlay").on('mousemove mouseleave', function(e) {
+
+                    if( e.type === 'mousemove' ){
+
+                        if( menuHover === true ) {
+
+                            menuHover = false;
+                            follower.css({
+                                "opacity" : 1
+                            });
+
+                        }
+
+                        mouseX = e.pageX;
+                        mouseY = e.pageY;
+
+                        follower.css({"left" : mouseX + xOffset, "top" : mouseY + yOffset});
+
+                    } else if( e.type === 'mouseleave' ){
+
+                        menuHover = true;
+                        follower.css({
+                            "opacity" : 0
+                        });
+
+                        follower.css({"left" : 0, "top" : 0});
+
+                    } else {
+                        //
+                    }
+
+                });
+
+                /*menuLoop = setInterval(function () {
+
+                 // change 12 to alter damping higher is slower
+                 xp += ((mouseX - xp) / speed) + xOffset;
+                 yp += ((mouseY - yp) / speed) + yOffset;
+                 follower.css({left:xp, top:yp});
+
+                 }, 30);*/
+
+            },
+
+            hideCloseMenuBtn : function(e) {
+
+                $('#pm-mobile-menu-hover-close-btn').animate({
+                    'opacity' : 0
+                }, 'fast');
+
+                clearInterval(menuLoop);
+
+            }
+
+        };
+
+    })(jQuery);
+</script>
+<!--Trigger Side Menu Show-->
+
+<!--Trigger animation for side Menu-->
+<script>
+    //Trigger change active class for left menu
+    $('.links a').click(function () {
+        $(this).addClass('link-act').siblings().removeClass('link-act');
+    });
+
+    //Trigger Hover Login Button
+    $('.first .log-in').hover(
+        function () {
+            $('.ho').slideDown(1000);
+        },
+        function () {
+            $('.ho').slideUp(1000);
+        }
+    );
+
+    $('.log-show').click(function () {
+        $('.signup').slideUp(1500,function () {
+            $('.login').slideDown(1500);
+        });
+    });
+
+    $('.cus-sp').click(function () {
+        $('.login').slideUp(1500,function () {
+            $('.signup').slideDown(1500);
+        });
+    });
+
+    $('.login button ,.signup button').click(
+        function () {
+            $('.login,.signup').slideUp(1000,function () {
+                $('.first').slideUp(1000,function () {
+                    $('.pro-img').slideDown(1000,function () {
+                        $('.after-log').slideDown(1000);
+                    });
+                });
+            });
+        }
+    );
+
+
+</script>
+<!--Trigger animation for side Menu-->
+
+
+
+<!--Mob Menu-->
+
+<div class="container mob-menu visible-xs">
+
+    <div class="content">
+
+        <h2>
+          <img src="/Images/mob-logo-inline.png" class="scroll-show">
+        </h2>
+
+        <div class="header__fake">
+
+            <div class="icn__wrap">
+                <i class="icn__hamburger"></i>
+                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="58px" height="58px" viewBox="0 0 16 16" preserveAspectRatio="none">
+                    <circle cx="8" cy="8" r="6.215" transform="rotate(90 8 8)"></circle>
+                </svg>
+            </div>
+            <i class="btm__border"></i>
+
+        </div>
+
+    </div>
+
+    <div class="list-menu">
+        <ul class="list-unstyled">
+            <li><a href="index.html">Home</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Rent<span class="caret"></span></a>
+                <ul class="dropdown-menu btm-bor">
+                    <li class="top-bor"><a href="#">Drop Down</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="#">Drop Down</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="#">Drop Down</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="#">Drop Down</a></li>
+                </ul>
+            </li>
+            <li><a href="index.html">Buy</a></li>
+            <li><a href="top-designs.html">Top Designs</a></li>
+            <li><a href="post-new-property.html">List Your Property</a></li>
+            <li><a href="contact-us.html">Contact Us </a></li>
+            <li><a href="" class="account pm-mobile-menu-trigger">
+                <img src="images/user.png">
+            </a></li>
+        </ul>
+    </div>
+</div>
+
+<!--Mob Menu-->
+
+
+
+<!--Mobile Menu Animation-->
+<script>
+    if (window.innerWidth<=767)
+    {
+        $header = $('.header__fake');
+
+        $(window).scroll(function() {
+
+            var scroll = $(window).scrollTop();
+
+            if (scroll > 20) {
+                $header.addClass('animated').removeClass('fix');
+                $('.scroll-show').fadeIn();
+                $('header .overlay .logo').fadeOut();
+            } else {
+                $header.removeClass('animated').addClass('fix');
+                $('.scroll-show').fadeOut();
+                $('header .overlay .logo').fadeIn();
+            }
+
+        });
+    }
+
+</script>
+<!--Mobile Menu Animation-->
+
+<!--Mobile Menu Open And Off-->
+<script>
+    $('.icn__wrap').click(
+        function () {
+            $('.list-menu').slideToggle();
+        }
+    );
+    $('.list-menu li a').click(function () {
+        $('.list-menu').hide();
+    });
+</script>
+<!--Mobile Menu Open And Off-->

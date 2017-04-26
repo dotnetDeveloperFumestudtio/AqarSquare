@@ -1,8 +1,11 @@
 ﻿
 using System.IO;
+using System.Runtime.Serialization;
 using AqarSquare.Engine.BusinessEntities;
 using AqarSquare.Engine.BusinessEntities.BackEnd;
+using AqarSquare.Engine.BusinessEntities.FrontEnd;
 using AqarSquare.Engine.Entities;
+using AqarSquare.Engine.Helper;
 using AqarSquares;
 using System;
 using System.Collections.Generic;
@@ -806,7 +809,15 @@ namespace AqarSquare.Engine
     #endregion
 
     #region ContractType
+    public string GetContractTypeById(int? contractTypeId, string lang)
+    {
+      var obj = _context.ContractTypes.FirstOrDefault(p => p.Id == contractTypeId);
 
+      if (obj != null)
+        return (lang == "ar") ? obj.TitleAr : obj.Title;
+      else
+        return null;
+    }
     public List<ContractTypeBackend> GetAllContractType()
     {
       var contractTypeObj = _context.ContractTypes.ToList().OrderByDescending(x => x.Id);
@@ -1358,7 +1369,15 @@ namespace AqarSquare.Engine
       else
         return null;
     }
+    public string GetPropertyTypeById(int? propertyTypeId, string lang)
+    {
+      var obj = _context.PropertyTypes.FirstOrDefault(p => p.Id == propertyTypeId);
 
+      if (obj != null)
+        return (lang == "ar") ? obj.TitleAr : obj.Title;
+      else
+        return null;
+    }
     public bool IsPropertyNameAvailable(PropertyBackend keyWords)
     {
       var returnVal = false;
@@ -1412,7 +1431,7 @@ namespace AqarSquare.Engine
       Image image1 = Image.FromFile(@"D:\M-Saber\Projects\Aqar Squaers\Project\AqarSquare\BackEnd\Upload\Balacony\" + image.Image);
       Image thumb = image1.GetThumbnailImage(120, 120, () => false, IntPtr.Zero);
       thumb.Save(Path.ChangeExtension(@"D:\M-Saber\Projects\Aqar Squaers\Project\AqarSquare\BackEnd\Upload\Balacony\Thumb\" + image.Image + "thumb", "jpg"));
-     
+
       imageObj.Thumb = thumb.ToString();
       _context.ImageBalaconies.Add(imageObj);
       _context.SaveChanges();
@@ -2256,6 +2275,83 @@ namespace AqarSquare.Engine
 
     #region FrontEnd
 
+    public List<SearchOptions> SearchOption(string lang)
+    {
+      var requestClass = new RequestClass();
+      requestClass.Lang = lang;
+      var returnSearchOption = new List<SearchOptions>();
+      var contractObj = HelperMethods.ContractTypesList(requestClass);
+      var propertyTypeObj = HelperMethods.PropertyTypesList(requestClass);
+      var priceRangeObj = HelperMethods.PriceRangeList();
+      var spaceRangeObj = HelperMethods.SpaceRangeList();
+      var cityObj = HelperMethods.CityList(requestClass);
+      if (contractObj.Any())
+      {
+        returnSearchOption.Add(new SearchOptions
+        {
+          ContractType = contractObj,
+          Property = propertyTypeObj,
+          PriceRange = priceRangeObj,
+          SpaceRange = spaceRangeObj,
+          City = cityObj
+        });
+
+      }
+
+      return returnSearchOption;
+
+    }
+
+    public List<SquareService> GetAllSquareByCityId(string lang, string cityId)
+    {
+      var convertCity = Convert.ToInt32(cityId);
+      var squareObj = _context.Squares.Where(x => x.CityId == convertCity).ToList().OrderByDescending(x => x.Id);
+
+      var squareList = new List<SquareService>();
+
+      foreach (var square in squareObj)
+      {
+        squareList.Add(new SquareService
+        {
+          Id = square.Id,
+          Title = (lang == "ar") ? square.TitleAr : square.Title
+
+        });
+
+      }
+      return squareList;
+    }
+
+    public List<TopTenService> GetTopTen(string lang)
+    {
+      var propertyList = new List<TopTenService>();
+      var topTenObj = _context.TopTenProperties.ToList().OrderByDescending(x => x.Id);
+
+
+      foreach (var topten in topTenObj)
+      {
+        var propertyObj = _context.Properties.FirstOrDefault(x => x.Id == topten.PropertyId);
+
+        if (propertyObj != null)
+          propertyList.Add(new TopTenService
+          {
+            Id = propertyObj.Id,
+            Title = (lang == "ar") ? propertyObj.TitleAr : propertyObj.Title,
+            Address = (lang == "ar") ? propertyObj.AddressAr : propertyObj.Address,
+            Space = propertyObj.Space,
+            Floor = propertyObj.Floor,
+            BedroomNo = propertyObj.BedroomNo,
+            Price = propertyObj.Price,
+            Currency = propertyObj.Currency,
+            PropertyType = GetPropertyTypeById(propertyObj.PropertyType, lang),
+            ContractType = GetContractTypeById(propertyObj.ContractType, lang),
+            Image = propertyObj.Image
+
+          });
+      }
+      return propertyList;
+    }
+
     #region ContactForm
 
 
@@ -2286,6 +2382,98 @@ namespace AqarSquare.Engine
 
     #endregion
 
+    #region SearchResult
+    public List<PropertyService> SearchResult(RequestClass requestClass)
+    {
+      var returnProperty = new List<PropertyService>();
+      var images = new Images();
+      if (requestClass.PriceRangeId != 0)
+      {
+        var priceRange = HelperMethods.GetPriceRangeId(requestClass.PriceRangeId);
+      }
+      if (requestClass.SpaceRangeId != 0)
+      {
+        var spaceRange = HelperMethods.GetSpaceRangeId(requestClass.SpaceRangeId);
+      }
+
+      var propertyObj = _context.Properties.Where(x =>
+
+     (
+     x.ContractType == requestClass.ContractTypeId && (x.Approved == true && x.IsPublished == true)
+     || x.PropertyType == requestClass.PropertyTypeId && (x.Approved == true && x.IsPublished == true)
+
+    || x.Area == requestClass.SquareId && (x.Approved == true && x.IsPublished == true)
+                                                                                                                                                                && (x.Approved == true && x.IsPublished == true)
+      )
+           && x.Id > requestClass.LastId
+        ).ToList().Take(requestClass.Count);
+      var properties = propertyObj as Property[] ?? propertyObj.ToArray();
+      if (properties.Any())
+      {
+        foreach (var item in properties)
+        {
+          var propertyType = HelperMethods.GetPropertyTypeById(requestClass, Convert.ToInt32(item.PropertyType));
+          if (propertyType == null)
+          {
+            return null;
+          }
+          var contractType = HelperMethods.GetContractTypeById(requestClass, Convert.ToInt32(item.ContractType));
+          if (contractType == null)
+          {
+            return null;
+
+          }
+          var propertyImages = HelperMethods.GetAllPropertyImages(Convert.ToInt32(item.Id));
+          if (propertyImages == null)
+          {
+            return null;
+
+          }
+          var propertyImages360 = HelperMethods.GetAllPropertyImages360(Convert.ToInt32(item.Id));
+          if (propertyImages360 == null)
+          {
+            return null;
+
+          }
+          returnProperty.Add(new PropertyService
+          {
+            Id = item.Id,
+            Title = (requestClass.Lang == "ar") ? item.TitleAr : item.Title,
+            Description = (requestClass.Lang == "ar") ? item.DescriptionAr : item.Description,
+            Address = (requestClass.Lang == "ar") ? item.AddressAr : item.Address,
+            Price = item.Price,
+            Currency = item.Currency,
+            Space = item.Space,
+            PropertyId = item.PropertyId,
+            PropertyTypeName = propertyType,
+            ContractTypeName = contractType,
+            BedroomNo = item.BedroomNo,
+            BathroomNo = item.BathroomNo,
+            ReceptionNo = item.ReceptionNo,
+            Floor = item.Floor,
+            Lift = item.Lift,
+            Balacony = item.Balacony,
+            Garden = item.Garden,
+            Garage = item.Garage,
+            Pool = item.Pool,
+            Late = item.Late,
+            Long = item.Long,
+            CreatedDate = item.CreatedDate,
+            ImagesList = propertyImages,
+            ImagesList360 = propertyImages360,
+            UserInCharge = HelperMethods.InchargePropetryUser(item.UserInCharge)
+          });
+        }
+
+
+
+
+      }
+      return returnProperty;
+
+    }
+    #endregion
     #endregion
   }
+
 }

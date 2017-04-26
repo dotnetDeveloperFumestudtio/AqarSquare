@@ -120,6 +120,17 @@
     <Compile Include="BusinessEntities\BackEnd\UserRole.cs" />
     <Compile Include="BusinessEntities\BusinessEntityBase.cs" />
     <Compile Include="BusinessEntities\FrontEnd\CityFrontEnd.cs" />
+    <Compile Include="BusinessEntities\FrontEnd\CityService.cs" />
+    <Compile Include="BusinessEntities\FrontEnd\ContractTypeService.cs" />
+    <Compile Include="BusinessEntities\FrontEnd\Images.cs" />
+    <Compile Include="BusinessEntities\FrontEnd\InchargePropetryUser.cs" />
+    <Compile Include="BusinessEntities\FrontEnd\PriceRangeService.cs" />
+    <Compile Include="BusinessEntities\FrontEnd\PropertyService.cs" />
+    <Compile Include="BusinessEntities\FrontEnd\PropertyTypeService.cs" />
+    <Compile Include="BusinessEntities\FrontEnd\SearchOptions.cs" />
+    <Compile Include="BusinessEntities\FrontEnd\SpaceRangeService.cs" />
+    <Compile Include="BusinessEntities\FrontEnd\SquareService.cs" />
+    <Compile Include="BusinessEntities\FrontEnd\TopTenService.cs" />
     <Compile Include="BusinessEntities\HeaderData.cs" />
     <Compile Include="EngineManager.cs" />
     <Compile Include="Entities\City.cs">
@@ -197,6 +208,9 @@
     <Compile Include="Entities\Role.cs">
       <DependentUpon>Entites.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entities\SpaceAverage.cs">
+      <DependentUpon>Entites.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entities\Square.cs">
       <DependentUpon>Entites.tt</DependentUpon>
     </Compile>
@@ -228,6 +242,7 @@
       <DependentUpon>Entites.tt</DependentUpon>
     </Compile>
     <Compile Include="Enumerations.cs" />
+    <Compile Include="Helper\HelperMethods.cs" />
     <Compile Include="IAqarSquareService.cs" />
     <Compile Include="Notifications\GcmMessageContent.cs" />
     <Compile Include="Notifications\GcmMessageIOSContent.cs" />

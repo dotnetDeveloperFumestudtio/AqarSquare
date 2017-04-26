@@ -1,46 +1,16 @@
-﻿/// <reference path="modules/Directives/footer.html" />
-/// <reference path="modules/Directives/footer.html" />
-/// <reference path="D:\M-Saber\Projects\ETA\Project\Web_App\login.html" />
-/// <reference path="D:\M-Saber\Projects\ETA\Project\Web_App\login.html" />
-var myApp = angular.module('aqarapp',
+﻿/// <reference path="D:\M-Saber\Projects\Aqar Squaers\ProjectFront\AqarSquare\FrontEnd\main.html" />
+/// <reference path="D:\M-Saber\Projects\Aqar Squaers\ProjectFront\AqarSquare\FrontEnd\main.html" />
+/// <reference path="D:\M-Saber\Projects\Aqar Squaers\ProjectFront\AqarSquare\FrontEnd\main.html" />
+
+/// <reference path="D:\M-Saber\Projects\ETA\ProjectFront\Web_App\login.html" />
+/// <reference path="D:\M-Saber\Projects\ETA\ProjectFront\Web_App\login.html" />
+var myApp = angular.module('aqar',
   ['ui.router',
-    'ngCookies',
-    'ngFileUpload',
-    'angular-simple-table',
-    'ngMap',
-    'ngStorage',
-    'changePasswordapp',
-    'AngApp',
+    'ngMaterial',
     'ngMessages',
-    'Homeapp',
-    'loginapplication',
-    'contactapp',
-    'cityapp',
-    'squareapp',
-    'userpropertyapp',
-    'adminpropertyapp',
-    'adminpropertyformapp',
-    'detailspropertyapp',
-    'contactformapp',
-    'reservationapp',
-    'PhotoSessionapp',
-     'Usersapp',
-     'UsersTenantapp',
-     'PropertyTypeapp',
-     'ContractTypeapp',
-    'userapp',
-    'ui.sortable',
-    'Notificationapp',
-    'ui',
-    'ngAnimate',
-    'ui.bootstrap',
-    'moment-picker',
-    'angularjs-dropdown-multiselect',
-    'cgNotify',
-    'blockUI',
-    'angular-loading-bar',
-    'pascalprecht.translate']);
-myApp.config(config);
+    'lfNgMdFileInput' 
+  ]);
+//myApp.config(config);
 var sideBar = "";
 var userEmail = "";
 myApp.run(function ($rootScope, authService) {
@@ -58,14 +28,6 @@ myApp.run(function ($rootScope, authService) {
     }
   });
 });
-myApp.config([
-  'cfpLoadingBarProvider', function (cfpLoadingBarProvider) {
-    cfpLoadingBarProvider.includeBar = true;
-    cfpLoadingBarProvider.latencyThreshold = 500;
-    //  cfpLoadingBarProvider.spinnerTemplate = '<div><span class="fa fa-spinner">Loading...</div>';
-
-  }
-]);
 
 myApp.controller('homeCtrl', homeCtrl);
 
@@ -80,7 +42,7 @@ myApp.run(function ($rootScope, $http) {
     return (dt.getDate() + "/" + dt.getMonth() + 1) + "/" + dt.getFullYear() + "    " + dt.getHours() + " : " + dt.getMinutes();
   }
   $rootScope.CountUnApprovedProperty = function () {
-    $http.post("http://localhost:1717/Project/CountUnApprovedProperty")
+    $http.post("http://localhost:1717/ProjectFront/CountUnApprovedProperty")
       .success(function (data) {
         return data;
       }).error(function (msg) {
@@ -112,6 +74,7 @@ myApp.value('currentUserRole', '');
 myApp.value('currentUserData', '');
 
 myApp.constant("constantCurrentUser", '');
+myApp.constant("constantSearchOption", '');
 
 myApp.service('session', function () {
   this.create = function (sessionId, userId, userRole) {
@@ -192,12 +155,20 @@ myApp.directive('restrict', function (navAuthService) {
   }
 });
 
-function homeCtrl($scope, $window, $location, publicService, $http, USER_ROLES, authService, constantCurrentUser, currentUserRole) {
+function homeCtrl($scope, $window, $location, publicService, $http, USER_ROLES,
+  constantSearchOption, authService, constantCurrentUser, currentUserRole, CustomerService) {
   var userId = $window.localStorage.getItem('userId');
-  userData();
+  // userData();
+  var vm = this;
+  vm.currentLang = 'en';
+  vm.searchOptionArray = {};
+  vm.TopTenList = {};
+
+  getSearchOption();
+  getTopTen(vm.currentLang);
   function userData() {
     this.returnCount = "";
-    $http.post("http://localhost:1717/Project/GetUserDataById", { "userId": userId })
+    $http.post("http://localhost:1717/ProjectFront/GetUserDataById", { "userId": userId })
    .success(function (data) {
      constantCurrentUser = data;
      $scope.AdminUserName = constantCurrentUser.FirstName + " " + constantCurrentUser.LastName;
@@ -209,7 +180,151 @@ function homeCtrl($scope, $window, $location, publicService, $http, USER_ROLES, 
    });
   }
 
-  //  $scope.currentUser = null;
+  $scope.searchEntity = {
+    City: '',
+    Square: '',
+    ContractType: '1',
+    PropertyType: '',
+    PriceRange: '',
+    SpaceRange: ''
+  };
+
+  $scope.QuickSearch = function () {
+    alert($scope.searchEntity.City + "/" + $scope.searchEntity.Square + "/" + $scope.searchEntity.ContractType);
+
+    $window.localStorage.setItem('ContractType', $scope.searchEntity.ContractType);
+    $window.localStorage.setItem('City', $scope.searchEntity.City);
+    $window.localStorage.setItem('Square', $scope.searchEntity.Square);
+    $window.localStorage.setItem('PropertyType', $scope.searchEntity.ContractType);
+    $window.localStorage.setItem('PriceRange', $scope.searchEntity.PriceRange);
+    $window.localStorage.setItem('SpaceRange', $scope.searchEntity.SpaceRange);
+    $window.location.href = 'SearchDetails.html';
+
+  };
+  $scope.setSelected = function (idSelectedVote) {
+     
+  }
+  $scope.ShowId = function (event) { 
+    $scope.searchEntity.ContractType = event.target.id;
+  };
+  $scope.countries = CustomerService.getCountry();
+  $scope.$watch('searchEntity.City', function (newVal) {
+    //$scope.getCountryStates();
+    if (newVal == "") $scope.sates = [];
+  });
+
+  $scope.getCountryStates = function () {
+    getSqaureByCityId(vm.currentLang, $scope.searchEntity.City);
+    function successCallbackSquare(response) {
+      var fillData = [{}];
+
+      for (var i = 0; i < response.data.length; i++) {
+        fillData.push({
+          "Id": response.data[i].Id,
+          "Title": response.data[i].Title
+        });
+      }
+      fillData = fillData.slice(1);
+      if (fillData == null) {
+        $scope.sates = [];
+      }
+      else
+        $scope.sates = fillData;
+      //success code
+    }
+    function errorCallbackSquare(error) {
+      //error code
+    }
+    function getSqaureByCityId(lang, cityId) {
+      $http({
+        method: 'POST',
+        url: 'http://localhost:1718/ProjectFront/SqaureByCity',
+        data: { 'lang': lang, 'cityId': cityId }
+      }).then(successCallbackSquare, errorCallbackSquare);
+    }
+
+    //$scope.sates = CustomerService.getCountryState($scope.searchEntity.City);
+    $scope.cities = [];
+  }
+
+  $scope.getStateCities = function () {
+    debugger;
+    $scope.cities = CustomerService.getStateCity($scope.searchEntity.Square);
+  }
+
+  function successCallback(response) {
+    var fillData = [{}];
+
+    for (var i = 0; i < response.data.length; i++) {
+      fillData.push({
+        "City": response.data[i].City,
+        "ContractType": response.data[i].ContractType,
+        "Property": response.data[i].Property,
+        "PriceRange": response.data[i].PriceRange,
+        "SpaceRange": response.data[i].SpaceRange,
+
+      });
+    }
+    fillData = fillData.slice(1);
+
+
+    vm.searchOptionArray = fillData;
+    //success code
+  }
+  function errorCallback(error) {
+    //error code
+  }
+  function getSearchOption() {
+    $http({
+      method: 'POST',
+      url: 'http://localhost:1718/ProjectFront/SearchOption',
+      data: { 'lang': vm.currentLang }
+    }).then(successCallback, errorCallback);
+  }
+
+
+
+  function successCallbackTopTen(response) {
+    var fillData = [{}];
+
+    for (var i = 0; i < response.data.length; i++) {
+      fillData.push({
+        "Id": response.data[i].Id,
+        "Title": response.data[i].Title,
+        "ContractType": response.data[i].ContractType,
+        "PropertyType": response.data[i].PropertyType,
+        "Address": response.data[i].Address,
+        "Space": response.data[i].Space,
+        "Image": response.data[i].Image,
+        "Price": response.data[i].Price,
+        "Currency": response.data[i].Currency,
+        "BedroomNo": response.data[i].BedroomNo,
+        "ReceptionNo": response.data[i].ReceptionNo,
+        "Floor": response.data[i].Floor,
+        "PropertyId": response.data[i].PropertyId,
+        "City": response.data[i].City,
+        "Square": response.data[i].Square,
+
+      });
+    }
+    fillData = fillData.slice(1);
+
+    vm.TopTenList = fillData;
+    console.log(vm.TopTenList);
+    //success code
+  }
+  function errorCallbackTopTen(error) {
+    //error code
+  }
+  function getTopTen(lang) {
+    $http({
+      method: 'POST',
+      url: 'http://localhost:1718/ProjectFront/GetTopTen',
+      data: { 'lang': lang }
+    }).then(successCallbackTopTen, errorCallbackTopTen);
+  }
+
+
   $scope.userRoles = USER_ROLES;
   $scope.isAuthorized = authService.isAuthorized;
 
@@ -217,24 +332,11 @@ function homeCtrl($scope, $window, $location, publicService, $http, USER_ROLES, 
     $scope.currentUser = user;
   };
 
-  $scope.callCountUnApproved = function () {
-    // $scope.CountunApproved1 = publicService.foo();
-    this.returnCount = "";
-    $http.post("http://localhost:1717/Project/CountUnApprovedProperty")
-   .success(function (data) {
-     $scope.CountunApproved1 = data;
-
-     return data;
-   }).error(function (msg) {
-     console.log(msg);
-   });
-  }
-  $scope.callCountUnApproved();
   //$scope.AdminUserName = sideBar;
   //$scope.AdminEmail = userEmail;
   $scope.UserId = "1";
 
-  $scope.URL = "http://localhost:1717/Project/";
+  $scope.URL = "http://localhost:1717/ProjectFront/";
   $scope.MainURL = "http://localhost:1717/";
   $scope.setRoute = function (route) {
     $location.path(route);
@@ -242,31 +344,99 @@ function homeCtrl($scope, $window, $location, publicService, $http, USER_ROLES, 
 
 }
 
-app.directive('nav', function () {
+myApp.factory("CustomerService", ['$filter', '$http', function ($filter, $http) {
+  var service = {};
+  var vm = this;
+  vm.SquareList = {};
+  var countrylist = [];
+
+  function successCallback(response) {
+    var fillData = [{}];
+
+    for (var i = 0; i < response.data.length; i++) {
+      fillData.push({
+        "Id": response.data[i].Id,
+        "Title": response.data[i].Title
+      });
+    }
+    fillData = fillData.slice(1);
+
+    statelist = fillData;
+    //success code
+  }
+  function errorCallback(error) {
+    //error code
+  }
+  function getSqaureByCityId(lang, cityId) {
+    $http({
+      method: 'POST',
+      url: 'http://localhost:1718/ProjectFront/SqaureByCity',
+      data: { 'lang': lang, 'cityId': cityId }
+    }).then(successCallback, errorCallback);
+  }
+
+
+
+
+  service.getCountry = function () {
+    return countrylist;
+  };
+
+  service.getCountryState = function (countryId) {
+    getSqaureByCityId('en', countryId);
+    var states = statelist;
+    //var states = ($filter('filter')(statelist,
+    //  { countryId: countryId }));
+    return states;
+  };
+
+  return service;
+
+
+}]);
+
+myApp.controller("Ctrl", function ($scope) {
+  $scope.probs = [
+      {
+        p: .1
+      }, {
+        p: .5
+      }, {
+        p: .4
+      }
+  ];
+  return $scope.otherProbs = [3, 3, 4];
+});
+
+
+
+myApp.directive('nav', function () {
   return {
     restrict: 'A',
-    templateUrl: 'Scripts/App/modules/Directives/main.html'
+    templateUrl: '/Scripts/App/modules/Directives/main.html'
   };
 }
     );
-app.directive('side', function () {
+myApp.directive('side', function () {
   return {
     restrict: 'A',
-    templateUrl: 'Scripts/App/modules/Directives/side-menu.html'
+    templateUrl: '/Scripts/App/modules/Directives/side-menu.html'
   };
 }
 );
 
-app.directive('footer', function () {
+myApp.directive('footer', function () {
   return {
     restrict: 'A',
     templateUrl: '/Scripts/App/modules/Directives/footer.html'
   };
 }
-); 
+);
+
+
 /*Range Slider*/
 
-app.directive("slider", function ($document, $timeout) {
+myApp.directive("slider", function ($document, $timeout) {
   return {
     restrict: "E",
     scope: {
@@ -376,7 +546,7 @@ app.directive("slider", function ($document, $timeout) {
   };
 });
 
-app.controller("Ctrl", function ($scope) {
+myApp.controller("Ctrl", function ($scope) {
   $scope.probs = [
       {
         p: .1
@@ -389,3 +559,43 @@ app.controller("Ctrl", function ($scope) {
   return $scope.otherProbs = [3, 3, 4];
 });
 
+/*Range Slider*/
+
+
+
+/*Drag Files*/
+myApp.config(['$compileProvider', '$mdThemingProvider', function ($compileProvider, $mdThemingProvider) {
+  $compileProvider.debugInfoEnabled(false);
+  // $mdThemingProvider.theme('default')
+}]);
+
+myApp.controller('DemoController', function ($scope, $timeout) {
+  $scope.$watch('files02.length', function (newVal, oldVal) {
+    console.log($scope.files02);
+  });
+  $scope.optoin08 = {
+    "browseIconCls": "myBrowse",
+    "removeIconCls": "myRemove",
+    "captionIconCls": "myCaption",
+    "unknowIconCls": "myUnknow"
+  };
+  $scope.onFileClick = function (obj, idx) {
+    console.log(obj);
+  };
+  $scope.onFileRemove = function (obj, idx) {
+    console.log(obj);
+  };
+
+  $timeout(
+      function () {
+        $scope.addRemoteFilesApi.addRemoteFile('http://shuyu.github.io/angular-material-fileinput/example/resources/sample.jpg', 'sample.jpg', 'image');
+        $scope.addRemoteFilesApi.addRemoteFile('http://shuyu.github.io/angular-material-fileinput/example/resources/sample.mp4', 'sample.mp4', 'video');
+        $scope.addRemoteFilesApi.addRemoteFile('http://shuyu.github.io/angular-material-fileinput/example/resources/sample.mp3', 'sample.mp3', 'audio');
+        $scope.addRemoteFilesApi.addRemoteFile('http://shuyu.github.io/angular-material-fileinput/example/resources/sample.pdf', 'sample.pdf', 'other');
+      }
+  )
+
+
+});
+
+/*Drag Files*/

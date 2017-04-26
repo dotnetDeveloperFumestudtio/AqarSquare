@@ -1,0 +1,365 @@
+<!--Side Menu-->
+<div class="pm-full-mode" id="pm_layout_wrapper">
+
+
+    <!-- Main slide out menu -->
+    <div class="pm-mobile-menu-overlay" id="pm-mobile-menu-overlay"></div>
+    <div class="pm-mobile-menu-hover-close-btn hidden-sm hidden-xs" id="pm-mobile-menu-hover-close-btn">
+        <i class="fa fa-close"></i>
+    </div>
+
+    <div class="pm-mobile-global-menu" id="pm-mobile-global-menu">
+        <div class="side">
+            <div class="first">
+              <img src="/Images/side-menu-logo.png">
+                <div class="social-icons">
+                    <a href="">
+                        <i class="fa fa-facebook" aria-hidden="true"></i>
+                    </a>
+
+                    <a href="">
+                        <i class="fa fa-twitter" aria-hidden="true"></i>
+                    </a>
+
+                    <a href="">
+                        <i class="fa fa-google-plus" aria-hidden="true"></i>
+                    </a>
+
+                    <a href="">
+                        <i class="fa fa-linkedin" aria-hidden="true"></i>
+                    </a>
+                </div>
+
+                <div class="log-in">
+                    <div class="log-top">
+
+                    </div>
+                    <span class="log-show">
+                                Login
+                                </span>
+                    <div class="ho" style="display: none;">
+                        <hr>
+                        <span class="cus-sp">
+                                Sign Up
+                                </span>
+                    </div>
+                    <div class="log-btm">
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="pro-img text-center" style="display: none">
+                <div class="log-img">
+                    <div class="slide-top">
+                        <div class="inner-top"></div>
+                    </div>
+
+                  <img src="/Images/profile-img.jpg">
+
+                    <div class="slide-btm">
+                        <div class="inner-btm"></div>
+                    </div>
+
+                </div>
+
+                <div class="row contro">
+                    <div class="col-xs-12">
+                        <div class="log-in2">
+                            <div class="log-top">
+
+                            </div>
+                            <span class="log-show2">
+                                Logout
+                                </span>
+                            <div class="log-btm">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="data-section">
+                <div class="login" style="display: none;">
+                    <form>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="User Name">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control"  placeholder="Password">
+                        </div>
+                        <div class="forget">
+                            <a href="">
+                                Forget Password?
+                            </a>
+                        </div>
+                        <button type="submit" class="btn btn-default">
+                            <div class="log-in">
+                                <div class="log-top">
+
+                                </div>
+                                <span>
+                                Login
+                                </span>
+                                <div class="log-btm">
+
+                                </div>
+                            </div>
+                        </button>
+                    </form>
+                </div>
+
+                <div class="signup" style="display: none">
+                    <form>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="first name">
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="last name">
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" class="form-control"  placeholder="mobile">
+                        </div>
+
+                        <div class="form-group">
+                            <input type="email" class="form-control"  placeholder="email">
+                        </div>
+
+                        <div class="drob">
+                            <div class="materialSelect inline empty">
+                                <ul class="select">
+                                    <li data-selected="true">Choose something...</li>
+                                    <li data-value="0">First option</li>
+                                    <li data-value="1">Second option</li>
+                                    <li data-value="2">Third option</li>
+                                </ul>
+                                <div class="message">Please select something</div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-default">
+                            <div class="log-in">
+                                <div class="log-top">
+
+                                </div>
+                                <span>
+                                Sign Up
+                                </span>
+                                <div class="log-btm">
+
+                                </div>
+                            </div>
+                        </button>
+                    </form>
+                </div>
+
+                <div class="after-log" style="display: none">
+                    <div class="links">
+                        <a href="">
+                            <span></span>
+                            My Properties
+                        </a>
+
+                        <a href="post-new-property.html" class="link-act">
+                            <span></span>
+                            Post New Property
+                        </a>
+
+                        <a href="">
+                            <span></span>
+                            Personal information
+                        </a>
+
+                        <a href="">
+                            <span></span>
+                            Logout
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.pm-mobile-global-menu -->
+    <!-- Header area -->
+</div>
+<!--Side Menu-->
+
+
+<!--Trigger Side Menu Show-->
+<script>
+    (function($) {
+
+        'use strict';
+
+        $('.pm-mobile-menu-trigger').on('click', function(e) {
+
+            if( !menuOpen ){
+
+                menuOpen = true;
+                $('body').removeClass('menu-collapsed').addClass('menu-opened');
+                $('#pm-mobile-menu-overlay').addClass('active');
+
+                //Show the neccessary menu
+                $('.pm-mobile-global-menu-container', '#pm-mobile-global-menu').addClass('active');
+
+                //Hide other menus
+                $('.pm-mobile-global-sign-in-container', '#pm-mobile-global-menu').removeClass('active');
+                $('.pm-mobile-global-registration-container', '#pm-mobile-global-menu').removeClass('active');
+
+                methods.activateCloseMenuBtn();
+
+            }
+
+            e.preventDefault();
+
+        });
+
+        $('#pm-mobile-menu-overlay').on('click', function(e) {
+
+            if( menuOpen ){
+                menuOpen = false;
+                $('body').removeClass('menu-opened').addClass('menu-collapsed');
+                $('#pm-mobile-menu-overlay').removeClass('active');
+
+                methods.hideCloseMenuBtn();
+
+            }
+
+            e.preventDefault();
+
+        });
+
+        var menuLoop = '',
+            menuOpen = false,
+            menuHover = true;
+
+        var methods = {
+
+            activateCloseMenuBtn : function(e) {
+
+                var xOffset = 20,
+                    yOffset = -20,
+                    contentWidth = $('body').width(),
+                    mouseX = 0,
+                    mouseY = 0;
+
+                // cache the selector
+                var follower = $("#pm-mobile-menu-hover-close-btn");
+                var xp = 0,
+                    yp = 0,
+                    speed = 4;
+
+                $("#pm-mobile-menu-overlay").css("cursor", "none");
+
+                $('#pm-mobile-menu-hover-close-btn').animate({
+                    'opacity' : 1
+                });
+
+                $("#pm-mobile-menu-overlay").on('mousemove mouseleave', function(e) {
+
+                    if( e.type === 'mousemove' ){
+
+                        if( menuHover === true ) {
+
+                            menuHover = false;
+                            follower.css({
+                                "opacity" : 1
+                            });
+
+                        }
+
+                        mouseX = e.pageX;
+                        mouseY = e.pageY;
+
+                        follower.css({"left" : mouseX + xOffset, "top" : mouseY + yOffset});
+
+                    } else if( e.type === 'mouseleave' ){
+
+                        menuHover = true;
+                        follower.css({
+                            "opacity" : 0
+                        });
+
+                        follower.css({"left" : 0, "top" : 0});
+
+                    } else {
+                        //
+                    }
+
+                });
+
+                /*menuLoop = setInterval(function () {
+
+                 // change 12 to alter damping higher is slower
+                 xp += ((mouseX - xp) / speed) + xOffset;
+                 yp += ((mouseY - yp) / speed) + yOffset;
+                 follower.css({left:xp, top:yp});
+
+                 }, 30);*/
+
+            },
+
+            hideCloseMenuBtn : function(e) {
+
+                $('#pm-mobile-menu-hover-close-btn').animate({
+                    'opacity' : 0
+                }, 'fast');
+
+                clearInterval(menuLoop);
+
+            }
+
+        };
+
+    })(jQuery);
+</script>
+<!--Trigger Side Menu Show-->
+
+<!--Trigger animation for side Menu-->
+<script>
+    //Trigger change active class for left menu
+    $('.links a').click(function () {
+        $(this).addClass('link-act').siblings().removeClass('link-act');
+    });
+
+    //Trigger Hover Login Button
+    $('.first .log-in').hover(
+        function () {
+            $('.ho').slideDown(1000);
+        },
+        function () {
+            $('.ho').slideUp(1000);
+        }
+    );
+
+    $('.log-show').click(function () {
+        $('.signup').slideUp(1500,function () {
+            $('.login').slideDown(1500);
+        });
+    });
+
+    $('.cus-sp').click(function () {
+        $('.login').slideUp(1500,function () {
+            $('.signup').slideDown(1500);
+        });
+    });
+
+    $('.login button ,.signup button').click(
+        function () {
+            $('.login,.signup').slideUp(1000,function () {
+                $('.first').slideUp(1000,function () {
+                    $('.pro-img').slideDown(1000,function () {
+                        $('.after-log').slideDown(1000);
+                    });
+                });
+            });
+        }
+    );
+
+
+</script>
+<!--Trigger animation for side Menu-->

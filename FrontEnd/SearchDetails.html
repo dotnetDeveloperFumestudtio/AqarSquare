@@ -1,0 +1,1773 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head> 
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+  <title>Aqar Square</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="Images/aqar/1/favicon-32x32.png">
+  <link rel="stylesheet" href="Content/css/bootstrap.css">
+  <link rel="stylesheet" href="Content/css/materialize.css">
+  <link rel="stylesheet" href="Content/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+  <link rel="stylesheet" href="Content/css/slick.css">
+  <link rel="stylesheet" href="Content/css/slick-theme.css">
+  <link rel="stylesheet" href="Content/css/jquery.bxslider.css">
+
+  <link rel="stylesheet" href="Scripts/bower_components/angular-material/angular-material.min.css">
+
+  <link rel="stylesheet" href="Scripts/bower_components/lf-ng-md-file-input.css">
+
+  <!--<script src="bower_components/angular/angular.min.js"></script>-->
+   
+  <link rel="stylesheet" href="Content/css/style.css">
+  
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+  <script src="/Scripts/angular.min.js"></script>
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui/0.4.0/angular-ui.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.4/angular-messages.min.js"></script>
+
+
+  <script src="https://rawgithub.com/angular-ui/ui-sortable/master/src/sortable.js"></script>
+
+  <script src="Scripts/AngularJS/angular-ui-router.min.js"></script>
+  <script src="Scripts/AngularJS/angular-material.min.js"></script>
+  <script src="Scripts/angular-animate.js"></script>
+  <script src="Scripts/angular-ui/ui-bootstrap-tpls.js"></script>
+  <!--/* notification */-->
+  <script src="Scripts/AngularJS/angular-notify.js"></script>
+  <link href="Content/Angularcss/angular-notify.css" rel="stylesheet" />
+  <!--/* button style */-->
+  <script src="Scripts/AngularJS/UsedFiles/angular-cookies.min.js"></script>
+  <script src="Scripts/AngularJS/spin.min.js"></script>
+  <script src="Scripts/AngularJS/angular-image-dimensions.js"></script>
+  <!--/* busy pop up loading */-->
+  <!--<link href="Content/Angularcss/angular-busy.css" rel="stylesheet">
+  <link href="Content/Angularcss/gh-fork-ribbon.css" rel="stylesheet">-->
+  <script src="Scripts/AngularJS/angular-busy.min.js"></script>
+  <!--/* busy pop up loading best practice*/-->
+
+  <link rel="stylesheet" href="Content/Angularcss/angular-block-ui.min.css" />
+  <!-- After AngularJS -->
+  <script src="Scripts/AngularJS/angular-block-ui.min.js"></script>
+
+  <!--/* loading bar*/-->
+
+  <link rel='stylesheet' href='Content/Angularcss/loading-bar.min.css' type='text/css' media='all' />
+  <script type='text/javascript' src='Scripts/AngularJS/loading-bar.min.js'></script>
+
+  <!-- loadingbar -->
+  <script src="Scripts/AngularJS/loading-bar.js"></script>
+  <link href='Content/Angularcss/loading-bar.css' rel='stylesheet' />
+
+
+  <script src="Scripts/AngularJS/angular-translate.min.js"></script>
+
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/ngstorage/0.3.6/ngStorage.min.js"></script>
+  <link href="Content/Angularcss/sweetalert.css" rel="stylesheet" />
+  <script src="Scripts/AngularJS/sweetalert-dev.js"></script>
+  <!-- Main filessssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss -->
+  <link href="Scripts/AngularJS/angular-moment-picker.min.css" rel="stylesheet" />
+  <script src="Scripts/AngularJS/angular-moment-picker.min.js"></script>
+
+  <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyB3wGgcIinZF1DW9oiwSCG8JjGQC-nPutA"></script>
+
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular-sanitize.min.js"></script>
+  <script src="https://rawgit.com/allenhwkim/angularjs-google-maps/master/build/scripts/ng-map.js"></script>
+
+  <style>
+    [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x- ng-cloak {
+      display: none !important;
+    }
+  </style>
+
+
+
+</head>
+<body >
+  <header>
+    <nav class="navbar navbar-default navbar-fixed-top hov" nav>
+      <!-- /.container-fluid -->
+    </nav>
+
+    <div side>
+
+    </div>
+  </header>
+
+
+
+  <div class="search-info" ng-app="searchDetailsapp" ng-controller="SearchDetailsCtrl as searchdetailsc" block-ui="blockUI">
+
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12">
+          <h2>
+            <img src="images/title-top-black.png">
+            <span>Search Result</span>
+          </h2>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="container">
+          <div class="search-tools">
+            <div class="row">
+
+              <div class="visible-xs visible-sm">
+                <div class="right-search text-center mob-search">
+                  <div class="clikable-mob">
+                    <div class="log-in">
+                      <div class="log-top">
+
+                      </div>
+                      <span class="log-show">
+                        Search
+                      </span>
+                      <div class="log-btm">
+
+                      </div>
+                    </div>
+                  </div>
+                  <div class="toggelled">
+                    <div class="inputs">
+                      <p>
+                        Property Id
+                      </p>
+                      <input type="text" placeholder="905R">
+                    </div>
+
+                    <div class="inputs">
+                      <p>
+                        Contract Type
+                      </p>
+                      <div class="materialSelect inline empty">
+                        <ul class="select">
+                          <li data-selected="true">Choose something...</li>
+                          <li data-value="0">Newer First</li>
+                          <li data-value="1">Second option</li>
+                          <li data-value="2">Third option</li>
+                        </ul>
+                        <div class="message">Please select something</div>
+                      </div>
+                    </div>
+
+                    <div class="inputs">
+                      <p>
+                        Property Type
+                      </p>
+                      <div class="materialSelect inline empty">
+                        <ul class="select">
+                          <li data-selected="true">Choose something...</li>
+                          <li data-value="0">Newer First</li>
+                          <li data-value="1">Second option</li>
+                          <li data-value="2">Third option</li>
+                        </ul>
+                        <div class="message">Please select something</div>
+                      </div>
+                    </div>
+
+                    <div class="inputs">
+                      <p>
+                        Square
+                      </p>
+                      <div class="materialSelect inline empty">
+                        <ul class="select">
+                          <li data-selected="true">Choose something...</li>
+                          <li data-value="0">Newer First</li>
+                          <li data-value="1">Second option</li>
+                          <li data-value="2">Third option</li>
+                        </ul>
+                        <div class="message">Please select something</div>
+                      </div>
+                    </div>
+
+                    <div class="inputs">
+                      <p>
+                        Price Range
+                      </p>
+                      <label>Min. Price</label>
+                      <input type="text" class="cus-input">
+
+                      <br>
+                      <br>
+
+                      <label>Max. Price</label>
+                      <input type="text" class="cus-input">
+                    </div>
+
+                    <div class="inputs">
+                      <p>
+                        Area Range
+                      </p>
+                      <label>Min. Price</label>
+                      <input type="text" class="cus-input">
+
+                      <br>
+                      <br>
+
+                      <label>Max. Price</label>
+                      <input type="text" class="cus-input">
+                    </div>
+
+                    <button type="button" class="btn btn-default" ng-click="Research()">Get Result</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-9 col-xs-12">
+                <div class="sort">
+                  <div class="row sort-tool">
+                    <div>
+                      <div class="col-xs-6 cus-wid">
+                        <div class="row">
+                          <div class="col-md-3 col-xs-4">
+                            <span>
+                              Sort By
+                            </span>
+                          </div>
+                          <div class="col-md-9 col-xs-8">
+                            <div>
+                              <div class="materialSelect inline empty">
+                                <ul class="select">
+                                  <li data-selected="true">Choose something...</li>
+                                  <li data-value="0">Newer First</li>
+                                  <li data-value="1">Second option</li>
+                                  <li data-value="2">Third option</li>
+                                </ul>
+                                <div class="message">Please select something</div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-xs-6 cus-wid">
+                        <div class="controls">
+                          <span>
+                            View :
+                          </span>
+                          <a class="hidden-xs hidden-sm">
+                            <i class="fa fa-list" aria-hidden="true"></i>
+                          </a>
+                          <a>
+                            <i class="fa fa-th-large" aria-hidden="true"></i>
+                          </a>
+                          <a>
+                            <i class="fa fa-map-marker" aria-hidden="true"></i>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row results">
+                    <div class="list hidden-sm hidden-xs">
+                      <div class="row">
+                        <div class="col-xs-4">
+                          <ul class="result-sl">
+                            <li><img src="images/search-slider-1.jpg" /></li>
+                            <li><img src="images/search-slider-2.jpg" /></li>
+                            <li><img src="images/search-slider-3.jpg" /></li>
+                            <li><img src="images/search-slider-4.jpg" /></li>
+                            <li><img src="images/search-slider-5.jpg" /></li>
+                          </ul>
+                          <p>
+                            ID:
+                            <span>
+                              905R
+                            </span>
+                          </p>
+                        </div>
+                        <div class="col-xs-8">
+                          <h5>
+                            Apartment For Rent
+                          </h5>
+                          <h6>
+                            <img src="images/location-icon.png">
+                            <span>
+                              Nasr City, Abbas Al Akkad
+                            </span>
+                            <span class="price">
+                              8,000 EGP
+                            </span>
+                          </h6>
+                          <div class="clearfix"></div>
+                          <div class="icons">
+                            <div>
+                              <img src="images/area-icon.png" class="area">
+                              <span>
+                                250 M
+                              </span>
+                              <div class="fl-right">
+                                <img src="images/bed-icon.png">
+                                <span>
+                                  3
+                                </span>
+                                <img src="images/bathtub-icon.png">
+                                <span>
+                                  2
+                                </span>
+                                <img src="images/stairs-icon.png">
+                                <span>
+                                  6
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="clearfix"></div>
+                          <hr>
+                          <p>
+                            Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+                            when an unknown printer took a galley of type.
+                          </p>
+                          <div class="icons">
+                            <div>
+                              <a href="" class="details-btn">
+                                view
+                              </a>
+                              <a href="" class="share-btn">
+                                Share
+                              </a>
+                              <div class="fl-right2">
+                                <a href="">
+                                  <img src="images/fav-icon.png">
+                                </a>
+
+                                <a href="">
+                                  <img src="images/share-icon.png">
+                                </a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <hr class="divi">
+
+                      <div class="row">
+                        <div class="col-xs-4">
+                          <ul class="result-sl">
+                            <li><img src="images/search-slider-2.jpg" /></li>
+                            <li><img src="images/search-slider-1.jpg" /></li>
+                            <li><img src="images/search-slider-3.jpg" /></li>
+                            <li><img src="images/search-slider-4.jpg" /></li>
+                            <li><img src="images/search-slider-5.jpg" /></li>
+                          </ul>
+                          <p>
+                            ID:
+                            <span>
+                              905R
+                            </span>
+                          </p>
+                        </div>
+                        <div class="col-xs-8">
+                          <h5>
+                            Apartment For Rent
+                          </h5>
+                          <h6>
+                            <img src="images/location-icon.png">
+                            <span>
+                              Nasr City, Abbas Al Akkad
+                            </span>
+                            <span class="price">
+                              8,000 EGP
+                            </span>
+                          </h6>
+                          <div class="clearfix"></div>
+                          <div class="icons">
+                            <div>
+                              <img src="images/area-icon.png" class="area">
+                              <span>
+                                250 M
+                              </span>
+                              <div class="fl-right">
+                                <img src="images/bed-icon.png">
+                                <span>
+                                  3
+                                </span>
+                                <img src="images/bathtub-icon.png">
+                                <span>
+                                  2
+                                </span>
+                                <img src="images/stairs-icon.png">
+                                <span>
+                                  6
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="clearfix"></div>
+                          <hr>
+                          <p>
+                            Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+                            when an unknown printer took a galley of type.
+                          </p>
+                          <div class="icons">
+                            <div>
+                              <a href="" class="details-btn">
+                                view
+                              </a>
+                              <a href="" class="share-btn">
+                                Share
+                              </a>
+                              <div class="fl-right2">
+                                <a href="">
+                                  <img src="images/fav-icon.png">
+                                </a>
+
+                                <a href="">
+                                  <img src="images/share-icon.png">
+                                </a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <hr class="divi">
+
+                      <div class="row">
+                        <div class="col-xs-4">
+                          <ul class="result-sl">
+                            <li><img src="images/search-slider-3.jpg" /></li>
+                            <li><img src="images/search-slider-2.jpg" /></li>
+                            <li><img src="images/search-slider-1.jpg" /></li>
+                            <li><img src="images/search-slider-4.jpg" /></li>
+                            <li><img src="images/search-slider-5.jpg" /></li>
+                          </ul>
+                          <p>
+                            ID:
+                            <span>
+                              905R
+                            </span>
+                          </p>
+                        </div>
+                        <div class="col-xs-8">
+                          <h5>
+                            Apartment For Rent
+                          </h5>
+                          <h6>
+                            <img src="images/location-icon.png">
+                            <span>
+                              Nasr City, Abbas Al Akkad
+                            </span>
+                            <span class="price">
+                              8,000 EGP
+                            </span>
+                          </h6>
+                          <div class="clearfix"></div>
+                          <div class="icons">
+                            <div>
+                              <img src="images/area-icon.png" class="area">
+                              <span>
+                                250 M
+                              </span>
+                              <div class="fl-right">
+                                <img src="images/bed-icon.png">
+                                <span>
+                                  3
+                                </span>
+                                <img src="images/bathtub-icon.png">
+                                <span>
+                                  2
+                                </span>
+                                <img src="images/stairs-icon.png">
+                                <span>
+                                  6
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="clearfix"></div>
+                          <hr>
+                          <p>
+                            Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+                            when an unknown printer took a galley of type.
+                          </p>
+                          <div class="icons">
+                            <div>
+                              <a href="" class="details-btn">
+                                view
+                              </a>
+                              <a href="" class="share-btn">
+                                Share
+                              </a>
+                              <div class="fl-right2">
+                                <a href="">
+                                  <img src="images/fav-icon.png">
+                                </a>
+
+                                <a href="">
+                                  <img src="images/share-icon.png">
+                                </a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <hr class="divi">
+
+                      <div class="row">
+                        <div class="col-xs-4">
+                          <ul class="result-sl">
+                            <li><img src="images/search-slider-4.jpg" /></li>
+                            <li><img src="images/search-slider-2.jpg" /></li>
+                            <li><img src="images/search-slider-3.jpg" /></li>
+                            <li><img src="images/search-slider-1.jpg" /></li>
+                            <li><img src="images/search-slider-5.jpg" /></li>
+                          </ul>
+                          <p>
+                            ID:
+                            <span>
+                              905R
+                            </span>
+                          </p>
+                        </div>
+                        <div class="col-xs-8">
+                          <h5>
+                            Apartment For Rent
+                          </h5>
+                          <h6>
+                            <img src="images/location-icon.png">
+                            <span>
+                              Nasr City, Abbas Al Akkad
+                            </span>
+                            <span class="price">
+                              8,000 EGP
+                            </span>
+                          </h6>
+                          <div class="clearfix"></div>
+                          <div class="icons">
+                            <div>
+                              <img src="images/area-icon.png" class="area">
+                              <span>
+                                250 M
+                              </span>
+                              <div class="fl-right">
+                                <img src="images/bed-icon.png">
+                                <span>
+                                  3
+                                </span>
+                                <img src="images/bathtub-icon.png">
+                                <span>
+                                  2
+                                </span>
+                                <img src="images/stairs-icon.png">
+                                <span>
+                                  6
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="clearfix"></div>
+                          <hr>
+                          <p>
+                            Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+                            when an unknown printer took a galley of type.
+                          </p>
+                          <div class="icons">
+                            <div>
+                              <a href="" class="details-btn">
+                                view
+                              </a>
+                              <a href="" class="share-btn">
+                                Share
+                              </a>
+                              <div class="fl-right2">
+                                <a href="">
+                                  <img src="images/fav-icon.png">
+                                </a>
+
+                                <a href="">
+                                  <img src="images/share-icon.png">
+                                </a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <hr class="divi">
+
+                      <div class="row">
+                        <div class="col-xs-4">
+                          <ul class="result-sl">
+                            <li><img src="images/search-slider-5.jpg" /></li>
+                            <li><img src="images/search-slider-2.jpg" /></li>
+                            <li><img src="images/search-slider-3.jpg" /></li>
+                            <li><img src="images/search-slider-4.jpg" /></li>
+                            <li><img src="images/search-slider-1.jpg" /></li>
+                          </ul>
+                          <p>
+                            ID:
+                            <span>
+                              905R
+                            </span>
+                          </p>
+                        </div>
+                        <div class="col-xs-8">
+                          <h5>
+                            Apartment For Rent
+                          </h5>
+                          <h6>
+                            <img src="images/location-icon.png">
+                            <span>
+                              Nasr City, Abbas Al Akkad
+                            </span>
+                            <span class="price">
+                              8,000 EGP
+                            </span>
+                          </h6>
+                          <div class="clearfix"></div>
+                          <div class="icons">
+                            <div>
+                              <img src="images/area-icon.png" class="area">
+                              <span>
+                                250 M
+                              </span>
+                              <div class="fl-right">
+                                <img src="images/bed-icon.png">
+                                <span>
+                                  3
+                                </span>
+                                <img src="images/bathtub-icon.png">
+                                <span>
+                                  2
+                                </span>
+                                <img src="images/stairs-icon.png">
+                                <span>
+                                  6
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="clearfix"></div>
+                          <hr>
+                          <p>
+                            Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+                            when an unknown printer took a galley of type.
+                          </p>
+                          <div class="icons">
+                            <div>
+                              <a href="" class="details-btn">
+                                view
+                              </a>
+                              <a href="" class="share-btn">
+                                Share
+                              </a>
+                              <div class="fl-right2">
+                                <a href="">
+                                  <img src="images/fav-icon.png">
+                                </a>
+
+                                <a href="">
+                                  <img src="images/share-icon.png">
+                                </a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <hr class="divi">
+
+                    </div>
+
+                    <div class="grid">
+                      <div class="row">
+                        <div class="col-md-4 col-xs-12">
+                          <div class="rapper">
+                            <ul class="result-sl">
+                              <li><img src="images/search-slider-1.jpg" /></li>
+                              <li><img src="images/search-slider-2.jpg" /></li>
+                              <li><img src="images/search-slider-3.jpg" /></li>
+                              <li><img src="images/search-slider-4.jpg" /></li>
+                              <li><img src="images/search-slider-5.jpg" /></li>
+                            </ul>
+
+                            <div class="info">
+                              <h5>
+                                Apartment For Rent
+                                <span class="ri">
+                                  ID: 905R
+                                </span>
+                              </h5>
+                              <p class="loc">
+                                <img src="images/location-icon.png">
+                                <span>
+                                  Nasr City, Abbas Al Akkad
+                                </span>
+                              </p>
+                              <div class="opti">
+                                <div class="le">
+                                  <img src="images/area-icon.png">
+                                  <span>250 M</span>
+                                </div>
+                                <div class="ri">
+                                  <img src="images/bed-icon.png">
+                                  <span>3</span>
+
+                                  <img src="images/bathtub-icon.png">
+                                  <span>2</span>
+
+                                  <img src="images/stairs-icon.png">
+                                  <span>6</span>
+                                </div>
+                                <div class="clearfix"></div>
+                              </div>
+                              <hr>
+                              <p>
+                                Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                              </p>
+
+                              <div class="icons">
+                                <div class="price-left">
+                                  8,000 EGP
+                                </div>
+                                <div class="controls-right">
+                                  <div href="" class="sharing">
+                                    <i class="fa fa-share-alt" aria-hidden="true"></i>
+                                    <div class="share-items">
+                                      <a href="">
+                                        <i class="fa fa-facebook" aria-hidden="true"></i>
+                                      </a>
+                                      <a href="">
+                                        <i class="fa fa-twitter" aria-hidden="true"></i>
+                                      </a>
+                                      <a href="">
+                                        <i class="fa fa-google" aria-hidden="true"></i>
+                                      </a>
+                                    </div>
+                                  </div>
+                                  <a href="property-details.html" data-toggle="tooltip" data-placement="top" title="View">
+                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                  </a>
+                                  <a href="" data-toggle="tooltip" data-placement="top" title="Add to favourite">
+                                    <i class="fa fa-heart-o" aria-hidden="true"></i>
+                                  </a>
+                                </div>
+                              </div>
+
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-md-4 col-xs-12">
+                          <div class="rapper">
+                            <ul class="result-sl">
+                              <li><img src="images/search-slider-1.jpg" /></li>
+                              <li><img src="images/search-slider-2.jpg" /></li>
+                              <li><img src="images/search-slider-3.jpg" /></li>
+                              <li><img src="images/search-slider-4.jpg" /></li>
+                              <li><img src="images/search-slider-5.jpg" /></li>
+                            </ul>
+
+                            <div class="info">
+                              <h5>
+                                Apartment For Rent
+                                <span class="ri">
+                                  ID: 905R
+                                </span>
+                              </h5>
+                              <p class="loc">
+                                <img src="images/location-icon.png">
+                                <span>
+                                  Nasr City, Abbas Al Akkad
+                                </span>
+                              </p>
+                              <div class="opti">
+                                <div class="le">
+                                  <img src="images/area-icon.png">
+                                  <span>250 M</span>
+                                </div>
+                                <div class="ri">
+                                  <img src="images/bed-icon.png">
+                                  <span>3</span>
+
+                                  <img src="images/bathtub-icon.png">
+                                  <span>2</span>
+
+                                  <img src="images/stairs-icon.png">
+                                  <span>6</span>
+                                </div>
+                                <div class="clearfix"></div>
+                              </div>
+                              <hr>
+                              <p>
+                                Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                              </p>
+
+                              <div class="icons">
+                                <div class="price-left">
+                                  8,000 EGP
+                                </div>
+                                <div class="controls-right">
+                                  <div href="" class="sharing">
+                                    <i class="fa fa-share-alt" aria-hidden="true"></i>
+                                    <div class="share-items">
+                                      <a href="">
+                                        <i class="fa fa-facebook" aria-hidden="true"></i>
+                                      </a>
+                                      <a href="">
+                                        <i class="fa fa-twitter" aria-hidden="true"></i>
+                                      </a>
+                                      <a href="">
+                                        <i class="fa fa-google" aria-hidden="true"></i>
+                                      </a>
+                                    </div>
+                                  </div>
+                                  <a href="property-details.html" data-toggle="tooltip" data-placement="top" title="View">
+                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                  </a>
+                                  <a href="" data-toggle="tooltip" data-placement="top" title="Add to favourite">
+                                    <i class="fa fa-heart-o" aria-hidden="true"></i>
+                                  </a>
+                                </div>
+                              </div>
+
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-md-4 col-xs-12">
+                          <div class="rapper">
+                            <ul class="result-sl">
+                              <li><img src="images/search-slider-1.jpg" /></li>
+                              <li><img src="images/search-slider-2.jpg" /></li>
+                              <li><img src="images/search-slider-3.jpg" /></li>
+                              <li><img src="images/search-slider-4.jpg" /></li>
+                              <li><img src="images/search-slider-5.jpg" /></li>
+                            </ul>
+
+                            <div class="info">
+                              <h5>
+                                Apartment For Rent
+                                <span class="ri">
+                                  ID: 905R
+                                </span>
+                              </h5>
+                              <p class="loc">
+                                <img src="images/location-icon.png">
+                                <span>
+                                  Nasr City, Abbas Al Akkad
+                                </span>
+                              </p>
+                              <div class="opti">
+                                <div class="le">
+                                  <img src="images/area-icon.png">
+                                  <span>250 M</span>
+                                </div>
+                                <div class="ri">
+                                  <img src="images/bed-icon.png">
+                                  <span>3</span>
+
+                                  <img src="images/bathtub-icon.png">
+                                  <span>2</span>
+
+                                  <img src="images/stairs-icon.png">
+                                  <span>6</span>
+                                </div>
+                                <div class="clearfix"></div>
+                              </div>
+                              <hr>
+                              <p>
+                                Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                              </p>
+
+                              <div class="icons">
+                                <div class="price-left">
+                                  8,000 EGP
+                                </div>
+                                <div class="controls-right">
+                                  <div href="" class="sharing">
+                                    <i class="fa fa-share-alt" aria-hidden="true"></i>
+                                    <div class="share-items">
+                                      <a href="">
+                                        <i class="fa fa-facebook" aria-hidden="true"></i>
+                                      </a>
+                                      <a href="">
+                                        <i class="fa fa-twitter" aria-hidden="true"></i>
+                                      </a>
+                                      <a href="">
+                                        <i class="fa fa-google" aria-hidden="true"></i>
+                                      </a>
+                                    </div>
+                                  </div>
+                                  <a href="property-details.html" data-toggle="tooltip" data-placement="top" title="View">
+                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                  </a>
+                                  <a href="" data-toggle="tooltip" data-placement="top" title="Add to favourite">
+                                    <i class="fa fa-heart-o" aria-hidden="true"></i>
+                                  </a>
+                                </div>
+                              </div>
+
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+
+                      <div class="row">
+                        <div class="col-md-4 col-xs-12">
+                          <div class="rapper">
+                            <ul class="result-sl">
+                              <li><img src="images/search-slider-2.jpg" /></li>
+                              <li><img src="images/search-slider-1.jpg" /></li>
+                              <li><img src="images/search-slider-3.jpg" /></li>
+                              <li><img src="images/search-slider-4.jpg" /></li>
+                              <li><img src="images/search-slider-5.jpg" /></li>
+                            </ul>
+
+                            <div class="info">
+                              <h5>
+                                Apartment For Rent
+                                <span class="ri">
+                                  ID: 905R
+                                </span>
+                              </h5>
+                              <p class="loc">
+                                <img src="images/location-icon.png">
+                                <span>
+                                  Nasr City, Abbas Al Akkad
+                                </span>
+                              </p>
+                              <div class="opti">
+                                <div class="le">
+                                  <img src="images/area-icon.png">
+                                  <span>250 M</span>
+                                </div>
+                                <div class="ri">
+                                  <img src="images/bed-icon.png">
+                                  <span>3</span>
+
+                                  <img src="images/bathtub-icon.png">
+                                  <span>2</span>
+
+                                  <img src="images/stairs-icon.png">
+                                  <span>6</span>
+                                </div>
+                                <div class="clearfix"></div>
+                              </div>
+                              <hr>
+                              <p>
+                                Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                              </p>
+
+                              <div class="icons">
+                                <div class="price-left">
+                                  8,000 EGP
+                                </div>
+                                <div class="controls-right">
+                                  <div href="" class="sharing">
+                                    <i class="fa fa-share-alt" aria-hidden="true"></i>
+                                    <div class="share-items">
+                                      <a href="">
+                                        <i class="fa fa-facebook" aria-hidden="true"></i>
+                                      </a>
+                                      <a href="">
+                                        <i class="fa fa-twitter" aria-hidden="true"></i>
+                                      </a>
+                                      <a href="">
+                                        <i class="fa fa-google" aria-hidden="true"></i>
+                                      </a>
+                                    </div>
+                                  </div>
+                                  <a href="property-details.html" data-toggle="tooltip" data-placement="top" title="View">
+                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                  </a>
+                                  <a href="" data-toggle="tooltip" data-placement="top" title="Add to favourite">
+                                    <i class="fa fa-heart-o" aria-hidden="true"></i>
+                                  </a>
+                                </div>
+                              </div>
+
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-md-4 col-xs-12">
+                          <div class="rapper">
+                            <ul class="result-sl">
+                              <li><img src="images/search-slider-1.jpg" /></li>
+                              <li><img src="images/search-slider-2.jpg" /></li>
+                              <li><img src="images/search-slider-3.jpg" /></li>
+                              <li><img src="images/search-slider-4.jpg" /></li>
+                              <li><img src="images/search-slider-5.jpg" /></li>
+                            </ul>
+
+                            <div class="info">
+                              <h5>
+                                Apartment For Rent
+                                <span class="ri">
+                                  ID: 905R
+                                </span>
+                              </h5>
+                              <p class="loc">
+                                <img src="images/location-icon.png">
+                                <span>
+                                  Nasr City, Abbas Al Akkad
+                                </span>
+                              </p>
+                              <div class="opti">
+                                <div class="le">
+                                  <img src="images/area-icon.png">
+                                  <span>250 M</span>
+                                </div>
+                                <div class="ri">
+                                  <img src="images/bed-icon.png">
+                                  <span>3</span>
+
+                                  <img src="images/bathtub-icon.png">
+                                  <span>2</span>
+
+                                  <img src="images/stairs-icon.png">
+                                  <span>6</span>
+                                </div>
+                                <div class="clearfix"></div>
+                              </div>
+                              <hr>
+                              <p>
+                                Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                              </p>
+
+                              <div class="icons">
+                                <div class="price-left">
+                                  8,000 EGP
+                                </div>
+                                <div class="controls-right">
+                                  <div href="" class="sharing">
+                                    <i class="fa fa-share-alt" aria-hidden="true"></i>
+                                    <div class="share-items">
+                                      <a href="">
+                                        <i class="fa fa-facebook" aria-hidden="true"></i>
+                                      </a>
+                                      <a href="">
+                                        <i class="fa fa-twitter" aria-hidden="true"></i>
+                                      </a>
+                                      <a href="">
+                                        <i class="fa fa-google" aria-hidden="true"></i>
+                                      </a>
+                                    </div>
+                                  </div>
+                                  <a href="property-details.html" data-toggle="tooltip" data-placement="top" title="View">
+                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                  </a>
+                                  <a href="" data-toggle="tooltip" data-placement="top" title="Add to favourite">
+                                    <i class="fa fa-heart-o" aria-hidden="true"></i>
+                                  </a>
+                                </div>
+                              </div>
+
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-md-4 col-xs-12">
+                          <div class="rapper">
+                            <ul class="result-sl">
+                              <li><img src="images/search-slider-1.jpg" /></li>
+                              <li><img src="images/search-slider-2.jpg" /></li>
+                              <li><img src="images/search-slider-3.jpg" /></li>
+                              <li><img src="images/search-slider-4.jpg" /></li>
+                              <li><img src="images/search-slider-5.jpg" /></li>
+                            </ul>
+
+                            <div class="info">
+                              <h5>
+                                Apartment For Rent
+                                <span class="ri">
+                                  ID: 905R
+                                </span>
+                              </h5>
+                              <p class="loc">
+                                <img src="images/location-icon.png">
+                                <span>
+                                  Nasr City, Abbas Al Akkad
+                                </span>
+                              </p>
+                              <div class="opti">
+                                <div class="le">
+                                  <img src="images/area-icon.png">
+                                  <span>250 M</span>
+                                </div>
+                                <div class="ri">
+                                  <img src="images/bed-icon.png">
+                                  <span>3</span>
+
+                                  <img src="images/bathtub-icon.png">
+                                  <span>2</span>
+
+                                  <img src="images/stairs-icon.png">
+                                  <span>6</span>
+                                </div>
+                                <div class="clearfix"></div>
+                              </div>
+                              <hr>
+                              <p>
+                                Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                              </p>
+
+                              <div class="icons">
+                                <div class="price-left">
+                                  8,000 EGP
+                                </div>
+                                <div class="controls-right">
+                                  <div href="" class="sharing">
+                                    <i class="fa fa-share-alt" aria-hidden="true"></i>
+                                    <div class="share-items">
+                                      <a href="">
+                                        <i class="fa fa-facebook" aria-hidden="true"></i>
+                                      </a>
+                                      <a href="">
+                                        <i class="fa fa-twitter" aria-hidden="true"></i>
+                                      </a>
+                                      <a href="">
+                                        <i class="fa fa-google" aria-hidden="true"></i>
+                                      </a>
+                                    </div>
+                                  </div>
+                                  <a href="property-details.html" data-toggle="tooltip" data-placement="top" title="View">
+                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                  </a>
+                                  <a href="" data-toggle="tooltip" data-placement="top" title="Add to favourite">
+                                    <i class="fa fa-heart-o" aria-hidden="true"></i>
+                                  </a>
+                                </div>
+                              </div>
+
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+
+                      <div class="row">
+                        <div class="col-md-4 col-xs-12">
+                          <div class="rapper">
+                            <ul class="result-sl">
+                              <li><img src="images/search-slider-3.jpg" /></li>
+                              <li><img src="images/search-slider-1.jpg" /></li>
+                              <li><img src="images/search-slider-2.jpg" /></li>
+                              <li><img src="images/search-slider-4.jpg" /></li>
+                              <li><img src="images/search-slider-5.jpg" /></li>
+                            </ul>
+
+                            <div class="info">
+                              <h5>
+                                Apartment For Rent
+                                <span class="ri">
+                                  ID: 905R
+                                </span>
+                              </h5>
+                              <p class="loc">
+                                <img src="images/location-icon.png">
+                                <span>
+                                  Nasr City, Abbas Al Akkad
+                                </span>
+                              </p>
+                              <div class="opti">
+                                <div class="le">
+                                  <img src="images/area-icon.png">
+                                  <span>250 M</span>
+                                </div>
+                                <div class="ri">
+                                  <img src="images/bed-icon.png">
+                                  <span>3</span>
+
+                                  <img src="images/bathtub-icon.png">
+                                  <span>2</span>
+
+                                  <img src="images/stairs-icon.png">
+                                  <span>6</span>
+                                </div>
+                                <div class="clearfix"></div>
+                              </div>
+                              <hr>
+                              <p>
+                                Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                              </p>
+
+                              <div class="icons">
+                                <div class="price-left">
+                                  8,000 EGP
+                                </div>
+                                <div class="controls-right">
+                                  <div href="" class="sharing">
+                                    <i class="fa fa-share-alt" aria-hidden="true"></i>
+                                    <div class="share-items">
+                                      <a href="">
+                                        <i class="fa fa-facebook" aria-hidden="true"></i>
+                                      </a>
+                                      <a href="">
+                                        <i class="fa fa-twitter" aria-hidden="true"></i>
+                                      </a>
+                                      <a href="">
+                                        <i class="fa fa-google" aria-hidden="true"></i>
+                                      </a>
+                                    </div>
+                                  </div>
+                                  <a href="property-details.html" data-toggle="tooltip" data-placement="top" title="View">
+                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                  </a>
+                                  <a href="" data-toggle="tooltip" data-placement="top" title="Add to favourite">
+                                    <i class="fa fa-heart-o" aria-hidden="true"></i>
+                                  </a>
+                                </div>
+                              </div>
+
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-md-4 col-xs-12">
+                          <div class="rapper">
+                            <ul class="result-sl">
+                              <li><img src="images/search-slider-1.jpg" /></li>
+                              <li><img src="images/search-slider-2.jpg" /></li>
+                              <li><img src="images/search-slider-3.jpg" /></li>
+                              <li><img src="images/search-slider-4.jpg" /></li>
+                              <li><img src="images/search-slider-5.jpg" /></li>
+                            </ul>
+
+                            <div class="info">
+                              <h5>
+                                Apartment For Rent
+                                <span class="ri">
+                                  ID: 905R
+                                </span>
+                              </h5>
+                              <p class="loc">
+                                <img src="images/location-icon.png">
+                                <span>
+                                  Nasr City, Abbas Al Akkad
+                                </span>
+                              </p>
+                              <div class="opti">
+                                <div class="le">
+                                  <img src="images/area-icon.png">
+                                  <span>250 M</span>
+                                </div>
+                                <div class="ri">
+                                  <img src="images/bed-icon.png">
+                                  <span>3</span>
+
+                                  <img src="images/bathtub-icon.png">
+                                  <span>2</span>
+
+                                  <img src="images/stairs-icon.png">
+                                  <span>6</span>
+                                </div>
+                                <div class="clearfix"></div>
+                              </div>
+                              <hr>
+                              <p>
+                                Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                              </p>
+
+                              <div class="icons">
+                                <div class="price-left">
+                                  8,000 EGP
+                                </div>
+                                <div class="controls-right">
+                                  <div href="" class="sharing">
+                                    <i class="fa fa-share-alt" aria-hidden="true"></i>
+                                    <div class="share-items">
+                                      <a href="">
+                                        <i class="fa fa-facebook" aria-hidden="true"></i>
+                                      </a>
+                                      <a href="">
+                                        <i class="fa fa-twitter" aria-hidden="true"></i>
+                                      </a>
+                                      <a href="">
+                                        <i class="fa fa-google" aria-hidden="true"></i>
+                                      </a>
+                                    </div>
+                                  </div>
+                                  <a href="property-details.html" data-toggle="tooltip" data-placement="top" title="View">
+                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                  </a>
+                                  <a href="" data-toggle="tooltip" data-placement="top" title="Add to favourite">
+                                    <i class="fa fa-heart-o" aria-hidden="true"></i>
+                                  </a>
+                                </div>
+                              </div>
+
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-md-4 col-xs-12">
+                          <div class="rapper">
+                            <ul class="result-sl">
+                              <li><img src="images/search-slider-1.jpg" /></li>
+                              <li><img src="images/search-slider-2.jpg" /></li>
+                              <li><img src="images/search-slider-3.jpg" /></li>
+                              <li><img src="images/search-slider-4.jpg" /></li>
+                              <li><img src="images/search-slider-5.jpg" /></li>
+                            </ul>
+
+                            <div class="info">
+                              <h5>
+                                Apartment For Rent
+                                <span class="ri">
+                                  ID: 905R
+                                </span>
+                              </h5>
+                              <p class="loc">
+                                <img src="images/location-icon.png">
+                                <span>
+                                  Nasr City, Abbas Al Akkad
+                                </span>
+                              </p>
+                              <div class="opti">
+                                <div class="le">
+                                  <img src="images/area-icon.png">
+                                  <span>250 M</span>
+                                </div>
+                                <div class="ri">
+                                  <img src="images/bed-icon.png">
+                                  <span>3</span>
+
+                                  <img src="images/bathtub-icon.png">
+                                  <span>2</span>
+
+                                  <img src="images/stairs-icon.png">
+                                  <span>6</span>
+                                </div>
+                                <div class="clearfix"></div>
+                              </div>
+                              <hr>
+                              <p>
+                                Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                              </p>
+
+                              <div class="icons">
+                                <div class="price-left">
+                                  8,000 EGP
+                                </div>
+                                <div class="controls-right">
+                                  <div href="" class="sharing">
+                                    <i class="fa fa-share-alt" aria-hidden="true"></i>
+                                    <div class="share-items">
+                                      <a href="">
+                                        <i class="fa fa-facebook" aria-hidden="true"></i>
+                                      </a>
+                                      <a href="">
+                                        <i class="fa fa-twitter" aria-hidden="true"></i>
+                                      </a>
+                                      <a href="">
+                                        <i class="fa fa-google" aria-hidden="true"></i>
+                                      </a>
+                                    </div>
+                                  </div>
+                                  <a href="property-details.html" data-toggle="tooltip" data-placement="top" title="View">
+                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                  </a>
+                                  <a href="" data-toggle="tooltip" data-placement="top" title="Add to favourite">
+                                    <i class="fa fa-heart-o" aria-hidden="true"></i>
+                                  </a>
+                                </div>
+                              </div>
+
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+
+                      <div class="row">
+                        <div class="col-md-4 col-xs-12">
+                          <div class="rapper">
+                            <ul class="result-sl">
+                              <li><img src="images/search-slider-4.jpg" /></li>
+                              <li><img src="images/search-slider-3.jpg" /></li>
+                              <li><img src="images/search-slider-2.jpg" /></li>
+                              <li><img src="images/search-slider-1.jpg" /></li>
+                              <li><img src="images/search-slider-5.jpg" /></li>
+                            </ul>
+
+                            <div class="info">
+                              <h5>
+                                Apartment For Rent
+                                <span class="ri">
+                                  ID: 905R
+                                </span>
+                              </h5>
+                              <p class="loc">
+                                <img src="images/location-icon.png">
+                                <span>
+                                  Nasr City, Abbas Al Akkad
+                                </span>
+                              </p>
+                              <div class="opti">
+                                <div class="le">
+                                  <img src="images/area-icon.png">
+                                  <span>250 M</span>
+                                </div>
+                                <div class="ri">
+                                  <img src="images/bed-icon.png">
+                                  <span>3</span>
+
+                                  <img src="images/bathtub-icon.png">
+                                  <span>2</span>
+
+                                  <img src="images/stairs-icon.png">
+                                  <span>6</span>
+                                </div>
+                                <div class="clearfix"></div>
+                              </div>
+                              <hr>
+                              <p>
+                                Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                              </p>
+
+                              <div class="icons">
+                                <div class="price-left">
+                                  8,000 EGP
+                                </div>
+                                <div class="controls-right">
+                                  <div href="" class="sharing">
+                                    <i class="fa fa-share-alt" aria-hidden="true"></i>
+                                    <div class="share-items">
+                                      <a href="">
+                                        <i class="fa fa-facebook" aria-hidden="true"></i>
+                                      </a>
+                                      <a href="">
+                                        <i class="fa fa-twitter" aria-hidden="true"></i>
+                                      </a>
+                                      <a href="">
+                                        <i class="fa fa-google" aria-hidden="true"></i>
+                                      </a>
+                                    </div>
+                                  </div>
+                                  <a href="property-details.html" data-toggle="tooltip" data-placement="top" title="View">
+                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                  </a>
+                                  <a href="" data-toggle="tooltip" data-placement="top" title="Add to favourite">
+                                    <i class="fa fa-heart-o" aria-hidden="true"></i>
+                                  </a>
+                                </div>
+                              </div>
+
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-md-4 col-xs-12">
+                          <div class="rapper">
+                            <ul class="result-sl">
+                              <li><img src="images/search-slider-1.jpg" /></li>
+                              <li><img src="images/search-slider-2.jpg" /></li>
+                              <li><img src="images/search-slider-3.jpg" /></li>
+                              <li><img src="images/search-slider-4.jpg" /></li>
+                              <li><img src="images/search-slider-5.jpg" /></li>
+                            </ul>
+
+                            <div class="info">
+                              <h5>
+                                Apartment For Rent
+                                <span class="ri">
+                                  ID: 905R
+                                </span>
+                              </h5>
+                              <p class="loc">
+                                <img src="images/location-icon.png">
+                                <span>
+                                  Nasr City, Abbas Al Akkad
+                                </span>
+                              </p>
+                              <div class="opti">
+                                <div class="le">
+                                  <img src="images/area-icon.png">
+                                  <span>250 M</span>
+                                </div>
+                                <div class="ri">
+                                  <img src="images/bed-icon.png">
+                                  <span>3</span>
+
+                                  <img src="images/bathtub-icon.png">
+                                  <span>2</span>
+
+                                  <img src="images/stairs-icon.png">
+                                  <span>6</span>
+                                </div>
+                                <div class="clearfix"></div>
+                              </div>
+                              <hr>
+                              <p>
+                                Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                              </p>
+
+                              <div class="icons">
+                                <div class="price-left">
+                                  8,000 EGP
+                                </div>
+                                <div class="controls-right">
+                                  <div href="" class="sharing">
+                                    <i class="fa fa-share-alt" aria-hidden="true"></i>
+                                    <div class="share-items">
+                                      <a href="">
+                                        <i class="fa fa-facebook" aria-hidden="true"></i>
+                                      </a>
+                                      <a href="">
+                                        <i class="fa fa-twitter" aria-hidden="true"></i>
+                                      </a>
+                                      <a href="">
+                                        <i class="fa fa-google" aria-hidden="true"></i>
+                                      </a>
+                                    </div>
+                                  </div>
+                                  <a href="property-details.html" data-toggle="tooltip" data-placement="top" title="View">
+                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                  </a>
+                                  <a href="" data-toggle="tooltip" data-placement="top" title="Add to favourite">
+                                    <i class="fa fa-heart-o" aria-hidden="true"></i>
+                                  </a>
+                                </div>
+                              </div>
+
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-md-4 col-xs-12">
+                          <div class="rapper">
+                            <ul class="result-sl">
+                              <li><img src="images/search-slider-1.jpg" /></li>
+                              <li><img src="images/search-slider-2.jpg" /></li>
+                              <li><img src="images/search-slider-3.jpg" /></li>
+                              <li><img src="images/search-slider-4.jpg" /></li>
+                              <li><img src="images/search-slider-5.jpg" /></li>
+                            </ul>
+
+
+                            <div class="info">
+                              <h5>
+                                Apartment For Rent
+                                <span class="ri">
+                                  ID: 905R
+                                </span>
+                              </h5>
+                              <p class="loc">
+                                <img src="images/location-icon.png">
+                                <span>
+                                  Nasr City, Abbas Al Akkad
+                                </span>
+                              </p>
+                              <div class="opti">
+                                <div class="le">
+                                  <img src="images/area-icon.png">
+                                  <span>250 M</span>
+                                </div>
+                                <div class="ri">
+                                  <img src="images/bed-icon.png">
+                                  <span>3</span>
+
+                                  <img src="images/bathtub-icon.png">
+                                  <span>2</span>
+
+                                  <img src="images/stairs-icon.png">
+                                  <span>6</span>
+                                </div>
+                                <div class="clearfix"></div>
+                              </div>
+                              <hr>
+                              <p>
+                                Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                              </p>
+
+                              <div class="icons">
+                                <div class="price-left">
+                                  8,000 EGP
+                                </div>
+                                <div class="controls-right">
+                                  <div href="" class="sharing">
+                                    <i class="fa fa-share-alt" aria-hidden="true"></i>
+                                    <div class="share-items">
+                                      <a href="">
+                                        <i class="fa fa-facebook" aria-hidden="true"></i>
+                                      </a>
+                                      <a href="">
+                                        <i class="fa fa-twitter" aria-hidden="true"></i>
+                                      </a>
+                                      <a href="">
+                                        <i class="fa fa-google" aria-hidden="true"></i>
+                                      </a>
+                                    </div>
+                                  </div>
+                                  <a href="property-details.html" data-toggle="tooltip" data-placement="top" title="View">
+                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                  </a>
+                                  <a href="" data-toggle="tooltip" data-placement="top" title="Add to favourite">
+                                    <i class="fa fa-heart-o" aria-hidden="true"></i>
+                                  </a>
+                                </div>
+                              </div>
+
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+
+                    </div>
+                  </div>
+                  <div class="row pagi">
+                    <nav aria-label="Page navigation">
+                      <ul class="pagination">
+                        <li class="disabled">
+                          <a href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                          </a>
+                        </li>
+                        <li class="active"><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li>
+                          <a href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </nav>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-3 hidden-sm hidden-xs">
+                <div class="right-search text-center">
+                  <div class="log-in">
+                    <div class="log-top">
+
+                    </div>
+                    <span class="log-show">
+                      Search
+                    </span>
+                    <div class="log-btm">
+
+                    </div>
+                  </div>
+                  <div class="inputs">
+                    <p>
+                      Property Id
+                    </p>
+                    <input type="text" placeholder="905R">
+                  </div>
+
+                  <div class="inputs">
+                    <p>
+                      Contract Type
+                    </p>
+                    <div class="materialSelect inline empty">
+                      <ul class="select">
+                        <li data-selected="true">Choose something...</li>
+                        <li data-value="0">Newer First</li>
+                        <li data-value="1">Second option</li>
+                        <li data-value="2">Third option</li>
+                      </ul>
+                      <div class="message">Please select something</div>
+                    </div>
+                  </div>
+
+                  <div class="inputs">
+                    <p>
+                      Property Type
+                    </p>
+                    <div class="materialSelect inline empty">
+                      <ul class="select">
+                        <li data-selected="true">Choose something...</li>
+                        <li data-value="0">Newer First</li>
+                        <li data-value="1">Second option</li>
+                        <li data-value="2">Third option</li>
+                      </ul>
+                      <div class="message">Please select something</div>
+                    </div>
+                  </div>
+
+                  <div class="inputs">
+                    <p>
+                      Square
+                    </p>
+                    <div class="materialSelect inline empty">
+                      <ul class="select">
+                        <li data-selected="true">Choose something...</li>
+                        <li data-value="0">Newer First</li>
+                        <li data-value="1">Second option</li>
+                        <li data-value="2">Third option</li>
+                      </ul>
+                      <div class="message">Please select something</div>
+                    </div>
+                  </div>
+
+                  <div class="inputs">
+                    <p>
+                      Price Range
+                    </p>
+                    <label>Min. Price</label>
+                    <input type="text" class="cus-input">
+
+                    <br>
+                    <br>
+
+                    <label>Max. Price</label>
+                    <input type="text" class="cus-input">
+                  </div>
+
+                  <div class="inputs">
+                    <p>
+                      Area Range
+                    </p>
+                    <label>Min. Price</label>
+                    <input type="text" class="cus-input">
+
+                    <br>
+                    <br>
+
+                    <label>Max. Price</label>
+                    <input type="text" class="cus-input">
+                  </div>
+                  <button class="btn btn-default" type="button" ng-click="Research()">Search</button>
+
+                  <button type="button" class="btn btn-default" ng-click="Research()">Get Result</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <footer footer></footer>
+  <!--<script src="Content/js/jquery-1.11.3.min.js"></script>-->
+  <script src="Content/js/bootstrap.js"></script>
+  <script src="Content/js/slick.js"></script>
+  <script src="Content/js/jquery.bxslider.min.js"></script>
+  <script src="Content/js/materialize.js"></script>
+  <!--<script src="Content/js/angular.min.js"></script>-->
+  <!--<script src="Content/js/app.js"></script>-->
+  <script src="Content/js/three.min.js"></script>
+  <script src="Content/js/photo-sphere-viewer.min.js"></script>
+  <script src="Content/js/plugin.js"></script>
+  <!--<script src="app.js"></script>-->
+  <!--<script src="Scripts/AngularJS/translation.js"></script>-->
+  <script src="Scripts/App/app.js"></script>
+  <script src="Scripts/App/config.js"></script>
+  <!--<script src="Scripts/AngularJS/angular-ui-router.min.js"></script>-->
+  <script src="Scripts/App/SearchDetails/CtrlSearchDetails.js"></script>
+  <script src="Scripts/App/SearchDetails/SearchDetailspaging.js"></script>
+  <script src="Scripts/App/SearchDetails/serviceSearchDetails.js"></script>
+  <script src="Scripts/bower_components/angular-animate/angular-animate.min.js"></script>
+  <script src="Scripts/bower_components/angular-aria/angular-aria.min.js"></script>
+  <script src="Scripts/bower_components/angular-material/angular-material.min.js"></script>
+  <script src="Scripts/bower_components/angular-messages/angular-messages.min.js"></script>
+  <script src="Scripts/bower_components/lf-ng-md-file-input.js"></script>
+
+
+</body>
+</html>

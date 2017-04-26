@@ -70,10 +70,11 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="PropertyId" Type="int" />
           <Property Name="CategoryType" Type="int" />
+          <Property Name="Thumb" Type="nvarchar" MaxLength="300" />
           <Property Name="Image" Type="nvarchar" MaxLength="300" />
+          <Property Name="Status" Type="bit" />
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="CreatedBy" Type="int" />
-          <Property Name="Thumb" Type="nvarchar" MaxLength="300" />
         </EntityType>
         <EntityType Name="ImageBalacony">
           <Key>
@@ -287,6 +288,16 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Role" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="SpaceAverage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SpaceFrom" Type="nvarchar" MaxLength="50" />
+          <Property Name="SpaceTo" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="int" />
+        </EntityType>
         <EntityType Name="Square">
           <Key>
             <PropertyRef Name="Id" />
@@ -423,6 +434,7 @@
           <EntitySet Name="PropertyVeiwed" EntityType="Self.PropertyVeiwed" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Reservation" EntityType="Self.Reservation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SpaceAverage" EntityType="Self.SpaceAverage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Square" EntityType="Self.Square" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SubMenuBackend" EntityType="Self.SubMenuBackend" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SubMenuFrontend" EntityType="Self.SubMenuFrontend" Schema="dbo" store:Type="Tables" />
@@ -603,7 +615,6 @@
           <EntitySet Name="SystemUsers" EntityType="AqarSquaresModel.SystemUser" />
           <EntitySet Name="Roles" EntityType="AqarSquaresModel.Role" />
           <EntitySet Name="Users_Role" EntityType="AqarSquaresModel.Users_Role" />
-          <EntitySet Name="Image360" EntityType="AqarSquaresModel.Image360" />
           <EntitySet Name="ImageBalaconies" EntityType="AqarSquaresModel.ImageBalacony" />
           <EntitySet Name="ImageBathrooms" EntityType="AqarSquaresModel.ImageBathroom" />
           <EntitySet Name="ImageBedrooms" EntityType="AqarSquaresModel.ImageBedroom" />
@@ -611,6 +622,8 @@
           <EntitySet Name="ImagePools" EntityType="AqarSquaresModel.ImagePool" />
           <EntitySet Name="ImageReceptions" EntityType="AqarSquaresModel.ImageReception" />
           <EntitySet Name="Properties" EntityType="AqarSquaresModel.Property" />
+          <EntitySet Name="Image360" EntityType="AqarSquaresModel.Image360" />
+          <EntitySet Name="SpaceAverages" EntityType="AqarSquaresModel.SpaceAverage" />
         </EntityContainer>
         <EntityType Name="ContactU">
           <Key>
@@ -727,18 +740,6 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserId" Type="Int32" />
           <Property Name="RoleId" Type="Int32" />
-        </EntityType>
-        <EntityType Name="Image360">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PropertyId" Type="Int32" />
-          <Property Name="CategoryType" Type="Int32" />
-          <Property Name="Image" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <Property Name="CreatedBy" Type="Int32" />
-          <Property Name="Thumb" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="ImageBalacony">
           <Key>
@@ -866,6 +867,29 @@
           <Property Name="ContractDate" Type="DateTime" Precision="3" />
           <Property Name="ContactValue" Type="Int32" />
           <Property Name="Image" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Image360">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PropertyId" Type="Int32" />
+          <Property Name="CategoryType" Type="Int32" />
+          <Property Name="Thumb" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Image" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Boolean" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" />
+        </EntityType>
+        <EntityType Name="SpaceAverage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SpaceFrom" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SpaceTo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1153,19 +1177,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Image360">
-            <EntityTypeMapping TypeName="AqarSquaresModel.Image360">
-              <MappingFragment StoreEntitySet="Image360">
-                <ScalarProperty Name="Thumb" ColumnName="Thumb" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="Image" ColumnName="Image" />
-                <ScalarProperty Name="CategoryType" ColumnName="CategoryType" />
-                <ScalarProperty Name="PropertyId" ColumnName="PropertyId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="ImageBalaconies">
             <EntityTypeMapping TypeName="AqarSquaresModel.ImageBalacony">
               <MappingFragment StoreEntitySet="ImageBalacony">
@@ -1296,6 +1307,31 @@
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="TitleAr" ColumnName="TitleAr" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Image360">
+            <EntityTypeMapping TypeName="AqarSquaresModel.Image360">
+              <MappingFragment StoreEntitySet="Image360">
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Thumb" ColumnName="Thumb" />
+                <ScalarProperty Name="CategoryType" ColumnName="CategoryType" />
+                <ScalarProperty Name="PropertyId" ColumnName="PropertyId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SpaceAverages">
+            <EntityTypeMapping TypeName="AqarSquaresModel.SpaceAverage">
+              <MappingFragment StoreEntitySet="SpaceAverage">
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="SpaceTo" ColumnName="SpaceTo" />
+                <ScalarProperty Name="SpaceFrom" ColumnName="SpaceFrom" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
